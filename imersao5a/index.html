@@ -539,6 +539,13 @@ img{height:auto}
 /* cards sobre a grade: base sólida da cor da seção para a grade do fundo não aparecer através deles */
 .sec-dark .quote-v2,.sec-dark .hud-chip{background-color:#0F0F12}
 .sec-dark-2 .tl-card,.sec-dark-2 .channel-chip{background-color:#15151A}
+/* ---- telas pequenas (correções de 05/10) ---- */
+.lbl-short{display:none}
+@media (max-width:400px){.lbl-full{display:none}.lbl-short{display:inline}}
+@media (max-width:640px){.top-logo{min-height:44px;min-width:44px;justify-content:center;box-sizing:border-box}}
+@media (max-width:380px){.hero-capsule{width:min(220px,calc(100vw - 124px))!important}.cap-txt{font-size:11.5px;letter-spacing:0}}
+@media (max-width:340px){.cap-txt{font-size:10.6px;letter-spacing:-.01em}.top-logo{left:10px!important}}
+@media (max-width:360px){.offer-frame{padding:6px!important}.offer-card{padding:22px 16px!important}.offer-card .btn-v2{padding-left:16px!important;gap:8px!important;font-size:14px!important}.offer-card .btn-v2 .lbl-short{white-space:nowrap}}
 /* >>> PADRAO-EFEITOS */
 /* ===== EFEITOS PADRÃO 2!H (todas as páginas, inclusive a Imersão) =====
    Cards que flutuam, FAQ lento e o ícone do FAQ com relevo (o da Imersão). Fica no fim do <style>. */
@@ -610,10 +617,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div data-mobile-center class="hero-text-col" style="flex:1 1 330px;min-width:min(100%,320px);display:flex;flex-direction:column;align-items:flex-start;gap:clamp(14px,1.7vw,22px)">
 <img data-reveal class="hero-logo" src="assets/logo-imersao-5a.png" alt="Imersão Estrutura 5A" width="619" height="121" decoding="async">
-<h1 data-reveal class="hero-h1" style="font:600 clamp(32px,3.7vw,50px)/1.16 'General Sans',Inter,system-ui;letter-spacing:-.028em;color:#F3F2EE;text-wrap:pretty">Antes de investir mais em tráfego<br class="hero-br"> descubra onde sua empresa<br class="hero-br"> <span class="hero-emph" style="position:relative;white-space:nowrap"><span style="position:relative;z-index:1;background:linear-gradient(180deg,#FFEFC0,#F5C328 55%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">está perdendo vendas.</span></span></h1>
+<h1 data-reveal class="hero-h1" style="font:600 clamp(32px,3.7vw,50px)/1.16 'General Sans',Inter,system-ui;letter-spacing:-.028em;color:#F3F2EE;text-wrap:pretty">Antes de investir mais em tráfego<br class="hero-br"> descubra onde sua empresa<br class="hero-br"> <span class="hero-emph" style="position:relative;white-space:nowrap"><span style="position:relative;z-index:1;background:linear-gradient(180deg,#FFEFC0,#F5C328 55%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">está perdendo&nbsp;vendas.</span></span></h1>
 <p data-reveal class="hero-sub" style="font:500 clamp(14.5px,1.25vw,19px)/1.55 Inter,sans-serif;color:#EDEBE2;text-wrap:pretty">Em uma imersão online e ao vivo de <strong style="color:#FFFFFF;font-weight:700">4 horas</strong>, você vai aprender<br class="hero-br"> a analisar a estrutura entre marketing, atendimento e comercial<br class="hero-br"> para identificar gargalos, entender seus números e descobrir<br class="hero-br"> o que precisa ser corrigido antes de tentar escalar.</p>
 <div data-reveal data-mobile-row-center class="hero-cta-row" style="display:flex;flex-wrap:wrap;align-items:center;gap:clamp(12px,1.6vw,18px);margin-top:clamp(2px,.6vw,8px);width:100%">
-<a href="#inscricao" data-cta="hero" class="btn-v2 btn-gold btn-pulse btn-block-m">Quero garantir minha vaga <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+<a href="#inscricao" data-cta="hero" class="btn-v2 btn-gold btn-pulse btn-block-m"><span class="lbl-full">Quero garantir minha vaga</span><span class="lbl-short">Garantir minha vaga</span> <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
 <a href="#diagnostico" class="btn-v2 btn-glass btn-block-m">O que você vai enxergar <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"></path></svg></span></a>
 </div>
 </div>
@@ -661,7 +668,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="wrap" style="display:flex;flex-wrap:wrap;align-items:center;gap:clamp(32px,5vw,80px)">
 <div data-mobile-center style="flex:1 1 380px;min-width:min(100%,320px);display:flex;flex-direction:column;gap:clamp(18px,2vw,26px)">
 <div data-reveal class="sec-head">
-<h2 class="sec-h2" style="color:#F3F2EE;max-width:18ch">Mais tráfego não corrige uma estrutura quebrada.</h2>
+<h2 class="sec-h2" style="color:#F3F2EE;max-width:18ch">Mais tráfego não corrige uma estrutura&nbsp;quebrada.</h2>
 </div>
 <div data-reveal class="quote-v2">
 <blockquote>Antes de investir mais para atrair novos leads, o empresário precisa entender se oferta, atendimento, comercial, dados e margem estão preparados para transformar aquisição em vendas.</blockquote>
@@ -812,7 +819,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="stack-outer wrap">
 <div data-reveal style="flex:1 1 340px;min-width:min(100%,300px)">
 <div class="stack-left-inner sec-head" data-mobile-center>
-<h2 class="sec-h2 stack-title" style="color:#F3F2EE;max-width:15ch">O caminho completo que a imersão ensina a enxergar: da primeira etapa até o dinheiro entrar de verdade.</h2>
+<h2 class="sec-h2 stack-title" style="color:#F3F2EE;max-width:15ch">O caminho completo que a imersão ensina a enxergar: da primeira etapa até o dinheiro entrar de&nbsp;verdade.</h2>
 <p class="sec-sub">Cada etapa depende da anterior. É por isso que trocar de anúncio quase nunca resolve: o gargalo pode estar em qualquer ponto desta esteira.</p>
 <div class="stack-progress" data-stack-progress>
 <div class="stack-progress-top"><span>Etapa <b data-stack-cur>01</b> de 10</span><span data-stack-name>Negócio</span></div>
@@ -864,7 +871,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 </div>
 <div class="wrap" data-reveal data-mobile-row-center style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;margin-top:clamp(36px,5vw,64px)">
-<a href="#inscricao" data-cta="esteira" class="btn-v2 btn-gold btn-block-m">Quero enxergar a minha esteira <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+<a href="#inscricao" data-cta="esteira" class="btn-v2 btn-gold btn-block-m"><span class="lbl-full">Quero enxergar a minha esteira</span><span class="lbl-short">Enxergar minha esteira</span> <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
 </div>
 </section>
 
@@ -872,19 +879,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="sec-divider" aria-hidden="true"><i></i></div>
 <div class="wrap" style="padding:0 clamp(18px,5vw,72px);display:flex;flex-direction:column;gap:clamp(24px,3vw,40px)">
 <div data-reveal class="sec-head center" style="max-width:56ch">
-<h2 class="sec-h2" style="color:#F3F2EE">Seis ângulos que mudam a leitura da sua operação</h2>
+<h2 class="sec-h2" style="color:#F3F2EE">Seis ângulos que mudam a leitura da sua&nbsp;operação</h2>
 <p class="sec-sub" style="text-align:center">Role a página e acompanhe a luz: cada ângulo acende quando entra na sua leitura.</p>
 </div>
 </div>
 <div class="timeline" data-timeline style="position:relative;max-width:960px;margin:clamp(24px,3.6vw,44px) auto 0;padding:10px clamp(18px,5vw,72px)">
 <div class="tl-rail"><div class="tl-fill" data-tl-fill></div></div>
 <div>
-<div class="tl-step" data-step><div class="tl-card"><span class="tl-num">01</span><h3 style="font:600 clamp(16px,1.25vw,19px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;margin-bottom:6px">O problema não é necessariamente o tráfego</h3><p style="font:500 14.5px/1.6 Inter,sans-serif;color:#F3F2EE;text-wrap:pretty">Sua empresa pode estar trocando anúncio, criativo ou gestor quando o verdadeiro gargalo está em outra etapa.</p></div><div class="tl-node"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1"></circle></svg></div></div>
+<div class="tl-step" data-step><div class="tl-card"><span class="tl-num">01</span><h3 style="font:600 clamp(16px,1.25vw,19px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;margin-bottom:6px">O problema não é necessariamente o&nbsp;tráfego</h3><p style="font:500 14.5px/1.6 Inter,sans-serif;color:#F3F2EE;text-wrap:pretty">Sua empresa pode estar trocando anúncio, criativo ou gestor quando o verdadeiro gargalo está em outra etapa.</p></div><div class="tl-node"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1"></circle></svg></div></div>
 <div class="tl-step" data-step><div class="tl-card"><span class="tl-num">02</span><h3 style="font:600 clamp(16px,1.25vw,19px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;margin-bottom:6px">Marketing × Comercial</h3><p style="font:500 14.5px/1.6 Inter,sans-serif;color:#F3F2EE;text-wrap:pretty">O marketing diz que o lead é bom. O comercial diz que é ruim. Sem rastrear o funil completo, ninguém sabe quem está certo.</p></div><div class="tl-node"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20.5c0-4.4 3.6-7.5 8-7.5s8 3.1 8 7.5"></path></svg></div></div>
-<div class="tl-step" data-step><div class="tl-card"><span class="tl-num">03</span><h3 style="font:600 clamp(16px,1.25vw,19px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;margin-bottom:6px">Onde o dinheiro desaparece</h3><p style="font:500 14.5px/1.6 Inter,sans-serif;color:#F3F2EE;text-wrap:pretty">Você investe em marketing. Mas consegue mostrar exatamente o que acontece entre o dinheiro investido e o dinheiro que volta para o caixa?</p></div><div class="tl-node"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 6.5v11M9 15.5c0 1.1 1.2 2 3 2 2 0 3-.9 3-2.1 0-1.6-1.5-2-3-2.4-1.5-.4-3-.8-3-2.4C9 9.4 10 8.5 12 8.5c1.8 0 3 .9 3 2"></path></svg></div></div>
+<div class="tl-step" data-step><div class="tl-card"><span class="tl-num">03</span><h3 style="font:600 clamp(16px,1.25vw,19px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;margin-bottom:6px">Onde o dinheiro&nbsp;desaparece</h3><p style="font:500 14.5px/1.6 Inter,sans-serif;color:#F3F2EE;text-wrap:pretty">Você investe em marketing. Mas consegue mostrar exatamente o que acontece entre o dinheiro investido e o dinheiro que volta para o caixa?</p></div><div class="tl-node"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 6.5v11M9 15.5c0 1.1 1.2 2 3 2 2 0 3-.9 3-2.1 0-1.6-1.5-2-3-2.4-1.5-.4-3-.8-3-2.4C9 9.4 10 8.5 12 8.5c1.8 0 3 .9 3 2"></path></svg></div></div>
 <div class="tl-step" data-step><div class="tl-card"><span class="tl-num">04</span><h3 style="font:600 clamp(16px,1.25vw,19px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;margin-bottom:6px">Antes de escalar</h3><p style="font:500 14.5px/1.6 Inter,sans-serif;color:#F3F2EE;text-wrap:pretty">Não aumente o orçamento antes de saber se oferta, atendimento, vendas, rastreamento e margem estão preparados.</p></div><div class="tl-node"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-4 4"></path></svg></div></div>
 <div class="tl-step" data-step><div class="tl-card"><span class="tl-num">05</span><h3 style="font:600 clamp(16px,1.25vw,19px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;margin-bottom:6px">Estrutura</h3><p style="font:500 14.5px/1.6 Inter,sans-serif;color:#F3F2EE;text-wrap:pretty">Ter Meta Ads, site, Instagram, WhatsApp e CRM não significa ter uma operação estruturada.</p></div><div class="tl-node"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"></path><path d="M14 2v6h6"></path><path d="M8 13h8M8 17h8"></path></svg></div></div>
-<div class="tl-step" data-step><div class="tl-card"><span class="tl-num">06</span><h3 style="font:600 clamp(16px,1.25vw,19px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;margin-bottom:6px">Métricas isoladas enganam</h3><p style="font:500 14.5px/1.6 Inter,sans-serif;color:#F3F2EE;text-wrap:pretty">CPL barato não significa operação lucrativa. O lead pode ser barato e não qualificar, não responder, não comprar, gerar CAC ruim e destruir margem.</p></div><div class="tl-node"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18l-7 8.5V20l-4 2v-8.5L3 5Z"></path></svg></div></div>
+<div class="tl-step" data-step><div class="tl-card"><span class="tl-num">06</span><h3 style="font:600 clamp(16px,1.25vw,19px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;margin-bottom:6px">Métricas isoladas&nbsp;enganam</h3><p style="font:500 14.5px/1.6 Inter,sans-serif;color:#F3F2EE;text-wrap:pretty">CPL barato não significa operação lucrativa. O lead pode ser barato e não qualificar, não responder, não comprar, gerar CAC ruim e destruir margem.</p></div><div class="tl-node"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18l-7 8.5V20l-4 2v-8.5L3 5Z"></path></svg></div></div>
 </div>
 </div>
 <div class="wrap" style="padding:0 clamp(18px,5vw,72px);margin-top:clamp(28px,3.6vw,48px)">
@@ -902,7 +909,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <section class="sec-gold on-light" style="position:relative;padding:clamp(56px,7.5vw,110px) 0;overflow:hidden">
 <div data-reveal class="sec-head center hook-head" style="position:relative;padding:0 clamp(18px,5vw,72px);margin-bottom:clamp(30px,3.6vw,50px)">
-<h2 class="sec-h2" style="color:#141414">Frases que você já deveria<br class="hook-br"> estar se fazendo</h2>
+<h2 class="sec-h2" style="color:#141414">Frases que você já deveria<br class="hook-br"> estar se&nbsp;fazendo</h2>
 </div>
 <div style="position:relative;display:flex;flex-direction:column;gap:clamp(12px,1.4vw,18px)">
 <div class="hook-fade"></div>
@@ -952,7 +959,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <span class="chk"><span class="chk-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#121215" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Identificação do verdadeiro gargalo da operação</span>
 <span class="chk"><span class="chk-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#121215" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Vaga para a turma de 10 de outubro</span>
 </div>
-<a href="#inscricao" data-cta="oferta" class="btn-v2 btn-gold btn-pulse" style="width:100%">Garantir agora minha vaga <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+<a href="#inscricao" data-cta="oferta" class="btn-v2 btn-gold btn-pulse" style="width:100%"><span class="lbl-full">Garantir agora minha vaga</span><span class="lbl-short">Garantir minha vaga</span> <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
 <p style="margin-top:14px;display:flex;align-items:center;justify-content:center;gap:6px;font:500 12.5px/1.5 Inter,sans-serif;color:#A5A39A"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2.5"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path><circle cx="12" cy="15.5" r="1.3" fill="currentColor" stroke="none"></circle></svg>Pagamento seguro</p>
 </article>
 </div>
@@ -962,7 +969,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="sec-pad sec-dark sec-glow-top" style="position:relative;overflow:hidden">
 <div style="position:relative;max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(22px,2.6vw,34px)">
 <div data-reveal class="sec-head center">
-<h2 class="sec-h2" style="color:#F3F2EE">Antes de você perguntar</h2>
+<h2 class="sec-h2" style="color:#F3F2EE">Antes de você&nbsp;perguntar</h2>
 </div>
 <div style="display:flex;flex-direction:column;gap:10px">
 <div data-reveal data-faq class="faq-item open">
@@ -1017,7 +1024,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="sec-pad sec-light on-light" style="position:relative">
 <div class="wrap" style="display:flex;flex-direction:column;gap:clamp(30px,4vw,54px)">
 <div data-reveal class="sec-head center">
-<h2 class="sec-h2" style="color:#141414">Os quatro números que importam</h2>
+<h2 class="sec-h2" style="color:#141414">Os quatro números que&nbsp;importam</h2>
 </div>
 <div class="num-grid" data-stack=".num-row">
 <div class="num-row">
@@ -1090,7 +1097,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <p class="cdown-title">As inscrições encerram em breve.</p>
 <div class="cdown-grid dourado"><div class="cdown-unit"><div class="cdown-box" data-cd="dias" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Dias</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="horas" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Horas</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="minutos" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Minutos</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="segundos" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Segundos</span></div></div>
 </div>
-<a data-reveal href="#inscricao" data-cta="cta-final" class="btn-v2 btn-gold btn-lg btn-pulse btn-block-m">Quero garantir minha vaga <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+<a data-reveal href="#inscricao" data-cta="cta-final" class="btn-v2 btn-gold btn-lg btn-pulse btn-block-m"><span class="lbl-full">Quero garantir minha vaga</span><span class="lbl-short">Garantir minha vaga</span> <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
 <p data-reveal style="font:500 13.5px/1.6 Inter,sans-serif;color:#C9C7BE;max-width:46ch">Vagas limitadas para manter a imersão<br><span style="color:#FFD34F">aberta a perguntas.</span></p>
 </div>
 </section>
