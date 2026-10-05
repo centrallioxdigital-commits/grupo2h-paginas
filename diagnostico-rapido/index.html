@@ -147,6 +147,14 @@ body{overflow:auto}
 }
 @media (max-width:360px){.msg{font-size:15px;max-width:90%}.ot{font-size:14.5px}.oa{width:26px;height:26px}.head{gap:10px;padding-left:12px;padding-right:12px}.msgs,.dock{padding-left:12px;padding-right:12px}}
 @media (prefers-reduced-motion:reduce){.msg,.opt,.result,.opt::after,.hint svg{animation:none}.typing i{animation:none;opacity:.7}.progress i{transition:none}}
+/* >>> PADRAO-PROTECAO */
+/* ===== PROTEÇÃO DE CONTEÚDO =====
+   Texto não seleciona, imagem não arrasta nem abre "salvar imagem" no toque longo do celular.
+   Campos de formulário continuam normais (digitar, selecionar, colar). */
+body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea,select,[contenteditable]:not([contenteditable="false"]),[contenteditable]:not([contenteditable="false"]) *{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+img,svg,picture,video,canvas{-webkit-user-drag:none;user-drag:none}
+/* <<< PADRAO-PROTECAO */
 </style>
 </head>
 <body>
@@ -447,6 +455,23 @@ async function start() {
   ask();
 }
 start();
+</script>
+<script>/* >>> PADRAO-PROTECAO-JS */
+/* proteção de conteúdo: sem clique direito, sem arrastar, sem copiar e sem Ctrl+S / Ctrl+U.
+   Dentro de campos de formulário tudo continua liberado. */
+(function protecao() {
+  const campo = el => el && el.closest && el.closest('input,textarea,select,[contenteditable]:not([contenteditable="false"])');
+  const bloqueia = e => { if (!campo(e.target) && !campo(document.activeElement)) e.preventDefault(); };
+  document.addEventListener("contextmenu", e => { if (!campo(e.target)) e.preventDefault(); });
+  document.addEventListener("dragstart", e => { if (!campo(e.target)) e.preventDefault(); });
+  document.addEventListener("selectstart", e => { if (!campo(e.target)) e.preventDefault(); });
+  document.addEventListener("copy", bloqueia);
+  document.addEventListener("cut", bloqueia);
+  document.addEventListener("keydown", e => {
+    const k = (e.key || "").toLowerCase();
+    if ((e.ctrlKey || e.metaKey) && (k === "s" || k === "u")) e.preventDefault();
+  });
+})();
 </script>
 </body>
 </html>

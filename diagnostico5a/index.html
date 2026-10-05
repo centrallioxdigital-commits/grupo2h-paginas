@@ -500,27 +500,29 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .lrt{flex:1;min-width:0}
 .lrt b{display:block;font:600 clamp(13.5px,1.15vw,14.5px)/1.3 'General Sans',Inter,sans-serif;color:#8b897f;transition:color .45s}
 .lrt em{display:block;margin-top:2px;font:500 12px/1.35 Inter,sans-serif;font-style:normal;color:#6b6961;transition:color .45s}
-.lrs{flex:none;display:inline-flex;align-items:center;gap:6px;font:700 11px/1 Inter,sans-serif;color:#6b6961;white-space:nowrap}
+.lrs{flex:none;display:inline-grid;grid-template-columns:auto auto;align-items:center;column-gap:6px;font:700 11px/1 Inter,sans-serif;color:#6b6961;white-space:nowrap}
 .lrs i{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
-.lrs .s-run,.lrs .s-ok{display:none}
+/* os 3 status ocupam a mesma célula: a largura é sempre a do maior ("Analisando"), então a linha não muda de altura ao trocar de status */
+.lrs>span{grid-column:2;grid-row:1;visibility:hidden}
+.lrs .s-wait{visibility:visible}
 .lrow.run{background:rgba(245,195,40,.07);border-color:rgba(245,195,40,.3)}
 .lrow.run .lri{color:#F5C328;border-color:rgba(245,195,40,.5)}
 .lrow.run .lrt b{color:#F3F2EE}
 .lrow.run .lrt em{color:#B9B7AE}
 .lrow.run .lrs{color:#FFD34F}
 .lrow.run .lrs i{animation:l-blink .9s ease-in-out infinite}
-.lrow.run .s-wait,.lrow.ok .s-wait,.lrow.ok .s-run{display:none}
-.lrow.run .s-run{display:inline}
+.lrow.run .s-wait,.lrow.ok .s-wait,.lrow.ok .s-run{visibility:hidden}
+.lrow.run .s-run{visibility:visible}
 .lrow.ok .lri{background:linear-gradient(135deg,#FFE28A,#F5C328 45%,#D9A012);border-color:#FFE28A;color:#121215}
 .lrow.ok .lrt b{color:#F3F2EE}
 .lrow.ok .lrt em{color:#B9B7AE}
 .lrow.ok .lrs{color:#FFD34F}
-.lrow.ok .s-ok{display:inline}
+.lrow.ok .s-ok{visibility:visible}
 @keyframes l-blink{0%,100%{opacity:.35}50%{opacity:1}}
 .laudo-foot{display:flex;align-items:center;gap:12px;padding-top:clamp(10px,1.4vw,14px);border-top:1px dashed rgba(243,242,238,.14)}
 .lbar{flex:1;height:5px;border-radius:5px;background:rgba(243,242,238,.08);overflow:hidden}
 .lbar i{display:block;height:100%;width:0;border-radius:5px;background:linear-gradient(90deg,#B8830A,#F5C328,#FFE28A);transition:width .9s var(--ease)}
-.lstatus{flex:none;font:600 12px/1 Inter,sans-serif;color:#B9B7AE;font-variant-numeric:tabular-nums}
+.lstatus{flex:none;min-width:11.6em;text-align:right;font:600 12px/1 Inter,sans-serif;color:#B9B7AE;font-variant-numeric:tabular-nums}
 .laudo-stamp{position:absolute;right:clamp(14px,2vw,22px);bottom:-16px;display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;border:1.5px solid #FFE28A;background:#15130E;font:700 13px/1 'General Sans',Inter,sans-serif;color:#FFD34F;box-shadow:0 14px 30px -12px rgba(0,0,0,.9),0 0 0 4px rgba(245,195,40,.1);opacity:0;transform:translateY(8px) scale(.94);transition:opacity .5s var(--ease),transform .5s var(--ease);z-index:3}
 .laudo-stamp svg{width:15px;height:15px}
 .laudo-stamp.on{opacity:1;transform:none}
@@ -723,6 +725,14 @@ h1 span,h2,h2 span,h3,.fit p,.bl-q b{text-wrap-style:balance!important}
 /* o card de números já tinha uma subida própria: fica só a padrão, para não somar */
 @media (hover:hover){.num-card:hover{transform:none}}
 /* <<< PADRAO-EFEITOS */
+/* >>> PADRAO-PROTECAO */
+/* ===== PROTEÇÃO DE CONTEÚDO =====
+   Texto não seleciona, imagem não arrasta nem abre "salvar imagem" no toque longo do celular.
+   Campos de formulário continuam normais (digitar, selecionar, colar). */
+body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea,select,[contenteditable]:not([contenteditable="false"]),[contenteditable]:not([contenteditable="false"]) *{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+img,svg,picture,video,canvas{-webkit-user-drag:none;user-drag:none}
+/* <<< PADRAO-PROTECAO */
 </style>
 </head>
 <body>
@@ -1347,6 +1357,23 @@ let railDrag = false;
   const cards = document.querySelectorAll(".stack-card,.q,.ph,.step,.fit,.meet-item,.g-card,.num-card,.quote-v2,.tl-card,.rule,.blame,.leak");
   const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle("is-focus", e.isIntersecting)), { rootMargin: "-38% 0px -38% 0px" });
   cards.forEach(c => io.observe(c));
+})();
+</script>
+<script>/* >>> PADRAO-PROTECAO-JS */
+/* proteção de conteúdo: sem clique direito, sem arrastar, sem copiar e sem Ctrl+S / Ctrl+U.
+   Dentro de campos de formulário tudo continua liberado. */
+(function protecao() {
+  const campo = el => el && el.closest && el.closest('input,textarea,select,[contenteditable]:not([contenteditable="false"])');
+  const bloqueia = e => { if (!campo(e.target) && !campo(document.activeElement)) e.preventDefault(); };
+  document.addEventListener("contextmenu", e => { if (!campo(e.target)) e.preventDefault(); });
+  document.addEventListener("dragstart", e => { if (!campo(e.target)) e.preventDefault(); });
+  document.addEventListener("selectstart", e => { if (!campo(e.target)) e.preventDefault(); });
+  document.addEventListener("copy", bloqueia);
+  document.addEventListener("cut", bloqueia);
+  document.addEventListener("keydown", e => {
+    const k = (e.key || "").toLowerCase();
+    if ((e.ctrlKey || e.metaKey) && (k === "s" || k === "u")) e.preventDefault();
+  });
 })();
 </script>
 </body>

@@ -836,6 +836,14 @@ h1 span,h2,h2 span,h3,.fit p,.bl-q b{text-wrap-style:balance!important}
 /* o card de números já tinha uma subida própria: fica só a padrão, para não somar */
 @media (hover:hover){.num-card:hover{transform:none}}
 /* <<< PADRAO-EFEITOS */
+/* >>> PADRAO-PROTECAO */
+/* ===== PROTEÇÃO DE CONTEÚDO =====
+   Texto não seleciona, imagem não arrasta nem abre "salvar imagem" no toque longo do celular.
+   Campos de formulário continuam normais (digitar, selecionar, colar). */
+body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea,select,[contenteditable]:not([contenteditable="false"]),[contenteditable]:not([contenteditable="false"]) *{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+img,svg,picture,video,canvas{-webkit-user-drag:none;user-drag:none}
+/* <<< PADRAO-PROTECAO */
 </style>
 </head>
 <body>
@@ -1406,6 +1414,23 @@ let railDrag = false;
   const cards = document.querySelectorAll(".stack-card,.q,.ph,.step,.fit,.meet-item,.g-card,.num-card,.quote-v2,.tl-card,.rule,.blame,.leak");
   const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle("is-focus", e.isIntersecting)), { rootMargin: "-38% 0px -38% 0px" });
   cards.forEach(c => io.observe(c));
+})();
+</script>
+<script>/* >>> PADRAO-PROTECAO-JS */
+/* proteção de conteúdo: sem clique direito, sem arrastar, sem copiar e sem Ctrl+S / Ctrl+U.
+   Dentro de campos de formulário tudo continua liberado. */
+(function protecao() {
+  const campo = el => el && el.closest && el.closest('input,textarea,select,[contenteditable]:not([contenteditable="false"])');
+  const bloqueia = e => { if (!campo(e.target) && !campo(document.activeElement)) e.preventDefault(); };
+  document.addEventListener("contextmenu", e => { if (!campo(e.target)) e.preventDefault(); });
+  document.addEventListener("dragstart", e => { if (!campo(e.target)) e.preventDefault(); });
+  document.addEventListener("selectstart", e => { if (!campo(e.target)) e.preventDefault(); });
+  document.addEventListener("copy", bloqueia);
+  document.addEventListener("cut", bloqueia);
+  document.addEventListener("keydown", e => {
+    const k = (e.key || "").toLowerCase();
+    if ((e.ctrlKey || e.metaKey) && (k === "s" || k === "u")) e.preventDefault();
+  });
 })();
 </script>
 </body>
