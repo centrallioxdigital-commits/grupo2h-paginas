@@ -13,6 +13,7 @@ import { LM, SINAIS, FAIXAS } from './conteudo.mjs';
 
 const SAIDA = join(REPO_DIR, LM.slug);
 const ic = (n, cls = 'ic') => icon(n, { cls });
+const DIVISA = '<div class="divisa" aria-hidden="true"><span class="divisa-selo"><span class="divisa-moeda"><img src="assets/logo-2h-glyph.png" alt="" width="39" height="36"></span></span></div>';
 const n2 = (i) => String(i + 1).padStart(2, '0');
 const waLink = (msg) => `https://api.whatsapp.com/send?phone=${LM.whatsapp}&text=${encodeURIComponent(msg)}`;
 const WA = waLink('Olá! Baixei o checklist dos 7 sinais e quero conversar sobre a minha operação.');
@@ -176,7 +177,19 @@ p{margin:0}
 
 /* seções */
 .sec{position:relative;isolation:isolate;padding:clamp(72px,9vw,120px) 0;overflow-x:clip}
-.sec+.sec{border-top:1px solid transparent;border-image:linear-gradient(90deg,transparent,rgba(245,195,40,.45),transparent) 1}
+.divisa{position:relative;z-index:6;height:0;pointer-events:none}
+.divisa::before{content:'';position:absolute;left:0;right:0;top:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(245,195,40,.15) 18%,rgba(245,195,40,.65) 50%,rgba(245,195,40,.15) 82%,transparent)}
+.divisa-selo{position:absolute;left:50%;top:0;translate:-50% -50%;display:flex;align-items:center}
+.divisa-selo::before,.divisa-selo::after{content:'';width:clamp(40px,8vw,120px);height:1px;background:linear-gradient(90deg,transparent,rgba(245,195,40,.8))}
+.divisa-selo::after{transform:scaleX(-1)}
+.divisa-moeda{position:relative;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;
+  background:radial-gradient(120% 120% at 30% 18%,rgba(255,255,255,.16),transparent 52%),linear-gradient(160deg,#25252B,#0E0E11);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -3px 6px rgba(0,0,0,.7),0 0 0 1px rgba(245,195,40,.45),0 0 0 6px rgba(10,10,12,.9),0 0 0 7px rgba(245,195,40,.22),0 18px 40px -12px rgba(0,0,0,.9),0 0 36px -6px rgba(245,195,40,.35)}
+.divisa-moeda img{width:30px;height:auto;filter:drop-shadow(0 2px 6px rgba(245,195,40,.5))}
+.divisa-moeda::after{content:'';position:absolute;inset:4px;border-radius:50%;border:1px dashed rgba(245,195,40,.3);animation:giro 30s linear infinite}
+@keyframes giro{to{transform:rotate(360deg)}}
+.sec-check{overflow:visible}
+.sec-check>.divisa{position:absolute;left:0;right:0;top:0}
 .etq{display:inline-flex;align-items:center;gap:8px;font:700 .72rem/1 var(--fb);letter-spacing:.2em;text-transform:uppercase;color:var(--ouro)}
 .sec h2{margin-top:14px;font-size:clamp(1.9rem,1.1rem + 2.6vw,3.2rem);line-height:1.06}
 .sec h2 span{display:block}
@@ -280,13 +293,26 @@ fieldset.campo{border:0;margin:0;padding:0;min-width:0}
 .contador.on{translate:-50% 0}
 
 /* faq e rodapé */
-.faq{display:grid;gap:10px;margin-top:32px;max-width:820px}
-.faq details{border-radius:20px;border:1px solid var(--linha);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),var(--bg1)}
-.faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;cursor:pointer;list-style:none;font:600 1.05rem/1.3 var(--fd)}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary .ic{color:var(--ouro);transition:rotate .5s var(--mola)}
-.faq details[open] summary .ic{rotate:45deg}
-.faq details p{padding:0 22px 20px;color:var(--tx2)}
+.faq{margin-top:32px;max-width:860px}
+.acord{border:1px solid rgba(242,238,229,.07);border-radius:24px;margin-bottom:12px;padding:0 16px 0 26px;
+  background:linear-gradient(180deg,rgba(255,255,255,.075) 0%,rgba(255,255,255,.025) 38%,rgba(255,255,255,.012) 100%),var(--bg1);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),inset 0 0 0 1px rgba(255,255,255,.035),inset 0 -1px 0 rgba(0,0,0,.55),0 2px 4px -1px rgba(0,0,0,.5),0 22px 44px -22px rgba(0,0,0,.95);
+  transition:box-shadow .6s var(--mola),border-color .5s,background .5s,transform .6s var(--mola)}
+.acord:hover{border-color:rgba(245,195,40,.22);transform:translateY(-2px)}
+.acord[open]{border-color:rgba(245,195,40,.32);background:radial-gradient(120% 140% at 0% 0%,rgba(245,195,40,.12),transparent 55%),linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.012)),var(--bg1);
+  box-shadow:inset 0 1px 0 rgba(255,235,170,.18),inset 0 0 0 1px rgba(245,195,40,.22),0 34px 60px -26px rgba(0,0,0,.95),0 18px 50px -30px rgba(245,195,40,.35)}
+.acord summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 0;cursor:pointer;font:600 1.12rem/1.35 var(--fd);letter-spacing:-.01em;color:#fff}
+.acord summary::-webkit-details-marker{display:none}
+.acord summary .ic{flex:none;width:46px;height:46px;padding:13px;border-radius:50%;color:var(--ouro);
+  background:radial-gradient(120% 120% at 30% 15%,rgba(255,255,255,.14),transparent 55%),linear-gradient(160deg,#28282E,#121216);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -2px 4px rgba(0,0,0,.65),0 8px 18px -8px rgba(0,0,0,.95),0 0 0 1px rgba(0,0,0,.45);
+  transition:transform .6s var(--mola),background .45s,color .45s,box-shadow .45s}
+.acord summary:hover .ic{box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 0 0 1px rgba(245,195,40,.35),0 10px 24px -10px rgba(245,195,40,.45)}
+.acord[open] summary .ic{transform:rotate(135deg);color:var(--tinta);background:linear-gradient(180deg,#FFE490,#F7C93A 45%,#E2AA14);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -2px 0 rgba(140,95,0,.35),0 10px 24px -10px rgba(245,195,40,.7)}
+.acord-r{overflow:hidden;padding:0 0 20px}
+.acord-r p{padding:20px 24px;border-radius:18px;font-weight:500;line-height:1.65;color:#17130A;
+  background:radial-gradient(120% 120% at 0% 0%,rgba(255,255,255,.45),transparent 45%),linear-gradient(180deg,#FFE48F 0%,#F7C833 55%,#E6AF17 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -2px 0 rgba(140,95,0,.25),0 1px 0 rgba(0,0,0,.4),0 18px 34px -16px rgba(245,195,40,.55)}
 .rod{padding:36px 0 calc(36px + env(safe-area-inset-bottom));border-top:1px solid var(--linha);color:var(--tx3);font-size:.86rem}
 .rod .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px}
 .rod a{text-decoration:none}.rod a:hover{color:var(--ouro)}
@@ -307,6 +333,8 @@ fieldset.campo{border:0;margin:0;padding:0;min-width:0}
 }
 @media (max-width:640px){
   .topo-pil{display:none}
+  .divisa-moeda{width:52px;height:52px}.divisa-moeda img{width:24px}
+  .acord{padding-left:18px;padding-right:12px}.acord summary{font-size:1.02rem}.acord-r p{padding:16px 18px}
   .hero{padding:92px 0 64px}
   .rel-chip.c1{left:-6px;top:auto;bottom:-18px}
   .rel-chip.c2{right:-6px;top:58px;bottom:auto}
@@ -324,7 +352,7 @@ fieldset.campo{border:0;margin:0;padding:0;min-width:0}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .rel-corpo{animation:none;--lx:62%;--ly:30%}
-  .rel-chip{animation:none}
+  .rel-chip,.divisa-moeda::after{animation:none}
   .js [data-entra]{opacity:1;transform:none;transition:none}
 }
 
@@ -359,7 +387,7 @@ img,svg{-webkit-user-drag:none}
     <div class="hero-visual">${relatorio}</div>
   </div>
 </section>
-
+${DIVISA}
 <section class="sec" id="receber">
   <div class="wrap cap">
     <div data-entra>
@@ -391,7 +419,8 @@ img,svg{-webkit-user-drag:none}
   </div>
 </section>
 
-<section class="sec" id="checklist" hidden>
+<section class="sec sec-check" id="checklist" hidden>
+  ${DIVISA}
   <div class="wrap">
     <p class="etq">${ic('lock-simple-open')} Checklist liberado</p>
     <h2><span>Marque os sinais que</span><span class="ouro">acontecem com você.</span></h2>
@@ -409,7 +438,7 @@ img,svg{-webkit-user-drag:none}
     </div>
   </div>
 </section>
-
+${DIVISA}
 <section class="sec">
   <div class="wrap">
     <div data-entra>
@@ -424,12 +453,12 @@ img,svg{-webkit-user-drag:none}
     </div>
   </div>
 </section>
-
+${DIVISA}
 <section class="sec">
   <div class="wrap">
     <p class="etq">Perguntas</p>
     <h2><span>Antes de você</span><span class="ouro">perguntar.</span></h2>
-    <div class="faq">${faq.map(([q, a]) => `<details><summary>${esc(q)}${ic('plus')}</summary><p>${esc(a)}</p></details>`).join('')}</div>
+    <div class="faq" data-acordeoes>${faq.map(([q, a]) => `<details class="acord"><summary>${esc(q)}${ic('plus')}</summary><div class="acord-r"><p>${esc(a)}</p></div></details>`).join('')}</div>
     <div class="hero-acoes" style="justify-content:inherit"><a class="bt bt-ouro" href="#receber">Quero o checklist grátis <span class="bt-c">${ic('arrow-up')}</span></a></div>
   </div>
 </section>
@@ -543,6 +572,33 @@ img,svg{-webkit-user-drag:none}
 
   /* quem já recebeu o checklist volta direto para ele */
   if (ler(CONFIG.CHAVE)) liberar(false);
+
+  /* perguntas: abrem e fecham suave, uma por vez (igual ao site) */
+  var acords = doc.querySelectorAll('details.acord');
+  var fecharAcord = function (d) {
+    var r = d.querySelector('.acord-r');
+    if (!d.open) return;
+    if (reduz || !r.animate) { d.open = false; return; }
+    if (d.classList.contains('fechando')) return;
+    d.classList.add('fechando');
+    var h = r.offsetHeight, feito = false;
+    var fim = function () { if (feito) return; feito = true; d.open = false; d.classList.remove('fechando'); };
+    r.animate([{ height: h + 'px', opacity: 1 }, { height: '0px', opacity: 0 }], { duration: 420, easing: 'cubic-bezier(.65,0,.35,1)' }).onfinish = fim;
+    setTimeout(fim, 480);
+  };
+  acords.forEach(function (d) {
+    var s = d.querySelector('summary'), r = d.querySelector('.acord-r');
+    s.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      if (d.open && !d.classList.contains('fechando')) { fecharAcord(d); return; }
+      if (d.classList.contains('fechando')) return;
+      acords.forEach(function (o) { if (o !== d) fecharAcord(o); });
+      d.open = true;
+      if (reduz || !r.animate) return;
+      var h2 = r.offsetHeight;
+      r.animate([{ height: '0px', opacity: 0 }, { height: h2 + 'px', opacity: 1 }], { duration: 520, easing: 'cubic-bezier(.16,1,.3,1)' });
+    });
+  });
 
   /* proteção de conteúdo (padrão 2!H) */
   var cmp = function (el) { return el && el.closest && el.closest('input,textarea,select'); };
