@@ -114,7 +114,9 @@ export function copiarStatic() {
       if (statSync(f).isDirectory()) andar(f);
       else {
         const rel = relative(origem, f).replace(/\\/g, '/');
-        const buf = readFileSync(f);
+        let buf = readFileSync(f);
+        // texto com quebra de linha igual em Windows e no robô (Linux): mesma versão (?v=) nos dois
+        if (/\.(css|js|svg|json|txt|webmanifest|html)$/.test(nome)) buf = Buffer.from(buf.toString('utf8').replace(/\r\n/g, '\n'), 'utf8');
         versoes.set(rel, createHash('sha1').update(buf).digest('hex').slice(0, 8));
         write(join('assets', rel), buf);
       }
