@@ -8,13 +8,29 @@ import { servicos } from '../content/servicos.mjs';
 import { fases, programas, esteira } from '../content/metodo.mjs';
 import { faqGrupos, faqTodos } from '../content/faq.mjs';
 import { glossario } from '../content/glossario.mjs';
-import { ilFunil, ilBussola, ilOrbita, ilConversa, ilFormula, ilMarca } from '../lib/ilustracoes.mjs';
+import { ilConversa, ilFormula, ilMarca } from '../lib/ilustracoes.mjs';
+import { ilOrbita3d, ilBussola3d, ilFunil3d } from '../lib/ilustracoes3d.mjs';
 import { empresa, whatsappLink } from '../content/empresa.mjs';
 
 const acordeao = (itens) =>
   itens.map((f) => `<details class="acord"><summary>${esc(f.q)}${icon('plus')}</summary><div class="acord-r"><p>${esc(f.a)}</p></div></details>`).join('');
 
 const ATUALIZADO = '2026-10-05';
+
+function esteiraSecao(titulo, lead) {
+  return `<section class="sec">
+  <div class="wrap esteira-grade" data-esteira>
+    <div class="esteira-fixo">
+      <h2 class="h2 h2-larga" data-revela>${esc(titulo)}</h2>
+      <p class="lead" data-revela>${esc(lead)}</p>
+      <div class="esteira-cont"><b data-esteira-num>01</b><span>de 10 etapas<strong data-esteira-nome>${esc(esteira[0].nome)}</strong></span></div>
+      <div class="esteira-barra" aria-hidden="true"><i></i></div>
+    </div>
+    <ol class="esteira">${esteira.map((e) => `<li><div><b>${esc(e.nome)}</b><span>${esc(e.d)}</span></div></li>`).join('')}</ol>
+  </div>
+</section>`;
+}
+
 
 // ------------------------------------------------------------------ Sobre
 function sobre() {
@@ -33,7 +49,7 @@ ${capa({ trilhaHtml: t.html, titulo: 'Estrutura antes de escala.', tituloOuro: '
       <p>A 2!H existe para organizar essa máquina. Não para subir mais uma campanha, mas para fazer oferta, público, comunicação, aquisição, atendimento, comercial, rastreamento e dados funcionarem como um sistema só.</p>
       </div>
     </div>
-    ${ilFunil()}
+    ${ilFunil3d()}
   </div>
 </section>
 
@@ -60,7 +76,7 @@ ${capa({ trilhaHtml: t.html, titulo: 'Estrutura antes de escala.', tituloOuro: '
 ${time.length ? `<section class="sec luz luz-d" id="time"><div class="wrap"><div class="sec-cab" data-revela><p class="etq">Quem está por trás</p><h2 class="h2">O time que organiza a sua máquina.</h2></div><div class="time" data-revela-filhos>${time
     .map((m) => {
       const iniciais = m.nome.split(' ').filter(Boolean).map((x) => x[0]).slice(0, 2).join('').toUpperCase();
-      return `<article class="membro"><figure>${m.foto ? `<img src="${asset(`img/${m.foto}`)}" alt="${esc(m.nome)}, ${esc(m.papel)} do Grupo 2!H" width="512" height="512" loading="lazy">` : `<span class="monograma" aria-hidden="true">${esc(iniciais)}</span>`}</figure><h3>${esc(m.nome)}</h3><p class="membro-papel">${esc(m.papel)}</p>${m.frase ? `<blockquote class="membro-frase">${esc(m.frase)}</blockquote>` : ''}</article>`;
+      return `<article class="membro"><figure>${m.foto ? `<img src="${asset(`img/${m.foto}`)}" alt="${esc(m.nome)}, ${esc(m.papel)} do Grupo 2!H" width="512" height="512" loading="lazy">` : `<span class="monograma" aria-hidden="true">${esc(iniciais)}</span>`}<figcaption class="membro-barra"><h3>${esc(m.nome)}</h3><p>${esc(m.papel)}</p></figcaption></figure>${m.frase ? `<blockquote class="membro-frase">${esc(m.frase)}</blockquote>` : ''}</article>`;
     })
     .join('')}</div></div></section>` : ''}
 
@@ -111,7 +127,7 @@ function comoFunciona() {
   }).join('');
 
   const corpo = `
-${capa({ trilhaHtml: t.html, titulo: 'Como a 2!H trabalha:', tituloOuro: 'do diagnóstico à escala.', lead: 'Nada começa pelo anúncio. Começa por entender onde a sua empresa está, onde o dinheiro trava e qual é o próximo degrau.', extra: `<div class="capa-acoes"><a class="btn btn-ouro" href="${diag('como-funciona-topo')}" data-diag>Fazer o diagnóstico rápido ${icon('arrow-right')}</a><a class="btn-link" href="#por-onde-comecar">Descobrir por onde começar</a></div>`, visual: ilBussola(), fotoFundo: 'estrategia-quadro' })}
+${capa({ trilhaHtml: t.html, titulo: 'Como a 2!H trabalha:', tituloOuro: 'do diagnóstico à escala.', lead: 'Nada começa pelo anúncio. Começa por entender onde a sua empresa está, onde o dinheiro trava e qual é o próximo degrau.', extra: `<div class="capa-acoes"><a class="btn btn-ouro" href="${diag('como-funciona-topo')}" data-diag>Fazer o diagnóstico rápido ${icon('arrow-right')}</a><a class="btn-link" href="#por-onde-comecar">Descobrir por onde começar</a></div>`, visual: ilBussola3d(), fotoFundo: 'estrategia-quadro' })}
 
 <section class="sec">
   <div class="wrap dois">
@@ -119,7 +135,7 @@ ${capa({ trilhaHtml: t.html, titulo: 'Como a 2!H trabalha:', tituloOuro: 'do dia
       <h2 class="h2">A jornada, passo a passo.</h2>
       <p class="lead">Sete etapas, do primeiro clique à rotina de leitura de números. Algumas empresas pulam etapas porque já têm a base. Ninguém pula a leitura do cenário.</p>
     </div>
-    <ol class="jornada" data-revela-filhos>${jornada.map((j) => `<li class="jr"><span class="jr-ic">${icon(j.i)}</span><div><h3>${esc(j.t)}</h3><p>${esc(j.d)}</p><span class="jr-tag">${esc(j.tag)}</span></div></li>`).join('')}</ol>
+    <ol class="jornada" data-jornada><span class="jornada-luz" aria-hidden="true"></span>${jornada.map((j) => `<li class="jr"><span class="jr-ic">${icon(j.i)}</span><div><h3>${esc(j.t)}</h3><p>${esc(j.d)}</p><span class="jr-tag">${esc(j.tag)}</span></div></li>`).join('')}</ol>
   </div>
 </section>
 
@@ -134,15 +150,7 @@ ${capa({ trilhaHtml: t.html, titulo: 'Como a 2!H trabalha:', tituloOuro: 'do dia
   </div>
 </section>
 
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-cab" data-revela>
-      <h2 class="h2 h2-larga">O que olhamos na leitura do cenário.</h2>
-      <p class="lead">Cada etapa depende da anterior. É por isso que trocar de anúncio quase nunca resolve: o gargalo pode estar em qualquer ponto desta esteira.</p>
-    </div>
-    <ol class="esteira" data-revela-filhos>${esteira.map((e) => `<li><b>${esc(e.nome)}</b><span>${esc(e.d)}</span></li>`).join('')}</ol>
-  </div>
-</section>
+${esteiraSecao('O que olhamos na leitura do cenário.', 'Cada etapa depende da anterior. É por isso que trocar de anúncio quase nunca resolve: o gargalo pode estar em qualquer ponto desta esteira.')}
 
 <section class="sec">
   <div class="wrap dois">
@@ -181,7 +189,7 @@ function metodo() {
     { q: 'Os programas incluem a 2!H executando por mim?', a: 'Não. Nos programas você constrói o sistema da sua empresa com direcionamento da 2!H. Para a 2!H executar, existem os serviços da escada, como o EDB e o Growth Control.' },
   ];
   const corpo = `
-${capa({ trilhaHtml: t.html, titulo: 'Método 5A.', tituloOuro: 'Cinco fases para crescer sem quebrar.', lead: 'Análise, Alinhamento, Aquisição, Acompanhamento e Aceleração. O método que a 2!H usa para tirar o crescimento do achismo e colocar em sequência.', visual: ilOrbita(fases), fotoFundo: 'workshop' })}
+${capa({ trilhaHtml: t.html, titulo: 'Método 5A.', tituloOuro: 'Cinco fases para crescer sem quebrar.', lead: 'Análise, Alinhamento, Aquisição, Acompanhamento e Aceleração. O método que a 2!H usa para tirar o crescimento do achismo e colocar em sequência.', visual: ilOrbita3d(fases), fotoFundo: 'workshop' })}
 
 <section class="sec">
   <div class="wrap">
@@ -202,23 +210,15 @@ ${capa({ trilhaHtml: t.html, titulo: 'Método 5A.', tituloOuro: 'Cinco fases par
 <section class="sec">
   <div class="wrap">
     <div class="sec-cab" data-revela><h2 class="h2">Lado a lado.</h2></div>
-    <div class="tab-wrap" data-revela><table class="tab">
-      <thead><tr><th scope="col">Programa</th><th scope="col">Formato</th><th scope="col">Para quem</th><th scope="col">Você sai com</th></tr></thead>
-      <tbody>
-        <tr><th scope="row"><a href="/imersao5a/">Imersão Estrutura 5A</a></th><td>Online e ao vivo, 4 horas</td><td>Quem quer descobrir onde a empresa perde vendas antes de investir mais em tráfego</td><td>A leitura das 10 etapas, do negócio à margem, e o verdadeiro gargalo da operação</td></tr>
-        <tr><th scope="row"><a href="/mentoria5a/">Mentoria 5A</a></th><td>Em grupo, 12 semanas, encontros de 2 horas</td><td>Quem viu o método e quer sair da teoria para a implementação</td><td>12 entregáveis, do Raio-X econômico ao plano de crescimento de 90 dias</td></tr>
-        <tr><th scope="row"><a href="/diagnostico5a/">Diagnóstico Estratégico 5A</a></th><td>Individual, 1x1</td><td>Empresário ou sócio que quer o método aplicado com atenção individual</td><td>Raio-X econômico, mapa de gargalos, oferta alinhada, estrutura de rastreamento e plano de prioridades</td></tr>
-      </tbody>
-    </table></div>
+    <div class="compara" data-revela-filhos>${[
+      { n: 'Imersão Estrutura 5A', f: 'Online e ao vivo · 4 horas', q: 'Quem quer descobrir onde a empresa perde vendas antes de investir mais em tráfego', s: 'A leitura das 10 etapas, do negócio à margem, e o verdadeiro gargalo da operação', l: '/imersao5a/', ic: 'presentation-chart' },
+      { n: 'Mentoria 5A', f: 'Em grupo · 12 semanas', q: 'Quem viu o método e quer sair da teoria para a implementação', s: '12 entregáveis, do Raio-X econômico ao plano de crescimento de 90 dias', l: '/mentoria5a/', ic: 'users-three', d: true },
+      { n: 'Diagnóstico Estratégico 5A', f: 'Individual · 1x1', q: 'Empresário ou sócio que quer o método aplicado com atenção individual', s: 'Raio-X econômico, mapa de gargalos, oferta alinhada, rastreamento e plano de prioridades', l: '/diagnostico5a/', ic: 'target' },
+    ].map((c) => `<article class="cmp-card${c.d ? ' destaque' : ''}"><div class="cmp-topo">${icon(c.ic)}<div><h3>${esc(c.n)}</h3><small>${esc(c.f)}</small></div></div><dl><div class="cmp-linha"><dt>Para quem</dt><dd>${esc(c.q)}</dd></div><div class="cmp-linha"><dt>Você sai com</dt><dd>${esc(c.s)}</dd></div></dl><a class="btn btn-linha btn-sm" href="${c.l}">Conhecer ${icon('arrow-right')}</a></article>`).join('')}</div>
   </div>
 </section>
 
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-cab" data-revela><h2 class="h2 h2-larga">A esteira que a Imersão ensina a enxergar.</h2><p class="lead">O caminho completo da primeira etapa até o dinheiro entrar de verdade.</p></div>
-    <ol class="esteira" data-revela-filhos>${esteira.map((e) => `<li><b>${esc(e.nome)}</b><span>${esc(e.d)}</span></li>`).join('')}</ol>
-  </div>
-</section>
+${esteiraSecao('A esteira que a Imersão ensina a enxergar.', 'O caminho completo da primeira etapa até o dinheiro entrar de verdade.')}
 
 <section class="sec">
   <div class="wrap dois">

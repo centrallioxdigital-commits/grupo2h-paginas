@@ -1,0 +1,159 @@
+// Ilustrações "encorpadas" (3D sutil, vidro, metal e luz): órbita do
+// Método 5A e bússola do Como funciona. Estilo em static/css/encorpado.css.
+
+import { esc, icon } from './core.mjs';
+
+const r1 = (n) => Math.round(n * 10) / 10;
+const iconeEm = (nome, x, y, t) => icon(nome).replace('<svg ', `<svg x="${r1(x - t / 2)}" y="${r1(y - t / 2)}" width="${t}" height="${t}" `);
+
+/** Método 5A: esfera dourada no centro, fases em vidro na órbita, luz percorrendo. */
+export function ilOrbita3d(fases) {
+  const C = 230, R = 158, n = fases.length;
+  const pos = fases.map((_, i) => { const a = -Math.PI / 2 + (i * 2 * Math.PI) / n; return [C + R * Math.cos(a), C + R * Math.sin(a)]; });
+  const ticks = Array.from({ length: 90 }, (_, i) => {
+    const a = (i / 90) * Math.PI * 2, r0 = i % 18 === 0 ? 196 : i % 6 === 0 ? 201 : 204, r2 = 210;
+    return `<line x1="${r1(C + r0 * Math.cos(a))}" y1="${r1(C + r0 * Math.sin(a))}" x2="${r1(C + r2 * Math.cos(a))}" y2="${r1(C + r2 * Math.sin(a))}"/>`;
+  }).join('');
+  const nos = fases
+    .map((f, i) => {
+      const [x, y] = pos[i];
+      const dx = x - C, ancora = Math.abs(dx) < 10 ? 'middle' : dx > 0 ? 'start' : 'end';
+      const lx = x + (ancora === 'start' ? 38 : ancora === 'end' ? -38 : 0), ly = y + (Math.abs(dx) < 10 ? -44 : 5);
+      return `<g class="o3-no" data-fase="${i}">
+        <circle cx="${r1(x)}" cy="${r1(y)}" r="34" class="o3-halo"/>
+        <circle cx="${r1(x)}" cy="${r1(y)}" r="27" class="o3-bola" />
+        <circle cx="${r1(x)}" cy="${r1(y)}" r="27" class="o3-vidro"/>
+        <path d="M${r1(x - 17)} ${r1(y - 9)} A20 20 0 0 1 ${r1(x + 17)} ${r1(y - 9)}" class="o3-reflexo"/>
+        <g class="o3-ic">${iconeEm(f.icone, x, y, 24)}</g>
+        <text x="${r1(lx)}" y="${r1(ly - 9)}" text-anchor="${ancora}" class="o3-num">0${i + 1}</text>
+        <text x="${r1(lx)}" y="${r1(ly + 9)}" text-anchor="${ancora}" class="o3-nome">${esc(f.nome)}</text>
+      </g>`;
+    })
+    .join('');
+  return `<figure class="il il3d il-orbita3d" role="img" aria-label="As cinco fases do Método 5A em órbita: ${esc(fases.map((f) => f.nome).join(', '))}" data-revela data-orbita>
+  <svg viewBox="0 0 460 460" aria-hidden="true">
+    <defs>
+      <radialGradient id="o3-esfera" cx="36%" cy="30%" r="75%"><stop offset="0" stop-color="#FFF3C4"/><stop offset=".35" stop-color="#F7C93A"/><stop offset=".75" stop-color="#C08A0A"/><stop offset="1" stop-color="#6E4C00"/></radialGradient>
+      <radialGradient id="o3-aura" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#F5C328" stop-opacity=".35"/><stop offset=".55" stop-color="#F5C328" stop-opacity=".06"/><stop offset="1" stop-color="#F5C328" stop-opacity="0"/></radialGradient>
+      <linearGradient id="o3-anel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE490"/><stop offset=".5" stop-color="#F5C328" stop-opacity=".25"/><stop offset="1" stop-color="#FFE490"/></linearGradient>
+      <radialGradient id="o3-bola-g" cx="35%" cy="28%" r="80%"><stop offset="0" stop-color="#3A3A42"/><stop offset="1" stop-color="#121216"/></radialGradient>
+    </defs>
+    <circle cx="${C}" cy="${C}" r="215" fill="url(#o3-aura)"/>
+    <g class="o3-ticks">${ticks}</g>
+    <circle cx="${C}" cy="${C}" r="${R}" class="o3-orbita" stroke="url(#o3-anel)"/>
+    <circle cx="${C}" cy="${C}" r="${R}" class="o3-cometa" pathLength="100"/>
+    <circle cx="${C}" cy="${C}" r="104" class="o3-interno"/>
+    <circle cx="${C}" cy="${C}" r="78" class="o3-pulso"/>
+    <g class="o3-centro">
+      <circle cx="${C}" cy="${C + 8}" r="70" class="o3-sombra"/>
+      <circle cx="${C}" cy="${C}" r="68" fill="url(#o3-esfera)"/>
+      <ellipse cx="${C - 18}" cy="${C - 30}" rx="34" ry="18" class="o3-brilho"/>
+      <text x="${C}" y="${C + 14}" text-anchor="middle" class="o3-5a">5A</text>
+      <text x="${C}" y="${C + 36}" text-anchor="middle" class="o3-metodo">MÉTODO</text>
+    </g>
+    ${nos}
+  </svg>
+  <figcaption class="o3-legenda" aria-live="polite"><b data-o3-nome>${esc(fases[0].nome)}</b><span data-o3-frase>${esc(fases[0].frase)}</span><i class="o3-trilho">${fases.map((_, i) => `<em${i === 0 ? ' class="on"' : ''}></em>`).join('')}</i></figcaption>
+  <script type="application/json" data-o3-fases>${JSON.stringify(fases.map((f) => ({ nome: f.nome, frase: f.frase }))).replace(/</g, '\\u003c')}</script>
+</figure>`;
+}
+
+/** Como funciona: bússola com aro metálico, rosa dos ventos e agulha em bisel. */
+export function ilBussola3d() {
+  const C = 230;
+  const ticks = Array.from({ length: 120 }, (_, i) => {
+    const a = (i / 120) * Math.PI * 2, longo = i % 10 === 0, r0 = longo ? 160 : i % 5 === 0 ? 166 : 170;
+    return `<line x1="${r1(C + r0 * Math.cos(a))}" y1="${r1(C + r0 * Math.sin(a))}" x2="${r1(C + 176 * Math.cos(a))}" y2="${r1(C + 176 * Math.sin(a))}"${longo ? ' class="lg"' : ''}/>`;
+  }).join('');
+  const graus = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330]
+    .map((g) => { const a = ((g - 90) * Math.PI) / 180; return `<text x="${r1(C + 146 * Math.cos(a))}" y="${r1(C + 146 * Math.sin(a) + 4)}" text-anchor="middle">${g}</text>`; })
+    .join('');
+  const estrela = (raio, larg, rot) => {
+    const pts = [];
+    for (let k = 0; k < 8; k++) { const a = (k * Math.PI) / 4 + rot; const rr = k % 2 ? larg : raio; pts.push(`${r1(C + rr * Math.cos(a))},${r1(C + rr * Math.sin(a))}`); }
+    return pts.join(' ');
+  };
+  const cardinais = [['Análise', C, 52, 'n'], ['Estrutura', 412, C + 5, 'l'], ['Escala', C, 418, 's'], ['Leitura', 48, C + 5, 'o']];
+  return `<figure class="il il3d il-bussola3d" role="img" aria-label="Uma bússola com a agulha apontando para a estrutura, entre análise, escala e leitura." data-revela>
+  <svg viewBox="0 0 460 460" aria-hidden="true">
+    <defs>
+      <linearGradient id="b3-aro" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5A5A63"/><stop offset=".35" stop-color="#1C1C21"/><stop offset=".7" stop-color="#3B3B43"/><stop offset="1" stop-color="#0E0E11"/></linearGradient>
+      <radialGradient id="b3-mostrador" cx="50%" cy="42%" r="62%"><stop offset="0" stop-color="#22222A"/><stop offset="1" stop-color="#0A0A0D"/></radialGradient>
+      <linearGradient id="b3-ouro-a" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFE9A0"/><stop offset="1" stop-color="#F5C328"/></linearGradient>
+      <linearGradient id="b3-ouro-b" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#D9A012"/><stop offset="1" stop-color="#8A5E00"/></linearGradient>
+      <linearGradient id="b3-escuro-a" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4A4A52"/><stop offset="1" stop-color="#2A2A31"/></linearGradient>
+      <linearGradient id="b3-escuro-b" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1A1A1F"/><stop offset="1" stop-color="#0B0B0E"/></linearGradient>
+      <radialGradient id="b3-joia" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#FFF3C4"/><stop offset=".45" stop-color="#F5C328"/><stop offset="1" stop-color="#7A5400"/></radialGradient>
+      <linearGradient id="b3-vidro" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    </defs>
+    <circle cx="${C}" cy="${C + 10}" r="206" class="b3-sombra"/>
+    <circle cx="${C}" cy="${C}" r="204" fill="url(#b3-aro)"/>
+    <circle cx="${C}" cy="${C}" r="192" class="b3-friso"/>
+    <circle cx="${C}" cy="${C}" r="186" fill="url(#b3-mostrador)"/>
+    <g class="b3-ticks">${ticks}</g>
+    <g class="b3-graus">${graus}</g>
+    <polygon points="${estrela(118, 26, -Math.PI / 2)}" class="b3-rosa"/>
+    <polygon points="${estrela(80, 18, -Math.PI / 2 + Math.PI / 8)}" class="b3-rosa b3-rosa2"/>
+    <circle cx="${C}" cy="${C}" r="128" class="b3-anel"/>
+    <g class="b3-agulha">
+      <polygon points="${C},${C - 132} ${C - 15},${C} ${C},${C}" fill="url(#b3-escuro-a)"/>
+      <polygon points="${C},${C - 132} ${C + 15},${C} ${C},${C}" fill="url(#b3-escuro-b)"/>
+      <polygon points="${C},${C + 132} ${C - 15},${C} ${C},${C}" fill="url(#b3-ouro-a)"/>
+      <polygon points="${C},${C + 132} ${C + 15},${C} ${C},${C}" fill="url(#b3-ouro-b)"/>
+    </g>
+    <circle cx="${C}" cy="${C}" r="17" fill="url(#b3-joia)" class="b3-eixo"/>
+    <circle cx="${C}" cy="${C}" r="6" class="b3-eixo-in"/>
+    <path d="M${C - 170} ${C - 40} A186 186 0 0 1 ${C + 120} ${C - 140}" stroke="url(#b3-vidro)" class="b3-reflexo"/>
+    <circle cx="${C}" cy="${C}" r="186" fill="url(#b3-vidro)" class="b3-tampa"/>
+  </svg>
+  ${cardinais.map(([t, x, y, k]) => `<span class="b3-card b3-${k}${t === 'Estrutura' ? ' on' : ''}" style="left:${((x / 460) * 100).toFixed(2)}%;top:${((y / 460) * 100).toFixed(2)}%">${esc(t)}</span>`).join('')}
+</figure>`;
+}
+
+/** Sobre: funil 3D de vidro, com o investimento caindo e vazando nas camadas. */
+export function ilFunil3d() {
+  const C = 230, top = 78, alt = 74, gap = 8;
+  const raios = [176, 136, 100, 68, 42];
+  const vaz = ['Oferta desalinhada', 'Atendimento lento', 'Sem follow-up', 'Rastreamento quebrado'];
+  const camadas = raios.slice(0, 4).map((rx1, i) => {
+    const rx2 = raios[i + 1] + 4, yt = top + i * (alt + gap), yb = yt + alt, ry1 = rx1 * 0.2, ry2 = rx2 * 0.2;
+    const lado = i % 2 ? 1 : -1, lx = C + lado * ((rx1 + rx2) / 2 + 6), ly = (yt + yb) / 2;
+    return `<g class="f3-camada" style="--k:${i}">
+      <path d="M${C - rx1} ${yt} A${rx1} ${ry1} 0 0 0 ${C + rx1} ${yt} L${C + rx2} ${yb} A${rx2} ${ry2} 0 0 1 ${C - rx2} ${yb} Z" fill="url(#f3-corpo)" class="f3-lado"/>
+      <ellipse cx="${C}" cy="${yt}" rx="${rx1}" ry="${r1(ry1)}" fill="url(#f3-boca)" class="f3-boca"/>
+      <ellipse cx="${C}" cy="${yt}" rx="${rx1}" ry="${r1(ry1)}" class="f3-aro" stroke="url(#f3-aro-g)"/>
+      <path d="M${C - rx1 + 10} ${yt + 6} L${C - rx2 + 6} ${yb - 4}" class="f3-reflexo"/>
+      <g class="f3-vaz" style="--k:${i}"><circle cx="${r1(lx)}" cy="${r1(ly)}" r="4.5" class="f3-gota"/><circle cx="${r1(lx + lado * 10)}" cy="${r1(ly + 14)}" r="3" class="f3-gota f3-gota2"/></g>
+    </g>`;
+  }).join('');
+  const yFim = top + 4 * (alt + gap);
+  const moedas = Array.from({ length: 7 }, (_, i) => {
+    const x = C + [-60, 34, -14, 70, -38, 12, -4][i], vai = i % 3 === 0 ? yFim + 26 : top + 70 + (i % 4) * (alt + gap);
+    return `<circle cx="${x}" cy="${top - 30}" r="7" class="f3-moeda" style="--d:${(i * 0.55).toFixed(2)}s;--y:${vai - top + 30}px;--x:${C - x}px"/>`;
+  }).join('');
+  const etiquetas = vaz.map((t, i) => {
+    const lado = i % 2 ? 'd' : 'e', y = top + i * (alt + gap) + alt / 2;
+    return `<span class="f3-etq f3-${lado}" style="top:${((y / 520) * 100).toFixed(2)}%;--k:${i}"><i></i>${esc(t)}</span>`;
+  }).join('');
+  return `<figure class="il il3d il-funil3d" role="img" aria-label="Funil em 3D: o investimento entra em cima e vaza em oferta desalinhada, atendimento lento, falta de follow-up e rastreamento quebrado antes de chegar ao caixa." data-revela>
+  <svg viewBox="0 0 460 520" aria-hidden="true">
+    <defs>
+      <linearGradient id="f3-corpo" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0D0D10"/><stop offset=".22" stop-color="#2A2A31"/><stop offset=".5" stop-color="#16161B"/><stop offset=".85" stop-color="#25252C"/><stop offset="1" stop-color="#0B0B0E"/></linearGradient>
+      <radialGradient id="f3-boca" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#050506"/><stop offset="1" stop-color="#1B1B21"/></radialGradient>
+      <linearGradient id="f3-aro-g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8A5E00"/><stop offset=".3" stop-color="#FFE490"/><stop offset=".7" stop-color="#F5C328"/><stop offset="1" stop-color="#8A5E00"/></linearGradient>
+      <radialGradient id="f3-caixa" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#FFF3C4"/><stop offset=".45" stop-color="#F5C328"/><stop offset="1" stop-color="#7A5400"/></radialGradient>
+      <radialGradient id="f3-luz" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#F5C328" stop-opacity=".45"/><stop offset="1" stop-color="#F5C328" stop-opacity="0"/></radialGradient>
+    </defs>
+    <ellipse cx="${C}" cy="${yFim + 44}" rx="120" ry="26" fill="url(#f3-luz)"/>
+    <text x="${C}" y="28" text-anchor="middle" class="f3-tit">Investimento</text>
+    <g class="f3-moedas">${moedas}</g>
+    ${camadas}
+    <path d="M${C} ${yFim - 6} L${C} ${yFim + 22}" class="f3-bico"/>
+    <circle cx="${C}" cy="${yFim + 40}" r="22" fill="url(#f3-caixa)" class="f3-caixa"/>
+    <text x="${C}" y="${yFim + 46}" text-anchor="middle" class="f3-cifra">$</text>
+    <text x="${C}" y="${yFim + 86}" text-anchor="middle" class="f3-tit f3-tit-ouro">Caixa</text>
+  </svg>
+  ${etiquetas}
+  <p class="il-legenda">O maior desperdício não é o anúncio ruim. É a operação sem estrutura.</p>
+</figure>`;
+}

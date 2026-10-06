@@ -36,10 +36,7 @@ ${capa({ trilhaHtml: t.html, titulo: 'Uma escada,', tituloOuro: 'não um pacote.
 <section class="sec">
   <div class="wrap">
     <div class="sec-cab" data-revela><h2 class="h2">Qual degrau faz sentido agora?</h2><p class="lead">Um resumo para comparar. A conversa de diagnóstico confirma o degrau com você.</p></div>
-    <div class="tab-wrap" data-revela><table class="tab">
-      <thead><tr><th scope="col">Serviço</th><th scope="col">Quando faz sentido</th><th scope="col">O que você passa a ter</th><th scope="col">Formato</th></tr></thead>
-      <tbody>${linhas.map((l) => `<tr><th scope="row"><a href="${u(`solucoes/${l.s}/`)}">${esc(por[l.s].nome)}</a></th><td>${esc(l.quando)}</td><td>${esc(l.entrega)}</td><td>${esc(l.formato)}</td></tr>`).join('')}</tbody>
-    </table></div>
+    <div class="compara" style="--cols:5" data-revela-filhos>${linhas.map((l) => `<article class="cmp-card"><div class="cmp-topo">${icon(por[l.s].icone)}<div><h3>${esc(por[l.s].nome)}</h3><small>${esc(l.formato)}</small></div></div><dl><div class="cmp-linha"><dt>Quando faz sentido</dt><dd>${esc(l.quando)}</dd></div><div class="cmp-linha"><dt>Você passa a ter</dt><dd>${esc(l.entrega)}</dd></div></dl><a class="btn btn-linha btn-sm" href="${u(`solucoes/${l.s}/`)}">Conhecer ${icon('arrow-right')}</a></article>`).join('')}</div>
     <p class="lead" style="margin-top:22px;font-size:.98rem">O investimento de cada serviço é apresentado depois da conversa de diagnóstico, junto com a proposta feita para o seu caso.</p>
   </div>
 </section>

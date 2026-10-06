@@ -171,7 +171,7 @@ export function home({ posts }) {
   <div class="wrap">
     <div class="sec-cab" data-revela>
       <p class="etq">A escada de serviços</p>
-      <h2 class="h2">Você entra no degrau certo. Não no mais caro.</h2>
+      <h2 class="h2">Você entra no degrau certo: <span class="tinta-ouro">não no mais caro.</span></h2>
       <p class="lead">Cada degrau resolve um momento da empresa. Você começa onde está hoje e sobe quando a base aguenta.</p>
     </div>
     ${escadaHTML()}

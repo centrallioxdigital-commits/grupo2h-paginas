@@ -231,7 +231,7 @@
 
   /* ---------- pilhas de cartões ao rolar ---------- */
   var pilhas = [
-    { sel: '.jornada, .linha-tempo', mq: '(min-width: 901px)' },
+    { sel: '.linha-tempo', mq: '(min-width: 901px)' },
     { sel: '.escada, .bento, .inclui, .esteira, .time, .canais', mq: '(max-width: 760px)' },
   ];
   if (!reduz) pilhas.forEach(function (p) {
@@ -244,16 +244,62 @@
 
   /* ---------- inclinação 3D sutil no hover (só mouse) ---------- */
   if (!reduz && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    doc.querySelectorAll('.bt-prog, .membro, .num, .canal, .pilar, .esteira li').forEach(function (c) {
+    doc.querySelectorAll('.bt-prog, .membro, .num, .canal, .pilar, .cmp-card, .il').forEach(function (c) {
       c.setAttribute('data-tilt', '');
       c.addEventListener('pointermove', function (ev) {
         var r = c.getBoundingClientRect(), x = (ev.clientX - r.left) / r.width - .5, y = (ev.clientY - r.top) / r.height - .5;
         c.classList.add('inclinando');
-        c.style.transform = 'perspective(900px) rotateX(' + (-y * 5).toFixed(2) + 'deg) rotateY(' + (x * 6).toFixed(2) + 'deg) translateY(-6px)';
+        c.style.transform = 'perspective(900px) rotateX(' + (-y * (c.classList.contains('il') ? 7 : 5)).toFixed(2) + 'deg) rotateY(' + (x * (c.classList.contains('il') ? 9 : 6)).toFixed(2) + 'deg)' + (c.classList.contains('il') ? '' : ' translateY(-6px)');
       });
       c.addEventListener('pointerleave', function () { c.classList.remove('inclinando'); c.style.transform = ''; });
     });
   }
+
+  /* ---------- órbita do Método 5A: fase ativa em sequência ---------- */
+  doc.querySelectorAll('[data-orbita]').forEach(function (fig) {
+    var nos = fig.querySelectorAll('.o3-no'), leg = fig.querySelector('.o3-legenda');
+    var dados = JSON.parse((fig.querySelector('[data-o3-fases]') || {}).textContent || '[]');
+    var trilho = fig.querySelectorAll('.o3-trilho em'), i = 0, timer;
+    var ir = function (k) {
+      i = k; nos.forEach(function (n, j) { n.classList.toggle('on', j === k); });
+      trilho.forEach(function (t, j) { t.classList.toggle('on', j === k); });
+      if (dados[k]) { fig.querySelector('[data-o3-nome]').textContent = dados[k].nome; fig.querySelector('[data-o3-frase]').textContent = dados[k].frase; leg.classList.remove('troca'); void leg.offsetWidth; leg.classList.add('troca'); }
+    };
+    ir(0);
+    if (reduz) return;
+    var tocar = function () { clearInterval(timer); timer = setInterval(function () { ir((i + 1) % nos.length); }, 2600); };
+    nos.forEach(function (n, j) { n.style.cursor = 'pointer'; n.addEventListener('click', function () { ir(j); tocar(); }); });
+    if (temIO) new IntersectionObserver(function (e) { if (e[0].isIntersecting) tocar(); else clearInterval(timer); }).observe(fig); else tocar();
+  });
+
+  /* ---------- jornada: a linha acende conforme a rolagem ---------- */
+  var jornada = doc.querySelector('[data-jornada]');
+  if (jornada) {
+    var passosJ = jornada.querySelectorAll('.jr');
+    var atualizarJ = function () {
+      var r = jornada.getBoundingClientRect(), alvo = window.innerHeight * 0.6;
+      var p = Math.max(0, Math.min(1, (alvo - r.top - 32) / (r.height - 92)));
+      jornada.style.setProperty('--p', reduz ? 1 : p.toFixed(4));
+      passosJ.forEach(function (li) { li.classList.toggle('aceso', reduz || li.getBoundingClientRect().top + 32 < alvo); });
+    };
+    atualizarJ();
+    window.addEventListener('scroll', atualizarJ, { passive: true });
+    window.addEventListener('resize', atualizarJ);
+  }
+
+  /* ---------- 10 etapas: contador fixo acompanha o cartão da vez ---------- */
+  doc.querySelectorAll('[data-esteira]').forEach(function (bloco) {
+    var itens = bloco.querySelectorAll('.esteira li'), num = bloco.querySelector('[data-esteira-num]'), nome = bloco.querySelector('[data-esteira-nome]'), barra = bloco.querySelector('.esteira-barra');
+    var atualizarE = function () {
+      var atual = 0, linha = window.innerHeight * 0.55;
+      itens.forEach(function (li, k) { if (li.getBoundingClientRect().top < linha) atual = k; });
+      if (num) num.textContent = String(atual + 1).padStart(2, '0');
+      if (nome) nome.textContent = itens[atual].querySelector('b').textContent;
+      if (barra) barra.style.setProperty('--e', atual + 1);
+    };
+    atualizarE();
+    window.addEventListener('scroll', atualizarE, { passive: true });
+  });
 
   /* ---------- proteção de conteúdo (padrão das páginas da 2!H) ---------- */
   if (body.hasAttribute('data-protegido')) {

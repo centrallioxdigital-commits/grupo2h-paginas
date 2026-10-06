@@ -91,7 +91,6 @@ body::after{content:'';position:fixed;inset:0;z-index:70;pointer-events:none;opa
 .letreiro span{display:inline-flex;align-items:center;gap:48px;font:600 clamp(1.4rem,1rem + 1.4vw,2.3rem)/1 var(--f-d);letter-spacing:-.02em;color:var(--tx-3);white-space:nowrap}
 .letreiro span:nth-child(odd){color:var(--tx)}
 .letreiro span::after{content:'';width:10px;height:10px;border-radius:50%;background:var(--ouro)}
-.letreiro:hover .letreiro-trilho{animation-play-state:paused}
 @keyframes letreiro{to{transform:translateX(-50%)}}
 
 /* ---- bloco dourado (manifesto) ---------------------------------------- */
