@@ -57,8 +57,11 @@ ${capa({ trilhaHtml: t.html, titulo: 'Estrutura antes de escala.', tituloOuro: '
   </div>
 </section>
 
-${time.length ? `<section class="sec"><div class="wrap"><div class="sec-cab" data-revela><h2 class="h2">Quem está por trás.</h2></div><div class="time" data-revela-filhos>${time
-    .map((m) => `<article class="membro"><figure>${m.foto ? `<img src="${asset(`img/${m.foto}`)}" alt="${esc(m.nome)}" loading="lazy">` : ''}</figure><h3>${esc(m.nome)}</h3><p>${esc(m.papel)}</p>${m.bio ? `<p>${esc(m.bio)}</p>` : ''}</article>`)
+${time.length ? `<section class="sec luz luz-d" id="time"><div class="wrap"><div class="sec-cab" data-revela><p class="etq">Quem está por trás</p><h2 class="h2">O time que organiza a sua máquina.</h2></div><div class="time" data-revela-filhos>${time
+    .map((m) => {
+      const iniciais = m.nome.split(' ').filter(Boolean).map((x) => x[0]).slice(0, 2).join('').toUpperCase();
+      return `<article class="membro"><figure>${m.foto ? `<img src="${asset(`img/${m.foto}`)}" alt="${esc(m.nome)}" loading="lazy">` : `<span class="monograma" aria-hidden="true">${esc(iniciais)}</span>`}</figure><h3>${esc(m.nome)}</h3><p class="membro-papel">${esc(m.papel)}</p>${m.frase ? `<blockquote class="membro-frase">${esc(m.frase)}</blockquote>` : ''}</article>`;
+    })
     .join('')}</div></div></section>` : ''}
 
 <section class="sec">
