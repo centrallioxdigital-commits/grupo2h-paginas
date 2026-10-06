@@ -220,7 +220,7 @@ export function pagina(o) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script>document.documentElement.classList.add('js')</script>
+<script>(function(h){h.classList.add('js','carregando');addEventListener('load',function(){setTimeout(function(){h.classList.remove('carregando')},2500)})})(document.documentElement)</script>
 <title>${esc(titulo)}</title>
 <meta name="description" content="${esc(o.descricao)}">
 ${noindex ? '<meta name="robots" content="noindex, nofollow">' : '<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">'}
