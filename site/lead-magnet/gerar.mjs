@@ -9,7 +9,7 @@ import { createHash } from 'node:crypto';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
-import { REPO_DIR, SITE_DIR, esc, icon, CSS_SITE, minificarCss } from '../lib/core.mjs';
+import { REPO_DIR, SITE_DIR, esc, icon, CSS_SITE, minificarCss, purgarCss } from '../lib/core.mjs';
 import { paginaHTML } from './pagina.mjs';
 import { LM, SINAIS, FAIXAS } from './conteudo.mjs';
 
@@ -213,7 +213,9 @@ for (const f of ['topo-capa.svg', 'topo-cta.svg', 'topo-hero.svg', 'topo-cartao.
 for (const f of ['aperto-de-mao.webp', 'aperto-de-mao-800.webp']) copiar(join(SITE_DIR, 'static', 'img', 'fotos', f), `assets/img/fotos/${f}`);
 rmSync(join(SAIDA, 'assets', 'logo-2h-glyph.png'), { force: true });
 
-writeFileSync(join(SAIDA, 'index.html'), paginaHTML({ versao: hash.digest('hex').slice(0, 8), cssApp: cssEmb }));
+/* a página leva só o CSS que usa (mesmo filtro do site) */
+const htmlPagina = paginaHTML({ versao: hash.digest('hex').slice(0, 8), cssApp: '/*__CSS__*/' });
+writeFileSync(join(SAIDA, 'index.html'), htmlPagina.replace('/*__CSS__*/', () => purgarCss(cssEmb, htmlPagina)));
 writeFileSync(join(SAIDA, 'material.html'), material);
 console.log('página e material gerados em', SAIDA);
 

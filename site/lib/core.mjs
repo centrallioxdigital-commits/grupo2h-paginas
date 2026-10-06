@@ -137,6 +137,67 @@ export function juntarCss() {
   cssEmbutido = min.replace(/url\(\.\.\/([^)'"]+)\)/g, (_, rel) => `url(${asset(rel)})`);
   return min;
 }
+// ---- CSS por página: só as regras que a página pode usar ---------------------
+// Mantém a regra se alguma classe dela aparece no HTML da página ou em qualquer script do site
+// (classes que o JS liga e desliga, como visto, aceso, aberto, pausado). Regra sem classe,
+// @font-face, @keyframes e @property ficam sempre. Seletor com :is/:where/:has fica (não dá para saber).
+let palavrasJs = null;
+function palavrasDosScripts() {
+  if (palavrasJs) return palavrasJs;
+  const dir = join(SITE_DIR, 'static', 'js');
+  const texto = readdirSync(dir).map((f) => readFileSync(join(dir, f), 'utf8')).join(' ');
+  palavrasJs = new Set(texto.match(/[A-Za-z0-9_-]+/g));
+  return palavrasJs;
+}
+function dividirNivel0(s, sep) {
+  const partes = []; let prof = 0, ini = 0;
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i];
+    if (c === '(' || c === '[') prof++;
+    else if (c === ')' || c === ']') prof--;
+    else if (c === sep && prof === 0) { partes.push(s.slice(ini, i)); ini = i + 1; }
+  }
+  partes.push(s.slice(ini));
+  return partes;
+}
+function seletorServe(sel, usadas) {
+  if (/:(is|where|has)\(/.test(sel)) return true;
+  const semNot = sel.replace(/:not\([^()]*(\([^()]*\))?[^()]*\)/g, '');
+  const classes = semNot.match(/\.(-?[A-Za-z_][A-Za-z0-9_-]*)/g);
+  if (!classes) return true;
+  return classes.every((c) => usadas.has(c.slice(1)));
+}
+function purgarBloco(css, usadas) {
+  let saida = '', i = 0;
+  while (i < css.length) {
+    const abre = css.indexOf('{', i);
+    if (abre < 0) { saida += css.slice(i); break; }
+    const cabeca = css.slice(i, abre).trim();
+    let prof = 1, j = abre + 1;
+    while (j < css.length && prof) { if (css[j] === '{') prof++; else if (css[j] === '}') prof--; j++; }
+    const corpo = css.slice(abre + 1, j - 1);
+    if (cabeca.startsWith('@media') || cabeca.startsWith('@supports')) {
+      const dentro = purgarBloco(corpo, usadas);
+      if (dentro.trim()) saida += `${cabeca}{${dentro}}`;
+    } else if (cabeca.startsWith('@')) {
+      saida += `${cabeca}{${corpo}}`;
+    } else if (dividirNivel0(cabeca, ',').some((s) => seletorServe(s, usadas))) {
+      saida += `${cabeca}{${corpo}}`;
+    }
+    i = j;
+  }
+  return saida;
+}
+/** CSS com só o que a página usa (html = a página inteira, já montada). */
+export function purgarCss(css, html) {
+  const usadas = new Set(palavrasDosScripts());
+  for (const m of html.matchAll(/class="([^"]*)"/g)) for (const c of m[1].split(/\s+/)) if (c) usadas.add(c);
+  // classes citadas por scripts embutidos na própria página (ex.: o menu e o seletor montam HTML)
+  for (const m of html.matchAll(/<script(?![^>]*application\/ld\+json)[^>]*>([\s\S]*?)<\/script>/g)) for (const w of m[1].match(/[A-Za-z0-9_-]+/g) || []) usadas.add(w);
+  for (const m of html.matchAll(/<template[^>]*>([\s\S]*?)<\/template>/g)) for (const w of m[1].match(/[A-Za-z0-9_-]+/g) || []) usadas.add(w);
+  return purgarBloco(css, usadas);
+}
+
 /** Caminho de um asset com cache-busting: asset('css/site.css'). */
 export const asset = (rel) => u(`assets/${rel}`) + (versoes.has(rel) ? `?v=${versoes.get(rel)}` : '');
 export const assetAbs = (rel) => abs(`${cfg.producao ? '' : cfg.base.replace(/^\//, '')}assets/${rel}`);

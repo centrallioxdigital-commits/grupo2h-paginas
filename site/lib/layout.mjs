@@ -1,7 +1,7 @@
 // Moldura de todas as páginas: <head> com SEO completo, cabeçalho com menu,
 // rodapé e dados estruturados (JSON-LD) que Google e IAs leem.
 
-import { cfg, u, abs, esc, icon, asset, assetAbs, cssEmbutido } from './core.mjs';
+import { cfg, u, abs, esc, icon, asset, assetAbs, cssEmbutido, purgarCss } from './core.mjs';
 import { empresa, whatsappLink } from '../content/empresa.mjs';
 import { servicos } from '../content/servicos.mjs';
 import { programas } from '../content/metodo.mjs';
@@ -215,7 +215,7 @@ export function pagina(o) {
     ],
   };
   const gtm = cfg.producao && !o.semGTM && cfg.gtm;
-  return `<!doctype html>
+  const html = `<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -242,7 +242,7 @@ ${noindex ? '<meta name="robots" content="noindex, nofollow">' : '<meta name="ro
 <link rel="manifest" href="${u('site.webmanifest')}">
 <link rel="alternate" type="application/rss+xml" title="Blog do Grupo 2!H" href="${u('blog/rss.xml')}">
 <link rel="preload" href="${asset('fonts/general-sans-600.woff2')}" as="font" type="font/woff2" crossorigin>
-<style>${cssEmbutido.replace(/<\/style/gi, '<\/style')}</style>
+<style>/*__CSS__*/</style>
 ${o.extraHead || ''}
 <script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>
 ${gtm ? `<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${cfg.gtm}');</script>` : ''}
@@ -259,6 +259,8 @@ ${o.scripts || ''}
 </body>
 </html>
 `;
+  // cada página leva só o CSS que usa (embutido, sem requisição extra)
+  return html.replace('/*__CSS__*/', () => purgarCss(cssEmbutido, html));
 }
 
 /** Trilha de navegação visível + JSON-LD. trilha: [{nome, path}] (a home entra sozinha). */
