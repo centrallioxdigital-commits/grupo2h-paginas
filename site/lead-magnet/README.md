@@ -3,7 +3,10 @@
 Página: https://grupo2h.com.br/7-sinais/ (mora em `7-sinais/` na raiz do repositório, como as outras LPs).
 
 - `conteudo.mjs`: todo o texto (título, os 7 sinais, faixas do resultado, webhook, WhatsApp, link da política).
-- `gerar.mjs`: monta `7-sinais/index.html`, `7-sinais/material.html` e o PDF (impresso pelo Chrome).
+- `pagina.mjs`: a página, montada com os componentes do site (pílulas, botões, capa, cartões, perguntas, divisórias, faixa final).
+- `gerar.mjs`: copia o CSS, o `site.js` e as imagens do site para `7-sinais/assets/`, grava `7-sinais/index.html`, `7-sinais/material.html` e imprime o PDF pelo Chrome.
+
+Mudou o visual do site (CSS ou `site.js`)? Rode o gerador de novo para a página acompanhar.
 
 Mudou algum texto? Edite `conteudo.mjs` e rode:
 
