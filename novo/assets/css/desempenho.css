@@ -1,0 +1,56 @@
+/* =====================================================================
+   Desempenho: entra por último e troca só os efeitos caros de desenhar
+   (desfoque de fundo, filtros recalculados na rolagem, camadas fixas)
+   por equivalentes leves, sem mudar o visual. Rolagem fluida no celular.
+   ===================================================================== */
+
+/* ---- desfoque de fundo: só no cabeçalho (mais leve) e no menu aberto ---- */
+.hero-mapa,.chip-flutua,.hero-selo,.foto-leg,.b3-card,.f3-etq,.membro-barra,.f4-v,.mega-in{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.hero-mapa{background:linear-gradient(180deg,rgba(20,20,24,.97),rgba(13,13,16,.96))!important}
+.chip-flutua{background:linear-gradient(180deg,rgba(40,40,46,.96),rgba(17,17,21,.96))!important}
+.hero-selo{background:rgba(30,30,34,.94)!important}
+.foto-leg{background:linear-gradient(180deg,rgba(40,40,46,.94),rgba(17,17,21,.93))!important}
+.b3-card:not(.on){background:linear-gradient(180deg,rgba(44,44,50,.96),rgba(20,20,24,.96))!important}
+.membro-barra{background:linear-gradient(180deg,rgba(40,40,46,.9),rgba(14,14,18,.92))!important}
+.mega-in{background:rgba(16,16,20,.98)!important}
+.topo-in{-webkit-backdrop-filter:blur(12px) saturate(1.3)!important;backdrop-filter:blur(12px) saturate(1.3)!important}
+@media (max-width:960px){
+  .topo-in{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:rgba(16,16,20,.93)!important}
+  .topo.solido .topo-in{background:rgba(13,13,16,.96)!important}
+}
+
+/* ---- seções que sobem por cima: sombra menor (menos área para redesenhar) ---- */
+.cobre{box-shadow:0 -1px 0 rgba(242,238,229,.08),0 -24px 40px -24px rgba(0,0,0,.85)!important}
+.cobre.creme{box-shadow:0 -1px 0 rgba(255,255,255,.7),0 -24px 40px -24px rgba(0,0,0,.6)!important}
+
+/* ---- inclinação 3D: camada própria só durante o hover ---- */
+[data-tilt]{will-change:auto!important}
+[data-tilt].inclinando{will-change:transform!important}
+
+/* ---- pilhas de cartões: escurecer com uma película (opacidade) em vez de filter:brightness,
+        que obrigava a redesenhar o cartão inteiro a cada quadro da rolagem ---- */
+.esteira-grade .esteira.pilha-ativa>li{filter:none!important;will-change:auto!important}
+.esteira-grade .esteira.pilha-ativa>li::after{content:'';position:absolute;inset:-1px;border-radius:inherit;background:#050507;opacity:calc(var(--c,0) * .5);pointer-events:none;z-index:2}
+
+/* ---- animações decorativas paradas enquanto estão fora da tela (classe posta pelo site.js) ---- */
+.pausado,.pausado *,.pausado::before,.pausado::after,.pausado *::before,.pausado *::after{animation-play-state:paused!important}
+
+/* ---- o restante da página só é desenhado quando chega perto da tela ---- */
+.rod2,.cta-final{content-visibility:auto;contain-intrinsic-size:auto 600px}
+
+/* ---- perguntas: o "×" dourado gira sem levar o brilho junto (antes a sombra girava 135°,
+        ia para cima do botão e era cortada em linha reta pelo topo da pergunta) ---- */
+.acord[open] summary .ic{transform:rotate(45deg)!important;
+  background:radial-gradient(circle at 50% 50%,#FFE89A 0%,#F7C93A 55%,#E2AA14 100%)!important;
+  box-shadow:0 0 0 1px rgba(255,226,140,.55),0 0 16px -2px rgba(245,195,40,.55)!important}
+
+/* ---- pílulas de seção e etiquetas: sem desfoque de fundo (eram 20px + saturação em cada uma) ---- */
+.etq,.il-chips span,.m3-chips span,.f4-e,.filtros a,.fato,.m3-leitura,.contador{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.etq,.fato,.filtros a:not(.ativo):not([aria-current]){background-color:rgba(28,28,32,.9)!important}
+.contador{background:rgba(16,16,20,.96)!important}
+
+/* ---- primeira tela: nada começa invisível (PageSpeed só conta o conteúdo quando ele aparece;
+        a entrada antiga partia de opacidade 0 + desfoque e atrasava FCP, LCP e Speed Index) ---- */
+@keyframes entra-leve{from{transform:translateY(14px)}to{transform:none}}
+.js .hero-h1 .l1,.js .hero-h1 .l2,.js .hero-sub,.js .hero-acoes,.js .hero-selo,.js .hero-mapa,.hero-quadro .foto{animation:entra-leve .8s var(--ease-mola) both!important}
+.js .capa [data-revela],.js .capa [data-revela-filhos]>*{opacity:1!important}

@@ -122,6 +122,16 @@ export function copiarStatic() {
   };
   andar(origem);
 }
+/** Ordem das folhas de estilo do site; o build junta tudo em assets/css/app.css (uma requisição só). */
+export const CSS_SITE = ['site', 'turbo', 'relevo', 'movimento', 'encorpado', 'acabamento', 'vitrine', 'pecas', 'desempenho'];
+export const minificarCss = (css) => css.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').replace(/\s*([{};])\s*/g, '$1').trim();
+export function juntarCss() {
+  const css = CSS_SITE.map((n) => readFileSync(join(SITE_DIR, 'static', 'css', n + '.css'), 'utf8')).join('\n');
+  const min = minificarCss(css) + '\n';
+  versoes.set('css/app.css', createHash('sha1').update(min).digest('hex').slice(0, 8));
+  write('assets/css/app.css', min);
+  return min;
+}
 /** Caminho de um asset com cache-busting: asset('css/site.css'). */
 export const asset = (rel) => u(`assets/${rel}`) + (versoes.has(rel) ? `?v=${versoes.get(rel)}` : '');
 export const assetAbs = (rel) => abs(`${cfg.producao ? '' : cfg.base.replace(/^\//, '')}assets/${rel}`);

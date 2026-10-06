@@ -7,7 +7,7 @@
 // Só regrava arquivo que mudou e apaga o que deixou de existir (manifesto),
 // sem nunca tocar nas LPs que moram no mesmo repositório.
 
-import { cfg, write, writeRoot, copiarStatic, finalizarManifesto } from './lib/core.mjs';
+import { cfg, write, writeRoot, copiarStatic, juntarCss, finalizarManifesto } from './lib/core.mjs';
 import { topografia } from './lib/visuais.mjs';
 import { buscarPosts, prepararPost } from './lib/blog.mjs';
 import { home } from './pages/home.mjs';
@@ -23,6 +23,7 @@ console.log(`Modo: ${cfg.modo} · base ${cfg.base} · saída ${cfg.saida}`);
 
 // 1. Arquivos estáticos e texturas
 copiarStatic();
+juntarCss();
 write('assets/img/topo-hero.svg', topografia({ w: 1600, h: 900, centros: [[1180, 260, 620], [260, 820, 420]], passo: 24, semente: 11 }));
 write('assets/img/topo-capa.svg', topografia({ w: 1600, h: 700, centros: [[1250, 330, 560]], passo: 22, semente: 23 }));
 write('assets/img/topo-cta.svg', topografia({ w: 1600, h: 800, centros: [[800, 420, 700]], passo: 26, semente: 5 }));

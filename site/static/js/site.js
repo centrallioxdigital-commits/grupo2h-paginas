@@ -427,7 +427,7 @@
 
   /* ---------- animações contínuas só rodam enquanto estão na tela ---------- */
   if (temIO) {
-    var vivos = doc.querySelectorAll('.letreiro, .il-orbita3d, .il-funil3d, .il-marca3d, .il-medidor3d, .il-bussola3d, .manif-selo, .faq-loop, .escada-base');
+    var vivos = doc.querySelectorAll('.letreiro, .il, .rota, .rc, .divisa, .chip-flutua, .rel, .manif-selo, .faq-loop, .escada-base, .hero-quadro, .capa-visual');
     var olho = new IntersectionObserver(function (ents) {
       ents.forEach(function (e) {
         e.target.classList.toggle('pausado', !e.isIntersecting);

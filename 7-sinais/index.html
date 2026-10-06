@@ -16,14 +16,7 @@
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preload" href="assets/fonts/general-sans-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=056968fe">
-<link rel="stylesheet" href="assets/css/turbo.css?v=056968fe">
-<link rel="stylesheet" href="assets/css/relevo.css?v=056968fe">
-<link rel="stylesheet" href="assets/css/movimento.css?v=056968fe">
-<link rel="stylesheet" href="assets/css/encorpado.css?v=056968fe">
-<link rel="stylesheet" href="assets/css/acabamento.css?v=056968fe">
-<link rel="stylesheet" href="assets/css/vitrine.css?v=056968fe">
-<link rel="stylesheet" href="assets/css/pecas.css?v=056968fe">
+<link rel="stylesheet" href="assets/css/app.css?v=c1f9aca4">
 <style>
 @property --lx{syntax:'<percentage>';inherits:true;initial-value:30%}
 @property --ly{syntax:'<percentage>';inherits:true;initial-value:30%}
@@ -179,7 +172,8 @@ fieldset.campo{border:0;margin:0;padding:0;min-width:0}
   .travados{display:block;padding-bottom:6px}
   .travados li{position:sticky;top:calc(84px + var(--n) * 10px);margin-bottom:14px;min-height:108px;padding:20px 18px;
     background:radial-gradient(120% 120% at 0% 0%,rgba(245,195,40,.1),transparent 55%),var(--rel-face),var(--bg-2);border-top-color:rgba(245,195,40,.35);
-    box-shadow:0 -14px 34px -14px rgba(0,0,0,.95),var(--rel-sombra);transform-origin:50% 0;transform:scale(calc(1 - var(--c,0) * .06));filter:brightness(calc(1 - var(--c,0) * .45))}
+    box-shadow:0 -14px 34px -14px rgba(0,0,0,.95),var(--rel-sombra);transform-origin:50% 0;transform:scale(calc(1 - var(--c,0) * .06))}
+  .travados li::after{content:'';position:absolute;inset:-1px;border-radius:inherit;background:#050507;opacity:calc(var(--c,0) * .45);pointer-events:none}
   .travados li:last-child{margin-bottom:0}
   .travados li:hover{transform:scale(calc(1 - var(--c,0) * .06))}
   .tv-ic{color:var(--ouro)}
@@ -400,7 +394,7 @@ fieldset.campo{border:0;margin:0;padding:0;min-width:0}
   <a href="/novo/privacidade/">Política de privacidade</a>
 </div></div></footer>
 
-<script src="assets/js/site.js?v=056968fe" defer></script>
+<script src="assets/js/site.js?v=c1f9aca4" defer></script>
 <script>
 (function () {
   var CONFIG = { WEBHOOK_URL: "https://n8n-n8n-start.dnjlb7.easypanel.host/webhook/grupo2h?source=lead-magnet", CHAVE: '2h_7sinais' };

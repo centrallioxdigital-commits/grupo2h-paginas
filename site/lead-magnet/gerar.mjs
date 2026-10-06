@@ -9,7 +9,7 @@ import { createHash } from 'node:crypto';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
-import { REPO_DIR, SITE_DIR, esc, icon } from '../lib/core.mjs';
+import { REPO_DIR, SITE_DIR, esc, icon, CSS_SITE, minificarCss } from '../lib/core.mjs';
 import { paginaHTML } from './pagina.mjs';
 import { LM, SINAIS, FAIXAS } from './conteudo.mjs';
 
@@ -132,6 +132,15 @@ p{margin:0}
 .cta .links{display:flex;gap:8mm;margin-top:6mm;font:600 11pt/1.3 var(--fd)}
 .cta .links span{display:flex;align-items:center;gap:2.5mm}
 .cta .links .ic{font-size:14pt}
+/* PDF leve: nada de máscara nem texto em degradê (o Chrome transformava em imagem de página inteira e o leitor travava) */
+.grade{display:none!important}
+.ouro{background:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;color:#F5C328!important}
+.capa::after{opacity:.8}
+.pg{background:#0D0D10!important}
+.m-sn,.passo,.legenda div,.fim .faixas div{background:#16161A!important}
+.m-dois>div{background:#0F0F12!important}
+.m-perg,.pontos{background:#211C0E!important}
+.notas{background:#141310!important}
 </style></head>
 <body>
 <section class="pg capa"><div class="grade"></div>
@@ -187,7 +196,12 @@ ${pares.map((p, k) => `<section class="pg"><div class="grade"></div><div class="
 /* a página usa o mesmo CSS, JS e imagens do site: copia da fonte do site a cada geração */
 const copiar = (de, para) => { mkdirSync(join(SAIDA, para, '..'), { recursive: true }); copyFileSync(de, join(SAIDA, para)); return readFileSync(de); };
 const hash = createHash('sha1');
-for (const n of ['site', 'turbo', 'relevo', 'movimento', 'encorpado', 'acabamento', 'vitrine', 'pecas']) hash.update(copiar(join(SITE_DIR, 'static', 'css', n + '.css'), `assets/css/${n}.css`));
+/* mesmo pacote único de CSS do site (com os ajustes de desempenho), uma requisição só */
+const cssApp = minificarCss(CSS_SITE.map((n) => readFileSync(join(SITE_DIR, 'static', 'css', n + '.css'), 'utf8')).join('\n')) + '\n';
+rmSync(join(SAIDA, 'assets', 'css'), { recursive: true, force: true });
+mkdirSync(join(SAIDA, 'assets', 'css'), { recursive: true });
+writeFileSync(join(SAIDA, 'assets', 'css', 'app.css'), cssApp);
+hash.update(cssApp);
 hash.update(copiar(join(SITE_DIR, 'static', 'js', 'site.js'), 'assets/js/site.js'));
 copiar(join(SITE_DIR, 'static', 'img', 'logo-2h-glyph.png'), 'assets/img/logo-2h-glyph.png');
 for (const f of ['topo-capa.svg', 'topo-cta.svg', 'topo-hero.svg', 'topo-cartao.svg']) {

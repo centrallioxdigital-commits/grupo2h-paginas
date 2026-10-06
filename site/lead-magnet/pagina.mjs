@@ -10,7 +10,6 @@ const n2 = (i) => String(i + 1).padStart(2, '0');
 const waLink = (msg) => `https://api.whatsapp.com/send?phone=${LM.whatsapp}&text=${encodeURIComponent(msg)}`;
 const WA = waLink('Olá! Baixei o checklist dos 7 sinais e quero conversar sobre a minha operação.');
 const DIVISA = '<div class="divisa" aria-hidden="true"><span class="divisa-selo"><span class="divisa-moeda"><img src="assets/img/logo-2h-glyph.png" alt="" width="39" height="36"></span></span></div>';
-const CSS_SITE = ['site', 'turbo', 'relevo', 'movimento', 'encorpado', 'acabamento', 'vitrine', 'pecas'];
 
 /* ---------------------------------------------------------------- visual da abertura: relatório + lupa */
 const linhasBonitas = [['Alcance', '128,4 mil', '+32%'], ['Impressões', '312 mil', '+18%'], ['Curtidas', '4.215', '+41%'], ['CPM', 'R$ 8,90', '−12%']];
@@ -204,7 +203,8 @@ fieldset.campo{border:0;margin:0;padding:0;min-width:0}
   .travados{display:block;padding-bottom:6px}
   .travados li{position:sticky;top:calc(84px + var(--n) * 10px);margin-bottom:14px;min-height:108px;padding:20px 18px;
     background:radial-gradient(120% 120% at 0% 0%,rgba(245,195,40,.1),transparent 55%),var(--rel-face),var(--bg-2);border-top-color:rgba(245,195,40,.35);
-    box-shadow:0 -14px 34px -14px rgba(0,0,0,.95),var(--rel-sombra);transform-origin:50% 0;transform:scale(calc(1 - var(--c,0) * .06));filter:brightness(calc(1 - var(--c,0) * .45))}
+    box-shadow:0 -14px 34px -14px rgba(0,0,0,.95),var(--rel-sombra);transform-origin:50% 0;transform:scale(calc(1 - var(--c,0) * .06))}
+  .travados li::after{content:'';position:absolute;inset:-1px;border-radius:inherit;background:#050507;opacity:calc(var(--c,0) * .45);pointer-events:none}
   .travados li:last-child{margin-bottom:0}
   .travados li:hover{transform:scale(calc(1 - var(--c,0) * .06))}
   .tv-ic{color:var(--ouro)}
@@ -226,7 +226,7 @@ fieldset.campo{border:0;margin:0;padding:0;min-width:0}
 }`;
 
 export function paginaHTML({ versao }) {
-  const css = CSS_SITE.map((n) => `<link rel="stylesheet" href="assets/css/${n}.css?v=${versao}">`).join('\n');
+  const css = `<link rel="stylesheet" href="assets/css/app.css?v=${versao}">`;
   return `<!doctype html>
 <html lang="pt-BR">
 <head>

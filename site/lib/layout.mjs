@@ -243,14 +243,7 @@ ${noindex ? '<meta name="robots" content="noindex, nofollow">' : '<meta name="ro
 <link rel="alternate" type="application/rss+xml" title="Blog do Grupo 2!H" href="${u('blog/rss.xml')}">
 <link rel="preload" href="${asset('fonts/general-sans-600.woff2')}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${asset('fonts/inter-var-latin.woff2')}" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="${asset('css/site.css')}">
-<link rel="stylesheet" href="${asset('css/turbo.css')}">
-<link rel="stylesheet" href="${asset('css/relevo.css')}">
-<link rel="stylesheet" href="${asset('css/movimento.css')}">
-<link rel="stylesheet" href="${asset('css/encorpado.css')}">
-<link rel="stylesheet" href="${asset('css/acabamento.css')}">
-<link rel="stylesheet" href="${asset('css/vitrine.css')}">
-<link rel="stylesheet" href="${asset('css/pecas.css')}">
+<link rel="stylesheet" href="${asset('css/app.css')}">
 ${o.extraHead || ''}
 <script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>
 ${gtm ? `<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${cfg.gtm}');</script>` : ''}
