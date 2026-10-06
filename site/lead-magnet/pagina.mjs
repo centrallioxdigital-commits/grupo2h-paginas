@@ -61,7 +61,7 @@ const CSS_PAGINA = `
 .rel-cab{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line);font:600 .95rem/1 var(--f-d)}
 .rel-pontos{display:flex;gap:6px}.rel-pontos i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.14)}
 .rel-ag{margin-left:auto;font:600 .7rem/1 var(--f-b);letter-spacing:.14em;text-transform:uppercase;color:var(--tx-3)}
-.rel-corpo{position:relative;--lx:30%;--ly:30%;animation:lupa 11s var(--ease-mola) infinite}
+.rel-corpo{position:relative;--lx:30%;--ly:30%;animation:lupa 11s var(--ease-mola) 3.5s infinite}
 @keyframes lupa{0%,100%{--lx:28%;--ly:18%}22%{--lx:70%;--ly:30%}45%{--lx:62%;--ly:62%}68%{--lx:30%;--ly:52%}85%{--lx:55%;--ly:86%}}
 .rel-camada{padding:10px 20px 20px}
 .rel-l{display:grid;grid-template-columns:minmax(0,1fr) auto 64px;align-items:center;gap:12px;padding:15px 0;border-bottom:1px solid var(--line)}
