@@ -194,7 +194,7 @@ export function home({ posts }) {
     <div class="dna-fixo">
       <h2 class="h2">O DNA que guia cada decisão.</h2>
       <p class="lead">Cinco princípios que aparecem em todo projeto da 2!H, do primeiro diagnóstico à leitura de número de cada semana.</p>
-      ${foto('pensativo', 'Empresário pensativo analisando a própria operação', { cls: 'dna-foto', sizes: '(max-width: 900px) 100vw, 40vw' })}
+      ${foto('jhonathan-ceo', 'Jhonathan Marcos, CEO do Grupo 2!H', { cls: 'dna-foto', sizes: '(max-width: 900px) 100vw, 40vw', legenda: `<figcaption class="foto-leg">${icon('seal-check')} Jhonathan Marcos, CEO do Grupo 2!H</figcaption>` })}
     </div>
     <ul class="dna-lista" data-acende-item>${DNA.map((x) => `<li>${icon(x.i)}<h3>${esc(x.t)}</h3><p>${esc(x.d)}</p></li>`).join('')}</ul>
   </div>

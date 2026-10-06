@@ -242,3 +242,5 @@ body::after{content:'';position:fixed;inset:0;z-index:70;pointer-events:none;opa
 .membro figure::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(11,11,13,.55));pointer-events:none}
 .membro figure{position:relative}
 @media (hover:none){.membro figure img{filter:none}}
+.dna-foto img{object-position:50% 0}
+.dna-foto.foto img{transform:none}
