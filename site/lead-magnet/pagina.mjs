@@ -225,8 +225,8 @@ fieldset.campo{border:0;margin:0;padding:0;min-width:0}
   .travados li{position:relative;top:auto;transform:none;filter:none}
 }`;
 
-export function paginaHTML({ versao }) {
-  const css = `<link rel="stylesheet" href="assets/css/app.css?v=${versao}">`;
+export function paginaHTML({ versao, cssApp }) {
+  const css = `<style>${cssApp}</style>`;
   return `<!doctype html>
 <html lang="pt-BR">
 <head>

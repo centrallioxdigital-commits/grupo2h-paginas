@@ -201,6 +201,8 @@ const cssApp = minificarCss(CSS_SITE.map((n) => readFileSync(join(SITE_DIR, 'sta
 rmSync(join(SAIDA, 'assets', 'css'), { recursive: true, force: true });
 mkdirSync(join(SAIDA, 'assets', 'css'), { recursive: true });
 writeFileSync(join(SAIDA, 'assets', 'css', 'app.css'), cssApp);
+/* embutido no HTML da página: os caminhos relativos à pasta do CSS passam a partir de assets/ */
+const cssEmb = cssApp.replace(/url\(\.\.\/([^)'"]+)\)/g, (_, rel) => `url(assets/${rel})`);
 hash.update(cssApp);
 hash.update(copiar(join(SITE_DIR, 'static', 'js', 'site.js'), 'assets/js/site.js'));
 copiar(join(SITE_DIR, 'static', 'img', 'logo-2h-glyph.png'), 'assets/img/logo-2h-glyph.png');
@@ -211,7 +213,7 @@ for (const f of ['topo-capa.svg', 'topo-cta.svg', 'topo-hero.svg', 'topo-cartao.
 for (const f of ['aperto-de-mao.webp', 'aperto-de-mao-800.webp']) copiar(join(SITE_DIR, 'static', 'img', 'fotos', f), `assets/img/fotos/${f}`);
 rmSync(join(SAIDA, 'assets', 'logo-2h-glyph.png'), { force: true });
 
-writeFileSync(join(SAIDA, 'index.html'), paginaHTML({ versao: hash.digest('hex').slice(0, 8) }));
+writeFileSync(join(SAIDA, 'index.html'), paginaHTML({ versao: hash.digest('hex').slice(0, 8), cssApp: cssEmb }));
 writeFileSync(join(SAIDA, 'material.html'), material);
 console.log('página e material gerados em', SAIDA);
 

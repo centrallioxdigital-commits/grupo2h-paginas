@@ -125,11 +125,16 @@ export function copiarStatic() {
 /** Ordem das folhas de estilo do site; o build junta tudo em assets/css/app.css (uma requisição só). */
 export const CSS_SITE = ['site', 'turbo', 'relevo', 'movimento', 'encorpado', 'acabamento', 'vitrine', 'pecas', 'desempenho'];
 export const minificarCss = (css) => css.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').replace(/\s*([{};])\s*/g, '$1').trim();
+/** CSS do site já minificado, embutido no <head> de cada página (sem requisição que bloqueia a primeira pintura). */
+export let cssEmbutido = '';
 export function juntarCss() {
   const css = CSS_SITE.map((n) => readFileSync(join(SITE_DIR, 'static', 'css', n + '.css'), 'utf8')).join('\n');
   const min = minificarCss(css) + '\n';
   versoes.set('css/app.css', createHash('sha1').update(min).digest('hex').slice(0, 8));
   write('assets/css/app.css', min);
+  // embutido no HTML, url(../fonts/x) deixa de ser relativo à pasta do CSS: troca pelo caminho
+  // absoluto com a mesma versão (?v=) do <link rel=preload>, senão a fonte é baixada duas vezes
+  cssEmbutido = min.replace(/url\(\.\.\/([^)'"]+)\)/g, (_, rel) => `url(${asset(rel)})`);
   return min;
 }
 /** Caminho de um asset com cache-busting: asset('css/site.css'). */

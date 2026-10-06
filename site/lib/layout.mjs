@@ -1,7 +1,7 @@
 // Moldura de todas as páginas: <head> com SEO completo, cabeçalho com menu,
 // rodapé e dados estruturados (JSON-LD) que Google e IAs leem.
 
-import { cfg, u, abs, esc, icon, asset, assetAbs } from './core.mjs';
+import { cfg, u, abs, esc, icon, asset, assetAbs, cssEmbutido } from './core.mjs';
 import { empresa, whatsappLink } from '../content/empresa.mjs';
 import { servicos } from '../content/servicos.mjs';
 import { programas } from '../content/metodo.mjs';
@@ -243,7 +243,7 @@ ${noindex ? '<meta name="robots" content="noindex, nofollow">' : '<meta name="ro
 <link rel="alternate" type="application/rss+xml" title="Blog do Grupo 2!H" href="${u('blog/rss.xml')}">
 <link rel="preload" href="${asset('fonts/general-sans-600.woff2')}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${asset('fonts/inter-var-latin.woff2')}" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="${asset('css/app.css')}">
+<style>${cssEmbutido.replace(/<\/style/gi, '<\/style')}</style>
 ${o.extraHead || ''}
 <script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>
 ${gtm ? `<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${cfg.gtm}');</script>` : ''}
