@@ -101,3 +101,6 @@
 }
 
 .adm-topo{flex-wrap:wrap;gap:10px}
+
+/* o atributo hidden sempre esconde (as telas e avisos usam display:grid/flex, que passava por cima dele) */
+[hidden]{display:none!important}
