@@ -267,6 +267,20 @@ fieldset.campo{border:0;margin:0;padding:0;min-width:0}
   .form{position:relative;top:auto}
   .tres{grid-template-columns:1fr}
 }
+@media (max-width:1024px){
+  .travados{display:block;margin-top:26px;padding-bottom:6px}
+  .travados li{position:sticky;top:calc(18px + var(--n) * 10px);margin-bottom:14px;min-height:108px;padding:20px 18px;border-radius:22px;
+    grid-template-columns:52px minmax(0,1fr) 24px;gap:16px;
+    background:radial-gradient(120% 120% at 0% 0%,rgba(245,195,40,.1),transparent 55%),linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.015)),#141418;
+    border:1px solid rgba(242,238,229,.1);border-top-color:rgba(245,195,40,.35);
+    box-shadow:0 -14px 34px -14px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.08);
+    transform-origin:50% 0;transform:scale(calc(1 - var(--c,0) * .06));filter:brightness(calc(1 - var(--c,0) * .45))}
+  .travados li:last-child{margin-bottom:0}
+  .travados .tv-n{width:52px;height:52px;border-radius:15px;font-size:1.05rem}
+  .travados .tv-t{font-size:1.08rem;line-height:1.3}
+  .travados .tv-ic{width:22px;height:22px;color:var(--ouro)}
+}
+@media (max-width:1024px) and (prefers-reduced-motion:reduce){.travados li{position:relative;top:auto;transform:none;filter:none}}
 @media (max-width:640px){
   .topo-pil{display:none}
   .divisa-moeda{width:52px;height:52px}.divisa-moeda img{width:24px}
@@ -341,7 +355,7 @@ img,svg{-webkit-user-drag:none}
       <p class="etq"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/></svg> O que tem no checklist</p>
       <h2><span>Os 7 sinais, cada um com</span><span class="ouro">a pergunta certa a fazer.</span></h2>
       <p class="sec-lead">Para cada sinal: como perceber, o que deveria acontecer numa relação transparente e a pergunta para levar à próxima reunião com a sua agência.</p>
-      <ol class="travados"><li><span class="tv-n">01</span><span class="tv-t">Você não é dono das suas contas de anúncio.</span><svg class="ic tv-ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/></svg></li><li><span class="tv-n">02</span><span class="tv-t">O relatório fala de curtidas, não de vendas.</span><svg class="ic tv-ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/></svg></li><li><span class="tv-n">03</span><span class="tv-t">Ninguém sabe quanto custa um cliente.</span><svg class="ic tv-ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/></svg></li><li><span class="tv-n">04</span><span class="tv-t">Os números da plataforma não batem com o caixa.</span><svg class="ic tv-ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/></svg></li><li><span class="tv-n">05</span><span class="tv-t">Quando o resultado cai, a culpa é sempre de alguém.</span><svg class="ic tv-ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/></svg></li><li><span class="tv-n">06</span><span class="tv-t">Você não sabe para onde vai cada real.</span><svg class="ic tv-ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/></svg></li><li><span class="tv-n">07</span><span class="tv-t">Todo mês é “vamos testar”.</span><svg class="ic tv-ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/></svg></li></ol>
+      <ol class="travados"><li style="--n:0"><span class="tv-n">01</span><span class="tv-t">Você não é dono das suas contas de anúncio.</span><svg class="ic tv-ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/></svg></li><li style="--n:1"><span class="tv-n">02</span><span class="tv-t">O relatório fala de curtidas, não de vendas.</span><svg class="ic tv-ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/></svg></li><li style="--n:2"><span class="tv-n">03</span><span class="tv-t">Ninguém sabe quanto custa um cliente.</span><svg class="ic tv-ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/></svg></li><li style="--n:3"><span class="tv-n">04</span><span class="tv-t">Os números da plataforma não batem com o caixa.</span><svg class="ic tv-ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/></svg></li><li style="--n:4"><span class="tv-n">05</span><span class="tv-t">Quando o resultado cai, a culpa é sempre de alguém.</span><svg class="ic tv-ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/></svg></li><li style="--n:5"><span class="tv-n">06</span><span class="tv-t">Você não sabe para onde vai cada real.</span><svg class="ic tv-ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/></svg></li><li style="--n:6"><span class="tv-n">07</span><span class="tv-t">Todo mês é “vamos testar”.</span><svg class="ic tv-ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/></svg></li></ol>
     </div>
     <form class="form" id="form" novalidate data-entra>
       <div class="form-campos">
@@ -582,6 +596,20 @@ img,svg{-webkit-user-drag:none}
 
   /* quem já recebeu o checklist volta direto para ele */
   if (ler(CONFIG.CHAVE)) liberar(false);
+
+  /* pilha dos 7 sinais no celular: o cartão coberto pelo próximo encolhe e escurece */
+  var tvs = Array.prototype.slice.call(doc.querySelectorAll('.travados li')), mqP = window.matchMedia('(max-width: 1024px)'), pedido = false;
+  function cobrir() {
+    pedido = false;
+    tvs.forEach(function (c, k) {
+      var prox = tvs[k + 1];
+      if (!mqP.matches || reduz || !prox) { c.style.removeProperty('--c'); return; }
+      var a = c.getBoundingClientRect(), b = prox.getBoundingClientRect(), h = c.offsetHeight;
+      c.style.setProperty('--c', Math.max(0, Math.min(1, (a.top + h - b.top) / h)).toFixed(3));
+    });
+  }
+  window.addEventListener('scroll', function () { if (!pedido) { pedido = true; requestAnimationFrame(cobrir); } }, { passive: true });
+  window.addEventListener('resize', cobrir); cobrir();
 
   /* perguntas: abrem e fecham suave, uma por vez (igual ao site) */
   var acords = doc.querySelectorAll('details.acord');

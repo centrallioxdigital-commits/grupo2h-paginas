@@ -50,7 +50,7 @@ const relatorio = `<figure class="rel" aria-label="Um relatório de agência che
 </figure>`;
 
 /* ------------------------------------------------------------------ página */
-const travados = SINAIS.map((s, i) => `<li><span class="tv-n">${n2(i)}</span><span class="tv-t">${esc(s.titulo)}</span>${ic('lock-simple', 'ic tv-ic')}</li>`).join('');
+const travados = SINAIS.map((s, i) => `<li style="--n:${i}"><span class="tv-n">${n2(i)}</span><span class="tv-t">${esc(s.titulo)}</span>${ic('lock-simple', 'ic tv-ic')}</li>`).join('');
 
 const cartoes = SINAIS.map((s, i) => `<li class="sn" data-i="${i}">
   <div class="sn-cab"><span class="sn-ic">${ic(s.icone)}</span><span class="sn-n">Sinal ${n2(i)}</span></div>
@@ -331,6 +331,20 @@ fieldset.campo{border:0;margin:0;padding:0;min-width:0}
   .form{position:relative;top:auto}
   .tres{grid-template-columns:1fr}
 }
+@media (max-width:1024px){
+  .travados{display:block;margin-top:26px;padding-bottom:6px}
+  .travados li{position:sticky;top:calc(18px + var(--n) * 10px);margin-bottom:14px;min-height:108px;padding:20px 18px;border-radius:22px;
+    grid-template-columns:52px minmax(0,1fr) 24px;gap:16px;
+    background:radial-gradient(120% 120% at 0% 0%,rgba(245,195,40,.1),transparent 55%),linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.015)),#141418;
+    border:1px solid rgba(242,238,229,.1);border-top-color:rgba(245,195,40,.35);
+    box-shadow:0 -14px 34px -14px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.08);
+    transform-origin:50% 0;transform:scale(calc(1 - var(--c,0) * .06));filter:brightness(calc(1 - var(--c,0) * .45))}
+  .travados li:last-child{margin-bottom:0}
+  .travados .tv-n{width:52px;height:52px;border-radius:15px;font-size:1.05rem}
+  .travados .tv-t{font-size:1.08rem;line-height:1.3}
+  .travados .tv-ic{width:22px;height:22px;color:var(--ouro)}
+}
+@media (max-width:1024px) and (prefers-reduced-motion:reduce){.travados li{position:relative;top:auto;transform:none;filter:none}}
 @media (max-width:640px){
   .topo-pil{display:none}
   .divisa-moeda{width:52px;height:52px}.divisa-moeda img{width:24px}
@@ -572,6 +586,20 @@ ${DIVISA}
 
   /* quem já recebeu o checklist volta direto para ele */
   if (ler(CONFIG.CHAVE)) liberar(false);
+
+  /* pilha dos 7 sinais no celular: o cartão coberto pelo próximo encolhe e escurece */
+  var tvs = Array.prototype.slice.call(doc.querySelectorAll('.travados li')), mqP = window.matchMedia('(max-width: 1024px)'), pedido = false;
+  function cobrir() {
+    pedido = false;
+    tvs.forEach(function (c, k) {
+      var prox = tvs[k + 1];
+      if (!mqP.matches || reduz || !prox) { c.style.removeProperty('--c'); return; }
+      var a = c.getBoundingClientRect(), b = prox.getBoundingClientRect(), h = c.offsetHeight;
+      c.style.setProperty('--c', Math.max(0, Math.min(1, (a.top + h - b.top) / h)).toFixed(3));
+    });
+  }
+  window.addEventListener('scroll', function () { if (!pedido) { pedido = true; requestAnimationFrame(cobrir); } }, { passive: true });
+  window.addEventListener('resize', cobrir); cobrir();
 
   /* perguntas: abrem e fecham suave, uma por vez (igual ao site) */
   var acords = doc.querySelectorAll('details.acord');
