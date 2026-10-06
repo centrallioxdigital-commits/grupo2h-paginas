@@ -31,12 +31,14 @@
 .cm-texto text{font:600 7.2px var(--f-b);fill:#fff;letter-spacing:.16em}
 .cm-texto,.cm-cometa{transform-box:view-box;transform-origin:100px 100px}
 .cm-texto{animation:cmgira 46s linear infinite reverse}
-.cm-cometa{animation:cmgira 4.8s cubic-bezier(.45,.05,.55,.95) infinite}
-.cm-rastro{fill:none;stroke:#F5C328;stroke-linecap:round}
-.cm-r1{stroke-dasharray:28 100;stroke-dashoffset:-72;stroke-width:1.2;opacity:.3}
-.cm-r2{stroke-dasharray:14 100;stroke-dashoffset:-86;stroke-width:2.2;opacity:.65}
-.cm-r3{stroke-dasharray:5 100;stroke-dashoffset:-95;stroke-width:3.2;filter:drop-shadow(0 0 4px #F5C328)}
-.cm-ponta{fill:#FFF6D0;filter:drop-shadow(0 0 5px #F5C328) drop-shadow(0 0 10px rgba(245,195,40,.8))}
+.cm-cometa{animation:cmgira 5.2s linear infinite;filter:drop-shadow(0 0 3px rgba(245,195,40,.9))}
+.cm-rastro{fill:none;stroke:#FFD54A;stroke-linecap:round}
+.cm-halo{transform-box:fill-box;transform-origin:center;animation:cmpulsa 1.6s ease-in-out infinite}
+.cm-esfera{filter:drop-shadow(0 0 4px #FFE27A) drop-shadow(0 0 10px rgba(245,195,40,.9))}
+.cm-brilho{fill:#fff;opacity:.95}
+.cm-anel{fill:none;stroke:rgba(255,240,180,.55);stroke-width:.6;transform-box:fill-box;transform-origin:center;animation:cmonda 1.6s ease-out infinite}
+@keyframes cmpulsa{50%{transform:scale(1.25);opacity:.75}}
+@keyframes cmonda{from{transform:scale(.8);opacity:.9}to{transform:scale(1.9);opacity:0}}
 .cm-vidro{pointer-events:none}
 @keyframes cmgira{to{transform:rotate(360deg)}}
 @media (max-width:900px){.manif-selo{width:172px;padding:32px}.manif-selo p{font-size:.76rem}}

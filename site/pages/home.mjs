@@ -56,6 +56,8 @@ export function circuloTrafego() {
       <linearGradient id="cm-aro" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6A6A74"/><stop offset=".3" stop-color="#2A2A31"/><stop offset=".55" stop-color="#121216"/><stop offset=".8" stop-color="#3C3C45"/><stop offset="1" stop-color="#1A1A1F"/></linearGradient>
       <radialGradient id="cm-face" cx=".5" cy=".35" r=".75"><stop offset="0" stop-color="#26252B"/><stop offset=".7" stop-color="#121215"/><stop offset="1" stop-color="#09090B"/></radialGradient>
       <linearGradient id="cm-vidro" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <radialGradient id="cm-halo"><stop offset="0" stop-color="#FFE27A" stop-opacity=".9"/><stop offset=".35" stop-color="#F5C328" stop-opacity=".45"/><stop offset="1" stop-color="#F5C328" stop-opacity="0"/></radialGradient>
+      <radialGradient id="cm-esfera" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".3" stop-color="#FFF0B0"/><stop offset=".7" stop-color="#F5C328"/><stop offset="1" stop-color="#B07C06"/></radialGradient>
       <path id="cm-trilho" d="M100 100 m-71 0 a71 71 0 1 1 142 0 a71 71 0 1 1 -142 0"/>
     </defs>
     <circle cx="100" cy="100" r="99" fill="url(#cm-aro)"/>
@@ -65,10 +67,11 @@ export function circuloTrafego() {
     <g class="cm-marcas">${marcas}</g>
     <g class="cm-texto"><text><textPath href="#cm-trilho" startOffset="0" textLength="440" lengthAdjust="spacing">ESTRUTURA ANTES DE ESCALA · CLAREZA ANTES DE INVESTIMENTO ·</textPath></text></g>
     <g class="cm-cometa">
-      <circle cx="100" cy="100" r="91" pathLength="100" class="cm-rastro cm-r1"/>
-      <circle cx="100" cy="100" r="91" pathLength="100" class="cm-rastro cm-r2"/>
-      <circle cx="100" cy="100" r="91" pathLength="100" class="cm-rastro cm-r3"/>
-      <circle cx="191" cy="100" r="3.6" class="cm-ponta"/>
+      ${Array.from({ length: 32 }, (_, k) => { const f = k / 31; return `<circle cx="100" cy="100" r="91" pathLength="100" class="cm-rastro" style="stroke-dasharray:1.25 100;stroke-dashoffset:${(-(98.9 - k * 0.95)).toFixed(2)};stroke-width:${(5 - f * 4.4).toFixed(2)};opacity:${(1 - f).toFixed(3)}"/>`; }).join('')}
+      <circle cx="191" cy="100" r="13" fill="url(#cm-halo)" class="cm-halo"/>
+      <circle cx="191" cy="100" r="5.6" fill="url(#cm-esfera)" class="cm-esfera"/>
+      <ellipse cx="189.6" cy="98.2" rx="2" ry="1.3" class="cm-brilho"/>
+      <circle cx="191" cy="100" r="7.5" class="cm-anel"/>
     </g>
     <path d="M100 100 m-90 0 a90 90 0 0 1 180 0 Z" fill="url(#cm-vidro)" class="cm-vidro"/>
   </svg>`;
