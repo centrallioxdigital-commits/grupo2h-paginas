@@ -125,3 +125,5 @@ a.btn-ouro,a.btn-ouro:visited,.prosa a.btn-ouro{color:var(--ouro-tinta)!importan
   .il-medidor3d .m3-ponteiro{transform:rotate(var(--alvo))}
   .il-medidor3d .m3-progresso{stroke-dashoffset:0}
 }
+/* celular e telas estreitas: o navegador ignora ::-webkit-scrollbar no modo celular, então usa as propriedades padrão nas cores da marca */
+@media (max-width:960px),(pointer:coarse){html{scrollbar-color:#F5C328 #0B0B0D;scrollbar-width:thin}}

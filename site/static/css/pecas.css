@@ -275,3 +275,92 @@ main>.cobre,main>section.cobre,main>.letreiro.cobre{border-radius:0!important}
 .sel-jogo-ic{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;flex:none;background:#17130A;box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 2px 6px -2px rgba(0,0,0,.5)}
 .sel-jogo .sel-jogo-ic .ic{width:15px;height:15px;color:#F7C935}
 .sel-cab p.sel-jogo{color:#17130A!important;font-weight:700}
+
+/* =====================================================================
+   Menu do celular: painel de vidro com grupos em cartões (identidade 2!H)
+   Abre e fecha devagar, com mola, desfoque e cascata (estilo Apple).
+   ===================================================================== */
+.menu-movel{position:fixed;inset:0;z-index:49;padding:0;background:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;overflow:hidden}
+.menu-movel[hidden]{display:none}
+.mm-fundo{position:absolute;inset:0;background:radial-gradient(90% 55% at 50% 0%,rgba(245,195,40,.16),transparent 60%),radial-gradient(80% 50% at 50% 100%,rgba(245,195,40,.08),transparent 65%),rgba(8,8,10,.86);
+  -webkit-backdrop-filter:blur(0) saturate(1);backdrop-filter:blur(0) saturate(1);opacity:0;
+  transition:opacity .6s cubic-bezier(.32,.72,0,1),backdrop-filter .7s cubic-bezier(.32,.72,0,1),-webkit-backdrop-filter .7s cubic-bezier(.32,.72,0,1)}
+.mm-painel{position:relative;height:100%;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;gap:12px;
+  padding:calc(var(--topo-h) + 26px) 16px calc(28px + env(safe-area-inset-bottom));max-width:520px;margin:0 auto;
+  opacity:0;transform:translateY(-14px) scale(.965);filter:blur(10px);transform-origin:50% 0;
+  transition:opacity .55s cubic-bezier(.32,.72,0,1),transform .75s cubic-bezier(.32,.72,0,1),filter .6s cubic-bezier(.32,.72,0,1)}
+.menu-movel.aberto .mm-fundo{opacity:1;-webkit-backdrop-filter:blur(26px) saturate(1.4);backdrop-filter:blur(26px) saturate(1.4)}
+.menu-movel.aberto .mm-painel{opacity:1;transform:none;filter:none}
+/* saída um pouco mais rápida que a entrada, como no iOS */
+.menu-movel.saindo .mm-fundo{transition-duration:.5s}
+.menu-movel.saindo .mm-painel{transition-duration:.4s,.5s,.4s;transform:translateY(-8px) scale(.975)}
+
+/* cascata: cada bloco entra depois do anterior */
+.mm-painel>*{opacity:0;transform:translateY(18px) scale(.98);transition:opacity .6s cubic-bezier(.32,.72,0,1),transform .8s cubic-bezier(.32,.72,0,1)}
+.menu-movel.aberto .mm-painel>*{opacity:1;transform:none}
+.menu-movel.aberto .mm-painel>:nth-child(1){transition-delay:.06s}
+.menu-movel.aberto .mm-painel>:nth-child(2){transition-delay:.12s}
+.menu-movel.aberto .mm-painel>:nth-child(3){transition-delay:.18s}
+.menu-movel.aberto .mm-painel>:nth-child(4){transition-delay:.24s}
+.menu-movel.aberto .mm-painel>:nth-child(5){transition-delay:.3s}
+.menu-movel.saindo .mm-painel>*{transition-duration:.35s;transition-delay:0s!important}
+
+/* pílula de vidro (botão estilo app) */
+.mm-pilula{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:10px 14px;border-radius:16px;
+  font:600 .92rem/1.2 var(--f-d);letter-spacing:-.01em;color:var(--tx);text-align:center;
+  background:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.025));border:1px solid rgba(242,238,229,.1);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.1),inset 0 -1px 0 rgba(0,0,0,.35),0 8px 18px -12px rgba(0,0,0,.9);
+  transition:transform .35s cubic-bezier(.32,.72,0,1),background .3s,border-color .3s;-webkit-tap-highlight-color:transparent}
+.mm-pilula .ic{width:18px;height:18px;flex:none;color:#F5C328}
+.mm-pilula:active{transform:scale(.96);background:linear-gradient(180deg,rgba(245,195,40,.16),rgba(245,195,40,.05))}
+.mm-pilula.mm-atual{border-color:rgba(245,195,40,.55);background:radial-gradient(120% 140% at 50% 0%,rgba(245,195,40,.2),transparent 70%),linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 0 0 3px rgba(245,195,40,.1)}
+.mm-inicio{align-self:center;min-width:150px;border-radius:999px;padding:10px 26px}
+
+/* grupo em cartão de vidro */
+.mm-grupo{padding:16px 14px 14px;border-radius:24px;border:1px solid rgba(242,238,229,.1);
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.012));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 24px 50px -30px rgba(0,0,0,.95)}
+.mm-grupo .mm-tit{margin:0 0 12px;text-align:center;font:700 .74rem/1 var(--f-b);letter-spacing:.22em;text-transform:uppercase;
+  background:linear-gradient(180deg,#FFE490,#D9A012);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mm-grade{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;list-style:none;margin:0;padding:0}
+.mm-grade>li:last-child:nth-child(odd){grid-column:1/-1}
+.mm-grade .mm-pilula{height:100%}
+
+/* ações finais */
+.mm-acoes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.mm-acao{display:flex;align-items:center;justify-content:center;gap:8px;min-height:54px;border-radius:999px;font:600 .98rem/1 var(--f-d);color:var(--tx);
+  background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03));border:1px solid rgba(242,238,229,.14);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 10px 24px -14px rgba(0,0,0,.9);transition:transform .35s cubic-bezier(.32,.72,0,1)}
+.mm-acao .ic{width:20px;height:20px}
+.mm-acao:active{transform:scale(.96)}
+.mm-acao-ouro{color:#17130A;border-color:transparent;background:linear-gradient(180deg,#FFE9A0,#F7C935 50%,#E2AA14);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -2px 0 rgba(140,95,0,.3),0 12px 28px -12px rgba(245,195,40,.75)}
+
+/* botão do menu: ícone de app (vidro escuro, borda dourada sutil), linhas viram X dourado */
+.menu-btn{width:46px;height:46px;border-radius:15px!important;border:1px solid rgba(242,238,229,.14)!important;
+  background:radial-gradient(120% 120% at 30% 10%,rgba(255,255,255,.14),transparent 55%),linear-gradient(160deg,#25252B,#111114);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -2px 4px rgba(0,0,0,.6),0 10px 22px -10px rgba(0,0,0,.9);
+  transition:transform .35s cubic-bezier(.32,.72,0,1),border-color .5s,box-shadow .5s;-webkit-tap-highlight-color:transparent}
+.menu-btn:active{transform:scale(.92)}
+.menu-btn i{left:13px;right:13px;height:2px;transition:transform .7s cubic-bezier(.32,.72,0,1),top .7s cubic-bezier(.32,.72,0,1),background .5s,width .5s}
+.menu-btn i:first-of-type{top:17px}
+.menu-btn i:last-of-type{top:26px;left:19px}
+.menu-btn[aria-expanded=true]{border-color:rgba(245,195,40,.5)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 0 0 4px rgba(245,195,40,.1),0 10px 24px -10px rgba(245,195,40,.45)}
+.menu-btn[aria-expanded=true] i{top:21.5px!important;left:13px!important;background:#F5C328}
+.menu-btn[aria-expanded=true] i:first-of-type{transform:rotate(45deg)}
+.menu-btn[aria-expanded=true] i:last-of-type{transform:rotate(-45deg)}
+.topo.menu-aberto{background:transparent!important;border-color:transparent!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+
+@media (prefers-reduced-motion:reduce){
+  .mm-fundo,.mm-painel,.mm-painel>*,.menu-btn i{transition:none!important}
+}
+/* menu do celular: compacto o bastante para caber sem rolar num celular comum */
+.mm-painel{gap:10px;padding-top:calc(var(--topo-h) + 18px);scrollbar-width:none}
+.mm-painel::-webkit-scrollbar{display:none}
+.mm-pilula{min-height:44px;padding:8px 12px;font-size:.86rem;border-radius:14px}
+.mm-pilula .ic{width:17px;height:17px}
+.mm-grupo{padding:13px 12px 12px;border-radius:22px}
+.mm-grupo .mm-tit{margin-bottom:10px}
+.mm-grade{gap:7px}
+.mm-inicio{min-height:42px}
+.mm-acao{min-height:50px}

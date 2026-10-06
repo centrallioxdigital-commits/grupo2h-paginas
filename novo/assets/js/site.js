@@ -35,16 +35,27 @@
   /* ---------- menu do celular ---------- */
   var mBtn = doc.querySelector('[data-menu-btn]'), menu = doc.querySelector('[data-menu]');
   if (mBtn && menu) {
-    var fechar = function () { menu.hidden = true; mBtn.setAttribute('aria-expanded', 'false'); body.style.overflow = ''; if (topo) topo.classList.remove('menu-aberto'); };
-    mBtn.addEventListener('click', function () {
-      var abrir = menu.hidden;
-      menu.hidden = !abrir;
-      mBtn.setAttribute('aria-expanded', abrir ? 'true' : 'false');
-      body.style.overflow = abrir ? 'hidden' : '';
-      if (topo) topo.classList.toggle('solido', abrir || topo.classList.contains('solido'));
-    });
+    /* abre e fecha com animação (estilo Apple): o painel só some depois que a transição de saída termina */
+    var tFecha;
+    var fechar = function () {
+      if (menu.hidden || !menu.classList.contains('aberto')) return;
+      menu.classList.remove('aberto'); menu.classList.add('saindo');
+      mBtn.setAttribute('aria-expanded', 'false'); body.style.overflow = ''; if (topo) topo.classList.remove('menu-aberto');
+      clearTimeout(tFecha);
+      tFecha = setTimeout(function () { menu.hidden = true; menu.classList.remove('saindo'); }, reduz ? 0 : 620);
+    };
+    var abrirMenu = function () {
+      clearTimeout(tFecha);
+      menu.classList.remove('saindo'); menu.hidden = false;
+      void menu.offsetWidth;
+      menu.classList.add('aberto');
+      mBtn.setAttribute('aria-expanded', 'true'); body.style.overflow = 'hidden';
+      if (topo) { topo.classList.add('menu-aberto'); topo.classList.remove('escondido'); }
+    };
+    mBtn.addEventListener('click', function () { if (menu.classList.contains('aberto')) fechar(); else abrirMenu(); });
+    menu.querySelector('.mm-fundo').addEventListener('click', fechar);
     menu.addEventListener('click', function (ev) { if (ev.target.closest('a')) fechar(); });
-    doc.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && !menu.hidden) { fechar(); mBtn.focus(); } });
+    doc.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && menu.classList.contains('aberto')) { fechar(); mBtn.focus(); } });
     window.matchMedia('(min-width: 961px)').addEventListener('change', function (m) { if (m.matches) fechar(); });
   }
 
@@ -262,7 +273,7 @@
 
   /* ---------- barra superior: some ao descer, volta ao subir ---------- */
   if (topo) {
-    var ultimoY = window.scrollY, pedido = false, menuAberto = function () { var m = doc.querySelector('[data-menu]'); return (m && !m.hidden) || !!doc.querySelector('.nav-mega.aberto'); };
+    var ultimoY = window.scrollY, pedido = false, menuAberto = function () { var m = doc.querySelector('[data-menu]'); return (m && m.classList.contains('aberto')) || !!doc.querySelector('.nav-mega.aberto'); };
     window.addEventListener('scroll', function () {
       var y = window.scrollY, d = y - ultimoY;
       if (y < 140 || menuAberto()) topo.classList.remove('escondido');

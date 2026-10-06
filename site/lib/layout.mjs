@@ -109,6 +109,9 @@ function cabecalho(atual) {
     </div>
   </div>
 </div>`;
+  const marcado = (href) => (atual && (atual === href || (href !== 'solucoes/' && atual.startsWith(href))) ? ' mm-atual' : '');
+  const item = (href, ic, nome) => `<li><a class="mm-pilula${marcado(href)}" href="${u(href)}">${icon(ic)}<span>${esc(nome)}</span></a></li>`;
+  const itemExt = (href, ic, nome) => `<li><a class="mm-pilula" href="${href}">${icon(ic)}<span>${esc(nome)}</span></a></li>`;
   const links = NAV.map((n) => {
     const ativo = atual && (atual === n.href || atual.startsWith(n.href)) ? ' aria-current="page"' : '';
     if (n.mega)
@@ -128,15 +131,25 @@ function cabecalho(atual) {
   </div>
 </header>
 <div class="menu-movel" id="menu-movel" data-menu hidden>
-  <nav aria-label="Menu do celular">
-    <ul class="mm-lista">
-      <li><a href="${u('')}">Início</a></li>
-      ${NAV.map((n) => `<li><a href="${u(n.href)}">${n.label}</a></li>`).join('')}
-    </ul>
-    <p class="mm-tit">Serviços</p>
-    <ul class="mm-sub">${servicos.map((s) => `<li><a href="${u(`solucoes/${s.slug}/`)}">${esc(s.nome)}</a></li>`).join('')}</ul>
-    <a class="btn btn-ouro btn-bloco" href="${diag('menu-celular')}" data-diag>Fazer o diagnóstico rápido ${icon('arrow-right')}</a>
-    <a class="mm-zap" href="${whatsappLink()}" target="_blank" rel="noopener">${icon('whatsapp-logo')} ${esc(empresa.whatsappExibicao)}</a>
+  <div class="mm-fundo" aria-hidden="true"></div>
+  <nav class="mm-painel" aria-label="Menu do celular">
+    <a class="mm-pilula mm-inicio${atual === '' ? ' mm-atual' : ''}" href="${u('')}">${icon('house')}<span>Início</span></a>
+    <section class="mm-grupo">
+      <p class="mm-tit">Soluções</p>
+      <ul class="mm-grade">${servicos.map((s) => item(`solucoes/${s.slug}/`, s.icone, s.nome.replace(' e coprodução', ''))).join('')}${item('solucoes/', 'squares-four', 'Ver todas')}</ul>
+    </section>
+    <section class="mm-grupo">
+      <p class="mm-tit">Método 5A</p>
+      <ul class="mm-grade">${item('metodo-5a/', 'graph', 'O Método 5A')}${programas.map((p, k) => itemExt(p.link, ['presentation-chart', 'users-three', 'target'][k] || 'arrow-up-right', p.nome.replace('Estrutura ', '').replace('Estratégico ', ''))).join('')}</ul>
+    </section>
+    <section class="mm-grupo">
+      <p class="mm-tit">A 2!H</p>
+      <ul class="mm-grade">${item('como-funciona/', 'compass', 'Como funciona')}${item('sobre/', 'users-three', 'Sobre')}${item('blog/', 'article', 'Blog')}${item('contato/', 'chat-circle-dots', 'Contato')}</ul>
+    </section>
+    <div class="mm-acoes">
+      <a class="mm-acao mm-acao-ouro" href="${diag('menu-celular')}" data-diag>${icon('lightning')}<span>Diagnóstico</span></a>
+      <a class="mm-acao" href="${whatsappLink()}" target="_blank" rel="noopener">${icon('whatsapp-logo')}<span>WhatsApp</span></a>
+    </div>
   </nav>
 </div>`;
 }
