@@ -178,3 +178,36 @@
 /* 10 etapas: cartão do tamanho do conteúdo */
 @media (min-width:901px){.esteira-grade .esteira li{min-height:0!important;padding:26px 28px!important;align-items:center}}
 .tinta-ouro{color:var(--ouro)}
+
+/* ---- órbita do Método 5A no celular: rótulos centralizados embaixo de cada fase (não saem da tela) ---- */
+.o3-rot-cel{display:none}
+@media (max-width:760px){
+  .o3-rot{display:none}
+  .o3-rot-cel{display:inline}
+  .o3-rot-cel .o3-nome{font-size:19px;paint-order:stroke;stroke:#0B0B0D;stroke-width:5px;stroke-linejoin:round}
+}
+
+/* ---- 10 etapas: nome e descrição sempre em linhas separadas ---- */
+.esteira li>div{display:flex;flex-direction:column;gap:6px;min-width:0}
+
+/* ---- 10 etapas no celular: pilha de cartões (o de trás encolhe e escurece quando o próximo sobe) ---- */
+@media (max-width:760px){
+  .esteira-grade{gap:28px}
+  .esteira-grade .esteira.pilha-ativa{display:block;padding-bottom:8px}
+  .esteira-grade .esteira.pilha-ativa>li{
+    position:sticky;top:calc(92px + var(--n) * 9px);
+    display:grid;grid-template-columns:52px minmax(0,1fr);align-items:start;gap:16px;
+    min-height:152px;padding:24px 20px;margin:0 0 18px;
+    background:var(--rel-face),#141418;border:1px solid rgba(242,238,229,.09);
+    box-shadow:0 -14px 34px -14px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.06);
+    transform-origin:50% 0;transform:scale(calc(1 - var(--c,0) * .07));filter:brightness(calc(1 - var(--c,0) * .5));
+    transition:border-color .5s;will-change:transform}
+  .esteira-grade .esteira.pilha-ativa>li:last-child{margin-bottom:0;background:radial-gradient(120% 100% at 0% 0%,rgba(245,195,40,.16),transparent 55%),var(--rel-face),#141418;border-color:rgba(245,195,40,.35)}
+  .esteira-grade .esteira.pilha-ativa>li:hover{transform:scale(calc(1 - var(--c,0) * .07))}
+  .esteira-grade .esteira li::before{width:52px;height:52px;font-size:1.05rem}
+  .esteira-grade .esteira li b{font-size:1.3rem;line-height:1.2}
+  .esteira-grade .esteira li span{font-size:.98rem;line-height:1.5}
+}
+@media (max-width:760px) and (prefers-reduced-motion:reduce){
+  .esteira-grade .esteira.pilha-ativa>li{position:relative;top:auto;transform:none;filter:none}
+}

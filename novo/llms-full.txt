@@ -364,16 +364,26 @@ Análise, Alinhamento, Aquisição, Acompanhamento e Aceleração. O método que
 01
 Análise
 
+Análise
+
 02
+Alinhamento
+
 Alinhamento
 
 03
 Aquisição
 
+Aquisição
+
 04
 Acompanhamento
 
+Acompanhamento
+
 05
+Aceleração
+
 Aceleração
 
 Análise Descubra onde o dinheiro está sendo perdido.

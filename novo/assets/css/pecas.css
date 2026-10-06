@@ -213,3 +213,60 @@
   .il-dec3d .pc-nome-p{font-size:20px}.dc3-op-tx{font-size:19px}
   .il-lanc3d .pc-nome-p{font-size:18px}
 }
+
+/* ---- home no celular: a foto vem antes do título (igual às outras páginas) ---- */
+@media (max-width:900px){
+  .hero-grade{display:flex;flex-direction:column}
+  .hero-quadro{order:-1;width:100%;margin:0 auto 6px}
+}
+@media (max-width:760px){
+  .hero-quadro .foto{aspect-ratio:4/3.3}
+}
+
+/* ---- mapa da máquina de vendas no celular: rota vertical que acende ---- */
+.rc{display:none}
+@media (max-width:760px){
+  .rota-lista{display:none!important}
+  .mapa-cab{justify-content:center;text-align:center}
+  .rc{display:block;position:relative;padding:10px 0 4px;--p:0}
+  .rc::before{content:'';position:absolute;inset:0 -16px;pointer-events:none;opacity:.5;
+    background-image:radial-gradient(rgba(245,195,40,.35) 1px,transparent 1.4px);background-size:22px 22px;
+    -webkit-mask-image:linear-gradient(90deg,#000,transparent 55%);mask-image:linear-gradient(90deg,#000,transparent 55%)}
+  .rc-svg{position:absolute;left:0;top:10px;overflow:visible}
+  .rc-svg path{fill:none;stroke-linecap:round}
+  .rc-trilho{stroke:rgba(242,238,229,.1);stroke-width:2;stroke-dasharray:2 7}
+  .rc-luz,.rc-glow{stroke-width:3;stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--p));transition:stroke-dashoffset .25s linear}
+  .rc-glow{stroke-width:10;opacity:.45;filter:blur(6px)}
+  .rc-pulso{stroke:#FFF3C4;stroke-width:4;stroke-dasharray:3 97;filter:drop-shadow(0 0 6px #F5C328);animation:rc-corre 5.5s linear infinite}
+  @keyframes rc-corre{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+  .rc-lista{position:relative;list-style:none;margin:0;padding:0}
+  .rc-st{height:var(--rc-passo);display:grid;grid-template-columns:72px minmax(0,1fr);align-items:center;gap:6px}
+  .rc-orbe{justify-self:center;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;position:relative;
+    color:rgba(245,195,40,.55);background:radial-gradient(85% 85% at 35% 28%,#3A3A42,#19191E 60%,#0C0C0F);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -3px 6px rgba(0,0,0,.7),0 0 0 1px rgba(245,195,40,.18),0 10px 22px -10px rgba(0,0,0,.9);
+    transition:color .5s,box-shadow .6s,transform .6s var(--ease-mola,cubic-bezier(.32,.72,0,1))}
+  .rc-orbe .ic{width:22px;height:22px}
+  .rc-st>div{display:flex;flex-direction:column;gap:3px;padding:11px 14px 12px;border-radius:16px;border:1px solid rgba(242,238,229,.06);
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.01));opacity:.5;transform:translateX(10px);
+    transition:opacity .6s,transform .7s var(--ease-mola,cubic-bezier(.32,.72,0,1)),border-color .6s,background .6s}
+  .rc-st small{font:600 .66rem/1 var(--f-b);letter-spacing:.16em;text-transform:uppercase;color:rgba(245,195,40,.75)}
+  .rc-st b{font:600 1.08rem/1.15 var(--f-d);color:var(--tx)}
+  .rc-st span{font-size:.84rem;line-height:1.4;color:var(--tx-3)}
+  .rc-st.aceso .rc-orbe{color:#F5C328;transform:scale(1.06);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -3px 6px rgba(0,0,0,.7),0 0 0 1px rgba(245,195,40,.6),0 0 22px -2px rgba(245,195,40,.55)}
+  .rc-st.aceso>div{opacity:1;transform:none;border-color:rgba(245,195,40,.16)}
+  .rc-fim .rc-orbe{width:56px;height:56px;color:#1A1408;background:radial-gradient(80% 80% at 35% 30%,#FFF6D0,#F7C935 40%,#A87408)}
+  .rc-fim .rc-orbe::after{content:'';position:absolute;inset:-6px;border-radius:50%;border:1.5px solid rgba(245,195,40,.6);animation:rc-onda 2.4s ease-out infinite}
+  @keyframes rc-onda{from{transform:scale(1);opacity:.9}to{transform:scale(1.7);opacity:0}}
+  .rc-fim>div{background:radial-gradient(120% 120% at 0% 0%,rgba(245,195,40,.2),transparent 60%),rgba(255,255,255,.02)}
+  .rc-fim b{font-size:1.25rem;color:#FFE27A}
+  .rc-fim.aceso>div{border-color:rgba(245,195,40,.45)}
+}
+@media (max-width:760px) and (prefers-reduced-motion:reduce){
+  .rc-pulso,.rc-fim .rc-orbe::after{animation:none;display:none}
+}
+
+/* ---- manifesto: o destaque final ("tudo conectado.") fica inteiro numa linha ---- */
+.manif-txt .ouro{white-space:nowrap;display:inline-block;line-height:1.12}
+
+/* ---- divisórias: a seção que sobe encaixa reto na linha dourada (sem vão nos cantos) ---- */
+main>.cobre,main>section.cobre,main>.letreiro.cobre{border-radius:0!important}

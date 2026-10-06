@@ -365,6 +365,38 @@
     window.addEventListener('scroll', porQuadro(atualizarE), { passive: true });
   });
 
+  /* ---------- mapa da máquina de vendas no celular: a rota acende conforme a rolagem ---------- */
+  doc.querySelectorAll('[data-rota-cel]').forEach(function (rc) {
+    var sts = rc.querySelectorAll('.rc-st');
+    var atualizarR = function () {
+      var r = rc.getBoundingClientRect(), alvo = window.innerHeight * 0.62;
+      if (!r.height) return;
+      var p = reduz ? 1 : Math.max(0, Math.min(1, (alvo - r.top) / r.height));
+      rc.style.setProperty('--p', p.toFixed(4));
+      sts.forEach(function (li) { var q = li.querySelector('.rc-orbe').getBoundingClientRect(); li.classList.toggle('aceso', reduz || q.top + q.height / 2 < alvo); });
+    };
+    atualizarR();
+    window.addEventListener('scroll', porQuadro(atualizarR), { passive: true });
+    window.addEventListener('resize', atualizarR);
+  });
+
+  /* ---------- 10 etapas no celular: cartão coberto pelo próximo encolhe e escurece ---------- */
+  if (!reduz) doc.querySelectorAll('.esteira').forEach(function (ol) {
+    var cards = Array.prototype.slice.call(ol.children), mqE = window.matchMedia('(max-width: 760px)');
+    var cobrir = function () {
+      if (!mqE.matches) { cards.forEach(function (c) { c.style.removeProperty('--c'); }); return; }
+      cards.forEach(function (c, k) {
+        var prox = cards[k + 1]; if (!prox) { c.style.setProperty('--c', 0); return; }
+        var a = c.getBoundingClientRect(), b = prox.getBoundingClientRect();
+        var h = c.offsetHeight, p = Math.max(0, Math.min(1, (a.top + h - b.top) / h));
+        c.style.setProperty('--c', p.toFixed(3));
+      });
+    };
+    cobrir();
+    window.addEventListener('scroll', porQuadro(cobrir), { passive: true });
+    mqE.addEventListener('change', cobrir);
+  });
+
   /* ---------- animações contínuas só rodam enquanto estão na tela ---------- */
   if (temIO) {
     var vivos = doc.querySelectorAll('.letreiro, .il-orbita3d, .il-funil3d, .il-marca3d, .il-medidor3d, .il-bussola3d, .manif-selo, .faq-loop, .escada-base');

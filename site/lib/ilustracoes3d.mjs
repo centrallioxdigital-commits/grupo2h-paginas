@@ -26,8 +26,15 @@ export function ilOrbita3d(fases) {
         <circle cx="${r1(x)}" cy="${r1(y)}" r="27" class="o3-vidro"/>
         <path d="M${r1(x - 17)} ${r1(y - 9)} A20 20 0 0 1 ${r1(x + 17)} ${r1(y - 9)}" class="o3-reflexo"/>
         <g class="o3-ic">${iconeEm(f.icone, x, y, 24)}</g>
-        <text x="${r1(lx)}" y="${r1(ly - 9)}" text-anchor="${ancora}" class="o3-num">0${i + 1}</text>
-        <text x="${r1(lx)}" y="${r1(ly + 9)}" text-anchor="${ancora}" class="o3-nome">${esc(f.nome)}</text>
+        <g class="o3-rot">
+          <text x="${r1(lx)}" y="${r1(ly - 9)}" text-anchor="${ancora}" class="o3-num">0${i + 1}</text>
+          <text x="${r1(lx)}" y="${r1(ly + 9)}" text-anchor="${ancora}" class="o3-nome">${esc(f.nome)}</text>
+        </g>
+        <g class="o3-rot-cel">
+          ${i === 0
+            ? `<text x="${r1(x)}" y="${r1(y - 44)}" text-anchor="middle" class="o3-nome">${esc(f.nome)}</text>`
+            : `<text x="${r1(x)}" y="${r1(y + 54)}" text-anchor="middle" class="o3-nome">${esc(f.nome)}</text>`}
+        </g>
       </g>`;
     })
     .join('');

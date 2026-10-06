@@ -129,5 +129,28 @@ ${sts}
   const lista = `<ol class="rota-lista">${todos
     .map((e, i) => `<li${i === n - 1 ? ' class="fim"' : ''}><b>${esc(e.nome)}</b><span>${esc(e.d)}</span></li>`)
     .join('')}</ol>`;
-  return `<figure class="rota" aria-label="O mapa da máquina de vendas: ${esc(todos.map((e) => e.nome).join(', '))}">${svg}${lista}</figure>`;
+  // celular: rota vertical em curva, esferas de vidro com ícone e luz que acende com a rolagem
+  const P = 124, X = 36, HC = n * P;
+  const yc = (i) => P / 2 + i * P;
+  let dc = `M${X} ${yc(0)}`;
+  for (let i = 0; i < n - 1; i++) {
+    const b = i % 2 ? -20 : 20;
+    dc += ` C${X + b} ${r1(yc(i) + P / 3)} ${X + b} ${r1(yc(i + 1) - P / 3)} ${X} ${yc(i + 1)}`;
+  }
+  const cel = `<div class="rc" data-rota-cel style="--rc-passo:${P}px">
+  <svg class="rc-svg" width="72" height="${HC}" viewBox="0 0 72 ${HC}" aria-hidden="true" focusable="false">
+    <defs><linearGradient id="rc-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8A6206"/><stop offset=".5" stop-color="#F5C328"/><stop offset="1" stop-color="#FFE9A0"/></linearGradient></defs>
+    <path d="${dc}" class="rc-trilho"/>
+    <path d="${dc}" class="rc-glow" stroke="url(#rc-g)" pathLength="1"/>
+    <path d="${dc}" class="rc-luz" stroke="url(#rc-g)" pathLength="1"/>
+    <path d="${dc}" class="rc-pulso" pathLength="100"/>
+  </svg>
+  <ol class="rc-lista">${todos
+    .map((e, i) => {
+      const fim = i === n - 1;
+      return `<li class="rc-st${fim ? ' rc-fim' : ''}"><span class="rc-orbe">${icon(fim ? 'trend-up' : ICONES[e.nome] || 'circle')}</span><div><small>${fim ? 'Destino' : `Peça 0${i + 1}`}</small><b>${esc(e.nome)}</b>${fim ? '' : `<span>${esc(e.d)}</span>`}</div></li>`;
+    })
+    .join('')}</ol>
+</div>`;
+  return `<figure class="rota" aria-label="O mapa da máquina de vendas: ${esc(todos.map((e) => e.nome).join(', '))}">${svg}${lista}${cel}</figure>`;
 }
