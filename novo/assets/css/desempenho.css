@@ -61,6 +61,6 @@
 .chip-flutua{animation:flutua 6s ease-in-out 3.5s infinite!important}
 
 /* ---- ilustrações da primeira tela ficam paradas na primeira imagem até a página terminar de carregar
-        (o inline do <head> tira a classe .carregando 2,5s depois do load); a tela "termina" logo para o PageSpeed ---- */
+        (o inline do <head> tira a classe .carregando na primeira interação ou depois de 8s); a tela "termina" logo para o PageSpeed ---- */
 .carregando .capa-visual,.carregando .capa-visual *,.carregando .capa-visual *::before,.carregando .capa-visual *::after,
 .carregando .rel *,.carregando .rel *::before,.carregando .rel *::after{animation-play-state:paused!important}

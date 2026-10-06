@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script>(function(h){h.classList.add('js','carregando');addEventListener('load',function(){setTimeout(function(){h.classList.remove('carregando')},2500)})})(document.documentElement)</script>
+<script>(function(h){h.classList.add('js','carregando');var f=function(){h.classList.remove('carregando');['pointermove','pointerdown','touchstart','scroll','keydown'].forEach(function(e){removeEventListener(e,f)})};['pointermove','pointerdown','touchstart','scroll','keydown'].forEach(function(e){addEventListener(e,f,{passive:true,once:true})});setTimeout(f,8000)})(document.documentElement)</script>
 <title>Growth Intelligence: Inteligência de dados para decidir | Grupo 2!H</title>
 <meta name="description" content="Growth Intelligence (Inteligência de dados para decidir) da 2!H: Inteligência de dados aplicada à decisão de crescimento: onde investir, o que corrigir e quando escalar.">
 <meta name="robots" content="noindex, nofollow">
