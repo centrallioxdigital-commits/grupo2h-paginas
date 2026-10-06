@@ -16,22 +16,20 @@
     new IntersectionObserver(function (e) { topo.classList.toggle('solido', !e[0].isIntersecting); }).observe(sentinela);
   }
 
-  /* ---------- menu Soluções (toque e teclado) ---------- */
+  /* ---------- menu Soluções: abre e fecha só no clique ---------- */
   doc.querySelectorAll('.nav-mega').forEach(function (li) {
     var a = li.querySelector('a');
-    var podeHover = window.matchMedia('(hover: hover)').matches;
-    a.addEventListener('click', function (ev) {
-      if (podeHover) return; // no mouse, o clique navega para /solucoes/
-      if (!li.classList.contains('aberto')) { ev.preventDefault(); abrir(true); }
-    });
+    var abrir = function (sim) { li.classList.toggle('aberto', sim); a.setAttribute('aria-expanded', sim ? 'true' : 'false'); if (sim && topo) topo.classList.remove('escondido'); };
+    a.setAttribute('role', 'button');
+    a.addEventListener('click', function (ev) { ev.preventDefault(); abrir(!li.classList.contains('aberto')); });
     a.addEventListener('keydown', function (ev) {
+      if (ev.key === ' ') { ev.preventDefault(); abrir(!li.classList.contains('aberto')); }
       if (ev.key === 'ArrowDown') { ev.preventDefault(); abrir(true); var p = li.querySelector('.mega a'); if (p) p.focus(); }
     });
-    li.addEventListener('mouseenter', function () { a.setAttribute('aria-expanded', 'true'); });
-    li.addEventListener('mouseleave', function () { abrir(false); });
-    li.addEventListener('focusout', function (ev) { if (!li.contains(ev.relatedTarget)) abrir(false); });
+    doc.addEventListener('click', function (ev) { if (!li.contains(ev.target)) abrir(false); });
     doc.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && li.classList.contains('aberto')) { abrir(false); a.focus(); } });
-    function abrir(sim) { li.classList.toggle('aberto', sim); a.setAttribute('aria-expanded', sim ? 'true' : 'false'); }
+    li.addEventListener('focusout', function (ev) { if (ev.relatedTarget && !li.contains(ev.relatedTarget)) abrir(false); });
+    window.addEventListener('scroll', function () { if (li.classList.contains('aberto') && window.scrollY > 400) abrir(false); }, { passive: true });
   });
 
   /* ---------- menu do celular ---------- */
@@ -200,6 +198,62 @@
       if (navigator.clipboard) navigator.clipboard.writeText(url).then(feito, function () {});
     });
   });
+
+  /* ---------- barra superior: some ao descer, volta ao subir ---------- */
+  if (topo) {
+    var ultimoY = window.scrollY, pedido = false, menuAberto = function () { var m = doc.querySelector('[data-menu]'); return (m && !m.hidden) || !!doc.querySelector('.nav-mega.aberto'); };
+    window.addEventListener('scroll', function () {
+      var y = window.scrollY, d = y - ultimoY;
+      if (y < 140 || menuAberto()) topo.classList.remove('escondido');
+      else if (d > 6) topo.classList.add('escondido');
+      else if (d < -6) topo.classList.remove('escondido');
+      if (Math.abs(d) > 6) ultimoY = y;
+    }, { passive: true });
+    topo.addEventListener('focusin', function () { topo.classList.remove('escondido'); });
+  }
+
+  /* ---------- seções que ficam e a seguinte sobe por cima ---------- */
+  if (!reduz) {
+    var fixas = doc.querySelectorAll('main > .hero, main > .capa, main > .bloco-ouro');
+    var ajustar = function () {
+      fixas.forEach(function (s) {
+        s.setAttribute('data-fica', '');
+        s.style.top = Math.min(0, window.innerHeight - s.offsetHeight) + 'px';
+        var prox = s.nextElementSibling;
+        while (prox && prox.classList.contains('divisa')) prox = prox.nextElementSibling;
+        if (prox) prox.classList.add('cobre');
+      });
+    };
+    ajustar();
+    window.addEventListener('resize', ajustar);
+    if ('ResizeObserver' in window) { var ro = new ResizeObserver(ajustar); fixas.forEach(function (s) { ro.observe(s); }); }
+  }
+
+  /* ---------- pilhas de cartões ao rolar ---------- */
+  var pilhas = [
+    { sel: '.jornada, .linha-tempo', mq: '(min-width: 901px)' },
+    { sel: '.escada, .bento, .inclui, .esteira, .time, .canais', mq: '(max-width: 760px)' },
+  ];
+  if (!reduz) pilhas.forEach(function (p) {
+    var mq = window.matchMedia(p.mq);
+    var els = doc.querySelectorAll(p.sel);
+    els.forEach(function (el) { Array.prototype.forEach.call(el.children, function (c, i) { c.style.setProperty('--n', i); }); });
+    var aplicar = function () { els.forEach(function (el) { el.classList.toggle('pilha-ativa', mq.matches); }); };
+    aplicar(); mq.addEventListener('change', aplicar);
+  });
+
+  /* ---------- inclinação 3D sutil no hover (só mouse) ---------- */
+  if (!reduz && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    doc.querySelectorAll('.bt-prog, .membro, .num, .canal, .pilar, .esteira li').forEach(function (c) {
+      c.setAttribute('data-tilt', '');
+      c.addEventListener('pointermove', function (ev) {
+        var r = c.getBoundingClientRect(), x = (ev.clientX - r.left) / r.width - .5, y = (ev.clientY - r.top) / r.height - .5;
+        c.classList.add('inclinando');
+        c.style.transform = 'perspective(900px) rotateX(' + (-y * 5).toFixed(2) + 'deg) rotateY(' + (x * 6).toFixed(2) + 'deg) translateY(-6px)';
+      });
+      c.addEventListener('pointerleave', function () { c.classList.remove('inclinando'); c.style.transform = ''; });
+    });
+  }
 
   /* ---------- proteção de conteúdo (padrão das páginas da 2!H) ---------- */
   if (body.hasAttribute('data-protegido')) {

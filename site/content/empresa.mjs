@@ -29,9 +29,9 @@ export const empresa = {
   time: [
     { nome: 'Jhonathan Marcos', papel: 'CEO', foto: 'time/jhonathan.webp', frase: 'Empresa que cresce sem estrutura só aumenta o tamanho do problema. Primeiro o mapa, depois a estrada.' },
     { nome: 'Douglas Kashima', papel: 'CTO / COO', foto: 'time/douglas.webp', frase: 'Processo bem feito é o que transforma esforço em resultado que se repete.' },
-    { nome: 'Matheus Nogueira', papel: 'Gestor Financeiro', foto: 'time/matheus.webp', frase: 'Crescer é bom. Crescer com margem é o que mantém a empresa de pé.' },
     { nome: 'Stephany Silva', papel: 'Head de Tráfego Pago', foto: 'time/stephany.webp', frase: 'Anúncio bom é o que vira venda, não o que vira print de relatório.' },
     { nome: 'Devikison Aguiar', papel: 'Product Designer e Full Stack Engineer', foto: 'time/devikison.webp', frase: 'Design que não converte é decoração. Cada pixel precisa trabalhar pela venda.' },
+    { nome: 'Matheus Nogueira', papel: 'Gestor Financeiro', foto: 'time/matheus.webp', frase: 'Crescer é bom. Crescer com margem é o que mantém a empresa de pé.' },
     { nome: 'Bárbara Rodrigues', papel: 'Social Media', foto: 'time/barbara.webp', frase: 'Consistência todos os dias vale mais do que intensidade de vez em quando.' },
     { nome: 'Melissa', papel: 'Relacionamento com Clientes', foto: 'time/melissa.webp', frase: 'Cliente bem cuidado não precisa ser convencido de novo. Ele volta e indica.' },
     { nome: 'Bruno de Palma', papel: 'Editor e Creator', foto: 'time/bruno.webp', frase: 'Conteúdo que prende atenção é o primeiro passo de toda venda.' },
