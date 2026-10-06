@@ -364,3 +364,12 @@ main>.cobre,main>section.cobre,main>.letreiro.cobre{border-radius:0!important}
 .mm-grade{gap:7px}
 .mm-inicio{min-height:42px}
 .mm-acao{min-height:50px}
+
+/* home no celular: respiro antes do letreiro subir, para o mapa acender até o destino */
+@media (max-width:900px){.hero[data-fica]+.cobre,.hero[data-fica]+.divisa{margin-top:46vh}}
+
+/* ---- divisões entre seções: nada vaza de uma para a outra ---- */
+/* o brilho dourado (.luz) fica dentro da própria seção; clip não atrapalha os elementos fixos (sticky) */
+main>section.sec{overflow:clip}
+/* sem a linha de 1px entre seções da mesma cor e com 1px de sobreposição para não sobrar fresta de arredondamento */
+main>.sec+.sec{border-top:0;margin-top:-1px}

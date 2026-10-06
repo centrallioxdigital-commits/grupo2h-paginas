@@ -379,8 +379,16 @@
   /* ---------- mapa da máquina de vendas no celular: a rota acende conforme a rolagem ---------- */
   doc.querySelectorAll('[data-rota-cel]').forEach(function (rc) {
     var sts = rc.querySelectorAll('.rc-st');
+    var heroR = rc.closest('.hero');
     var atualizarR = function () {
-      var r = rc.getBoundingClientRect(), alvo = window.innerHeight * 0.62;
+      var r = rc.getBoundingClientRect(), vh = window.innerHeight, alvo = vh * 0.62;
+      /* com a hero parada (grudada) o mapa não anda mais: a rolagem que sobra continua descendo a linha que acende */
+      if (heroR) {
+        var prox = heroR.nextElementSibling;
+        var fimHero = prox ? prox.getBoundingClientRect().top + window.scrollY - parseFloat(getComputedStyle(prox).marginTop || 0) : 0;
+        var parada = fimHero - vh;
+        alvo += Math.max(0, window.scrollY - parada) * 1.1;
+      }
       if (!r.height) return;
       var p = reduz ? 1 : Math.max(0, Math.min(1, (alvo - r.top) / r.height));
       rc.style.setProperty('--p', p.toFixed(4));
