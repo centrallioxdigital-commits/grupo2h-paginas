@@ -145,7 +145,7 @@ ${capa({ trilhaHtml: t.html, titulo: 'Como a 2!H trabalha:', tituloOuro: 'do dia
 <section class="sec" id="por-onde-comecar">
   <div class="wrap">
     <div class="seletor" data-seletor data-revela>
-      <div class="sel-cab"><div><p class="sel-jogo">${icon('game-controller')} Desafio de 10 segundos</p><h3>Por onde a sua empresa deveria começar?</h3><p>Escolha a frase que mais parece com o seu momento. Pode usar as teclas A a F.</p></div><div class="sel-hud"><span>1 pergunta</span><span class="sel-hud-barra"><i></i></span><span>resultado na hora</span></div></div>
+      <div class="sel-cab"><div><p class="sel-jogo"><span class="sel-jogo-ic">${icon('target', { weight: 'bold' })}</span> Diagnóstico em 10 segundos</p><h3>Por onde a sua empresa deveria começar?</h3><p>Escolha a frase que mais parece com o seu momento. Pode usar as teclas A a F.</p></div><div class="sel-hud"><span>1 pergunta</span><span class="sel-hud-barra"><i></i></span><span>resultado na hora</span></div></div>
       <div class="sel-opcoes">${OPCOES.map((o, i) => `<button type="button" class="sel-op" data-op="${o.id}" data-tecla="${'abcdef'[i]}" aria-pressed="false"><span class="sel-tecla" aria-hidden="true">${'ABCDEF'[i]}</span>${icon(o.icone)}<span><b>${esc(o.t)}</b><small>${esc(o.s)}</small></span><span class="sel-marca" aria-hidden="true">${icon('check')}</span></button>`).join('')}</div>
       <div class="sel-res"><div class="sel-res-in" data-sel-res aria-live="polite"><span class="sel-bloq">${icon('lock-simple')} Resultado bloqueado. Escolha uma opção acima para descobrir o seu degrau.</span></div></div>
       ${templates}

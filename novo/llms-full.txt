@@ -294,7 +294,7 @@ Escala
 Números lidos com você, em conta aberta. Decidimos juntos o que escalar, o que corrigir e o que parar.
 Rotina
 
-Desafio de 10 segundos
+Diagnóstico em 10 segundos
 
 ## Por onde a sua empresa deveria começar?
 Escolha a frase que mais parece com o seu momento. Pode usar as teclas A a F.
