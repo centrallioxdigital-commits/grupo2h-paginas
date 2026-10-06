@@ -131,6 +131,29 @@
     itens[0].classList.add('ativo');
   });
 
+  /* ---------- DNA: cartões empilham e acendem ao chegar no topo ---------- */
+  doc.querySelectorAll('[data-dna]').forEach(function (lista) {
+    var itens = Array.prototype.slice.call(lista.children);
+    if (reduz) { itens.forEach(function (li) { li.classList.add('aceso'); }); return; }
+    var medir = function () {
+      var ultimoAceso = -1;
+      itens.forEach(function (li, i) {
+        var topo = parseFloat(getComputedStyle(li).top) || 0, r = li.getBoundingClientRect();
+        var chegou = r.top <= topo + 2 || r.top < innerHeight * .55;
+        li.classList.toggle('aceso', chegou);
+        if (chegou) ultimoAceso = i;
+        var c = li.firstElementChild, prox = itens[i + 1];
+        var coberto = 0;
+        if (prox && chegou) { var rp = prox.getBoundingClientRect(); coberto = Math.max(0, Math.min(1, 1 - (rp.top - r.top) / Math.max(1, r.height))); }
+        c.style.setProperty('--cob', coberto.toFixed(3));
+      });
+      itens.forEach(function (li, i) { li.classList.toggle('atual', i === ultimoAceso); });
+    };
+    addEventListener('scroll', medir, { passive: true });
+    addEventListener('resize', medir);
+    medir();
+  });
+
   /* ---------- links para o diagnóstico levam as UTMs da visita ---------- */
   try {
     var q = new URLSearchParams(location.search), chaves = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'];

@@ -29,14 +29,49 @@ export const DNA = [
   { t: 'Crescimento previsível', d: 'Saber o que acontece quando se investe mais. Crescer por decisão, não por sorte.', i: 'chart-line-up' },
 ];
 
+/** DNA: cartões que empilham na rolagem e acendem quando chegam ao topo. */
+export function dnaCards() {
+  return `<ol class="dna-cards" data-dna>${DNA.map((x, i) => `<li style="--n:${i}"><article class="dna-card">
+    <span class="dna-luz" aria-hidden="true"></span>
+    <div class="dna-cab"><span class="dna-ic">${icon(x.i)}</span><span class="dna-num">0${i + 1}<small>/0${DNA.length}</small></span></div>
+    <h3>${esc(x.t)}</h3>
+    <p>${esc(x.d)}</p>
+    <span class="dna-barra" aria-hidden="true"><i></i></span>
+  </article></li>`).join('')}</ol>`;
+}
+
 export const COMPARA = {
   antes: ['Relatório bonito no fim do mês', 'Métrica isolada: CPL, cliques e alcance', 'Rastreamento que ninguém conferiu', 'Trocar o criativo como resposta para tudo', 'O problema aparece quando o caixa sente'],
   depois: ['Você acompanha os números reais da sua operação', 'Leitura do funil até a venda e a margem', 'Rastreamento validado antes de qualquer análise', 'Prioridade definida pelo gargalo, não pelo palpite', 'Decisão tomada com você, olhando o mesmo dado'],
 };
 
 export function circuloTrafego() {
-  // Seta girando num círculo: "dinheiro rodando em círculo".
-  return `<svg viewBox="0 0 200 200" aria-hidden="true"><circle class="circ-anel" cx="100" cy="100" r="90"/><g class="circ-giro-g"><circle class="circ-giro" cx="100" cy="100" r="90" pathLength="100"/><path class="circ-seta" d="M-6 -6 L6 0 L-6 6 Z" transform="translate(138.3 181.4) rotate(154.8)"/></g></svg>`;
+  // Medalhão: aro metálico com marcas, frase girando no aro e um cometa dourado dando a volta.
+  const marcas = Array.from({ length: 60 }, (_, i) => {
+    const a = (i / 60) * Math.PI * 2, r0 = i % 5 ? 84 : 81, r2 = 87;
+    return `<line x1="${(100 + r0 * Math.cos(a)).toFixed(1)}" y1="${(100 + r0 * Math.sin(a)).toFixed(1)}" x2="${(100 + r2 * Math.cos(a)).toFixed(1)}" y2="${(100 + r2 * Math.sin(a)).toFixed(1)}"${i % 5 ? '' : ' class="cm-maior"'}/>`;
+  }).join('');
+  return `<svg viewBox="0 0 200 200" aria-hidden="true">
+    <defs>
+      <linearGradient id="cm-aro" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6A6A74"/><stop offset=".3" stop-color="#2A2A31"/><stop offset=".55" stop-color="#121216"/><stop offset=".8" stop-color="#3C3C45"/><stop offset="1" stop-color="#1A1A1F"/></linearGradient>
+      <radialGradient id="cm-face" cx=".5" cy=".35" r=".75"><stop offset="0" stop-color="#26252B"/><stop offset=".7" stop-color="#121215"/><stop offset="1" stop-color="#09090B"/></radialGradient>
+      <linearGradient id="cm-vidro" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <path id="cm-trilho" d="M100 100 m-71 0 a71 71 0 1 1 142 0 a71 71 0 1 1 -142 0"/>
+    </defs>
+    <circle cx="100" cy="100" r="99" fill="url(#cm-aro)"/>
+    <circle cx="100" cy="100" r="98.2" class="cm-aro-luz"/>
+    <circle cx="100" cy="100" r="91" fill="url(#cm-face)"/>
+    <circle cx="100" cy="100" r="91" class="cm-face-borda"/>
+    <g class="cm-marcas">${marcas}</g>
+    <g class="cm-texto"><text><textPath href="#cm-trilho" startOffset="0" textLength="440" lengthAdjust="spacing">ESTRUTURA ANTES DE ESCALA · CLAREZA ANTES DE INVESTIMENTO ·</textPath></text></g>
+    <g class="cm-cometa">
+      <circle cx="100" cy="100" r="91" pathLength="100" class="cm-rastro cm-r1"/>
+      <circle cx="100" cy="100" r="91" pathLength="100" class="cm-rastro cm-r2"/>
+      <circle cx="100" cy="100" r="91" pathLength="100" class="cm-rastro cm-r3"/>
+      <circle cx="191" cy="100" r="3.6" class="cm-ponta"/>
+    </g>
+    <path d="M100 100 m-90 0 a90 90 0 0 1 180 0 Z" fill="url(#cm-vidro)" class="cm-vidro"/>
+  </svg>`;
 }
 
 export function escadaHTML(origem = 'home') {
@@ -162,7 +197,7 @@ export function home({ posts }) {
     </div>
     <div class="manif-lado">
       ${foto('time-reuniao', 'Time de marketing e comercial reunido em volta de uma mesa', { sizes: '(max-width: 900px) 100vw, 40vw' })}
-      <div class="manif-selo" data-revela>${circuloTrafego()}<p>Tráfego sem estrutura é dinheiro rodando em círculo.</p></div>
+      <div class="manif-selo" data-revela>${circuloTrafego()}<p><b>Tráfego sem estrutura</b> é dinheiro rodando em círculo.</p></div>
     </div>
   </div>
 </section>
@@ -196,7 +231,7 @@ export function home({ posts }) {
       <p class="lead">Cinco princípios que aparecem em todo projeto da 2!H, do primeiro diagnóstico à leitura de número de cada semana.</p>
       ${foto('jhonathan-ceo', 'Jhonathan Marcos, CEO do Grupo 2!H', { cls: 'dna-foto', sizes: '(max-width: 900px) 100vw, 40vw', legenda: `<figcaption class="foto-leg">${icon('seal-check')} Jhonathan Marcos, CEO do Grupo 2!H</figcaption>` })}
     </div>
-    <ul class="dna-lista" data-acende-item>${DNA.map((x) => `<li>${icon(x.i)}<h3>${esc(x.t)}</h3><p>${esc(x.d)}</p></li>`).join('')}</ul>
+    ${dnaCards()}
   </div>
 </section>
 
@@ -271,7 +306,8 @@ ${recentes.length ? `<section class="sec" id="blog">
       <h2 class="h2">Perguntas que todo empresário faz.</h2>
       <a class="btn btn-linha" href="${u('perguntas-frequentes/')}">Todas as perguntas ${icon('arrow-right')}</a>
     </div>
-    <div class="faq-colunas" data-acordeoes data-revela>${[faqHome.slice(0, Math.ceil(faqHome.length / 2)), faqHome.slice(Math.ceil(faqHome.length / 2))].map((col) => `<div>${col.map((f) => `<details class="acord"><summary>${esc(f.q)}${icon('plus')}</summary><div class="acord-r"><p>${esc(f.a)}</p></div></details>`).join('')}</div>`).join('')}</div>
+    <div class="faq-grade faq-loop" data-revela><div class="faq-trilho">${faqHome.map((f) => `<div class="faq-item"><h3>${esc(f.q)}</h3><p>${esc(f.a)}</p></div>`).join('')}${faqHome.map((f) => `<div class="faq-item faq-dup" aria-hidden="true"><h3>${esc(f.q)}</h3><p>${esc(f.a)}</p></div>`).join('')}</div></div>
+    <div class="faq-mais"><a class="btn btn-ouro" href="${u('perguntas-frequentes/')}">Ver todas as perguntas ${icon('arrow-right')}</a></div>
   </div>
 </section>
 

@@ -10,9 +10,10 @@ const iconeEm = (nome, x, y, t) => icon(nome).replace('<svg ', `<svg x="${r1(x -
 export function ilOrbita3d(fases) {
   const C = 230, R = 158, n = fases.length;
   const pos = fases.map((_, i) => { const a = -Math.PI / 2 + (i * 2 * Math.PI) / n; return [C + R * Math.cos(a), C + R * Math.sin(a)]; });
-  const ticks = Array.from({ length: 90 }, (_, i) => {
-    const a = (i / 90) * Math.PI * 2, r0 = i % 18 === 0 ? 196 : i % 6 === 0 ? 201 : 204, r2 = 210;
-    return `<line x1="${r1(C + r0 * Math.cos(a))}" y1="${r1(C + r0 * Math.sin(a))}" x2="${r1(C + r2 * Math.cos(a))}" y2="${r1(C + r2 * Math.sin(a))}"/>`;
+  const r2c = (n) => Math.round(n * 100) / 100;
+  const ticks = Array.from({ length: 120 }, (_, i) => {
+    const a = (i / 120) * Math.PI * 2, maior = i % 10 === 0, ra = maior ? 198 : 203, rb = 209;
+    return `<line x1="${r2c(C + ra * Math.cos(a))}" y1="${r2c(C + ra * Math.sin(a))}" x2="${r2c(C + rb * Math.cos(a))}" y2="${r2c(C + rb * Math.sin(a))}"${maior ? ' class="o3-maior"' : ''}/>`;
   }).join('');
   const nos = fases
     .map((f, i) => {
@@ -39,7 +40,7 @@ export function ilOrbita3d(fases) {
       <radialGradient id="o3-bola-g" cx="35%" cy="28%" r="80%"><stop offset="0" stop-color="#3A3A42"/><stop offset="1" stop-color="#121216"/></radialGradient>
     </defs>
     <circle cx="${C}" cy="${C}" r="215" fill="url(#o3-aura)"/>
-    <g class="o3-ticks">${ticks}</g>
+    <circle cx="${C}" cy="${C}" r="213" class="o3-guia"/><g class="o3-ticks">${ticks}</g>
     <circle cx="${C}" cy="${C}" r="${R}" class="o3-orbita" stroke="url(#o3-anel)"/>
     <circle cx="${C}" cy="${C}" r="${R}" class="o3-cometa" pathLength="100"/>
     <circle cx="${C}" cy="${C}" r="104" class="o3-interno"/>
@@ -112,48 +113,94 @@ export function ilBussola3d() {
 
 /** Sobre: funil 3D de vidro, com o investimento caindo e vazando nas camadas. */
 export function ilFunil3d() {
-  const C = 230, top = 78, alt = 74, gap = 8;
-  const raios = [176, 136, 100, 68, 42];
+  // funil de vidro em 3D: perfil contínuo, leads descendo em espiral, vazamentos e o que chega ao caixa
+  const C = 280, Y0 = 92, H = 360, PESC = 0.78, R0 = 170, RP = 14, ACH = 0.2;
+  const raio = (t) => (t < PESC ? RP + (R0 - RP) * Math.pow(1 - t / PESC, 1.7) : RP - 2);
+  const yDe = (t) => Y0 + t * H;
+  // silhueta (lado esquerdo descendo, lado direito subindo)
+  const N = 48, ts = Array.from({ length: N + 1 }, (_, i) => i / N);
+  const esq = ts.map((t) => `${r1(C - raio(t))} ${r1(yDe(t))}`), dir = ts.map((t) => `${r1(C + raio(t))} ${r1(yDe(t))}`).reverse();
+  const yFim = yDe(1);
+  const silhueta = `M${esq.join(' L')} L${dir.join(' L')} Z`;
+  // espiral de um lead: cai de cima, entra na boca e gira até o bico (t0..t1)
+  const espiral = (fase, voltas, t1, saida) => {
+    const pts = [`${r1(C + Math.cos(fase) * 60)} ${Y0 - 80}`];
+    const M = 60;
+    for (let i = 0; i <= M; i++) {
+      const t = (i / M) * t1, a = fase + t * voltas * Math.PI * 2, r = raio(t) * 0.86;
+      pts.push(`${r1(C + r * Math.cos(a))} ${r1(yDe(t) + r * ACH * Math.sin(a))}`);
+    }
+    if (saida === 'caixa') pts.push(`${C} ${r1(yFim + 12)}`, `${C} ${r1(yFim + 58)}`);
+    else {
+      const [ux, uy] = pts[pts.length - 1].split(' ').map(Number), lado = ux < C ? -1 : 1;
+      pts.push(`${r1(ux + lado * 70)} ${r1(uy + 12)}`, `${r1(ux + lado * 110)} ${r1(uy + 90)}`);
+    }
+    return 'M' + pts.join(' L');
+  };
+  const leads = Array.from({ length: 16 }, (_, i) => {
+    const vaza = i % 4 !== 3, nivel = [0.2, 0.4, 0.57, 0.7][i % 4];
+    const t1 = vaza ? nivel : 1, dur = (vaza ? 3.2 + nivel * 2.6 : 6.4) + (i % 3) * 0.4;
+    const d = espiral(i * 2.4, 2.2 + (i % 3) * 0.5, t1, vaza ? 'fora' : 'caixa');
+    const cor = vaza ? `<animate attributeName="fill" values="#FFE27A;#FFE27A;#FF6B55;#FF6B55" keyTimes="0;.72;.8;1" dur="${dur}s" begin="${(i * 0.45).toFixed(2)}s" repeatCount="indefinite"/>` : '';
+    return `<circle r="${vaza ? 4.2 : 5}" class="f4-lead${vaza ? ' f4-vaza' : ' f4-chega'}">
+      <animateMotion dur="${dur}s" begin="${(i * 0.45).toFixed(2)}s" repeatCount="indefinite" path="${d}" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines=".45 0 .7 1"/>
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.9;1" dur="${dur}s" begin="${(i * 0.45).toFixed(2)}s" repeatCount="indefinite"/>${cor}
+    </circle>`;
+  }).join('');
+  const NIVEIS = [0.2, 0.4, 0.57, 0.7];
+  const etapas = ['Leads', 'Atendimento', 'Proposta', 'Fechamento'];
   const vaz = ['Oferta desalinhada', 'Atendimento lento', 'Sem follow-up', 'Rastreamento quebrado'];
-  const camadas = raios.slice(0, 4).map((rx1, i) => {
-    const rx2 = raios[i + 1] + 4, yt = top + i * (alt + gap), yb = yt + alt, ry1 = rx1 * 0.2, ry2 = rx2 * 0.2;
-    const lado = i % 2 ? 1 : -1, lx = C + lado * ((rx1 + rx2) / 2 + 6), ly = (yt + yb) / 2;
-    return `<g class="f3-camada" style="--k:${i}">
-      <path d="M${C - rx1} ${yt} A${rx1} ${ry1} 0 0 0 ${C + rx1} ${yt} L${C + rx2} ${yb} A${rx2} ${ry2} 0 0 1 ${C - rx2} ${yb} Z" fill="url(#f3-corpo)" class="f3-lado"/>
-      <ellipse cx="${C}" cy="${yt}" rx="${rx1}" ry="${r1(ry1)}" fill="url(#f3-boca)" class="f3-boca"/>
-      <ellipse cx="${C}" cy="${yt}" rx="${rx1}" ry="${r1(ry1)}" class="f3-aro" stroke="url(#f3-aro-g)"/>
-      <path d="M${C - rx1 + 10} ${yt + 6} L${C - rx2 + 6} ${yb - 4}" class="f3-reflexo"/>
-      <g class="f3-vaz" style="--k:${i}"><circle cx="${r1(lx)}" cy="${r1(ly)}" r="4.5" class="f3-gota"/><circle cx="${r1(lx + lado * 10)}" cy="${r1(ly + 14)}" r="3" class="f3-gota f3-gota2"/></g>
+  const aneis = NIVEIS.map((t, i) => {
+    const r = raio(t), y = yDe(t), ry = r * ACH;
+    const xe = C - r, xd = C + r;
+    return `<g class="f4-anel" style="--k:${i}">
+      <path d="M${r1(xe)} ${r1(y)} A${r1(r)} ${r1(ry)} 0 0 1 ${r1(xd)} ${r1(y)}" class="f4-anel-tras"/>
+      <path d="M${r1(xe)} ${r1(y)} A${r1(r)} ${r1(ry)} 0 0 0 ${r1(xd)} ${r1(y)}" class="f4-anel-frente" pathLength="100"/>
+      <path d="M${r1(xe + 2)} ${r1(y - 7)} l-7 5 l6 3 l-8 6" class="f4-trinca"/>
+      <circle cx="${r1(xe)}" cy="${r1(y + 3)}" r="9" class="f4-furo"/>
+      <line x1="${r1(xe - 10)}" y1="${r1(y + 3)}" x2="40" y2="${r1(y + 3)}" class="f4-guia f4-guia-v"/>
+      <line x1="${r1(xd + 10)}" y1="${r1(y + 3)}" x2="520" y2="${r1(y + 3)}" class="f4-guia"/>
     </g>`;
   }).join('');
-  const yFim = top + 4 * (alt + gap);
-  const moedas = Array.from({ length: 7 }, (_, i) => {
-    const x = C + [-60, 34, -14, 70, -38, 12, -4][i], vai = i % 3 === 0 ? yFim + 26 : top + 70 + (i % 4) * (alt + gap);
-    return `<circle cx="${x}" cy="${top - 30}" r="7" class="f3-moeda" style="--d:${(i * 0.55).toFixed(2)}s;--y:${vai - top + 30}px;--x:${C - x}px"/>`;
+  const pct = (y) => ((y / 620) * 100).toFixed(2) + '%';
+  const rotulos = NIVEIS.map((t, i) => `<span class="f4-etq f4-v" style="top:${pct(yDe(t) + 3)};--k:${i}"><i></i>${esc(vaz[i])}</span><span class="f4-etq f4-e" style="top:${pct(yDe(t) + 3)};--k:${i}">${esc(etapas[i])}</span>`).join('');
+  const moedas = Array.from({ length: 6 }, (_, i) => {
+    const y = yFim + 104 - i * 9;
+    return `<g class="f4-moeda" style="--k:${i}"><path d="M${C - 34} ${y} v6 a34 9 0 0 0 68 0 v-6" fill="url(#f4-moeda-lado)"/><ellipse cx="${C}" cy="${y}" rx="34" ry="9" fill="url(#f4-moeda-topo)"/><ellipse cx="${C}" cy="${y}" rx="24" ry="5.5" class="f4-moeda-friso"/></g>`;
   }).join('');
-  const etiquetas = vaz.map((t, i) => {
-    const lado = i % 2 ? 'd' : 'e', y = top + i * (alt + gap) + alt / 2;
-    return `<span class="f3-etq f3-${lado}" style="top:${((y / 520) * 100).toFixed(2)}%;--k:${i}"><i></i>${esc(t)}</span>`;
-  }).join('');
-  return `<figure class="il il3d il-funil3d" role="img" aria-label="Funil em 3D: o investimento entra em cima e vaza em oferta desalinhada, atendimento lento, falta de follow-up e rastreamento quebrado antes de chegar ao caixa." data-revela>
-  <svg viewBox="0 0 460 520" aria-hidden="true">
+  return `<figure class="il il3d il-funil3d" role="img" aria-label="Funil de vidro em 3D: os leads entram pelo investimento e descem em espiral; parte vaza por oferta desalinhada, atendimento lento, falta de follow-up e rastreamento quebrado; o restante cai no caixa." data-revela>
+  <div class="f4-palco">
+  <svg viewBox="0 0 560 620" aria-hidden="true">
     <defs>
-      <linearGradient id="f3-corpo" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0D0D10"/><stop offset=".22" stop-color="#2A2A31"/><stop offset=".5" stop-color="#16161B"/><stop offset=".85" stop-color="#25252C"/><stop offset="1" stop-color="#0B0B0E"/></linearGradient>
-      <radialGradient id="f3-boca" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#050506"/><stop offset="1" stop-color="#1B1B21"/></radialGradient>
-      <linearGradient id="f3-aro-g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8A5E00"/><stop offset=".3" stop-color="#FFE490"/><stop offset=".7" stop-color="#F5C328"/><stop offset="1" stop-color="#8A5E00"/></linearGradient>
-      <radialGradient id="f3-caixa" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#FFF3C4"/><stop offset=".45" stop-color="#F5C328"/><stop offset="1" stop-color="#7A5400"/></radialGradient>
-      <radialGradient id="f3-luz" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#F5C328" stop-opacity=".45"/><stop offset="1" stop-color="#F5C328" stop-opacity="0"/></radialGradient>
+      <linearGradient id="f4-dentro" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1D1D23"/><stop offset=".5" stop-color="#08080A"/><stop offset="1" stop-color="#1D1D23"/></linearGradient>
+      <linearGradient id="f4-vidro" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#fff" stop-opacity=".34"/><stop offset=".07" stop-color="#fff" stop-opacity=".08"/><stop offset=".2" stop-color="#fff" stop-opacity=".02"/>
+        <stop offset=".62" stop-color="#fff" stop-opacity="0"/><stop offset=".86" stop-color="#fff" stop-opacity=".07"/><stop offset=".95" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity=".05"/></linearGradient>
+      <linearGradient id="f4-luz-centro" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5C328" stop-opacity="0"/><stop offset=".55" stop-color="#F5C328" stop-opacity=".18"/><stop offset="1" stop-color="#FFE27A" stop-opacity=".55"/></linearGradient>
+      <linearGradient id="f4-aro" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7A5300"/><stop offset=".25" stop-color="#FFE9A6"/><stop offset=".5" stop-color="#F5C328"/><stop offset=".78" stop-color="#FFF3C4"/><stop offset="1" stop-color="#7A5300"/></linearGradient>
+      <radialGradient id="f4-boca" cx=".5" cy=".35" r=".7"><stop offset="0" stop-color="#000"/><stop offset=".75" stop-color="#0E0E12"/><stop offset="1" stop-color="#26262D"/></radialGradient>
+      <linearGradient id="f4-moeda-lado" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7A5300"/><stop offset=".35" stop-color="#E9B21C"/><stop offset=".6" stop-color="#FFE38A"/><stop offset="1" stop-color="#8A6206"/></linearGradient>
+      <radialGradient id="f4-moeda-topo" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#FFF4C8"/><stop offset=".5" stop-color="#F7C935"/><stop offset="1" stop-color="#B98208"/></radialGradient>
+      <radialGradient id="f4-chao" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#F5C328" stop-opacity=".5"/><stop offset="1" stop-color="#F5C328" stop-opacity="0"/></radialGradient>
+      <filter id="f4-desfoque" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
     </defs>
-    <ellipse cx="${C}" cy="${yFim + 44}" rx="120" ry="26" fill="url(#f3-luz)"/>
-    <text x="${C}" y="28" text-anchor="middle" class="f3-tit">Investimento</text>
-    <g class="f3-moedas">${moedas}</g>
-    ${camadas}
-    <path d="M${C} ${yFim - 6} L${C} ${yFim + 22}" class="f3-bico"/>
-    <circle cx="${C}" cy="${yFim + 40}" r="22" fill="url(#f3-caixa)" class="f3-caixa"/>
-    <text x="${C}" y="${yFim + 46}" text-anchor="middle" class="f3-cifra">$</text>
-    <text x="${C}" y="${yFim + 86}" text-anchor="middle" class="f3-tit f3-tit-ouro">Caixa</text>
+    <ellipse cx="${C}" cy="${r1(yFim + 112)}" rx="150" ry="26" fill="url(#f4-chao)"/>
+    <text x="${C}" y="24" text-anchor="middle" class="f4-tit">Investimento</text>
+    <path d="${silhueta}" fill="url(#f4-dentro)" class="f4-tras"/>
+    <path d="M${C - 10} ${Y0 + 40} L${C + 10} ${Y0 + 40} L${C + 6} ${r1(yFim)} L${C - 6} ${r1(yFim)} Z" fill="url(#f4-luz-centro)" filter="url(#f4-desfoque)"/>
+    <ellipse cx="${C}" cy="${Y0}" rx="${R0}" ry="${r1(R0 * ACH)}" fill="url(#f4-boca)"/>
+    ${aneis}
+    <g class="f4-leads">${leads}</g>
+    <path d="${silhueta}" fill="url(#f4-vidro)" class="f4-frente"/>
+    <path d="M${r1(C - raio(0.04) + 14)} ${r1(yDe(0.04) + 10)} Q${r1(C - raio(0.3) + 6)} ${r1(yDe(0.3))} ${r1(C - raio(0.66) + 3)} ${r1(yDe(0.66))}" class="f4-brilho"/>
+    <ellipse cx="${C}" cy="${Y0}" rx="${R0}" ry="${r1(R0 * ACH)}" class="f4-aro" stroke="url(#f4-aro)"/>
+    <ellipse cx="${C}" cy="${Y0 + 3}" rx="${R0 - 5}" ry="${r1((R0 - 5) * ACH)}" class="f4-aro-sombra"/>
+    <ellipse cx="${C}" cy="${r1(yFim)}" rx="${r1(raio(1))}" ry="${r1(raio(1) * ACH)}" class="f4-bico" stroke="url(#f4-aro)"/>
+    ${moedas}
+    <text x="${C}" y="${r1(yFim + 150)}" text-anchor="middle" class="f4-tit f4-tit-ouro">Caixa</text>
   </svg>
-  ${etiquetas}
+  ${rotulos}
+  </div>
   <p class="il-legenda">O maior desperdício não é o anúncio ruim. É a operação sem estrutura.</p>
 </figure>`;
 }

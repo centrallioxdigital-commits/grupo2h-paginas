@@ -3,7 +3,7 @@
 
 import { u, abs, esc, icon, slugify, cfg, asset } from '../lib/core.mjs';
 import { pagina, diag, ctaFinal, faqLD, trilha, capa, ORG_ID } from '../lib/layout.mjs';
-import { DNA, paraQuemHTML, passosHTML, bentoMetodo } from './home.mjs';
+import { DNA, dnaCards, paraQuemHTML, passosHTML, bentoMetodo } from './home.mjs';
 import { servicos } from '../content/servicos.mjs';
 import { fases, programas, esteira } from '../content/metodo.mjs';
 import { faqGrupos, faqTodos } from '../content/faq.mjs';
@@ -69,7 +69,7 @@ ${capa({ trilhaHtml: t.html, titulo: 'Estrutura antes de escala.', tituloOuro: '
 <section class="sec">
   <div class="wrap dna">
     <div class="dna-fixo"><p class="etq">DNA</p><h2 class="h2">Cinco princípios em todo projeto.</h2></div>
-    <ul class="dna-lista" data-acende-item>${DNA.map((x) => `<li>${icon(x.i)}<h3>${esc(x.t)}</h3><p>${esc(x.d)}</p></li>`).join('')}</ul>
+    ${dnaCards()}
   </div>
 </section>
 
