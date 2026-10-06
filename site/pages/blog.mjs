@@ -22,10 +22,11 @@ function indicePagina(posts) {
   const destaque = primeiro
     ? `<article class="destaque post-card" data-slug="${esc(primeiro.slug)}" data-texto="${esc((primeiro.titulo + ' ' + primeiro.resumoFinal + ' ' + primeiro.categoriaNome).toLowerCase())}">
         <div class="post-capa">${capaUrl(primeiro) ? `<img src="${esc(capaUrl(primeiro))}" alt="${esc(primeiro.capa_alt || '')}" width="1200" height="750" fetchpriority="high">` : ''}</div>
-        <div>
-          <div class="post-meta"><span class="post-cat">${esc(primeiro.categoriaNome)}</span><span>${esc(primeiro.data)}</span><span>${primeiro.leitura} min de leitura</span></div>
+        <div class="post-corpo-c">
+          <div class="post-meta"><span class="post-cat">Em destaque · ${esc(primeiro.categoriaNome)}</span><span class="post-chip">${icon('calendar-blank')}${esc(primeiro.data)}</span><span class="post-chip">${icon('clock')}${primeiro.leitura} min de leitura</span></div>
           <h2><a href="${u(primeiro.path)}">${esc(primeiro.titulo)}</a></h2>
           <p>${esc(primeiro.resumoFinal)}</p>
+          <span class="post-ler" aria-hidden="true">Ler artigo ${icon('arrow-right')}</span>
         </div>
       </article>`
     : '';

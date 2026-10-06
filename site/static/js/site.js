@@ -59,6 +59,15 @@
     window.matchMedia('(min-width: 961px)').addEventListener('change', function (m) { if (m.matches) fechar(); });
   }
 
+  /* ---------- rodapé: no celular as colunas viram sanfonas fechadas; no computador ficam sempre abertas ---------- */
+  var gruposR = doc.querySelectorAll('.rod-grupo');
+  if (gruposR.length) {
+    var mqR = window.matchMedia('(max-width: 760px)');
+    var ajustarR = function () { gruposR.forEach(function (g) { g.open = !mqR.matches; }); };
+    ajustarR(); mqR.addEventListener('change', ajustarR);
+    gruposR.forEach(function (g) { g.querySelector('summary').addEventListener('click', function (ev) { if (!mqR.matches) ev.preventDefault(); }); });
+  }
+
   /* ---------- revelação ao entrar na tela ---------- */
   var alvos = doc.querySelectorAll('[data-revela],[data-revela-filhos]');
   doc.querySelectorAll('[data-revela-filhos]').forEach(function (g) {

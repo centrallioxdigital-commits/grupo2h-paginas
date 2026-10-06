@@ -29,6 +29,8 @@
 
   if (!lista || !G.url || !window.fetch) return;
   var url = G.url + '/rest/v1/blog_posts?select=slug,titulo,resumo,capa_url,capa_alt,categoria,publicado_em&status=eq.publicado&publicado_em=lte.' + encodeURIComponent(new Date().toISOString()) + '&order=publicado_em.desc&limit=12';
+  /* reaproveita os ícones dos cartões que já estão na página */
+  function svgDe(sel, k) { var el = doc.querySelectorAll(sel)[k]; var sv = el && el.querySelector('svg'); return sv ? sv.outerHTML : ''; }
   fetch(url, { headers: { apikey: G.chave } })
     .then(function (r) { return r.ok ? r.json() : []; })
     .then(function (posts) {
@@ -42,9 +44,9 @@
         a.setAttribute('data-texto', (p.titulo + ' ' + resumo + ' ' + cat).toLowerCase());
         var img = capa(p);
         a.innerHTML = '<div class="post-capa">' + (img ? '<img src="' + esc(img) + '" alt="' + esc(p.capa_alt || '') + '" loading="lazy">' : '') + '</div>' +
-          '<div class="post-meta"><span class="post-cat">' + esc(cat) + '</span><span>' + esc(dataBR(p.publicado_em)) + '</span><span>Novo</span></div>' +
+          '<div class="post-corpo-c"><div class="post-meta"><span class="post-cat">' + esc(cat) + '</span><span class="post-chip">' + svgDe('.post-chip', 0) + esc(dataBR(p.publicado_em)) + '</span><span class="post-chip">Novo</span></div>' +
           '<h3><a href="' + G.base + 'blog/' + encodeURIComponent(p.slug) + '/">' + esc(p.titulo) + '</a></h3>' +
-          '<p>' + esc(resumo) + '</p>';
+          '<p>' + esc(resumo) + '</p><span class="post-ler" aria-hidden="true">Ler artigo ' + svgDe('.post-ler', 0) + '</span></div>';
         lista.insertBefore(a, lista.firstChild);
       });
       if (novos.length && vazio && !busca) vazio.hidden = true;

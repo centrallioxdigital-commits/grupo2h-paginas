@@ -101,9 +101,12 @@ export function cartaoPost(p, { nivel = 'h3', carregar = 'lazy' } = {}) {
   const capa = capaUrl(p);
   return `<article class="post-card" data-slug="${esc(p.slug)}" data-texto="${esc((p.titulo + ' ' + p.resumoFinal + ' ' + p.categoriaNome).toLowerCase())}">
   <div class="post-capa">${capa ? `<img src="${esc(capa)}" alt="${esc(p.capa_alt || '')}" loading="${carregar}" decoding="async" width="800" height="500">` : ''}</div>
-  <div class="post-meta"><span class="post-cat">${esc(p.categoriaNome)}</span><span>${esc(p.data)}</span><span>${p.leitura} min de leitura</span></div>
-  <${nivel}><a href="${u(p.path)}">${esc(p.titulo)}</a></${nivel}>
-  <p>${esc(p.resumoFinal)}</p>
+  <div class="post-corpo-c">
+    <div class="post-meta"><span class="post-cat">${esc(p.categoriaNome)}</span><span class="post-chip">${icon('calendar-blank')}${esc(p.data)}</span><span class="post-chip">${icon('clock')}${p.leitura} min</span></div>
+    <${nivel}><a href="${u(p.path)}">${esc(p.titulo)}</a></${nivel}>
+    <p>${esc(p.resumoFinal)}</p>
+    <span class="post-ler" aria-hidden="true">Ler artigo ${icon('arrow-right')}</span>
+  </div>
 </article>`;
 }
 

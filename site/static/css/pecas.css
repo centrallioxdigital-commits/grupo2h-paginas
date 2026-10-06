@@ -373,3 +373,125 @@ main>.cobre,main>section.cobre,main>.letreiro.cobre{border-radius:0!important}
 main>section.sec{overflow:clip}
 /* sem a linha de 1px entre seções da mesma cor e com 1px de sobreposição para não sobrar fresta de arredondamento */
 main>.sec+.sec{border-top:0;margin-top:-1px}
+
+/* ---- hero da home: a pílula "Não somos agência" só no computador ---- */
+@media (max-width:760px){.hero-selo{display:none!important}}
+
+/* =====================================================================
+   Rodapé premium: cartão da marca em vidro, colunas com títulos dourados,
+   sanfonas no celular e a frase da marca em contorno como marca d'água.
+   ===================================================================== */
+.rod2{position:relative;overflow:clip;border-top:0;padding:clamp(64px,8vw,104px) 0 26px;background:linear-gradient(180deg,#0E0E11,#09090B)}
+.rod2::before{content:'';position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(245,195,40,.2) 18%,rgba(245,195,40,.75) 50%,rgba(245,195,40,.2) 82%,transparent)}
+.rod2-luz{position:absolute;left:50%;top:-260px;width:min(1100px,120vw);aspect-ratio:2/1;translate:-50% 0;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(245,195,40,.12),transparent 70%)}
+.rod2 .wrap{position:relative}
+.rod2-grade{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,2fr);gap:clamp(28px,4vw,64px);align-items:start}
+
+/* cartão da marca */
+.rod2-marca{padding:28px 26px;border-radius:28px;border:1px solid rgba(242,238,229,.1);
+  background:radial-gradient(120% 90% at 0% 0%,rgba(245,195,40,.12),transparent 55%),linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.012));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 40px 80px -50px rgba(0,0,0,.95)}
+.rod2-marca p{margin:16px 0 22px;color:var(--tx-2);font-size:.98rem;line-height:1.55;max-width:34ch}
+.rod2-contato{display:grid;gap:10px}
+.rod2-bt{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:16px;color:var(--tx);
+  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(242,238,229,.1);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08);transition:transform .45s cubic-bezier(.32,.72,0,1),border-color .3s}
+.rod2-bt:hover{transform:translateY(-2px);border-color:rgba(245,195,40,.45)}
+.rod2-bt>.ic{width:36px;height:36px;padding:8px;border-radius:11px;flex:none;color:#F5C328;background:linear-gradient(160deg,#25252B,#131317);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 0 0 1px rgba(245,195,40,.22)}
+.rod2-bt-ouro>.ic{color:#17130A;background:linear-gradient(180deg,#FFE9A0,#F7C935 50%,#E2AA14);box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}
+.rod2-bt span{display:flex;flex-direction:column;gap:3px;font:600 .95rem/1.15 var(--f-d);min-width:0;overflow-wrap:anywhere}
+.rod2-bt small{font:600 .64rem/1 var(--f-b);letter-spacing:.16em;text-transform:uppercase;color:var(--tx-3)}
+
+/* colunas */
+.rod2-cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(18px,2.4vw,36px);padding-top:8px}
+.rod-grupo summary{list-style:none;display:flex;align-items:center;gap:10px;margin-bottom:16px;cursor:default}
+.rod-grupo summary::-webkit-details-marker{display:none}
+.rod-g-ic{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;flex:none;color:#F5C328;background:linear-gradient(160deg,#25252B,#131317);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 0 0 1px rgba(245,195,40,.2)}
+.rod-g-ic .ic{width:16px;height:16px}
+.rod2 .rod-tit{margin:0;font:700 .72rem/1 var(--f-b);letter-spacing:.18em;text-transform:uppercase;background:linear-gradient(180deg,#FFE490,#D9A012);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rod-seta{display:none}
+.rod-grupo ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.rod-grupo a{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 0;color:var(--tx-2);font-size:.95rem;transition:color .25s}
+.rod-grupo a .ic{width:14px;height:14px;opacity:0;transform:translate(-6px,4px);color:#F5C328;transition:opacity .3s,transform .45s cubic-bezier(.32,.72,0,1)}
+.rod-grupo a:hover{color:#fff}
+.rod-grupo a:hover .ic{opacity:1;transform:none}
+
+/* frase da marca em contorno, como marca d'água */
+.rod2-frase{margin:clamp(48px,7vw,88px) 0 0;text-align:center;white-space:nowrap;font:700 clamp(2.2rem,1rem + 6.4vw,7.6rem)/.9 var(--f-d);letter-spacing:-.045em;
+  color:transparent;-webkit-text-stroke:1px rgba(245,195,40,.38);
+  background:linear-gradient(180deg,rgba(245,195,40,.16),rgba(245,195,40,0) 85%);-webkit-background-clip:text;background-clip:text;
+  -webkit-mask-image:linear-gradient(180deg,#000 35%,transparent 100%);mask-image:linear-gradient(180deg,#000 35%,transparent 100%);user-select:none}
+.rod2-base{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 24px;margin-top:6px;padding-top:20px;border-top:1px solid rgba(242,238,229,.08);font-size:.84rem;color:var(--tx-4)}
+.rod2-base a{color:var(--tx-3);transition:color .2s}
+.rod2-base a:hover{color:#F5C328}
+
+@media (max-width:1100px){.rod2-grade{grid-template-columns:1fr}.rod2-cols{grid-template-columns:repeat(2,minmax(0,1fr))}.rod2-marca{max-width:none}
+  .rod2-contato{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* celular: sanfonas de vidro */
+@media (max-width:760px){
+  .rod2{padding-top:52px}
+  .rod2-marca{padding:24px 18px;text-align:center}
+  .rod2-marca .marca{justify-content:center}
+  .rod2-marca p{margin-inline:auto}
+  .rod2-contato{grid-template-columns:1fr;text-align:left}
+  .rod2-cols{grid-template-columns:1fr;gap:10px;padding-top:0}
+  .rod-grupo{border-radius:20px;border:1px solid rgba(242,238,229,.09);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.01));box-shadow:inset 0 1px 0 rgba(255,255,255,.06);overflow:hidden}
+  .rod-grupo summary{margin:0;padding:14px 16px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .rod-seta{display:block;margin-left:auto;width:18px;height:18px;color:var(--tx-3);transition:transform .5s cubic-bezier(.32,.72,0,1)}
+  .rod-grupo[open] .rod-seta{transform:rotate(180deg);color:#F5C328}
+  .rod-grupo[open]{border-color:rgba(245,195,40,.28)}
+  .rod-grupo ul{padding:0 16px 12px 56px;gap:0}
+  .rod-grupo a{padding:10px 0;border-top:1px solid rgba(242,238,229,.06)}
+  .rod-grupo a .ic{opacity:.6;transform:none}
+  .rod2-frase{font-size:clamp(1.9rem,10.5vw,3rem);white-space:normal;line-height:.95;margin-top:44px}
+  .rod2-base{flex-direction:column;text-align:center;justify-content:center}
+}
+/* títulos dourados com acento inteiro (o recorte do degradê precisa de altura de linha) */
+.rod2 .rod-tit,.mm-grupo .mm-tit{line-height:1.5;padding-top:2px}
+@media (max-width:760px){
+  .rod2-frase{font-size:clamp(2.1rem,12.5vw,3.4rem);text-wrap:balance;line-height:1;
+    -webkit-mask-image:linear-gradient(180deg,#000 55%,rgba(0,0,0,.25) 100%);mask-image:linear-gradient(180deg,#000 55%,rgba(0,0,0,.25) 100%)}
+}
+
+/* =====================================================================
+   Blog: cada post é um cartão de vidro com capa, selos, título e "Ler artigo"
+   ===================================================================== */
+.post-card{gap:0;border-radius:24px;overflow:hidden;border:1px solid rgba(242,238,229,.1);
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.015)),#121215;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 30px 60px -36px rgba(0,0,0,.95);
+  transition:transform .6s cubic-bezier(.32,.72,0,1),border-color .4s,box-shadow .6s}
+.post-card:hover{transform:translateY(-6px);border-color:rgba(245,195,40,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 40px 70px -36px rgba(0,0,0,.95),0 0 0 4px rgba(245,195,40,.06)}
+.post-card .post-capa{border:0;border-radius:0;position:relative}
+.post-card .post-capa::after{content:'';position:absolute;inset:auto 0 0;height:40%;background:linear-gradient(180deg,transparent,rgba(18,18,21,.7));pointer-events:none}
+.post-corpo-c{display:flex;flex-direction:column;gap:12px;flex:1;padding:20px 22px 22px;border-top:1px solid rgba(245,195,40,.18)}
+.post-card .post-meta{gap:8px}
+.post-card .post-cat{display:block;width:100%;margin-bottom:2px}
+.post-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;font-size:.78rem;color:var(--tx-2);
+  background:rgba(255,255,255,.05);border:1px solid rgba(242,238,229,.08)}
+.post-chip .ic{width:14px;height:14px;color:#F5C328}
+.post-card h3{font-size:1.25rem;line-height:1.22;transition:color .3s}
+.post-card p{font-size:.93rem}
+.post-ler{margin-top:auto;padding-top:14px;border-top:1px solid rgba(242,238,229,.07);display:flex;align-items:center;justify-content:space-between;
+  font:600 .9rem/1 var(--f-d);color:#F5C328}
+.post-ler .ic{width:30px;height:30px;padding:7px;border-radius:50%;color:#17130A;background:linear-gradient(180deg,#FFE9A0,#F7C935 50%,#E2AA14);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 6px 14px -6px rgba(245,195,40,.6);transition:transform .5s cubic-bezier(.32,.72,0,1)}
+.post-card:hover .post-ler .ic{transform:translateX(4px)}
+@media (max-width:760px){
+  .posts{gap:16px}
+  .post-corpo-c{padding:18px 18px 18px}
+  .post-card h3{font-size:1.18rem}
+}
+/* post em destaque: imagem à esquerda, corpo com respiro e sem linha dourada vertical */
+.destaque.post-card{gap:0;align-items:stretch}
+.destaque .post-capa{height:100%;min-height:100%}
+.destaque .post-capa img{height:100%}
+.destaque .post-corpo-c{justify-content:center;padding:clamp(24px,3.4vw,48px);border-top:0;border-left:1px solid rgba(245,195,40,.18)}
+.destaque h2{margin-top:6px}
+.destaque p{margin-top:0}
+.destaque .post-ler{margin-top:12px}
+@media (max-width:900px){.destaque .post-corpo-c{border-left:0;border-top:1px solid rgba(245,195,40,.18)}.destaque .post-capa{aspect-ratio:16/10;height:auto}}
+@media (min-width:901px){.destaque .post-capa{aspect-ratio:auto;min-height:340px;width:100%}.destaque .post-capa img{position:absolute;inset:0;width:100%;height:100%}}
+.post-capa img{object-position:left top}
+.post-card,.post-card *{text-align:left}

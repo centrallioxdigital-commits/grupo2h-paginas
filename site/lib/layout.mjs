@@ -161,39 +161,31 @@ function rodape() {
     empresa.youtube && `<a href="${esc(empresa.youtube)}" target="_blank" rel="noopener" aria-label="YouTube">${icon('youtube-logo')}</a>`,
   ].filter(Boolean).join('');
   const legal = [empresa.razaoSocial, empresa.cnpj && `CNPJ ${empresa.cnpj}`].filter(Boolean).join(' · ');
+  const lk = (href, nome, ext) => `<li><a href="${ext ? href : u(href)}"><span>${esc(nome)}</span>${icon('arrow-up-right')}</a></li>`;
+  const grupo = (tit, ic, itens) => `<details class="rod-grupo" open><summary><span class="rod-g-ic">${icon(ic)}</span><span class="rod-tit">${tit}</span>${icon('caret-down', { cls: 'ic rod-seta' })}</summary><ul>${itens}</ul></details>`;
   return `
-<footer class="rodape">
+<footer class="rodape rod2">
+  <div class="rod2-luz" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="rod-topo">
-      <div class="rod-marca">
+    <div class="rod2-grade">
+      <div class="rod2-marca">
         <a class="marca" href="${u('')}" aria-label="Grupo 2!H, página inicial"><img src="${asset('img/logo-2h-glyph.png')}" alt="" width="39" height="36" loading="lazy"><span>GRUPO <b>2!H</b></span></a>
         <p>Estrutura, planejamento e ação para empresas que querem crescer com previsibilidade.</p>
+        <div class="rod2-contato">
+          <a class="rod2-bt rod2-bt-ouro" href="${whatsappLink()}" target="_blank" rel="noopener">${icon('whatsapp-logo')}<span><small>WhatsApp</small>${esc(empresa.whatsappExibicao)}</span></a>
+          <a class="rod2-bt" href="mailto:${esc(empresa.email)}">${icon('envelope-simple')}<span><small>E-mail</small>${esc(empresa.email)}</span></a>
+        </div>
         ${redes ? `<div class="rod-redes">${redes}</div>` : ''}
       </div>
-      <nav class="rod-cols" aria-label="Rodapé">
-        <div><p class="rod-tit">Empresa</p><ul>
-          <li><a href="${u('sobre/')}">Sobre a 2!H</a></li>
-          <li><a href="${u('como-funciona/')}">Como funciona</a></li>
-          <li><a href="${u('perguntas-frequentes/')}">Perguntas frequentes</a></li>
-          <li><a href="${u('contato/')}">Contato</a></li>
-        </ul></div>
-        <div><p class="rod-tit">Soluções</p><ul>${servicos.map((s) => `<li><a href="${u(`solucoes/${s.slug}/`)}">${esc(s.nome)}</a></li>`).join('')}</ul></div>
-        <div><p class="rod-tit">Método 5A</p><ul>
-          <li><a href="${u('metodo-5a/')}">O método</a></li>
-          ${programas.map((p) => `<li><a href="${p.link}">${esc(p.nome)}</a></li>`).join('')}
-        </ul></div>
-        <div><p class="rod-tit">Conteúdo</p><ul>
-          <li><a href="${u('blog/')}">Blog</a></li>
-          <li><a href="${u('glossario/')}">Glossário de growth</a></li>
-          <li><a href="${u('blog/rss.xml')}">RSS</a></li>
-        </ul></div>
+      <nav class="rod2-cols" aria-label="Rodapé">
+        ${grupo('Empresa', 'buildings', lk('sobre/', 'Sobre a 2!H') + lk('como-funciona/', 'Como funciona') + lk('perguntas-frequentes/', 'Perguntas frequentes') + lk('contato/', 'Contato'))}
+        ${grupo('Soluções', 'stack', servicos.map((s) => lk(`solucoes/${s.slug}/`, s.nome)).join(''))}
+        ${grupo('Método 5A', 'graph', lk('metodo-5a/', 'O método') + programas.map((p) => lk(p.link, p.nome, true)).join(''))}
+        ${grupo('Conteúdo', 'article', lk('blog/', 'Blog') + lk('glossario/', 'Glossário de growth') + lk('blog/rss.xml', 'RSS'))}
       </nav>
     </div>
-    <div class="rod-contato">
-      <a href="${whatsappLink()}" target="_blank" rel="noopener">${icon('whatsapp-logo')} ${esc(empresa.whatsappExibicao)}</a>
-      <a href="mailto:${esc(empresa.email)}">${icon('envelope-simple')} ${esc(empresa.email)}</a>
-    </div>
-    <div class="rod-base">
+    <p class="rod2-frase" aria-hidden="true">Estrutura antes de escala.</p>
+    <div class="rod2-base">
       <p>© ${new Date().getFullYear()} ${esc(empresa.nome)}. Todos os direitos reservados.${legal ? ` ${esc(legal)}.` : ''}</p>
       <a href="${u('privacidade/')}">Política de privacidade</a>
     </div>
