@@ -11,6 +11,22 @@ export function foto(nome, alt, { cls = '', revela = true, prioridade = false, s
   return `<figure class="foto ${cls}"${revela ? ' data-revela' : ''}><img src="${asset(`img/fotos/${nome}.webp`)}" srcset="${asset(`img/fotos/${nome}-800.webp`)} 800w, ${asset(`img/fotos/${nome}.webp`)} 1600w" sizes="${sizes}" alt="${esc(alt)}" ${prioridade ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">${legenda}</figure>`;
 }
 
+/** Divisa com a medalha 2!H nas dobras entre seções que mudam de clima. */
+const DOBRA = /\b(bloco-ouro|creme|cta-final|capa)\b/;
+function inserirDivisas(html) {
+  const partes = html.split(/(?=<section class=")/);
+  const orig = [...partes];
+  const classe = (p) => (p.match(/^<section class="([^"]*)"/) || [, ''])[1];
+  for (let i = 1; i < partes.length; i++) {
+    const ant = classe(orig[i - 1]), prox = classe(orig[i]);
+    if (!orig[i - 1].startsWith('<section') || !(DOBRA.test(ant) || DOBRA.test(prox))) continue;
+    const tom = /creme/.test(prox) || /creme/.test(ant) ? ' no-claro' : /bloco-ouro/.test(prox) || /bloco-ouro/.test(ant) ? ' no-ouro' : '';
+    partes[i] = `<div class="divisa${tom}" aria-hidden="true"><span class="divisa-selo"><span class="divisa-moeda"><img src="${asset('img/logo-2h-glyph.png')}" alt="" width="39" height="36"></span></span></div>
+` + partes[i];
+  }
+  return partes.join('');
+}
+
 export const ORG_ID = abs('#organizacao');
 export const SITE_ID = abs('#site');
 
@@ -225,6 +241,7 @@ ${noindex ? '<meta name="robots" content="noindex, nofollow">' : '<meta name="ro
 <link rel="preload" href="${asset('fonts/inter-var-latin.woff2')}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${asset('css/site.css')}">
 <link rel="stylesheet" href="${asset('css/turbo.css')}">
+<link rel="stylesheet" href="${asset('css/relevo.css')}">
 ${o.extraHead || ''}
 <script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>
 ${gtm ? `<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${cfg.gtm}');</script>` : ''}
@@ -233,7 +250,7 @@ ${gtm ? `<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new D
 ${gtm ? `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${cfg.gtm}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>` : ''}
 ${o.semCabecalho ? '' : cabecalho(o.navAtual ?? o.path)}
 <main id="conteudo">
-${o.corpo}
+${inserirDivisas(o.corpo)}
 </main>
 ${o.semCabecalho ? '' : rodape()}
 <script src="${asset('js/site.js')}" defer></script>
