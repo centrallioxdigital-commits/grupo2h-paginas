@@ -70,14 +70,14 @@
   doc.querySelectorAll('[data-conta]').forEach(function (el) {
     if (reduz || !temIO) return;
     var alvo = +el.getAttribute('data-conta');
-    el.textContent = '0';
+    el.textContent = el.hasAttribute('data-dec') ? '0,0' : '0';
     var o = new IntersectionObserver(function (e) {
       if (!e[0].isIntersecting) return;
       o.disconnect();
       var t0 = performance.now(), dur = 1400;
       (function passo(t) {
         var p = Math.min(1, (t - t0) / dur), k = 1 - Math.pow(1 - p, 4);
-        el.textContent = String(Math.round(alvo * k));
+        el.textContent = el.hasAttribute('data-dec') ? (alvo * k / 10).toFixed(1).replace('.', ',') : String(Math.round(alvo * k));
         if (p < 1) requestAnimationFrame(passo);
       })(t0);
     }, { threshold: 0.6 });
@@ -146,20 +146,29 @@
     }
   } catch (e) { /* armazenamento bloqueado: segue sem UTM */ }
 
-  /* ---------- perguntas: abre e fecha na altura certa ---------- */
-  doc.querySelectorAll('details.acord').forEach(function (d) {
+  /* ---------- perguntas: todas fechadas; abrir uma fecha as outras do grupo ---------- */
+  var acords = doc.querySelectorAll('details.acord');
+  var fecharAcord = function (d) {
+    var r = d.querySelector('.acord-r');
+    if (!d.open) return;
+    if (reduz || !r || !r.animate) { d.open = false; return; }
+    d.classList.add('fechando');
+    var h = r.offsetHeight;
+    r.animate([{ height: h + 'px', opacity: 1 }, { height: '0px', opacity: 0 }], { duration: 420, easing: 'cubic-bezier(.65,0,.35,1)' }).onfinish = function () { d.open = false; d.classList.remove('fechando'); };
+  };
+  acords.forEach(function (d) {
+    d.open = false;
     var s = d.querySelector('summary'), r = d.querySelector('.acord-r');
-    if (!s || !r || reduz || !r.animate) return;
+    if (!s || !r) return;
     s.addEventListener('click', function (ev) {
       ev.preventDefault();
-      if (d.open) {
-        var h = r.offsetHeight;
-        r.animate([{ height: h + 'px', opacity: 1 }, { height: '0px', opacity: 0 }], { duration: 420, easing: 'cubic-bezier(.65,0,.35,1)' }).onfinish = function () { d.open = false; };
-      } else {
-        d.open = true;
-        var h2 = r.offsetHeight;
-        r.animate([{ height: '0px', opacity: 0 }, { height: h2 + 'px', opacity: 1 }], { duration: 520, easing: 'cubic-bezier(.16,1,.3,1)' });
-      }
+      if (d.open) { fecharAcord(d); return; }
+      var grupo = d.closest('[data-acordeoes]') || d.parentElement;
+      grupo.querySelectorAll('details.acord').forEach(function (o) { if (o !== d) fecharAcord(o); });
+      d.open = true;
+      if (reduz || !r.animate) return;
+      var h2 = r.offsetHeight;
+      r.animate([{ height: '0px', opacity: 0 }, { height: h2 + 'px', opacity: 1 }], { duration: 520, easing: 'cubic-bezier(.16,1,.3,1)' });
     });
   });
 

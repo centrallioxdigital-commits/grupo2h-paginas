@@ -271,7 +271,7 @@ ${recentes.length ? `<section class="sec" id="blog">
       <h2 class="h2">Perguntas que todo empresário faz.</h2>
       <a class="btn btn-linha" href="${u('perguntas-frequentes/')}">Todas as perguntas ${icon('arrow-right')}</a>
     </div>
-    <div class="faq-grade" data-revela-filhos>${faqHome.map((f) => `<div class="faq-item"><h3>${esc(f.q)}</h3><p>${esc(f.a)}</p></div>`).join('')}</div>
+    <div class="faq-colunas" data-acordeoes data-revela>${[faqHome.slice(0, Math.ceil(faqHome.length / 2)), faqHome.slice(Math.ceil(faqHome.length / 2))].map((col) => `<div>${col.map((f) => `<details class="acord"><summary>${esc(f.q)}${icon('plus')}</summary><div class="acord-r"><p>${esc(f.a)}</p></div></details>`).join('')}</div>`).join('')}</div>
   </div>
 </section>
 

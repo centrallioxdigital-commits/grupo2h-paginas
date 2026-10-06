@@ -137,7 +137,7 @@
 .compara{display:grid;grid-template-columns:repeat(var(--cols,3),minmax(0,1fr));gap:14px}
 .cmp-card{position:relative;display:flex;flex-direction:column;padding:28px 26px 26px;border-radius:var(--r-lg);border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.015) 40%),var(--bg-1);box-shadow:var(--rel-sombra);transition:transform .7s var(--ease-mola),box-shadow .6s,border-color .5s}
 .cmp-card:hover{transform:translateY(-8px);box-shadow:var(--rel-sombra-hover);border-color:rgba(245,195,40,.3)}
-.cmp-card.destaque{border-color:rgba(245,195,40,.35);background:radial-gradient(120% 70% at 50% 0%,rgba(245,195,40,.16),transparent 60%),linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.015) 40%),var(--bg-1)}
+.cmp-card.cmp-dest{border-color:rgba(245,195,40,.35);background:radial-gradient(120% 70% at 50% 0%,rgba(245,195,40,.16),transparent 60%),linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.015) 40%),var(--bg-1)}
 .cmp-topo{display:flex;align-items:center;gap:14px;padding-bottom:20px;margin-bottom:6px;border-bottom:1px solid rgba(255,255,255,.08)}
 .cmp-topo .ic{flex:none;width:48px;height:48px;padding:12px;border-radius:28%;background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,.12) 42%,transparent 52%),linear-gradient(160deg,#FFE08A,#F5C328 45%,#C98F0C);color:#1A1408;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35),0 10px 22px -8px rgba(245,195,40,.55)}
 .cmp-topo h3{font-size:1.3rem;line-height:1.15}

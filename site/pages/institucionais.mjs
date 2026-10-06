@@ -8,8 +8,8 @@ import { servicos } from '../content/servicos.mjs';
 import { fases, programas, esteira } from '../content/metodo.mjs';
 import { faqGrupos, faqTodos } from '../content/faq.mjs';
 import { glossario } from '../content/glossario.mjs';
-import { ilConversa, ilFormula, ilMarca } from '../lib/ilustracoes.mjs';
-import { ilOrbita3d, ilBussola3d, ilFunil3d } from '../lib/ilustracoes3d.mjs';
+import { ilConversa, ilFormula } from '../lib/ilustracoes.mjs';
+import { ilOrbita3d, ilBussola3d, ilFunil3d, ilMarca3d } from '../lib/ilustracoes3d.mjs';
 import { empresa, whatsappLink } from '../content/empresa.mjs';
 
 const acordeao = (itens) =>
@@ -37,7 +37,7 @@ function sobre() {
   const t = trilha([{ nome: 'Sobre', path: 'sobre/' }]);
   const time = empresa.time.filter((m) => m.nome && m.papel);
   const corpo = `
-${capa({ trilhaHtml: t.html, titulo: 'Estrutura antes de escala.', tituloOuro: 'Clareza antes de investimento.', lead: 'A 2!H organiza a máquina de vendas digital de empresas que já faturam, já investem e já têm operação, mas ainda não têm clareza, integração e controle para transformar marketing em crescimento previsível.', visual: ilMarca(), fotoFundo: 'dupla-escritorio' })}
+${capa({ trilhaHtml: t.html, titulo: 'Estrutura antes de escala.', tituloOuro: 'Clareza antes de investimento.', lead: 'A 2!H organiza a máquina de vendas digital de empresas que já faturam, já investem e já têm operação, mas ainda não têm clareza, integração e controle para transformar marketing em crescimento previsível.', visual: ilMarca3d(), fotoFundo: 'dupla-escritorio' })}
 
 <section class="sec">
   <div class="wrap dois">
@@ -214,7 +214,7 @@ ${capa({ trilhaHtml: t.html, titulo: 'Método 5A.', tituloOuro: 'Cinco fases par
       { n: 'Imersão Estrutura 5A', f: 'Online e ao vivo · 4 horas', q: 'Quem quer descobrir onde a empresa perde vendas antes de investir mais em tráfego', s: 'A leitura das 10 etapas, do negócio à margem, e o verdadeiro gargalo da operação', l: '/imersao5a/', ic: 'presentation-chart' },
       { n: 'Mentoria 5A', f: 'Em grupo · 12 semanas', q: 'Quem viu o método e quer sair da teoria para a implementação', s: '12 entregáveis, do Raio-X econômico ao plano de crescimento de 90 dias', l: '/mentoria5a/', ic: 'users-three', d: true },
       { n: 'Diagnóstico Estratégico 5A', f: 'Individual · 1x1', q: 'Empresário ou sócio que quer o método aplicado com atenção individual', s: 'Raio-X econômico, mapa de gargalos, oferta alinhada, rastreamento e plano de prioridades', l: '/diagnostico5a/', ic: 'target' },
-    ].map((c) => `<article class="cmp-card${c.d ? ' destaque' : ''}"><div class="cmp-topo">${icon(c.ic)}<div><h3>${esc(c.n)}</h3><small>${esc(c.f)}</small></div></div><dl><div class="cmp-linha"><dt>Para quem</dt><dd>${esc(c.q)}</dd></div><div class="cmp-linha"><dt>Você sai com</dt><dd>${esc(c.s)}</dd></div></dl><a class="btn btn-linha btn-sm" href="${c.l}">Conhecer ${icon('arrow-right')}</a></article>`).join('')}</div>
+    ].map((c) => `<article class="cmp-card${c.d ? ' cmp-dest' : ''}"><div class="cmp-topo">${icon(c.ic)}<div><h3>${esc(c.n)}</h3><small>${esc(c.f)}</small></div></div><dl><div class="cmp-linha"><dt>Para quem</dt><dd>${esc(c.q)}</dd></div><div class="cmp-linha"><dt>Você sai com</dt><dd>${esc(c.s)}</dd></div></dl><a class="btn btn-linha btn-sm" href="${c.l}">Conhecer ${icon('arrow-right')}</a></article>`).join('')}</div>
   </div>
 </section>
 

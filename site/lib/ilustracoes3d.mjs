@@ -1,7 +1,7 @@
 // Ilustrações "encorpadas" (3D sutil, vidro, metal e luz): órbita do
 // Método 5A e bússola do Como funciona. Estilo em static/css/encorpado.css.
 
-import { esc, icon } from './core.mjs';
+import { esc, icon, asset } from './core.mjs';
 
 const r1 = (n) => Math.round(n * 10) / 10;
 const iconeEm = (nome, x, y, t) => icon(nome).replace('<svg ', `<svg x="${r1(x - t / 2)}" y="${r1(y - t / 2)}" width="${t}" height="${t}" `);
@@ -156,4 +156,89 @@ export function ilFunil3d() {
   ${etiquetas}
   <p class="il-legenda">O maior desperdício não é o anúncio ruim. É a operação sem estrutura.</p>
 </figure>`;
+}
+
+/** Growth Control: painel de instrumento com aro metálico, escala de ROAS e ponteiro que passa do equilíbrio. */
+export function ilMedidor3d() {
+  const C = 240, Y = 236, R = 172;
+  // fração 0..1 da escala (0 = esquerda, 1 = direita) para ponto no arco
+  const pt = (f, r) => { const a = Math.PI * (1 - f); return [C + r * Math.cos(a), Y - r * Math.sin(a)]; };
+  const arco = (f0, f1, r) => { const [x0, y0] = pt(f0, r), [x1, y1] = pt(f1, r); return `M${r1(x0)} ${r1(y0)} A${r} ${r} 0 0 1 ${r1(x1)} ${r1(y1)}`; };
+  const marcas = Array.from({ length: 51 }, (_, i) => {
+    const f = i / 50, maior = i % 10 === 0, meio = i % 5 === 0;
+    const [x0, y0] = pt(f, maior ? 128 : meio ? 134 : 139), [x1, y1] = pt(f, 146);
+    return `<line x1="${r1(x0)}" y1="${r1(y0)}" x2="${r1(x1)}" y2="${r1(y1)}" class="${maior ? 'm3-maior' : meio ? 'm3-meio' : ''}"/>`;
+  }).join('');
+  const numeros = [0, 1, 2, 3, 4, 5].map((n) => { const [x, y] = pt(n / 5, 112); return `<text x="${r1(x)}" y="${r1(y + 5)}" text-anchor="middle" class="m3-num">${n}x</text>`; }).join('');
+  const ALVO = 0.68; // ROAS 3,4x
+  return `<figure class="il il3d il-medidor3d" role="img" aria-label="Painel de instrumento: escala de ROAS com faixas de prejuízo, equilíbrio e lucro; o ponteiro para em 3,4x, acima do ROAS de equilíbrio." data-revela style="--alvo:${(ALVO * 180 - 90).toFixed(1)}deg">
+    <svg viewBox="0 0 480 300" aria-hidden="true">
+      <defs>
+        <linearGradient id="m3-aro" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5A5A63"/><stop offset=".35" stop-color="#2A2A30"/><stop offset=".7" stop-color="#16161A"/><stop offset="1" stop-color="#3A3A42"/></linearGradient>
+        <radialGradient id="m3-face" cx=".5" cy="1" r="1"><stop offset="0" stop-color="#1E1D22"/><stop offset=".7" stop-color="#121215"/><stop offset="1" stop-color="#0B0B0D"/></radialGradient>
+        <linearGradient id="m3-ruim" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#7A2318"/><stop offset="1" stop-color="#E8654D"/></linearGradient>
+        <linearGradient id="m3-bom" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE490"/><stop offset=".5" stop-color="#F5C328"/><stop offset="1" stop-color="#B98208"/></linearGradient>
+        <linearGradient id="m3-ag-a" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFF6DA"/><stop offset="1" stop-color="#E9D9A8"/></linearGradient>
+        <linearGradient id="m3-ag-b" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#A88F52"/><stop offset="1" stop-color="#6E5A2A"/></linearGradient>
+        <radialGradient id="m3-cubo" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FFF1B8"/><stop offset=".35" stop-color="#F5C328"/><stop offset="1" stop-color="#8A6206"/></radialGradient>
+        <linearGradient id="m3-vidro" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient>
+        <filter id="m3-brilho" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7"/></filter>
+      </defs>
+      <ellipse cx="${C}" cy="${Y + 38}" rx="190" ry="14" class="m3-sombra"/>
+      <path d="${arco(0, 1, 204)} L${C + 204} ${Y + 18} L${C - 204} ${Y + 18} Z" fill="url(#m3-aro)" class="m3-aro"/>
+      <path d="${arco(0, 1, 190)} L${C + 190} ${Y + 8} L${C - 190} ${Y + 8} Z" fill="url(#m3-face)" class="m3-face"/>
+      <path d="${arco(0, 1, 203)}" class="m3-aro-luz"/>
+      <path d="${arco(0, 1, 190)}" class="m3-face-borda"/>
+      <path d="${arco(0, 0.4, R)}" class="m3-faixa" stroke="url(#m3-ruim)"/>
+      <path d="${arco(0.41, 0.49, R)}" class="m3-faixa m3-eq"/>
+      <path d="${arco(0.5, 1, R)}" class="m3-faixa" stroke="url(#m3-bom)"/>
+      <path d="${arco(0.5, 1, R)}" class="m3-faixa m3-brilho" stroke="url(#m3-bom)" filter="url(#m3-brilho)"/>
+      <path d="${arco(0, 1, R)}" class="m3-faixa-luz"/>
+      <path d="${arco(0, ALVO, 158)}" class="m3-progresso" pathLength="100"/>
+      <g class="m3-marcas">${marcas}</g>
+      ${numeros}
+      <text x="${r1(pt(0.08, 214)[0])}" y="${Y + 46}" class="m3-rot m3-rot-ruim">Prejuízo</text>
+      <text x="${C}" y="${Y - 216}" text-anchor="middle" class="m3-rot m3-rot-eq">Equilíbrio</text>
+      <text x="${r1(pt(0.92, 214)[0])}" y="${Y + 46}" text-anchor="end" class="m3-rot m3-rot-bom">Lucro</text>
+      <g class="m3-ponteiro">
+        <path d="M${C} ${Y - 150} L${C - 7} ${Y - 6} L${C} ${Y + 26} Z" fill="url(#m3-ag-a)"/>
+        <path d="M${C} ${Y - 150} L${C + 7} ${Y - 6} L${C} ${Y + 26} Z" fill="url(#m3-ag-b)"/>
+        <circle cx="${C}" cy="${Y - 146}" r="5" class="m3-ponta"/>
+      </g>
+      <circle cx="${C}" cy="${Y}" r="24" class="m3-cubo-aro"/>
+      <circle cx="${C}" cy="${Y}" r="17" fill="url(#m3-cubo)"/>
+      <ellipse cx="${C - 5}" cy="${Y - 7}" rx="8" ry="4.5" class="m3-cubo-luz"/>
+      <path d="${arco(0, 1, 189)} L${C + 189} ${Y - 40} Q${C} ${Y - 120} ${C - 189} ${Y - 40} Z" fill="url(#m3-vidro)" class="m3-vidro"/>
+    </svg>
+    <div class="m3-leitura"><small>ROAS atual</small><b><span data-conta="34" data-dec>3,4</span>x</b><em>${icon('trend-up')} acima do equilíbrio</em></div>
+    <div class="m3-chips"><span>${icon('target')}CPA máximo</span><span>${icon('scales')}ROAS de equilíbrio</span><span>${icon('coins')}Margem por venda</span></div>
+    <p class="il-legenda">A matemática antes da mídia: saber até onde dá para pagar por cliente.</p>
+  </figure>`;
+}
+
+/** Sobre: a marca 2!H em metal dourado, sobre um pedestal de vidro, com órbitas e luz. */
+export function ilMarca3d() {
+  const logo = asset('img/logo-2h-grande.png');
+  const orbita = (rx, ry, rot, dur, cls) => `<g transform="rotate(${rot} 250 250)" class="mk-orbita ${cls}">
+      <ellipse cx="250" cy="250" rx="${rx}" ry="${ry}"/>
+      <circle r="4" class="mk-cometa"><animateMotion dur="${dur}s" repeatCount="indefinite" path="M${250 - rx} 250 a${rx} ${ry} 0 1 0 ${rx * 2} 0 a${rx} ${ry} 0 1 0 ${-rx * 2} 0"/></circle>
+    </g>`;
+  const faiscas = Array.from({ length: 14 }, (_, i) => `<i style="--x:${(8 + ((i * 37) % 84))}%;--d:${((i * 0.7) % 6).toFixed(1)}s;--t:${(5 + (i % 4)).toFixed(0)}s;--s:${2 + (i % 3)}px"></i>`).join('');
+  return `<figure class="il il3d il-marca3d" role="img" aria-label="Logo do Grupo 2!H em metal dourado sobre um pedestal de vidro, cercado por órbitas" data-revela>
+    <div class="mk-palco">
+      <div class="mk-halo"></div>
+      <svg class="mk-orbitas" viewBox="0 0 500 500" aria-hidden="true">
+        ${orbita(220, 70, -14, 9, 'mk-o1')}
+        ${orbita(190, 58, 18, 12, 'mk-o2')}
+        ${orbita(236, 92, 4, 16, 'mk-o3')}
+      </svg>
+      <div class="mk-faiscas" aria-hidden="true">${faiscas}</div>
+      <div class="mk-flutua">
+        <div class="mk-relevo"><div class="mk-logo" style="--logo:url('${logo}')"></div></div>
+        <div class="mk-reflexo" style="--logo:url('${logo}')"></div>
+      </div>
+      <div class="mk-pedestal"><i></i></div>
+    </div>
+    <p class="mk-nome">GRUPO <b>2!H</b></p>
+  </figure>`;
 }

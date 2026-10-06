@@ -7,9 +7,10 @@ const FOTO = { edb: ['notebook-abajur', 'Notebook aberto sobre a mesa à noite']
 import { escadaHTML } from './home.mjs';
 import { servicos } from '../content/servicos.mjs';
 import { programas } from '../content/metodo.mjs';
-import { ilCamadas, ilMedidor, ilConvergencia, ilDecisao, ilLancamento, ilEscada } from '../lib/ilustracoes.mjs';
+import { ilMedidor3d } from '../lib/ilustracoes3d.mjs';
+import { ilCamadas, ilConvergencia, ilDecisao, ilLancamento, ilEscada } from '../lib/ilustracoes.mjs';
 
-const VISUAL = { edb: (s) => ilCamadas(s.fases), 'growth-control': ilMedidor, 'growth-marketing': ilConvergencia, 'growth-intelligence': ilDecisao, lancamentos: ilLancamento };
+const VISUAL = { edb: (s) => ilCamadas(s.fases), 'growth-control': ilMedidor3d, 'growth-marketing': ilConvergencia, 'growth-intelligence': ilDecisao, lancamentos: ilLancamento };
 
 const ATUALIZADO = '2026-10-05';
 
