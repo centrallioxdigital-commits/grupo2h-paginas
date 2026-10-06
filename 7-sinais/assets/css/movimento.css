@@ -1,0 +1,100 @@
+/* =====================================================================
+   Movimento orquestrado: barra que some e volta, seções que sobem por
+   cima da anterior, cartões que empilham ao rolar e inclinação 3D sutil.
+   ===================================================================== */
+
+/* ---- barra superior: some descendo, volta subindo (mesma curva) ------- */
+.topo{transition:transform .95s cubic-bezier(.65,0,.35,1),opacity .95s cubic-bezier(.65,0,.35,1),filter .95s cubic-bezier(.65,0,.35,1)}
+.topo.escondido{transform:translateY(calc(-100% - 22px));opacity:0;filter:blur(10px);pointer-events:none}
+
+/* ---- seções que sobem por cima da anterior ---------------------------- */
+main>section,main>.letreiro{position:relative;z-index:1}
+main>section:not(.bloco-ouro):not(.creme):not(.cta-final),main>.letreiro{background-color:var(--bg)}
+[data-fica]{position:sticky}
+.cobre{border-radius:34px 34px 0 0;box-shadow:0 -1px 0 rgba(242,238,229,.08),0 -40px 80px -30px rgba(0,0,0,.85);overflow:clip}
+.cobre.creme{box-shadow:0 -1px 0 rgba(255,255,255,.7),0 -40px 80px -30px rgba(0,0,0,.7)}
+.divisa{z-index:8}
+.divisa+.cobre,.divisa+section.cobre{margin-top:0}
+
+/* ---- pilhas de cartões ---------------------------------------------- */
+[data-pilha]>*{--n:0}
+.pilha-ativa>*{position:sticky;top:calc(var(--pilha-topo,96px) + var(--n) * var(--pilha-passo,14px));transform-origin:50% 0}
+.pilha-ativa>*:not(:last-child){margin-bottom:var(--pilha-gap,18px)}
+.pilha-ativa>*{box-shadow:var(--rel-sombra),0 -18px 40px -24px rgba(0,0,0,.9)}
+
+/* jornada (como funciona) e fases do método: pilha no computador */
+@media (min-width:901px){
+  .jornada.pilha-ativa .jr{padding:26px 28px;border-radius:var(--r-lg);background:var(--rel-face),var(--bg-1);border:1px solid rgba(242,238,229,.08);box-shadow:var(--rel-sombra);grid-template-columns:64px minmax(0,1fr)}
+  .jornada.pilha-ativa .jr::before{display:none}
+  .linha-tempo.pilha-ativa .lt-item{padding:30px 30px;border:1px solid rgba(242,238,229,.08)!important;border-radius:var(--r-lg);background:var(--rel-face),var(--bg-1)}
+  .linha-tempo.pilha-ativa{display:block}
+}
+
+/* pilhas só no celular */
+@media (max-width:760px){
+  .escada.pilha-ativa,.bento.pilha-ativa,.inclui.pilha-ativa,.esteira.pilha-ativa,.time.pilha-ativa,.canais.pilha-ativa{display:block}
+  .pilha-ativa{--pilha-topo:84px;--pilha-passo:10px;--pilha-gap:14px}
+  .bento.pilha-ativa>.bt-fases{position:relative;top:auto}
+}
+
+/* ---- inclinação 3D sutil (estilo app) --------------------------------- */
+[data-tilt]{transform-style:preserve-3d;will-change:transform}
+[data-tilt].inclinando{transition:transform .25s cubic-bezier(.32,.72,0,1),box-shadow .5s,border-color .5s}
+
+@media (prefers-reduced-motion:reduce){
+  .topo{transition:none}
+  [data-fica]{position:relative}
+  .pilha-ativa>*{position:relative;top:auto}
+}
+
+/* ---- menu Soluções: só no clique, seta em botão visível ---------------- */
+.nav-mega:hover .mega,.nav-mega:focus-within .mega{opacity:0;visibility:hidden;transform:translateY(-6px)}
+.nav-mega.aberto .mega{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.nav-mega:hover .ic-caret{transform:none}
+.nav-mega>a{padding-right:6px!important;gap:10px!important}
+.nav-mega .ic-caret{width:26px;height:26px;padding:6px;border-radius:50%;color:var(--ouro-tinta);background:linear-gradient(180deg,#FFE490,#F7C93A 45%,#E2AA14);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -1px 0 rgba(140,95,0,.35),0 4px 12px -4px rgba(245,195,40,.6);transition:transform .5s var(--ease-mola),box-shadow .3s}
+.nav-mega>a:hover .ic-caret{box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 0 0 3px rgba(245,195,40,.18),0 6px 16px -4px rgba(245,195,40,.75)}
+.nav-mega.aberto .ic-caret{transform:rotate(180deg)}
+.nav-mega.aberto>a{color:var(--tx);background:rgba(242,238,229,.07)}
+
+/* =====================================================================
+   Estilo Apple: ícones de app, barra de vidro e glassmorphism
+   ===================================================================== */
+/* ícones em "squircle" de app iOS */
+.passo-ic,.jr-ic,.f5-a,.pilar>.ic,.canal .ic-g,.dg-nivel .ic,.esteira li::before{
+  border-radius:28%!important;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.12) 42%,rgba(255,255,255,0) 52%),
+    linear-gradient(160deg,#FFE08A 0%,#F5C328 45%,#C98F0C 100%)!important;
+  color:#1A1408!important;border:0!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.35),inset 0 -2px 3px rgba(120,80,0,.35),0 1px 1px rgba(0,0,0,.35),0 10px 22px -8px rgba(245,195,40,.55),0 18px 30px -18px rgba(0,0,0,.9)!important;
+  filter:none!important;
+}
+.passo-ic .ic,.jr-ic .ic,.f5-a .ic{filter:drop-shadow(0 1px 0 rgba(255,240,190,.6))!important}
+.esteira li::before{color:#1A1408}
+.esteira li:last-child::before{background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,0) 50%),linear-gradient(160deg,#2C2C33,#0E0E11)!important;color:var(--ouro)!important;box-shadow:inset 0 0 0 1px rgba(245,195,40,.5),0 10px 22px -8px rgba(245,195,40,.5)!important}
+.ic-caret{border-radius:50%!important}
+
+/* barra superior de vidro (estilo macOS / iOS) */
+.topo-in{background:linear-gradient(180deg,rgba(40,40,46,.55),rgba(18,18,22,.5));-webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%);border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -1px 0 rgba(0,0,0,.35),0 24px 60px -24px rgba(0,0,0,.85)}
+.topo.solido .topo-in{background:linear-gradient(180deg,rgba(36,36,42,.72),rgba(16,16,20,.7))}
+.nav>ul>li>a{transition:background .35s var(--ease-mola),color .25s,box-shadow .35s}
+.nav>ul>li>a:hover{background:rgba(255,255,255,.07)}
+.nav>ul>li>a[aria-current]{background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.05));box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 0 0 1px rgba(255,255,255,.06),0 4px 12px -6px rgba(0,0,0,.6);color:var(--tx)}
+.mega-in{background:linear-gradient(180deg,rgba(40,40,46,.78),rgba(16,16,20,.82));-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%);border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 50px 90px -30px rgba(0,0,0,.9)}
+.mega-lista a{border-radius:14px}
+.mega-lista a:hover{background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03));box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
+.mega-lista .ic{width:38px;height:38px;padding:9px;border-radius:28%;background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,.1) 45%,transparent 52%),linear-gradient(160deg,#FFE08A,#F5C328 45%,#C98F0C);color:#1A1408!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35),0 8px 16px -8px rgba(245,195,40,.6)}
+.mega-lista a{align-items:center}
+
+/* vidro nos elementos que flutuam */
+.chip-flutua,.hero-selo,.foto-leg{-webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%)}
+.foto-leg{left:14px;right:auto;bottom:14px;padding:8px 14px 8px 8px;border-radius:999px;background:linear-gradient(180deg,rgba(40,40,46,.6),rgba(16,16,20,.55));border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 10px 26px -10px rgba(0,0,0,.8)}
+.chip-flutua{background:linear-gradient(180deg,rgba(44,44,50,.6),rgba(16,16,20,.55));border-color:rgba(255,255,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 20px 40px -18px rgba(0,0,0,.8)}
+/* vidro simulado nos cartões (sem blur real, leve no celular) */
+.degrau,.bt,.inc,.pilar,.canal,.num,.membro,.acord,.esteira li,.comp,.sel-op,.faq-item{
+  background-image:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.02) 40%,rgba(255,255,255,.01)),radial-gradient(140% 90% at 0% 0%,rgba(255,255,255,.05),transparent 50%)
+}
+.creme .faq-item{background-image:none}
+.sel-op .ic,.inc h3 .ic{flex:none;width:40px;height:40px;padding:10px;border-radius:28%;margin-top:-4px;background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,.12) 42%,transparent 52%),linear-gradient(160deg,#FFE08A,#F5C328 45%,#C98F0C);color:#1A1408;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35),inset 0 -2px 3px rgba(120,80,0,.35),0 10px 22px -8px rgba(245,195,40,.5)}
+.inc h3{align-items:center}
