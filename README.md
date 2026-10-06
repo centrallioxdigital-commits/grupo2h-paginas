@@ -46,3 +46,10 @@ O workflow precisa estar ativo, senão a resposta é 404 e o envio se perde.
 
 A documentação completa (payload, pesos do scoring, faixas e regras de corte)
 está em `LEIA-ME-FORMULARIOS.md`, na pasta do projeto.
+
+## Site principal (novo)
+
+O site institucional com blog fica em `site/` (código, textos e documentação)
+e é gerado para `novo/` enquanto está em prévia (https://grupo2h.com.br/novo/).
+Guia completo em [`site/README.md`](site/README.md). O robô
+`.github/workflows/site.yml` regera as páginas do blog a cada 10 minutos.

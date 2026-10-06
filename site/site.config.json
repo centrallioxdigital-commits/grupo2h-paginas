@@ -1,0 +1,13 @@
+{
+  "_leia": "modo 'previa' publica em grupo2h.com.br/novo/ sem aparecer no Google. Para colocar no ar na raiz do domínio, troque para 'producao' (ver site/README.md, seção 'Virar a chave').",
+  "modo": "previa",
+  "dominio": "https://grupo2h.com.br",
+  "previa": { "base": "/novo/", "saida": "novo" },
+  "producao": { "base": "/", "saida": "." },
+  "supabase": {
+    "url": "https://tlixawxfsuwmgjjlcapw.supabase.co",
+    "chavePublica": "sb_publishable_w_CUIhSQ5K5lckdVpsQH8Q_2F05xDEV"
+  },
+  "gtm": "GTM-PDKH7XHJ",
+  "indexNowKey": "a7c41e9b5f2d4e8c9b0a6d3f1e2c7b58"
+}

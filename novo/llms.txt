@@ -1,0 +1,46 @@
+# Grupo 2!H
+
+> A 2!H organiza a estrutura que faz o marketing da sua empresa parar de ser tentativa e começar a virar crescimento previsível: oferta, público, comunicação, aquisição, atendimento, comercial, rastreamento e dados, tudo conectado.
+
+A 2!H não é agência de tráfego: organiza a máquina de vendas digital de empresas estabelecidas, com faturamento consolidado, que já investiram em marketing e querem parar de operar no achismo. Trabalha com conta aberta (o cliente acompanha os números reais, com rastreamento validado) e com o Método 5A (Análise, Alinhamento, Aquisição, Acompanhamento e Aceleração). Preços não são divulgados no site: o investimento é apresentado depois de uma conversa de diagnóstico.
+
+Contato: contato@grupo2h.com.br · WhatsApp (15) 99750-9239 · Diagnóstico rápido: https://grupo2h.com.br/diagnostico-rapido/
+
+## Páginas principais
+- [Início](https://grupo2h.com.br/): o que a 2!H faz, a escada de serviços, o DNA e para quem é.
+- [Como funciona](https://grupo2h.com.br/como-funciona/): a jornada do diagnóstico rápido à leitura contínua de números.
+- [Sobre](https://grupo2h.com.br/sobre/): posicionamento, diferenciais e princípios.
+- [Soluções](https://grupo2h.com.br/solucoes/): a escada de serviços comparada.
+- [Método 5A](https://grupo2h.com.br/metodo-5a/): as cinco fases e os três programas.
+- [Perguntas frequentes](https://grupo2h.com.br/perguntas-frequentes/)
+- [Glossário de growth](https://grupo2h.com.br/glossario/): CAC, CPA, CPL, ROAS, ROI, LTV, CRM e outros termos com fórmulas.
+- [Contato](https://grupo2h.com.br/contato/)
+
+## Serviços (escada, da base à inteligência)
+- [EDB: Estruturação Digital de Base](https://grupo2h.com.br/solucoes/edb/): A fundação: site, rastreamento, funil e presença digital organizados antes de qualquer campanha.
+- [Growth Control: Gestão de tráfego com controle e dados](https://grupo2h.com.br/solucoes/growth-control/): Gestão de tráfego com controle e dados, para quem já tem estrutura e quer rodar campanha com clareza de número.
+- [Growth Marketing: Crescimento integrado](https://grupo2h.com.br/solucoes/growth-marketing/): Crescimento integrado: marketing e comercial andando juntos, com processo do clique até a venda.
+- [Growth Intelligence: Inteligência de dados para decidir](https://grupo2h.com.br/solucoes/growth-intelligence/): Inteligência de dados aplicada à decisão de crescimento: onde investir, o que corrigir e quando escalar.
+- [Lançamentos e coprodução: Projetos de lançamento pago](https://grupo2h.com.br/solucoes/lancamentos/): Projetos pontuais de lançamento pago, do zero ao pitch.
+
+## Método 5A
+- Análise: Descubra onde o dinheiro está sendo perdido.
+- Alinhamento: Faça oferta, público e mensagem falarem a mesma língua.
+- Aquisição: Construa uma estrutura capaz de gerar demanda.
+- Acompanhamento: Transforme dados em decisões comerciais.
+- Aceleração: Cresça somente quando o sistema estiver pronto.
+
+Programas:
+- [Imersão Estrutura 5A](https://grupo2h.com.br/imersao5a/) (Online e ao vivo · 4 horas): Aprenda a enxergar o sistema e a identificar onde a sua empresa perde vendas, antes de investir mais em tráfego.
+- [Mentoria 5A](https://grupo2h.com.br/mentoria5a/) (Em grupo · 12 semanas): Construa, com a 2!H e outros empresários, o sistema de aquisição e conversão da sua empresa. Não é teoria, é implementação.
+- [Diagnóstico Estratégico 5A](https://grupo2h.com.br/diagnostico5a/) (Individual · 1x1): O Método 5A aplicado direto na sua empresa, com atenção total ao seu caso, sem dividir tempo com uma turma.
+
+## Blog
+- [CPL barato não significa operação lucrativa](https://grupo2h.com.br/blog/cpl-barato-nao-significa-operacao-lucrativa/): Um custo por lead menor não garante venda nem lucro. Veja como ler o caminho inteiro, do dinheiro investido ao dinheiro que volta para o caixa.
+- [Antes de escalar o tráfego: 5 perguntas que a sua estrutura precisa responder](https://grupo2h.com.br/blog/antes-de-escalar-o-trafego-5-perguntas/): Mais tráfego não corrige uma estrutura quebrada. As 5 perguntas que oferta, atendimento, comercial, rastreamento e margem precisam responder antes.
+- [Marketing culpa vendas, vendas culpa marketing: como acabar com essa discussão](https://grupo2h.com.br/blog/marketing-culpa-vendas-vendas-culpa-marketing/): A briga entre marketing e comercial acaba quando os dois olham o mesmo funil, com o mesmo critério de lead qualificado e o mesmo número.
+- [O que é o Método 5A e por que a ordem das fases importa](https://grupo2h.com.br/blog/o-que-e-o-metodo-5a/): Análise, Alinhamento, Aquisição, Acompanhamento e Aceleração: as cinco fases do Método 5A e por que a ordem delas protege o seu investimento.
+
+## Opcional
+- [Texto completo do site para IAs](https://grupo2h.com.br/llms-full.txt)
+- [RSS do blog](https://grupo2h.com.br/blog/rss.xml)

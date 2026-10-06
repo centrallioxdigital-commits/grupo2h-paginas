@@ -1,0 +1,218 @@
+/* Site principal Grupo 2!H. Sem framework, sem ouvinte de scroll:
+   tudo que depende de rolagem usa IntersectionObserver. */
+(function () {
+  'use strict';
+  var doc = document, html = doc.documentElement, body = doc.body;
+  var reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var temIO = 'IntersectionObserver' in window;
+
+  /* ---------- cabeçalho sólido depois do topo ---------- */
+  var topo = doc.querySelector('[data-topo]');
+  if (topo && temIO) {
+    var sentinela = doc.createElement('div');
+    sentinela.setAttribute('aria-hidden', 'true');
+    sentinela.style.cssText = 'position:absolute;top:0;left:0;height:24px;width:1px;pointer-events:none';
+    body.prepend(sentinela);
+    new IntersectionObserver(function (e) { topo.classList.toggle('solido', !e[0].isIntersecting); }).observe(sentinela);
+  }
+
+  /* ---------- menu Soluções (toque e teclado) ---------- */
+  doc.querySelectorAll('.nav-mega').forEach(function (li) {
+    var a = li.querySelector('a');
+    var podeHover = window.matchMedia('(hover: hover)').matches;
+    a.addEventListener('click', function (ev) {
+      if (podeHover) return; // no mouse, o clique navega para /solucoes/
+      if (!li.classList.contains('aberto')) { ev.preventDefault(); abrir(true); }
+    });
+    a.addEventListener('keydown', function (ev) {
+      if (ev.key === 'ArrowDown') { ev.preventDefault(); abrir(true); var p = li.querySelector('.mega a'); if (p) p.focus(); }
+    });
+    li.addEventListener('mouseenter', function () { a.setAttribute('aria-expanded', 'true'); });
+    li.addEventListener('mouseleave', function () { abrir(false); });
+    li.addEventListener('focusout', function (ev) { if (!li.contains(ev.relatedTarget)) abrir(false); });
+    doc.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && li.classList.contains('aberto')) { abrir(false); a.focus(); } });
+    function abrir(sim) { li.classList.toggle('aberto', sim); a.setAttribute('aria-expanded', sim ? 'true' : 'false'); }
+  });
+
+  /* ---------- menu do celular ---------- */
+  var mBtn = doc.querySelector('[data-menu-btn]'), menu = doc.querySelector('[data-menu]');
+  if (mBtn && menu) {
+    var fechar = function () { menu.hidden = true; mBtn.setAttribute('aria-expanded', 'false'); body.style.overflow = ''; if (topo) topo.classList.remove('menu-aberto'); };
+    mBtn.addEventListener('click', function () {
+      var abrir = menu.hidden;
+      menu.hidden = !abrir;
+      mBtn.setAttribute('aria-expanded', abrir ? 'true' : 'false');
+      body.style.overflow = abrir ? 'hidden' : '';
+      if (topo) topo.classList.toggle('solido', abrir || topo.classList.contains('solido'));
+    });
+    menu.addEventListener('click', function (ev) { if (ev.target.closest('a')) fechar(); });
+    doc.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && !menu.hidden) { fechar(); mBtn.focus(); } });
+    window.matchMedia('(min-width: 961px)').addEventListener('change', function (m) { if (m.matches) fechar(); });
+  }
+
+  /* ---------- revelação ao entrar na tela ---------- */
+  var alvos = doc.querySelectorAll('[data-revela],[data-revela-filhos]');
+  doc.querySelectorAll('[data-revela-filhos]').forEach(function (g) {
+    Array.prototype.forEach.call(g.children, function (c, i) { c.style.setProperty('--i', i); });
+  });
+  var visto = function (el) {
+    el.classList.add('visto');
+    // EDB: as campanhas só "acendem" depois que as quatro camadas da base subiram
+    if (el.classList.contains('il-camadas')) setTimeout(function () { el.classList.add('pronto'); }, reduz ? 0 : 1750);
+  };
+  if (!temIO || reduz) alvos.forEach(visto);
+  else {
+    var io = new IntersectionObserver(function (ents) {
+      ents.forEach(function (e) { if (e.isIntersecting) { visto(e.target); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+    alvos.forEach(function (el) { io.observe(el); });
+  }
+
+  /* ---------- números contam do zero quando entram na tela ---------- */
+  doc.querySelectorAll('[data-conta]').forEach(function (el) {
+    if (reduz || !temIO) return;
+    var alvo = +el.getAttribute('data-conta');
+    el.textContent = '0';
+    var o = new IntersectionObserver(function (e) {
+      if (!e[0].isIntersecting) return;
+      o.disconnect();
+      var t0 = performance.now(), dur = 1400;
+      (function passo(t) {
+        var p = Math.min(1, (t - t0) / dur), k = 1 - Math.pow(1 - p, 4);
+        el.textContent = String(Math.round(alvo * k));
+        if (p < 1) requestAnimationFrame(passo);
+      })(t0);
+    }, { threshold: 0.6 });
+    o.observe(el);
+  });
+
+  /* ---------- luz que segue o mouse nos cartões ---------- */
+  if (window.matchMedia('(hover: hover)').matches) {
+    doc.addEventListener('pointermove', function (ev) {
+      var c = ev.target.closest && ev.target.closest('.degrau,.bt-prog,.inc,.canal,.pilar');
+      if (!c) return;
+      var r = c.getBoundingClientRect();
+      c.style.setProperty('--mx', (ev.clientX - r.left) + 'px');
+      c.style.setProperty('--my', (ev.clientY - r.top) + 'px');
+    }, { passive: true });
+  }
+
+  /* ---------- manifesto: as palavras acendem na ordem de leitura ---------- */
+  doc.querySelectorAll('[data-acende]').forEach(function (el) {
+    if (reduz || !temIO) return;
+    var palavras = [];
+    var andar = function (no) {
+      Array.prototype.slice.call(no.childNodes).forEach(function (n) {
+        if (n.nodeType === 3) {
+          var frag = doc.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(function (p) {
+            if (!p) return;
+            if (/^\s+$/.test(p)) { frag.appendChild(doc.createTextNode(p)); return; }
+            var s = doc.createElement('span'); s.className = 'w apaga'; s.textContent = p; palavras.push(s); frag.appendChild(s);
+          });
+          n.parentNode.replaceChild(frag, n);
+        } else if (n.nodeType === 1) andar(n);
+      });
+    };
+    andar(el);
+    palavras.forEach(function (p, i) { p.style.transitionDelay = (i * 45) + 'ms'; });
+    var o = new IntersectionObserver(function (e) {
+      if (e[0].isIntersecting) { palavras.forEach(function (p) { p.classList.remove('apaga'); }); o.disconnect(); }
+    }, { threshold: 0.55 });
+    o.observe(el);
+  });
+
+  /* ---------- lista que acende o item no meio da tela (DNA) ---------- */
+  doc.querySelectorAll('[data-acende-item]').forEach(function (lista) {
+    var itens = lista.querySelectorAll('li');
+    if (!temIO || reduz) { itens.forEach(function (li) { li.classList.add('ativo'); }); return; }
+    var o = new IntersectionObserver(function (ents) {
+      ents.forEach(function (e) { if (e.isIntersecting) { itens.forEach(function (li) { li.classList.toggle('ativo', li === e.target); }); } });
+    }, { rootMargin: '-42% 0px -42% 0px' });
+    itens.forEach(function (li) { o.observe(li); });
+    itens[0].classList.add('ativo');
+  });
+
+  /* ---------- links para o diagnóstico levam as UTMs da visita ---------- */
+  try {
+    var q = new URLSearchParams(location.search), chaves = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'];
+    var salvas = JSON.parse(sessionStorage.getItem('g2h_utm') || '{}');
+    chaves.forEach(function (k) { if (q.get(k)) salvas[k] = q.get(k); });
+    sessionStorage.setItem('g2h_utm', JSON.stringify(salvas));
+    if (Object.keys(salvas).length) {
+      doc.querySelectorAll('a[data-diag]').forEach(function (a) {
+        var url = new URL(a.getAttribute('href'), location.href);
+        Object.keys(salvas).forEach(function (k) { if (!url.searchParams.has(k)) url.searchParams.set(k, salvas[k]); });
+        a.setAttribute('href', url.pathname + url.search);
+      });
+    }
+  } catch (e) { /* armazenamento bloqueado: segue sem UTM */ }
+
+  /* ---------- perguntas: abre e fecha na altura certa ---------- */
+  doc.querySelectorAll('details.acord').forEach(function (d) {
+    var s = d.querySelector('summary'), r = d.querySelector('.acord-r');
+    if (!s || !r || reduz || !r.animate) return;
+    s.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      if (d.open) {
+        var h = r.offsetHeight;
+        r.animate([{ height: h + 'px', opacity: 1 }, { height: '0px', opacity: 0 }], { duration: 420, easing: 'cubic-bezier(.65,0,.35,1)' }).onfinish = function () { d.open = false; };
+      } else {
+        d.open = true;
+        var h2 = r.offsetHeight;
+        r.animate([{ height: '0px', opacity: 0 }, { height: h2 + 'px', opacity: 1 }], { duration: 520, easing: 'cubic-bezier(.16,1,.3,1)' });
+      }
+    });
+  });
+
+  /* ---------- como funciona: "por onde começar?" ---------- */
+  var sel = doc.querySelector('[data-seletor]');
+  if (sel) {
+    var res = sel.querySelector('[data-sel-res]');
+    sel.querySelectorAll('[data-op]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        sel.querySelectorAll('[data-op]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        var t = doc.getElementById('sel-' + b.getAttribute('data-op'));
+        if (t && res) { res.innerHTML = t.innerHTML; res.classList.add('pronto'); }
+      });
+    });
+  }
+
+  /* ---------- índice do post acende a seção atual ---------- */
+  var indice = doc.querySelector('[data-indice]');
+  if (indice && temIO) {
+    var links = indice.querySelectorAll('a');
+    var mapa = {};
+    links.forEach(function (a) { mapa[a.getAttribute('href').slice(1)] = a; });
+    var oi = new IntersectionObserver(function (ents) {
+      ents.forEach(function (e) {
+        if (e.isIntersecting && mapa[e.target.id]) { links.forEach(function (a) { a.classList.remove('ativo'); }); mapa[e.target.id].classList.add('ativo'); }
+      });
+    }, { rootMargin: '-15% 0px -70% 0px' });
+    Object.keys(mapa).forEach(function (id) { var h = doc.getElementById(id); if (h) oi.observe(h); });
+  }
+
+  /* ---------- copiar link do post ---------- */
+  doc.querySelectorAll('[data-copiar]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var url = b.getAttribute('data-copiar');
+      var feito = function () { var t = b.querySelector('span'); if (t) { var o = t.textContent; t.textContent = 'Link copiado'; setTimeout(function () { t.textContent = o; }, 2200); } };
+      if (navigator.clipboard) navigator.clipboard.writeText(url).then(feito, function () {});
+    });
+  });
+
+  /* ---------- proteção de conteúdo (padrão das páginas da 2!H) ---------- */
+  if (body.hasAttribute('data-protegido')) {
+    var campo = function (el) { return el && el.closest && el.closest('input,textarea,select,[contenteditable]:not([contenteditable="false"])'); };
+    var bloqueia = function (e) { if (!campo(e.target) && !campo(doc.activeElement)) e.preventDefault(); };
+    doc.addEventListener('contextmenu', function (e) { if (!campo(e.target)) e.preventDefault(); });
+    doc.addEventListener('dragstart', function (e) { if (!campo(e.target)) e.preventDefault(); });
+    doc.addEventListener('selectstart', function (e) { if (!campo(e.target)) e.preventDefault(); });
+    doc.addEventListener('copy', bloqueia);
+    doc.addEventListener('cut', bloqueia);
+    doc.addEventListener('keydown', function (e) {
+      var k = (e.key || '').toLowerCase();
+      if ((e.ctrlKey || e.metaKey) && (k === 's' || k === 'u')) e.preventDefault();
+    });
+  }
+})();

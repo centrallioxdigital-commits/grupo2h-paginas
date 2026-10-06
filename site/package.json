@@ -1,0 +1,17 @@
+{
+  "name": "grupo2h-site",
+  "private": true,
+  "type": "module",
+  "description": "Gerador do site principal do Grupo 2!H (grupo2h.com.br). Páginas estáticas + blog alimentado pelo Supabase.",
+  "scripts": {
+    "build": "node build.mjs",
+    "serve": "node serve.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@phosphor-icons/core": "2.1.1",
+    "marked": "15.0.12"
+  }
+}

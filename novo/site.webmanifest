@@ -1,0 +1,23 @@
+{
+  "name": "Grupo 2!H",
+  "short_name": "2!H",
+  "description": "Estrutura, planejamento e ação para crescer com previsibilidade.",
+  "start_url": "/novo/",
+  "scope": "/novo/",
+  "display": "standalone",
+  "background_color": "#0B0B0D",
+  "theme_color": "#0B0B0D",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "https://grupo2h.com.br/novo/assets/img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://grupo2h.com.br/novo/assets/img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

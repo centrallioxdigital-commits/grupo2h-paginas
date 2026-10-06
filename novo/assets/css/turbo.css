@@ -1,0 +1,229 @@
+/* =====================================================================
+   Camada "turbinada" (v2): luz, fotos, cor e profundidade.
+   Carregada depois de site.css; sobrescreve o que for preciso.
+   ===================================================================== */
+:root{
+  --r:22px; --r-lg:30px;
+  --ease-mola:cubic-bezier(.32,.72,0,1);
+  --creme:#F4EEE3; --creme-2:#EAE2D3; --tinta:#16130C; --tinta-2:#4A4436;
+}
+
+/* grão de filme fixo (não repinta ao rolar) */
+body::after{content:'';position:fixed;inset:0;z-index:70;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* luz ambiente nas seções escuras */
+.sec{isolation:isolate}
+.luz::before{content:'';position:absolute;z-index:-1;width:min(900px,90vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(245,195,40,.14),rgba(245,195,40,0) 62%);pointer-events:none}
+.luz-d::before{right:-20%;top:-10%}
+.luz-e::before{left:-25%;top:10%}
+
+/* ---- menu flutuante em vidro ----------------------------------------- */
+.topo{top:14px;height:auto;background:none!important;border:0!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.topo-in{max-width:min(1240px,calc(100% - 28px));height:62px;padding:0 10px 0 22px;border-radius:999px;background:rgba(14,14,17,.55);border:1px solid rgba(242,238,229,.1);-webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%);box-shadow:0 20px 50px -24px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.06);transition:background .5s var(--ease-mola),box-shadow .5s}
+.topo.solido .topo-in{background:rgba(12,12,14,.86)}
+.nav>ul>li>a{border-radius:999px}
+.mega{top:76px}
+.menu-movel{inset:0;padding-top:96px;background:rgba(9,9,11,.94);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)}
+.menu-movel:not([hidden]) .mm-lista li{animation:sobe .7s var(--ease-mola) both}
+.menu-movel .mm-lista li:nth-child(2){animation-delay:.05s}.menu-movel .mm-lista li:nth-child(3){animation-delay:.1s}.menu-movel .mm-lista li:nth-child(4){animation-delay:.15s}.menu-movel .mm-lista li:nth-child(5){animation-delay:.2s}.menu-movel .mm-lista li:nth-child(6){animation-delay:.25s}.menu-movel .mm-lista li:nth-child(7){animation-delay:.3s}
+@keyframes sobe{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+.menu-btn{border-radius:999px}
+@media (max-width:960px){.topo-in{padding:0 8px 0 18px;height:58px}}
+
+/* ---- botões em pílula com ícone em ilha ------------------------------- */
+.btn{border-radius:999px;transition:background .45s var(--ease-mola),color .45s,border-color .45s,transform .45s var(--ease-mola),box-shadow .45s}
+.btn:has(.ic){padding-right:7px}
+.btn .ic{width:36px;height:36px;padding:9px;border-radius:50%;transition:transform .5s var(--ease-mola)}
+.btn-ouro .ic{background:rgba(23,19,10,.14)}
+.btn-linha .ic{background:rgba(242,238,229,.08)}
+.btn:hover .ic{transform:translate(3px,-1px) scale(1.06)}
+.btn-sm .ic{width:30px;height:30px;padding:7px}
+.btn-lg{min-height:62px;padding-left:30px}
+.btn-ouro{box-shadow:0 18px 40px -18px rgba(245,195,40,.7),inset 0 1px 0 rgba(255,255,255,.4)}
+.btn:active{transform:scale(.98)}
+.topo-cta{padding-right:16px}
+
+/* ---- moldura dupla (casca + núcleo) ----------------------------------- */
+.bezel{padding:7px;border-radius:var(--r-lg);background:rgba(242,238,229,.035);border:1px solid rgba(242,238,229,.08)}
+.bezel>*{border-radius:calc(var(--r-lg) - 7px)!important}
+.degrau,.bt,.inc,.pq-col,.pilar,.canal,.case,.comp,.sel-op,.f5{box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.degrau,.bt,.inc,.pq-col,.pilar,.canal,.comp,.seletor,.ficha>div,.il{border-radius:var(--r-lg)}
+.il{border-radius:var(--r-lg);box-shadow:0 0 0 7px rgba(242,238,229,.03),0 0 0 8px rgba(242,238,229,.07),0 60px 100px -50px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.06)}
+
+/* ---- etiqueta em pílula ----------------------------------------------- */
+.etq{padding:7px 14px;border-radius:999px;border:1px solid var(--ouro-a24);background:var(--ouro-a06);font-size:.7rem;letter-spacing:.2em}
+.etq::before{width:6px;height:6px;border-radius:50%}
+
+/* ---- fotos ------------------------------------------------------------ */
+.foto{position:relative;overflow:hidden;border-radius:var(--r-lg);background:var(--bg-2);box-shadow:0 0 0 7px rgba(242,238,229,.03),0 0 0 8px rgba(242,238,229,.08),0 60px 100px -50px rgba(0,0,0,.95)}
+.foto img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 1.6s var(--ease-mola)}
+.foto.visto img,.sem-revela .foto img{transform:none}
+.foto::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(11,11,13,.55));pointer-events:none}
+.foto-leg{position:absolute;left:18px;right:18px;bottom:16px;z-index:1;display:flex;align-items:center;gap:10px;font:500 .9rem/1.3 var(--f-b);color:var(--tx)}
+.foto-leg .ic{width:30px;height:30px;padding:7px;border-radius:50%;background:var(--ouro);color:var(--ouro-tinta)}
+.js [data-revela].foto,.js .foto[data-revela]{opacity:0;transform:translateY(40px);filter:blur(8px);transition:opacity 1s var(--ease-mola),transform 1.2s var(--ease-mola),filter 1s}
+.js .foto[data-revela].visto{opacity:1;transform:none;filter:none}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,6vw,96px);align-items:center}
+.split.inv>:first-child{order:2}
+.split .foto{aspect-ratio:4/3.3}
+
+/* ---- HERO novo -------------------------------------------------------- */
+.hero{padding-top:calc(var(--topo-h) + clamp(56px,9vh,110px));min-height:min(100dvh,980px)}
+.hero-foto{position:absolute;inset:0 0 auto auto;width:62%;height:100%;z-index:-2;-webkit-mask:linear-gradient(90deg,transparent,#000 42%),linear-gradient(0deg,transparent 2%,#000 40%);mask:linear-gradient(90deg,transparent,#000 42%);-webkit-mask-composite:source-in;mask-composite:intersect}
+.hero-foto img{width:100%;height:100%;object-fit:cover;object-position:62% 40%;opacity:.62;animation:zoom-lento 22s var(--ease-mola) both}
+@keyframes zoom-lento{from{transform:scale(1.12)}to{transform:scale(1)}}
+.hero::before{content:'';position:absolute;z-index:-1;left:-10%;top:-30%;width:70vw;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(245,195,40,.16),transparent 60%);pointer-events:none}
+.hero-topo{opacity:.09}
+.hero-selo{display:inline-flex;align-items:center;gap:10px;margin-bottom:26px;padding:6px 14px 6px 6px;border-radius:999px;background:rgba(242,238,229,.06);border:1px solid rgba(242,238,229,.12);font-size:.88rem;color:var(--tx-2);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.hero-selo b{padding:4px 10px;border-radius:999px;background:var(--ouro);color:var(--ouro-tinta);font:600 .74rem/1.3 var(--f-d);letter-spacing:.04em}
+.hero-h1{font-size:clamp(2.7rem,1rem + 5.4vw,5.6rem);letter-spacing:-.045em;line-height:.96;text-shadow:0 10px 40px rgba(0,0,0,.6)}
+.hero-h1 .l2{background:linear-gradient(100deg,#FFE28A 0%,#F5C328 40%,#D9A012 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.08em}
+.hero-linha{grid-template-columns:minmax(0,600px) auto}
+.hero-mapa{margin-top:clamp(40px,7vh,72px);padding:22px 26px 10px;border-radius:var(--r-lg);background:linear-gradient(180deg,rgba(18,18,22,.78),rgba(12,12,15,.6));border:1px solid rgba(242,238,229,.1);box-shadow:0 0 0 7px rgba(242,238,229,.025),0 60px 100px -50px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.06);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.mapa-cab{border-bottom-color:rgba(242,238,229,.08)}
+.js .hero-h1 .l1,.js .hero-h1 .l2,.js .hero-sub,.js .hero-acoes,.js .hero-selo,.js .hero-mapa{animation:entra 1.1s var(--ease-mola) both}
+.js .hero-h1 .l2{animation-delay:.12s}.js .hero-sub{animation-delay:.24s}.js .hero-acoes{animation-delay:.34s}.js .hero-mapa{animation-delay:.5s}
+@keyframes entra{from{opacity:0;transform:translateY(34px);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
+
+/* ---- faixa de palavras em movimento ----------------------------------- */
+.letreiro{position:relative;overflow:hidden;padding:26px 0;border-block:1px solid var(--line);background:var(--bg-1)}
+.letreiro-trilho{display:flex;gap:48px;width:max-content;animation:letreiro 38s linear infinite}
+.letreiro span{display:inline-flex;align-items:center;gap:48px;font:600 clamp(1.4rem,1rem + 1.4vw,2.3rem)/1 var(--f-d);letter-spacing:-.02em;color:var(--tx-3);white-space:nowrap}
+.letreiro span:nth-child(odd){color:var(--tx)}
+.letreiro span::after{content:'';width:10px;height:10px;border-radius:50%;background:var(--ouro)}
+.letreiro:hover .letreiro-trilho{animation-play-state:paused}
+@keyframes letreiro{to{transform:translateX(-50%)}}
+
+/* ---- bloco dourado (manifesto) ---------------------------------------- */
+.bloco-ouro{position:relative;overflow:hidden;background:linear-gradient(120deg,#FFD65A 0%,#F5C328 45%,#E3AC14 100%);color:var(--ouro-tinta);padding-block:clamp(90px,11vw,160px);border:0!important}
+.bloco-ouro::before{content:'';position:absolute;inset:0;background:url(../img/topo-cta.svg) center/cover;filter:invert(1);opacity:.07;pointer-events:none}
+.bloco-ouro .etq{color:var(--ouro-tinta);border-color:rgba(23,19,10,.25);background:rgba(23,19,10,.06)}
+.bloco-ouro .h2{color:var(--ouro-tinta)}
+.bloco-ouro .manif-txt{color:var(--ouro-tinta)}
+.bloco-ouro .manif-txt .w.apaga{color:rgba(23,19,10,.3)}
+.bloco-ouro .manif-txt .ouro{color:#FFFFFF;background:var(--ouro-tinta);padding:0 .18em;border-radius:.18em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.manif-lado{position:relative}
+.manif-lado .foto{aspect-ratio:4/4.6;box-shadow:0 0 0 7px rgba(23,19,10,.08),0 0 0 8px rgba(23,19,10,.14),0 60px 90px -40px rgba(60,40,0,.55)}
+.manif-lado .foto::after{background:linear-gradient(180deg,transparent 45%,rgba(11,11,13,.75))}
+.manif-selo{position:absolute;left:-36px;bottom:42px;z-index:2;width:190px;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;text-align:center;padding:26px;background:var(--ouro-tinta);color:var(--tx);font:600 1rem/1.25 var(--f-d);box-shadow:0 30px 60px -20px rgba(0,0,0,.7)}
+.manif-selo svg{position:absolute;inset:0;width:100%;height:100%}
+.manif-selo .circ-anel{stroke:rgba(242,238,229,.15)}
+
+/* ---- números grandes -------------------------------------------------- */
+.numeros{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.num{position:relative;padding:clamp(24px,3vw,36px);border-radius:var(--r-lg);background:linear-gradient(180deg,rgba(242,238,229,.05),rgba(242,238,229,.015));border:1px solid var(--line);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);overflow:hidden}
+.num b{display:block;font:600 clamp(3.4rem,2rem + 4vw,5.6rem)/.9 var(--f-d);letter-spacing:-.05em;background:linear-gradient(180deg,#FFE28A,#D9A012);-webkit-background-clip:text;background-clip:text;color:transparent}
+.num span{display:block;margin-top:14px;font:600 1.05rem/1.25 var(--f-d)}
+.num small{display:block;margin-top:6px;font-size:.88rem;color:var(--tx-3);line-height:1.45}
+
+/* ---- para quem: retratos em cascata ----------------------------------- */
+.retratos{position:relative;height:clamp(420px,42vw,560px)}
+.retratos .foto{position:absolute;width:56%;aspect-ratio:3/3.8}
+.retratos .foto:nth-child(1){left:0;top:8%;transform:rotate(-4deg)}
+.retratos .foto:nth-child(2){left:24%;top:0;z-index:2;transform:rotate(2deg)}
+.retratos .foto:nth-child(3){right:0;top:22%;z-index:1;transform:rotate(5deg)}
+.js .retratos .foto[data-revela]{transform:translateY(40px) rotate(0)}
+.js .retratos .foto.visto:nth-child(1){transform:rotate(-4deg)}
+.js .retratos .foto.visto:nth-child(2){transform:rotate(2deg);transition-delay:.15s}
+.js .retratos .foto.visto:nth-child(3){transform:rotate(5deg);transition-delay:.3s}
+
+/* ---- seção creme ------------------------------------------------------ */
+.creme{background:var(--creme);color:var(--tinta);border:0!important}
+.creme .h2,.creme h3,.creme .faq-item h3{color:var(--tinta)}
+.creme .lead,.creme .faq-item p,.creme p{color:var(--tinta-2)}
+.creme .faq-item{border-top-color:rgba(22,19,12,.12)}
+.creme .btn-linha{border-color:rgba(22,19,12,.25);color:var(--tinta)}
+.creme .btn-linha:hover{border-color:var(--tinta)}
+.creme .btn-linha .ic{background:rgba(22,19,12,.07)}
+.creme .etq{color:#8A6400;border-color:rgba(138,100,0,.3);background:rgba(245,195,40,.14)}
+.creme .pq-col{background:#FFFFFF;border-color:rgba(22,19,12,.08);box-shadow:0 30px 60px -40px rgba(60,45,10,.35)}
+.creme .pq-sim{background:linear-gradient(160deg,rgba(245,195,40,.22),#FFF 55%)}
+.creme .pq-col li,.creme .pq-col>p{color:var(--tinta-2)}
+.creme .pq-sim li .ic,.creme .pq-sim .pq-tit .ic{color:#B8830A}
+
+/* ---- passos com foto -------------------------------------------------- */
+.passos-foto{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,5vw,80px);align-items:center}
+.passos-foto .foto{aspect-ratio:4/4.4}
+.passos-foto .passos{grid-template-columns:1fr;gap:12px}
+.passos-foto .passo,.passos-foto .passo+.passo{display:grid;grid-template-columns:56px 1fr;gap:4px 20px;padding:22px;border:1px solid var(--line);border-radius:var(--r-lg);background:rgba(242,238,229,.025);box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.passos-foto .passo-ic{grid-row:span 3;margin:0}
+.passos-foto .passo small{margin-top:6px}
+
+/* ---- chamada final com foto ------------------------------------------- */
+.cta-final{background:var(--bg)}
+.cta-foto{position:absolute;inset:0;z-index:-2}
+.cta-foto img{width:100%;height:100%;object-fit:cover;opacity:.32}
+.cta-foto::after{content:'';position:absolute;inset:0;background:radial-gradient(70% 80% at 50% 50%,rgba(11,11,13,.35),var(--bg) 85%)}
+.cta-h2{font-size:clamp(2.3rem,1.2rem + 3.8vw,4.6rem);letter-spacing:-.04em}
+
+/* ---- capa das internas com foto -------------------------------------- */
+.capa-foto{position:absolute;inset:0;z-index:-2}
+.capa-foto img{width:100%;height:100%;object-fit:cover;opacity:.2}
+.capa-foto::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 20%,rgba(11,11,13,.7) 60%,rgba(11,11,13,.9)),linear-gradient(0deg,var(--bg),transparent 40%)}
+.capa{padding-top:calc(var(--topo-h) + clamp(64px,9vw,120px))}
+.capa::before{content:'';position:absolute;z-index:-1;right:-15%;top:-30%;width:60vw;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(245,195,40,.13),transparent 60%);pointer-events:none}
+
+/* ---- cartões com luz que segue o mouse -------------------------------- */
+.degrau,.bt-prog,.inc,.canal,.pilar{--mx:50%;--my:0%}
+.degrau::after,.bt-prog::after,.inc::after,.canal::after,.pilar::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(420px circle at var(--mx) var(--my),rgba(245,195,40,.12),transparent 45%);opacity:0;transition:opacity .5s}
+.degrau:hover::after,.bt-prog:hover::after,.inc:hover::after,.canal:hover::after,.pilar:hover::after{opacity:1}
+.inc,.pilar,.canal{position:relative}
+.dg-link{position:relative;z-index:1}
+
+/* ---- responsivo da camada ---------------------------------------------- */
+@media (max-width:1100px){.numeros{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:900px){
+  .hero-foto{width:100%;height:62%;-webkit-mask:linear-gradient(0deg,transparent,#000 60%);mask:linear-gradient(0deg,transparent,#000 60%)}
+  .hero-foto img{opacity:.38}
+  .split,.passos-foto{grid-template-columns:1fr}
+  .split.inv>:first-child{order:0}
+  .manif-selo{left:12px;width:150px;padding:20px;font-size:.88rem}
+}
+@media (max-width:760px){
+  .hero-mapa{padding:16px 16px 6px}
+  .numeros{grid-template-columns:1fr 1fr;gap:10px}
+  .num{padding:20px}
+  .retratos{height:auto;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .retratos .foto{position:relative;width:auto;inset:auto!important;transform:none!important}
+  .retratos .foto:nth-child(3){grid-column:span 2;aspect-ratio:16/10}
+  .passos-foto .passo,.passos-foto .passo+.passo{grid-template-columns:48px 1fr;padding:18px}
+  .letreiro{padding:18px 0}
+}
+@media (prefers-reduced-motion:reduce){
+  .letreiro-trilho,.hero-foto img{animation:none}
+  .js .hero-h1 .l1,.js .hero-h1 .l2,.js .hero-sub,.js .hero-acoes,.js .hero-selo,.js .hero-mapa{animation:none}
+  .js .foto[data-revela]{opacity:1;transform:none;filter:none}
+  .foto img{transform:none}
+}
+.dna-foto{margin-top:36px;aspect-ratio:4/3}
+@media (max-width:900px){.dna-foto{display:none}}
+.manif-selo p{position:relative;max-width:13ch}
+/* topo: foto à direita, texto e botão à esquerda */
+.hero-foto{width:54%}
+.hero-foto img{object-position:30% 32%}
+.hero-linha{grid-template-columns:minmax(0,640px);justify-content:start;gap:26px}
+.hero-h1{max-width:13.5ch}
+.retratos .foto img{transition-delay:.1s}
+/* topo editorial: texto à esquerda, foto emoldurada à direita */
+.hero-foto{display:none}
+.hero-grade{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(32px,5vw,80px);align-items:center}
+.hero-h1{max-width:none;font-size:clamp(2.6rem,1rem + 4.2vw,4.7rem)}
+.hero-sub{margin-top:26px;max-width:52ch}
+.hero-acoes{margin-top:30px}
+.hero-quadro{position:relative}
+.hero-quadro .foto{aspect-ratio:4/4.3;animation:entra 1.2s var(--ease-mola) .2s both}
+.hero-quadro .foto img{object-position:58% 50%;transform:scale(1.18);animation:zoom-lento 20s var(--ease-mola) both}
+.chip-flutua{position:absolute;z-index:2;display:inline-flex;align-items:center;gap:9px;padding:10px 16px 10px 10px;border-radius:999px;background:rgba(14,14,17,.72);border:1px solid rgba(242,238,229,.14);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);font:600 .9rem/1 var(--f-d);color:var(--tx);box-shadow:0 20px 40px -18px rgba(0,0,0,.8);animation:entra 1s var(--ease-mola) both,flutua 6s ease-in-out infinite}
+.chip-flutua .ic{width:28px;height:28px;padding:6px;border-radius:50%;background:var(--ouro);color:var(--ouro-tinta)}
+.chip-flutua.c1{left:-28px;top:16%;animation-delay:.6s,0s}
+.chip-flutua.c2{right:-18px;top:46%;animation-delay:.8s,1.5s}
+.chip-flutua.c3{left:8%;bottom:-18px;animation-delay:1s,3s}
+@keyframes flutua{0%,100%{translate:0 0}50%{translate:0 -8px}}
+@media (max-width:900px){
+  .hero-grade{grid-template-columns:1fr}
+  .hero-quadro{max-width:560px;margin-top:8px}
+  .chip-flutua.c1{left:10px}.chip-flutua.c2{right:10px}
+  .chip-flutua{font-size:.82rem}
+}
+@media (prefers-reduced-motion:reduce){.chip-flutua,.hero-quadro .foto,.hero-quadro .foto img{animation:none}}
+.dois .foto{aspect-ratio:4/3}
