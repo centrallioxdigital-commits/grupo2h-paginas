@@ -1,0 +1,66 @@
+# Gera o site principal (site/) e as páginas do blog a partir do Supabase.
+# Roda a cada 10 minutos: se alguém publicou, editou ou tirou um post do ar
+# no painel (grupo2h.com.br/blog/admin/), a página estática é criada ou
+# removida e o GitHub Pages publica sozinho. Sem post novo, não há commit.
+name: Site principal e blog
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['site/**', '.github/workflows/site.yml']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: site-principal
+  cancel-in-progress: false
+
+jobs:
+  gerar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - name: Instalar dependências
+        run: npm ci --prefix site
+
+      - name: Gerar o site
+        run: node site/build.mjs
+
+      - name: Publicar o que mudou
+        id: commit
+        run: |
+          git config user.name "Robô do site 2!H"
+          git config user.email "site@grupo2h.com.br"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nada mudou."
+            echo "mudou=nao" >> "$GITHUB_OUTPUT"
+          else
+            git diff --cached --name-only | grep 'index.html$' | sed 's#index.html$##' > /tmp/urls.txt || true
+            git commit -m "Blog: atualização automática das páginas"
+            git push
+            echo "mudou=sim" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Avisar buscadores (IndexNow, só em produção)
+        if: steps.commit.outputs.mudou == 'sim'
+        run: |
+          MODO=$(node -e "console.log(require('./site/site.config.json').modo)")
+          if [ "$MODO" != "producao" ]; then echo "Prévia: não avisa buscadores."; exit 0; fi
+          KEY=$(node -e "console.log(require('./site/site.config.json').indexNowKey)")
+          URLS=$(sed 's#^#"https://grupo2h.com.br/#; s#$#"#' /tmp/urls.txt | paste -sd, -)
+          [ -z "$URLS" ] && exit 0
+          curl -s -X POST https://api.indexnow.org/indexnow -H 'Content-Type: application/json' \
+            -d "{\"host\":\"grupo2h.com.br\",\"key\":\"$KEY\",\"keyLocation\":\"https://grupo2h.com.br/$KEY.txt\",\"urlList\":[${URLS}]}" || true
