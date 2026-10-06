@@ -3,7 +3,7 @@
 import { u, abs, esc, icon } from '../lib/core.mjs';
 import { pagina, diag, ctaFinal, faqLD, trilha, capa, ORG_ID, foto } from '../lib/layout.mjs';
 
-const FOTO = { edb: ['notebook-abajur', 'Notebook aberto sobre a mesa à noite'], 'growth-control': ['painel-anuncios', 'Painel de métricas de anúncios na tela'], 'growth-marketing': ['reuniao-maos', 'Time de marketing e comercial reunido em volta da mesa'], 'growth-intelligence': ['dashboard-escuro', 'Dashboard com gráficos de desempenho na tela'], lancamentos: ['palco-microfone', 'Palestrante no palco durante um evento'] };
+const FOTO = { edb: ['notebook-abajur', 'Notebook aberto sobre a mesa à noite'], 'growth-control': ['painel-anuncios', 'Painel de métricas de anúncios na tela'], 'growth-marketing': ['reuniao-maos', 'Time de marketing e comercial reunido em volta da mesa'], 'growth-intelligence': ['dashboard-escuro', 'Dashboard com gráficos de desempenho na tela'], lancamentos: ['palco-evento', 'Microfone num palco iluminado, pronto para o evento'] };
 import { escadaHTML } from './home.mjs';
 import { servicos } from '../content/servicos.mjs';
 import { programas } from '../content/metodo.mjs';

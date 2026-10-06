@@ -22,6 +22,8 @@ def tratar(im):
     return ImageEnhance.Brightness(im).enhance(0.92)
 
 for nome, pid in fotos.items():
+    if os.path.exists(os.path.join(DEST, f'{nome}.webp')):
+        continue
     url = f'https://images.unsplash.com/photo-{pid}?w=2000&q=85&fm=jpg&fit=max'
     dados = urllib.request.urlopen(url, timeout=60).read()
     im = tratar(Image.open(io.BytesIO(dados)))

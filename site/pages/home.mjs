@@ -176,7 +176,7 @@ export function home({ posts }) {
         </div>
       </div>
       <div class="hero-quadro">
-        ${foto('hero-dono-noite', 'Empresário trabalhando até tarde no escritório', { revela: false, prioridade: true, sizes: '(max-width: 900px) 100vw, 46vw' })}
+        ${foto('hero-reuniao-marketing', 'Equipe de marketing em reunião no escritório', { revela: false, prioridade: true, sizes: '(max-width: 900px) 100vw, 46vw' })}
         <span class="chip-flutua c1">${icon('seal-check')} Rastreamento validado</span>
         <span class="chip-flutua c2">${icon('eye')} Conta aberta</span>
         <span class="chip-flutua c3">${icon('chart-line-up')} Crescimento previsível</span>
@@ -314,6 +314,6 @@ ${ctaFinal({ origem: 'home-final', foto: 'aperto-de-mao' })}`;
     classe: 'pg-home',
     corpo,
     ld: [faqLD(faqHome)],
-    extraHead: `<link rel="preload" as="image" href="${asset('img/fotos/hero-dono-noite.webp')}" imagesrcset="${asset('img/fotos/hero-dono-noite-800.webp')} 800w, ${asset('img/fotos/hero-dono-noite.webp')} 1600w" imagesizes="(max-width: 900px) 100vw, 62vw">`,
+    extraHead: `<link rel="preload" as="image" href="${asset('img/fotos/hero-reuniao-marketing.webp')}" imagesrcset="${asset('img/fotos/hero-reuniao-marketing-800.webp')} 800w, ${asset('img/fotos/hero-reuniao-marketing.webp')} 1600w" imagesizes="(max-width: 900px) 100vw, 62vw">`,
   });
 }

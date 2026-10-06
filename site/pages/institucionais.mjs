@@ -37,7 +37,7 @@ function sobre() {
   const t = trilha([{ nome: 'Sobre', path: 'sobre/' }]);
   const time = empresa.time.filter((m) => m.nome && m.papel);
   const corpo = `
-${capa({ trilhaHtml: t.html, titulo: 'Estrutura antes de escala.', tituloOuro: 'Clareza antes de investimento.', lead: 'A 2!H organiza a máquina de vendas digital de empresas que já faturam, já investem e já têm operação, mas ainda não têm clareza, integração e controle para transformar marketing em crescimento previsível.', visual: ilMarca3d(), fotoFundo: 'dupla-escritorio' })}
+${capa({ trilhaHtml: t.html, titulo: 'Estrutura antes de escala.', tituloOuro: 'Clareza antes de investimento.', lead: 'A 2!H organiza a máquina de vendas digital de empresas que já faturam, já investem e já têm operação, mas ainda não têm clareza, integração e controle para transformar marketing em crescimento previsível.', visual: ilMarca3d(), fotoFundo: 'escritorio-noite' })}
 
 <section class="sec">
   <div class="wrap dois">
@@ -275,7 +275,7 @@ ${capa({ trilhaHtml: t.html, titulo: 'Fale com a 2!H.', lead: 'O caminho mais r�
 function perguntas() {
   const t = trilha([{ nome: 'Perguntas frequentes', path: 'perguntas-frequentes/' }]);
   const corpo = `
-${capa({ trilhaHtml: t.html, titulo: 'Perguntas frequentes.', lead: 'Respostas diretas sobre a 2!H, os serviços, o Método 5A e como começar.', fotoFundo: 'pensativo' })}
+${capa({ trilhaHtml: t.html, titulo: 'Perguntas frequentes.', lead: 'Respostas diretas sobre a 2!H, os serviços, o Método 5A e como começar.', fotoFundo: 'mesa-estudo' })}
 ${faqGrupos
   .map(
     (g) => `<section class="sec" id="${slugify(g.grupo)}"><div class="wrap dois"><div data-revela><h2 class="h2">${esc(g.grupo)}</h2></div><div data-revela>${acordeao(g.itens)}</div></div></section>`
