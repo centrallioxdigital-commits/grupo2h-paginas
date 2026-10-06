@@ -137,3 +137,27 @@
 .o3-ticks line{stroke:rgba(255,255,255,.26)!important;stroke-width:1!important;stroke-linecap:round;shape-rendering:geometricPrecision}
 .o3-ticks .o3-maior{stroke:rgba(245,195,40,.85)!important;stroke-width:1.6!important}
 .o3-guia{fill:rgba(11,11,13,.6);stroke:rgba(255,255,255,.1);stroke-width:1}
+
+/* ---- celular: títulos e textos de abertura centralizados -------------- */
+@media (max-width:760px){
+  :is(.hero-texto,.capa-texto,.sec-cab,.cta-in,.pq-cab,.dna-fixo,.esteira-fixo,.manif>div:first-child,.transp>div:first-child,.dois>div:first-child,.sec>.wrap){text-align:center}
+  :is(.hero-texto,.capa-texto,.sec-cab,.cta-in,.pq-cab,.dna-fixo,.esteira-fixo,.manif>div:first-child,.transp>div:first-child,.dois>div:first-child,.sec>.wrap)>:is(.lead,.capa-lead,.hero-sub,.cta-p,p,.h2,.h1,h1,h2,.etq){margin-inline:auto}
+  :is(.hero-acoes,.capa-acoes,.cta-acoes,.blog-topo,.trilha,.trilha ol,.fatos,.capa-topo,.hero-topo){justify-content:center;align-items:center}
+  .blog-topo{flex-direction:column;gap:18px}
+  .hero-acoes,.capa-acoes,.cta-acoes{flex-direction:column}
+  .etq{margin-inline:auto}
+  .hero-selo{margin-inline:auto}
+  /* o que é lista, cartão ou formulário continua alinhado à esquerda */
+  :is(.hero-texto,.capa-texto,.sec-cab,.cta-in,.dna-fixo,.esteira-fixo,.manif>div:first-child,.transp>div:first-child,.dois>div:first-child,.sec>.wrap) :is(ul,ol:not(.trilha ol),.acord,.faq-item,.dna-card,.cmp-card,.degrau,.pilar,.canal,.inc,.membro,.bt,form,.prosa,.esteira-cont,.il,.lt-item,.jr,.sel-op,.comp){text-align:left}
+}
+
+/* ---- escada: trilha "da estrutura à escala" ---------------------------- */
+.escada-base{display:flex;align-items:center;gap:14px;margin-top:28px;padding-top:0;border-top:0;font:600 .86rem/1 var(--f-b)}
+.escada-base::after{content:"";order:1;flex:1;height:3px;border-radius:3px;
+  background:linear-gradient(90deg,transparent 0,rgba(255,240,180,.95) 6%,transparent 12%) -20% 0/40% 100% no-repeat,linear-gradient(90deg,rgba(255,255,255,.18),#F5C328);
+  box-shadow:0 0 12px rgba(245,195,40,.35);animation:escadaluz 3.2s cubic-bezier(.45,.05,.55,.95) infinite}
+.escada-base span{padding:9px 14px;border-radius:999px;white-space:nowrap;color:#fff;background:linear-gradient(180deg,rgba(255,255,255,.13),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.13);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 10px 24px -14px rgba(0,0,0,.8)}
+.escada-base span:last-child{order:2;color:#17130A;border-color:transparent;background:linear-gradient(180deg,#FFE9A0,#F7C935 55%,#E2AA14);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 8px 20px -8px rgba(245,195,40,.7)}
+@keyframes escadaluz{from{background-position:-20% 0,0 0}to{background-position:140% 0,0 0}}
+@media (max-width:760px){.escada-base{font-size:.76rem;gap:10px}.escada-base span{padding:8px 11px}}
+@media (prefers-reduced-motion:reduce){.escada-base::after{animation:none}}

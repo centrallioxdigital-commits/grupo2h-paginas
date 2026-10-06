@@ -216,17 +216,6 @@ export function home({ posts }) {
   </div>
 </section>
 
-<section class="sec" id="numeros">
-  <div class="wrap">
-    <div class="numeros" data-revela-filhos>
-      <div class="num"><b data-conta="5">5</b><span>fases no Método 5A</span><small>Análise, Alinhamento, Aquisição, Acompanhamento e Aceleração.</small></div>
-      <div class="num"><b data-conta="8">8</b><span>semanas de EDB</span><small>Da estratégia à base testada de ponta a ponta.</small></div>
-      <div class="num"><b data-conta="12">12</b><span>entregáveis na Mentoria</span><small>Do Raio-X econômico ao plano de 90 dias.</small></div>
-      <div class="num"><b data-conta="10">10</b><span>etapas analisadas</span><small>Do negócio até a margem, onde tudo se prova.</small></div>
-    </div>
-  </div>
-</section>
-
 <section class="sec luz luz-e" id="dna">
   <div class="wrap dna">
     <div class="dna-fixo">
