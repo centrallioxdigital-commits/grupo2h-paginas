@@ -60,7 +60,7 @@ ${capa({ trilhaHtml: t.html, titulo: 'Estrutura antes de escala.', tituloOuro: '
 ${time.length ? `<section class="sec luz luz-d" id="time"><div class="wrap"><div class="sec-cab" data-revela><p class="etq">Quem está por trás</p><h2 class="h2">O time que organiza a sua máquina.</h2></div><div class="time" data-revela-filhos>${time
     .map((m) => {
       const iniciais = m.nome.split(' ').filter(Boolean).map((x) => x[0]).slice(0, 2).join('').toUpperCase();
-      return `<article class="membro"><figure>${m.foto ? `<img src="${asset(`img/${m.foto}`)}" alt="${esc(m.nome)}" loading="lazy">` : `<span class="monograma" aria-hidden="true">${esc(iniciais)}</span>`}</figure><h3>${esc(m.nome)}</h3><p class="membro-papel">${esc(m.papel)}</p>${m.frase ? `<blockquote class="membro-frase">${esc(m.frase)}</blockquote>` : ''}</article>`;
+      return `<article class="membro"><figure>${m.foto ? `<img src="${asset(`img/${m.foto}`)}" alt="${esc(m.nome)}, ${esc(m.papel)} do Grupo 2!H" width="512" height="512" loading="lazy">` : `<span class="monograma" aria-hidden="true">${esc(iniciais)}</span>`}</figure><h3>${esc(m.nome)}</h3><p class="membro-papel">${esc(m.papel)}</p>${m.frase ? `<blockquote class="membro-frase">${esc(m.frase)}</blockquote>` : ''}</article>`;
     })
     .join('')}</div></div></section>` : ''}
 
