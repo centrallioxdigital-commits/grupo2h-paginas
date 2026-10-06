@@ -244,3 +244,7 @@ body::after{content:'';position:fixed;inset:0;z-index:70;pointer-events:none;opa
 @media (hover:none){.membro figure img{filter:none}}
 .dna-foto img{object-position:50% 0}
 .dna-foto.foto img{transform:none}
+/* para quem: cabeçalho centralizado */
+.pq-cab{display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:clamp(40px,5vw,64px)}
+.pq-cab .h2{max-width:20ch;margin-inline:auto}
+.pq-cab .lead{margin-inline:auto;max-width:56ch}

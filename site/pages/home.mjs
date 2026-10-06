@@ -232,17 +232,10 @@ export function home({ posts }) {
 </section>
 
 <section class="sec creme" id="para-quem">
-  <div class="wrap split" style="margin-bottom:clamp(40px,5vw,72px)">
-    <div>
-      <p class="etq">Para quem é</p>
-      <h2 class="h2" data-revela>Feito para quem já fatura e quer parar de crescer no achismo.</h2>
-      <p class="lead" data-revela>Donos e sócios que já investiram em marketing, têm equipe e operação, e querem crescer com controle.</p>
-    </div>
-    <div class="retratos" aria-label="Donos e sócios de empresas">
-      ${foto('dono-1', 'Dono de empresa sorrindo no próprio negócio', { sizes: '(max-width: 900px) 50vw, 25vw' })}
-      ${foto('dona-2', 'Empresária no balcão da própria loja', { sizes: '(max-width: 900px) 50vw, 25vw' })}
-      ${foto('dono-3', 'Empresário sentado à mesa do próprio restaurante', { sizes: '(max-width: 900px) 100vw, 25vw' })}
-    </div>
+  <div class="wrap pq-cab">
+    <p class="etq">Para quem é</p>
+    <h2 class="h2" data-revela>Feito para quem já fatura e quer parar de crescer no achismo.</h2>
+    <p class="lead" data-revela>Donos e sócios que já investiram em marketing, têm equipe e operação, e querem crescer com controle.</p>
   </div>
   <div class="wrap">${paraQuemHTML()}</div>
 </section>
