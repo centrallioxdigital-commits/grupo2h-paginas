@@ -244,7 +244,6 @@ export function paginaHTML({ versao, cssApp }) {
 <meta name="theme-color" content="#0B0B0D">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preload" href="assets/fonts/general-sans-600.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossorigin>
 ${css}
 <style>${CSS_PAGINA}</style>
 </head>

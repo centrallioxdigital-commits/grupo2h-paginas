@@ -242,7 +242,6 @@ ${noindex ? '<meta name="robots" content="noindex, nofollow">' : '<meta name="ro
 <link rel="manifest" href="${u('site.webmanifest')}">
 <link rel="alternate" type="application/rss+xml" title="Blog do Grupo 2!H" href="${u('blog/rss.xml')}">
 <link rel="preload" href="${asset('fonts/general-sans-600.woff2')}" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="${asset('fonts/inter-var-latin.woff2')}" as="font" type="font/woff2" crossorigin>
 <style>${cssEmbutido.replace(/<\/style/gi, '<\/style')}</style>
 ${o.extraHead || ''}
 <script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>

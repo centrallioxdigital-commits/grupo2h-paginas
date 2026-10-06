@@ -54,3 +54,8 @@
 @keyframes entra-leve{from{transform:translateY(14px)}to{transform:none}}
 .js .hero-h1 .l1,.js .hero-h1 .l2,.js .hero-sub,.js .hero-acoes,.js .hero-selo,.js .hero-mapa,.hero-quadro .foto{animation:entra-leve .8s var(--ease-mola) both!important}
 .js .capa [data-revela],.js .capa [data-revela-filhos]>*{opacity:1!important}
+
+/* ---- primeira tela "termina" logo (Speed Index): sem zoom de 20s na foto e selos só começam a flutuar depois ---- */
+.hero-quadro .foto img,.hero-foto img{animation:none!important}
+.hero-quadro .foto img{transform:scale(1.08)!important}
+.chip-flutua{animation:flutua 6s ease-in-out 3.5s infinite!important}
