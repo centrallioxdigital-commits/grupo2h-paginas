@@ -495,3 +495,4 @@ main>.sec+.sec{border-top:0;margin-top:-1px}
 @media (min-width:901px){.destaque .post-capa{aspect-ratio:auto;min-height:340px;width:100%}.destaque .post-capa img{position:absolute;inset:0;width:100%;height:100%}}
 .post-capa img{object-position:left top}
 .post-card,.post-card *{text-align:left}
+.rod2-base{margin-top:clamp(40px,5vw,64px)}

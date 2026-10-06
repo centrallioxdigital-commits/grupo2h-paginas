@@ -184,7 +184,6 @@ function rodape() {
         ${grupo('Conteúdo', 'article', lk('blog/', 'Blog') + lk('glossario/', 'Glossário de growth') + lk('blog/rss.xml', 'RSS'))}
       </nav>
     </div>
-    <p class="rod2-frase" aria-hidden="true">Estrutura antes de escala.</p>
     <div class="rod2-base">
       <p>© ${new Date().getFullYear()} ${esc(empresa.nome)}. Todos os direitos reservados.${legal ? ` ${esc(legal)}.` : ''}</p>
       <a href="${u('privacidade/')}">Política de privacidade</a>
