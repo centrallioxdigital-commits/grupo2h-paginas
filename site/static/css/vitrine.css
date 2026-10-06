@@ -138,8 +138,8 @@
 .o3-ticks .o3-maior{stroke:rgba(245,195,40,.85)!important;stroke-width:1.6!important}
 .o3-guia{fill:rgba(11,11,13,.6);stroke:rgba(255,255,255,.1);stroke-width:1}
 
-/* ---- celular: títulos e textos de abertura centralizados -------------- */
-@media (max-width:760px){
+/* ---- celular e tablet: títulos e textos de abertura centralizados ------ */
+@media (max-width:900px){
   :is(.hero-texto,.capa-texto,.sec-cab,.cta-in,.pq-cab,.dna-fixo,.esteira-fixo,.manif>div:first-child,.transp>div:first-child,.dois>div:first-child,.sec>.wrap){text-align:center}
   :is(.hero-texto,.capa-texto,.sec-cab,.cta-in,.pq-cab,.dna-fixo,.esteira-fixo,.manif>div:first-child,.transp>div:first-child,.dois>div:first-child,.sec>.wrap)>:is(.lead,.capa-lead,.hero-sub,.cta-p,p,.h2,.h1,h1,h2,.etq){margin-inline:auto}
   :is(.hero-acoes,.capa-acoes,.cta-acoes,.blog-topo,.trilha,.trilha ol,.fatos,.capa-topo,.hero-topo){justify-content:center;align-items:center}
@@ -148,7 +148,7 @@
   .etq{margin-inline:auto}
   .hero-selo{margin-inline:auto}
   /* o que é lista, cartão ou formulário continua alinhado à esquerda */
-  :is(.hero-texto,.capa-texto,.sec-cab,.cta-in,.dna-fixo,.esteira-fixo,.manif>div:first-child,.transp>div:first-child,.dois>div:first-child,.sec>.wrap) :is(ul,ol:not(.trilha ol),.acord,.faq-item,.dna-card,.cmp-card,.degrau,.pilar,.canal,.inc,.membro,.bt,form,.prosa,.esteira-cont,.il,.lt-item,.jr,.sel-op,.comp){text-align:left}
+  :is(.hero-texto,.capa-texto,.sec-cab,.cta-in,.dna-fixo,.esteira-fixo,.manif>div:first-child,.transp>div:first-child,.dois>div:first-child,.sec>.wrap) :is(ul,ol:not(.trilha ol),.acord,.faq-item,.dna-card,.cmp-card,.degrau,.pilar,.canal,.inc,.membro,.bt,form,.post-corpo,.esteira-cont,.il,.lt-item,.jr,.sel-op,.comp){text-align:left}
 }
 
 /* ---- escada: trilha "da estrutura à escala" ---------------------------- */
@@ -161,3 +161,76 @@
 @keyframes escadaluz{from{background-position:-20% 0,0 0}to{background-position:140% 0,0 0}}
 @media (max-width:760px){.escada-base{font-size:.76rem;gap:10px}.escada-base span{padding:8px 11px}}
 @media (prefers-reduced-motion:reduce){.escada-base::after{animation:none}}
+
+/* ---- revisão: texto em degradê não corta acento nem cedilha ------------ */
+.hero-h1 .l2{padding-bottom:.16em;margin-bottom:-.16em}
+.esteira-cont b,.num b,.monograma,.aceso .dna-num{padding-bottom:.08em}
+/* títulos nunca passam da largura da tela (18ch não pode vencer o container) */
+.h2{max-width:min(18ch,100%)}
+.pq-cab .h2{max-width:min(20ch,100%)}
+:is(h1,h2,h3,.h2,.capa-h1,.hero-h1){overflow-wrap:break-word}
+.blog-topo>*{max-width:100%}
+/* convite final: duas linhas no computador */
+.cta-p{max-width:min(66ch,100%);text-wrap:balance;margin-inline:auto}
+.post-card p{overflow-wrap:break-word}
+/* comparativo de 5 soluções: 5 colunas só em tela larga; abaixo, faixa deslizante */
+@media (max-width:1279px){
+  .compara.compara-5{grid-template-columns:none;grid-template-rows:repeat(4,auto);grid-auto-flow:column;grid-auto-columns:min(300px,82%);
+    overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    margin-inline:calc(var(--gut) * -1);padding:6px var(--gut) 22px;scroll-padding-inline:var(--gut);scrollbar-width:none}
+  .compara.compara-5::-webkit-scrollbar{display:none}
+  .compara.compara-5>.cmp-card{scroll-snap-align:start}
+  .compara.compara-5>.cmp-card:hover{transform:none}
+}
+
+/* tablet: foto do topo centralizada */
+@media (max-width:900px){.hero-quadro,.hero-mapa{margin-inline:auto}}
+/* telas grandes e ultrawide: conteúdo cresce junto */
+@media (min-width:1700px){:root{--wrap:1380px}html{font-size:17.5px}}
+@media (min-width:2200px){:root{--wrap:1560px}html{font-size:19.5px}}
+
+/* ---- desempenho: pausa fora da tela e menos efeito caro no toque ------- */
+.pausado,.pausado *,.pausado::before,.pausado::after,.pausado *::before,.pausado *::after{animation-play-state:paused!important}
+@media (hover:none){
+  .f4-lead,.mk-cometa,.cm-esfera{filter:none}
+  .etq,.il-chips span,.m3-chips span,.f4-e,.filtros a,.fato,.f4-v,.m3-leitura{-webkit-backdrop-filter:none;backdrop-filter:none}
+}
+
+/* ---- mapa da máquina de vendas (hero) --------------------------------- */
+.hero-mapa{padding:24px 28px 14px;border-radius:28px;background:radial-gradient(70% 120% at 100% 100%,rgba(245,195,40,.1),transparent 60%),linear-gradient(180deg,rgba(28,28,33,.82),rgba(12,12,15,.72));border:1px solid rgba(255,255,255,.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 40px 90px -40px rgba(0,0,0,.95);-webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%)}
+.mapa-cab b,.mapa-cab span{color:#fff}
+.rt{overflow:visible}
+.rt-pontos circle{fill:rgba(255,255,255,.09)}
+.rt-area{opacity:0;animation:rt-surge 1.4s ease 1.6s forwards}
+.rt-trilho{fill:none;stroke:rgba(255,255,255,.08);stroke-width:12;stroke-linecap:round}
+.rt-linha,.rt-glow{fill:none;stroke-width:3.2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:rota-desenha 2.4s cubic-bezier(.65,0,.35,1) .2s forwards}
+.rt-glow{stroke-width:8;opacity:.55}
+@keyframes rt-surge{to{opacity:1}}
+.rt-st{opacity:0;animation:rt-entra .7s cubic-bezier(.3,1.4,.5,1) forwards;animation-delay:calc(var(--t) - 2s)}
+@keyframes rt-entra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.rt-halo{fill:rgba(245,195,40,0);stroke:rgba(245,195,40,0);stroke-width:1;transform-box:fill-box;transform-origin:center;animation:rt-halo 10s linear infinite;animation-delay:var(--t)}
+@keyframes rt-halo{0%{fill:rgba(245,195,40,.28);stroke:rgba(245,195,40,.7);transform:scale(.8)}12%{fill:rgba(245,195,40,0);stroke:rgba(245,195,40,0);transform:scale(1.35)}100%{fill:rgba(245,195,40,0);stroke:rgba(245,195,40,0)}}
+.rt-bola{filter:drop-shadow(0 8px 12px rgba(0,0,0,.7))}
+.rt-aro{fill:none;stroke:rgba(255,255,255,.22);stroke-width:1.2;animation:rt-aro 10s linear infinite;animation-delay:var(--t)}
+@keyframes rt-aro{0%,10%{stroke:#F5C328;stroke-width:2}22%,100%{stroke:rgba(255,255,255,.22);stroke-width:1.2}}
+.rt-brilho{fill:none;stroke:rgba(255,255,255,.35);stroke-width:2;stroke-linecap:round}
+.rt-ic{color:#fff;animation:rt-ic 10s linear infinite;animation-delay:var(--t)}
+@keyframes rt-ic{0%,10%{color:#FFE27A}22%,100%{color:#fff}}
+.rt-ic-fim{color:#1A1408;animation:none}
+.rt-num{font:600 11px var(--f-b);fill:#F5C328;letter-spacing:.12em}
+.rt-nome{font:600 16px var(--f-d);fill:#fff;letter-spacing:-.01em}
+.rt-nome-fim{font-size:19px;fill:#FFE27A}
+.rt-sol{filter:drop-shadow(0 0 10px rgba(245,195,40,.9)) drop-shadow(0 6px 10px rgba(0,0,0,.6))}
+.rt-reflexo{fill:rgba(255,255,255,.7)}
+.rt-onda{fill:none;stroke:rgba(245,195,40,.6);stroke-width:1.5;transform-box:fill-box;transform-origin:center;animation:rt-onda 2.6s ease-out infinite}
+.rt-onda2{animation-delay:1.3s}
+@keyframes rt-onda{from{transform:scale(1);opacity:.9}to{transform:scale(2.4);opacity:0}}
+.rt-pulso{opacity:0;animation:rt-surge .4s ease 2.4s forwards}
+.rt-pulso-pt{fill:#FFF6D0}
+@media (prefers-reduced-motion:reduce){.rt-linha,.rt-glow{stroke-dashoffset:0;animation:none}.rt-st,.rt-area{opacity:1;animation:none}.rt-pulso{display:none}.rt-halo,.rt-aro,.rt-ic,.rt-onda{animation:none}}
+
+/* ---- seções que ficam paradas: no computador, um respiro antes da próxima subir ---- */
+@media (min-width:901px){
+  [data-fica]+.divisa,[data-fica]+.cobre{margin-top:34vh}
+  .hero[data-fica]+.divisa,.hero[data-fica]+.cobre{margin-top:48vh}
+}

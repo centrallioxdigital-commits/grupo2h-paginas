@@ -99,3 +99,5 @@
   .adm-titulo,.adm-usuario{display:none}
   .adm-topo .btn:first-of-type{margin-left:auto}
 }
+
+.adm-topo{flex-wrap:wrap;gap:10px}

@@ -2,7 +2,7 @@
 // texturas de curva de nível. Determinísticos (semente fixa): o mesmo build
 // gera sempre o mesmo arquivo, então o robô não faz commit à toa.
 
-import { esc } from './core.mjs';
+import { esc, icon } from './core.mjs';
 
 const r1 = (n) => Math.round(n * 10) / 10;
 
@@ -58,30 +58,73 @@ export function topografia({ w = 1600, h = 900, centros, passo = 26, semente = 7
  * Versão horizontal (SVG, desktop) + lista ordenada (celular e leitores de tela).
  */
 export function mapaRota(estacoes, destino) {
-  const W = 1200, H = 290;
+  const W = 1200, H = 340, DUR = 10, INI = 2.4;
+  const ICONES = { Oferta: 'tag', 'Público': 'users-three', 'Comunicação': 'megaphone', 'Aquisição': 'magnet', Atendimento: 'chats-circle', Comercial: 'handshake', Rastreamento: 'crosshair', Dados: 'chart-bar' };
   const todos = [...estacoes, destino];
   const n = todos.length;
-  const ys = [176, 104, 186, 96, 180, 92, 174, 108, 146];
-  const pts = todos.map((_, i) => [64 + (i * (W - 128)) / (n - 1), ys[i % ys.length]]);
+  const ys = [196, 118, 206, 110, 200, 106, 194, 122, 166];
+  const pts = todos.map((_, i) => [70 + (i * (W - 150)) / (n - 1), ys[i % ys.length]]);
   const d = curva(pts);
-  const sts = todos
-    .map((e, i) => {
-      const [x, y] = pts[i];
-      const ehDestino = i === n - 1;
-      const acima = y < 140;
-      const ly = acima ? y - 26 : y + 38;
-      const delay = (0.35 + (2.2 * i) / (n - 1)).toFixed(2);
-      if (ehDestino) {
-        return `<g class="rota-st rota-fim" style="--d:${delay}s"><circle cx="${r1(x)}" cy="${r1(y)}" r="22" class="rota-halo"/><circle cx="${r1(x)}" cy="${r1(y)}" r="9" class="rota-pt"/><text x="${r1(x - 8)}" y="${r1(y + 50)}" text-anchor="end" class="rota-tx rota-tx-fim">${esc(e.nome)}</text></g>`;
-      }
-      return `<g class="rota-st" style="--d:${delay}s"><title>${esc(e.nome)}: ${esc(e.d)}</title><circle cx="${r1(x)}" cy="${r1(y)}" r="6.5" class="rota-pt"/><text x="${r1(x)}" y="${r1(ly)}" text-anchor="middle" class="rota-tx">${esc(e.nome)}</text></g>`;
-    })
-    .join('');
-  const svg = `<svg class="rota-svg" viewBox="0 0 ${W} ${H}" aria-hidden="true" focusable="false">
-<path d="${d}" class="rota-base" pathLength="1"/>
-<path d="${d}" id="rota-linha" class="rota-linha" pathLength="1"/>
+  // comprimento acumulado da curva (Catmull-Rom em Bézier), para o pulso acender cada estação na hora certa
+  const seg = (i) => {
+    const p = (k) => pts[Math.max(0, Math.min(n - 1, k))];
+    const p0 = p(i - 1), p1 = p(i), p2 = p(i + 1), p3 = p(i + 2);
+    const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6], c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+    let L = 0, ant = p1;
+    for (let k = 1; k <= 40; k++) {
+      const t = k / 40, u = 1 - t;
+      const q = [u * u * u * p1[0] + 3 * u * u * t * c1[0] + 3 * u * t * t * c2[0] + t * t * t * p2[0], u * u * u * p1[1] + 3 * u * u * t * c1[1] + 3 * u * t * t * c2[1] + t * t * t * p2[1]];
+      L += Math.hypot(q[0] - ant[0], q[1] - ant[1]); ant = q;
+    }
+    return L;
+  };
+  const acum = [0];
+  for (let i = 0; i < n - 1; i++) acum.push(acum[i] + seg(i));
+  const total = acum[n - 1];
+  const area = `${d} L${r1(pts[n - 1][0])} ${H - 20} L${r1(pts[0][0])} ${H - 20} Z`;
+  const icEm = (nome, x, y) => icon(nome).replace('<svg ', `<svg x="${r1(x - 10)}" y="${r1(y - 10)}" width="20" height="20" `);
+  const sts = todos.map((e, i) => {
+    const [x, y] = pts[i], fim = i === n - 1, acima = y < 160;
+    const atraso = (INI + (acum[i] / total) * DUR).toFixed(2);
+    if (fim) {
+      return `<g class="rt-st rt-fim" style="--t:${atraso}s">
+        <circle cx="${r1(x)}" cy="${r1(y)}" r="20" class="rt-onda"/><circle cx="${r1(x)}" cy="${r1(y)}" r="20" class="rt-onda rt-onda2"/>
+        <circle cx="${r1(x)}" cy="${r1(y)}" r="34" fill="url(#rt-aura)"/>
+        <circle cx="${r1(x)}" cy="${r1(y)}" r="19" fill="url(#rt-ouro)" class="rt-sol"/>
+        <ellipse cx="${r1(x - 5)}" cy="${r1(y - 7)}" rx="7" ry="4" class="rt-reflexo"/>
+        <g class="rt-ic rt-ic-fim">${icEm('trend-up', x, y)}</g>
+        <text x="${r1(x + 10)}" y="${r1(y + 54)}" text-anchor="end" class="rt-nome rt-nome-fim">${esc(e.nome)}</text>
+      </g>`;
+    }
+    const ly = acima ? y - 44 : y + 56;
+    return `<g class="rt-st" style="--t:${atraso}s"><title>${esc(e.nome)}: ${esc(e.d)}</title>
+      <circle cx="${r1(x)}" cy="${r1(y)}" r="30" class="rt-halo"/>
+      <circle cx="${r1(x)}" cy="${r1(y)}" r="21" fill="url(#rt-vidro)" class="rt-bola"/>
+      <circle cx="${r1(x)}" cy="${r1(y)}" r="21" class="rt-aro"/>
+      <path d="M${r1(x - 13)} ${r1(y - 8)} A15 15 0 0 1 ${r1(x + 13)} ${r1(y - 8)}" class="rt-brilho"/>
+      <g class="rt-ic">${icEm(ICONES[e.nome] || 'circle', x, y)}</g>
+      <text x="${r1(x)}" y="${r1(ly - 14)}" text-anchor="middle" class="rt-num">0${i + 1}</text>
+      <text x="${r1(x)}" y="${r1(ly + 4)}" text-anchor="middle" class="rt-nome">${esc(e.nome)}</text>
+    </g>`;
+  }).join('');
+  const pontos = Array.from({ length: 24 * 7 }, (_, k) => `<circle cx="${25 + (k % 24) * 50}" cy="${30 + Math.floor(k / 24) * 46}" r="1"/>`).join('');
+  const svg = `<svg class="rota-svg rt" viewBox="0 0 ${W} ${H}" aria-hidden="true" focusable="false">
+<defs>
+  <linearGradient id="rt-linha-g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8A6206"/><stop offset=".45" stop-color="#F5C328"/><stop offset="1" stop-color="#FFE9A0"/></linearGradient>
+  <linearGradient id="rt-area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5C328" stop-opacity=".16"/><stop offset="1" stop-color="#F5C328" stop-opacity="0"/></linearGradient>
+  <radialGradient id="rt-vidro" cx=".35" cy=".3" r=".85"><stop offset="0" stop-color="#3A3A42"/><stop offset=".6" stop-color="#19191E"/><stop offset="1" stop-color="#0C0C0F"/></radialGradient>
+  <radialGradient id="rt-ouro" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FFF6D0"/><stop offset=".4" stop-color="#F7C935"/><stop offset="1" stop-color="#A87408"/></radialGradient>
+  <radialGradient id="rt-aura"><stop offset="0" stop-color="#F5C328" stop-opacity=".45"/><stop offset="1" stop-color="#F5C328" stop-opacity="0"/></radialGradient>
+  <linearGradient id="rt-cauda" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#FFF3C4"/><stop offset=".3" stop-color="#F5C328" stop-opacity=".7"/><stop offset="1" stop-color="#F5C328" stop-opacity="0"/></linearGradient>
+  <filter id="rt-desfoque" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+</defs>
+<g class="rt-pontos">${pontos}</g>
+<path d="${area}" fill="url(#rt-area)" class="rt-area"/>
+<path d="${d}" class="rt-trilho"/>
+<path d="${d}" class="rt-glow" stroke="url(#rt-linha-g)" filter="url(#rt-desfoque)" pathLength="1"/>
+<path d="${d}" id="rota-linha" class="rt-linha" stroke="url(#rt-linha-g)" pathLength="1"/>
 ${sts}
-<g class="rota-lead"><circle r="11" class="rota-lead-halo"/><circle r="4.5" class="rota-lead-pt"/><animateMotion dur="11s" begin="2.8s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.45 0 0.35 1"><mpath href="#rota-linha"/></animateMotion></g>
+<g class="rt-pulso"><ellipse cx="-22" cy="0" rx="30" ry="3.2" fill="url(#rt-cauda)"/><circle r="12" fill="url(#rt-aura)"/><circle r="4.2" class="rt-pulso-pt"/><animateMotion dur="${DUR}s" begin="${INI}s" repeatCount="indefinite" rotate="auto"><mpath href="#rota-linha"/></animateMotion></g>
 </svg>`;
   const lista = `<ol class="rota-lista">${todos
     .map((e, i) => `<li${i === n - 1 ? ' class="fim"' : ''}><b>${esc(e.nome)}</b><span>${esc(e.d)}</span></li>`)

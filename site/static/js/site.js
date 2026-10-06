@@ -131,26 +131,34 @@
     itens[0].classList.add('ativo');
   });
 
+  /* ---------- rolagem: cada efeito roda no máximo uma vez por quadro ---------- */
+  var porQuadro = function (fn) {
+    var pedido = false;
+    return function () { if (pedido) return; pedido = true; requestAnimationFrame(function () { pedido = false; fn(); }); };
+  };
+
   /* ---------- DNA: cartões empilham e acendem ao chegar no topo ---------- */
   doc.querySelectorAll('[data-dna]').forEach(function (lista) {
     var itens = Array.prototype.slice.call(lista.children);
     if (reduz) { itens.forEach(function (li) { li.classList.add('aceso'); }); return; }
+    var topos = [];
+    var medirTopos = function () { topos = itens.map(function (li) { return parseFloat(getComputedStyle(li).top) || 0; }); };
     var medir = function () {
-      var ultimoAceso = -1;
+      var ultimoAceso = -1, alto = innerHeight * .55, rs = itens.map(function (li) { return li.getBoundingClientRect(); });
       itens.forEach(function (li, i) {
-        var topo = parseFloat(getComputedStyle(li).top) || 0, r = li.getBoundingClientRect();
-        var chegou = r.top <= topo + 2 || r.top < innerHeight * .55;
-        li.classList.toggle('aceso', chegou);
+        var r = rs[i], chegou = r.top <= topos[i] + 2 || r.top < alto;
+        if (li.classList.contains('aceso') !== chegou) li.classList.toggle('aceso', chegou);
         if (chegou) ultimoAceso = i;
-        var c = li.firstElementChild, prox = itens[i + 1];
         var coberto = 0;
-        if (prox && chegou) { var rp = prox.getBoundingClientRect(); coberto = Math.max(0, Math.min(1, 1 - (rp.top - r.top) / Math.max(1, r.height))); }
-        c.style.setProperty('--cob', coberto.toFixed(3));
+        if (rs[i + 1] && chegou) coberto = Math.max(0, Math.min(1, 1 - (rs[i + 1].top - r.top) / Math.max(1, r.height)));
+        var v = coberto.toFixed(2);
+        if (li.firstElementChild.style.getPropertyValue('--cob') !== v) li.firstElementChild.style.setProperty('--cob', v);
       });
-      itens.forEach(function (li, i) { li.classList.toggle('atual', i === ultimoAceso); });
+      itens.forEach(function (li, i) { if (li.classList.contains('atual') !== (i === ultimoAceso)) li.classList.toggle('atual', i === ultimoAceso); });
     };
-    addEventListener('scroll', medir, { passive: true });
-    addEventListener('resize', medir);
+    medirTopos();
+    addEventListener('scroll', porQuadro(medir), { passive: true });
+    addEventListener('resize', function () { medirTopos(); medir(); });
     medir();
   });
 
@@ -175,9 +183,12 @@
     var r = d.querySelector('.acord-r');
     if (!d.open) return;
     if (reduz || !r || !r.animate) { d.open = false; return; }
+    if (d.classList.contains('fechando')) return;
     d.classList.add('fechando');
-    var h = r.offsetHeight;
-    r.animate([{ height: h + 'px', opacity: 1 }, { height: '0px', opacity: 0 }], { duration: 420, easing: 'cubic-bezier(.65,0,.35,1)' }).onfinish = function () { d.open = false; d.classList.remove('fechando'); };
+    var h = r.offsetHeight, feito = false;
+    var fim = function () { if (feito) return; feito = true; d.open = false; d.classList.remove('fechando'); };
+    r.animate([{ height: h + 'px', opacity: 1 }, { height: '0px', opacity: 0 }], { duration: 420, easing: 'cubic-bezier(.65,0,.35,1)' }).onfinish = fim;
+    setTimeout(fim, 480);
   };
   acords.forEach(function (d) {
     d.open = false;
@@ -185,7 +196,8 @@
     if (!s || !r) return;
     s.addEventListener('click', function (ev) {
       ev.preventDefault();
-      if (d.open) { fecharAcord(d); return; }
+      if (d.open && !d.classList.contains('fechando')) { fecharAcord(d); return; }
+      if (d.classList.contains('fechando')) return;
       var grupo = d.closest('[data-acordeoes]') || d.parentElement;
       grupo.querySelectorAll('details.acord').forEach(function (o) { if (o !== d) fecharAcord(o); });
       d.open = true;
@@ -257,7 +269,8 @@
       });
     };
     ajustar();
-    window.addEventListener('resize', ajustar);
+    var largAnt = window.innerWidth;
+    window.addEventListener('resize', function () { if (window.innerWidth !== largAnt) { largAnt = window.innerWidth; ajustar(); } });
     if ('ResizeObserver' in window) { var ro = new ResizeObserver(ajustar); fixas.forEach(function (s) { ro.observe(s); }); }
   }
 
@@ -315,7 +328,7 @@
       passosJ.forEach(function (li) { li.classList.toggle('aceso', reduz || li.getBoundingClientRect().top + 32 < alvo); });
     };
     atualizarJ();
-    window.addEventListener('scroll', atualizarJ, { passive: true });
+    window.addEventListener('scroll', porQuadro(atualizarJ), { passive: true });
     window.addEventListener('resize', atualizarJ);
   }
 
@@ -325,13 +338,30 @@
     var atualizarE = function () {
       var atual = 0, linha = window.innerHeight * 0.55;
       itens.forEach(function (li, k) { if (li.getBoundingClientRect().top < linha) atual = k; });
+      if (atual === bloco._atual) return;
+      bloco._atual = atual;
       if (num) num.textContent = String(atual + 1).padStart(2, '0');
       if (nome) nome.textContent = itens[atual].querySelector('b').textContent;
       if (barra) barra.style.setProperty('--e', atual + 1);
     };
     atualizarE();
-    window.addEventListener('scroll', atualizarE, { passive: true });
+    window.addEventListener('scroll', porQuadro(atualizarE), { passive: true });
   });
+
+  /* ---------- animações contínuas só rodam enquanto estão na tela ---------- */
+  if (temIO) {
+    var vivos = doc.querySelectorAll('.letreiro, .il-orbita3d, .il-funil3d, .il-marca3d, .il-medidor3d, .il-bussola3d, .manif-selo, .faq-loop, .escada-base');
+    var olho = new IntersectionObserver(function (ents) {
+      ents.forEach(function (e) {
+        e.target.classList.toggle('pausado', !e.isIntersecting);
+        e.target.querySelectorAll('svg').forEach(function (sv) {
+          if (!sv.pauseAnimations) return;
+          if (e.isIntersecting) sv.unpauseAnimations(); else sv.pauseAnimations();
+        });
+      });
+    }, { rootMargin: '120px 0px' });
+    vivos.forEach(function (v) { olho.observe(v); });
+  }
 
   /* ---------- proteção de conteúdo (padrão das páginas da 2!H) ---------- */
   if (body.hasAttribute('data-protegido')) {
