@@ -124,7 +124,7 @@ export function mapaRota(estacoes, destino) {
 <path d="${d}" class="rt-glow" stroke="url(#rt-linha-g)" filter="url(#rt-desfoque)" pathLength="1"/>
 <path d="${d}" id="rota-linha" class="rt-linha" stroke="url(#rt-linha-g)" pathLength="1"/>
 ${sts}
-<g class="rt-pulso"><ellipse cx="-22" cy="0" rx="30" ry="3.2" fill="url(#rt-cauda)"/><circle r="12" fill="url(#rt-aura)"/><circle r="4.2" class="rt-pulso-pt"/><animateMotion dur="${DUR}s" begin="${INI}s" repeatCount="indefinite" rotate="auto"><mpath href="#rota-linha"/></animateMotion></g>
+<g class="rt-pulso" style="--ini:${INI}s;--dur:${DUR}s">${[[16, 2, .16], [9, 2.6, .32], [4.5, 3.2, .55], [1.8, 3.8, .85], [0.01, 22, .22, 1], [0.01, 8, 1, 1]].map(([l, w, o, cab]) => `<path d="${d}" pathLength="100" class="rt-rastro${cab ? ' rt-cabeca' : ''}" style="--l:${l};stroke-width:${w};opacity:${o}"/>`).join('')}</g>
 </svg>`;
   const lista = `<ol class="rota-lista">${todos
     .map((e, i) => `<li${i === n - 1 ? ' class="fim"' : ''}><b>${esc(e.nome)}</b><span>${esc(e.d)}</span></li>`)

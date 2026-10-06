@@ -8,9 +8,10 @@ import { escadaHTML } from './home.mjs';
 import { servicos } from '../content/servicos.mjs';
 import { programas } from '../content/metodo.mjs';
 import { ilMedidor3d } from '../lib/ilustracoes3d.mjs';
+import { ilCamadas3d, ilConvergencia3d, ilDecisao3d, ilLancamento3d } from '../lib/ilustracoes-solucoes.mjs';
 import { ilCamadas, ilConvergencia, ilDecisao, ilLancamento, ilEscada } from '../lib/ilustracoes.mjs';
 
-const VISUAL = { edb: (s) => ilCamadas(s.fases), 'growth-control': ilMedidor3d, 'growth-marketing': ilConvergencia, 'growth-intelligence': ilDecisao, lancamentos: ilLancamento };
+const VISUAL = { edb: (s) => ilCamadas3d(s.fases), 'growth-control': ilMedidor3d, 'growth-marketing': ilConvergencia3d, 'growth-intelligence': ilDecisao3d, lancamentos: ilLancamento3d };
 
 const ATUALIZADO = '2026-10-05';
 

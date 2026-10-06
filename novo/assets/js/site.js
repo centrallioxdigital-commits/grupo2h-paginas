@@ -215,8 +215,25 @@
       b.addEventListener('click', function () {
         sel.querySelectorAll('[data-op]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
         var t = doc.getElementById('sel-' + b.getAttribute('data-op'));
-        if (t && res) { res.innerHTML = t.innerHTML; res.classList.add('pronto'); }
+        if (t && res) {
+          res.classList.remove('pronto'); void res.offsetWidth;
+          var f = '<span class="sel-faiscas" aria-hidden="true">';
+          for (var k = 0; k < 14; k++) f += '<i style="--x:' + (8 + Math.random() * 84) + '%;--y:' + (20 + Math.random() * 60) + '%;--dx:' + (Math.random() * 80 - 40) + 'px;--dy:' + (-30 - Math.random() * 50) + 'px;--d:' + (Math.random() * .3) + 's"></i>';
+          res.innerHTML = t.innerHTML + f + '</span>'; res.classList.add('pronto');
+          sel.classList.add('respondeu');
+        }
       });
+    });
+  }
+
+  /* ---------- seletor: atalhos A a F quando ele está na tela ---------- */
+  if (sel) {
+    var selVisivel = false;
+    if (temIO) new IntersectionObserver(function (e) { selVisivel = e[0].isIntersecting; }, { threshold: .3 }).observe(sel);
+    doc.addEventListener('keydown', function (e) {
+      if (!selVisivel || e.ctrlKey || e.metaKey || e.altKey || /input|textarea|select/i.test((e.target || {}).tagName || '')) return;
+      var b = sel.querySelector('[data-tecla="' + (e.key || '').toLowerCase() + '"]');
+      if (b) { e.preventDefault(); b.click(); b.focus({ preventScroll: true }); }
     });
   }
 
@@ -289,7 +306,7 @@
 
   /* ---------- inclinação 3D sutil no hover (só mouse) ---------- */
   if (!reduz && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    doc.querySelectorAll('.bt-prog, .membro, .num, .canal, .pilar, .cmp-card, .il').forEach(function (c) {
+    doc.querySelectorAll('.bt-prog, .membro, .num, .canal, .pilar, .cmp-card').forEach(function (c) {
       c.setAttribute('data-tilt', '');
       c.addEventListener('pointermove', function (ev) {
         var r = c.getBoundingClientRect(), x = (ev.clientX - r.left) / r.width - .5, y = (ev.clientY - r.top) / r.height - .5;

@@ -119,11 +119,14 @@ function comoFunciona() {
     { i: 'chart-line-up', t: 'Leitura e ajuste contínuo', d: 'Números lidos com você, em conta aberta. Decidimos juntos o que escalar, o que corrigir e o que parar.', tag: 'Rotina' },
   ];
   const nomeSrv = Object.fromEntries(servicos.map((s) => [s.slug, s]));
+  const ORDEM = ['edb', 'growth-control', 'growth-marketing', 'growth-intelligence', 'lancamentos'];
+  const degraus = (ativo) => `<div class="sel-degraus" aria-hidden="true">${ORDEM.map((slug) => `<span${slug === ativo ? ' class="on"' : ''}>${esc(nomeSrv[slug].nome)}</span>`).join('')}</div>`;
+  const premio = `<span class="sel-premio">${icon('trophy')} Resultado desbloqueado</span>`;
   const templates = OPCOES.map((o) => {
     if (!o.srv)
-      return `<template id="sel-${o.id}"><b>Comece pelo Método 5A.</b>Aprenda a enxergar o sistema na Imersão, construa em grupo na Mentoria 5A ou aplique 1x1 no Diagnóstico Estratégico 5A.<br><a class="btn btn-ouro btn-sm" href="${u('metodo-5a/')}">Conhecer o Método 5A ${icon('arrow-right')}</a></template>`;
+      return `<template id="sel-${o.id}">${premio}<b>Comece pelo Método 5A.</b>Aprenda a enxergar o sistema na Imersão, construa em grupo na Mentoria 5A ou aplique 1x1 no Diagnóstico Estratégico 5A.<br><br><a class="btn btn-ouro btn-sm" href="${u('metodo-5a/')}">Conhecer o Método 5A ${icon('arrow-right')}</a></template>`;
     const s = nomeSrv[o.srv];
-    return `<template id="sel-${o.id}"><b>O seu degrau provável: ${esc(s.nome)}.</b>${esc(s.frase)} A conversa de diagnóstico confirma isso com você.<br><a class="btn btn-ouro btn-sm" href="${u(`solucoes/${s.slug}/`)}">Conhecer o ${esc(s.nome)} ${icon('arrow-right')}</a></template>`;
+    return `<template id="sel-${o.id}">${premio}<b>O seu degrau provável: ${esc(s.nome)}.</b>${esc(s.frase)} A conversa de diagnóstico confirma isso com você.${degraus(o.srv)}<a class="btn btn-ouro btn-sm" href="${u(`solucoes/${s.slug}/`)}">Conhecer o ${esc(s.nome)} ${icon('arrow-right')}</a></template>`;
   }).join('');
 
   const corpo = `
@@ -142,9 +145,9 @@ ${capa({ trilhaHtml: t.html, titulo: 'Como a 2!H trabalha:', tituloOuro: 'do dia
 <section class="sec" id="por-onde-comecar">
   <div class="wrap">
     <div class="seletor" data-seletor data-revela>
-      <div class="sel-cab"><h3>Por onde a sua empresa deveria começar?</h3><p>Toque na frase que mais parece com o seu momento.</p></div>
-      <div class="sel-opcoes">${OPCOES.map((o) => `<button type="button" class="sel-op" data-op="${o.id}" aria-pressed="false">${icon(o.icone)}<span><b>${esc(o.t)}</b><small>${esc(o.s)}</small></span></button>`).join('')}</div>
-      <div class="sel-res"><div class="sel-res-in" data-sel-res aria-live="polite">Escolha uma opção acima para ver o degrau provável.</div></div>
+      <div class="sel-cab"><div><p class="sel-jogo">${icon('game-controller')} Desafio de 10 segundos</p><h3>Por onde a sua empresa deveria começar?</h3><p>Escolha a frase que mais parece com o seu momento. Pode usar as teclas A a F.</p></div><div class="sel-hud"><span>1 pergunta</span><span class="sel-hud-barra"><i></i></span><span>resultado na hora</span></div></div>
+      <div class="sel-opcoes">${OPCOES.map((o, i) => `<button type="button" class="sel-op" data-op="${o.id}" data-tecla="${'abcdef'[i]}" aria-pressed="false"><span class="sel-tecla" aria-hidden="true">${'ABCDEF'[i]}</span>${icon(o.icone)}<span><b>${esc(o.t)}</b><small>${esc(o.s)}</small></span><span class="sel-marca" aria-hidden="true">${icon('check')}</span></button>`).join('')}</div>
+      <div class="sel-res"><div class="sel-res-in" data-sel-res aria-live="polite"><span class="sel-bloq">${icon('lock-simple')} Resultado bloqueado. Escolha uma opção acima para descobrir o seu degrau.</span></div></div>
       ${templates}
     </div>
   </div>

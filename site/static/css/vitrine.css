@@ -225,8 +225,6 @@
 .rt-onda{fill:none;stroke:rgba(245,195,40,.6);stroke-width:1.5;transform-box:fill-box;transform-origin:center;animation:rt-onda 2.6s ease-out infinite}
 .rt-onda2{animation-delay:1.3s}
 @keyframes rt-onda{from{transform:scale(1);opacity:.9}to{transform:scale(2.4);opacity:0}}
-.rt-pulso{opacity:0;animation:rt-surge .4s ease 2.4s forwards}
-.rt-pulso-pt{fill:#FFF6D0}
 @media (prefers-reduced-motion:reduce){.rt-linha,.rt-glow{stroke-dashoffset:0;animation:none}.rt-st,.rt-area{opacity:1;animation:none}.rt-pulso{display:none}.rt-halo,.rt-aro,.rt-ic,.rt-onda{animation:none}}
 
 /* ---- seções que ficam paradas: no computador, um respiro antes da próxima subir ---- */
@@ -234,3 +232,21 @@
   [data-fica]+.divisa,[data-fica]+.cobre{margin-top:34vh}
   .hero[data-fica]+.divisa,.hero[data-fica]+.cobre{margin-top:48vh}
 }
+
+/* ---- celular: nada empurra a página para o lado ----------------------- */
+html{overflow-x:hidden}
+main>section,main>.letreiro,main>.divisa,.rod,footer{overflow-x:clip}
+
+/* mapa: o pulso é um rastro desenhado sobre a própria linha (acompanha as curvas) */
+.rt-pulso{opacity:0;animation:rt-surge .4s ease var(--ini) forwards}
+.rt-rastro{fill:none;stroke:#FFF0B5;stroke-linecap:round;stroke-dasharray:calc(var(--l) * 1px) 300px;stroke-dashoffset:calc(var(--l) * 1px);animation:rt-corre var(--dur) linear var(--ini) infinite}
+.rt-rastro.rt-cabeca{stroke:#FFF3C4}
+.rt-rastro.rt-cabeca:nth-last-child(2){stroke:#F5C328}
+@keyframes rt-corre{from{stroke-dashoffset:calc(var(--l) * 1px)}to{stroke-dashoffset:calc(var(--l) * 1px - 100px)}}
+
+/* ---- aberturas: menos espaço sobrando em cima --------------------------- */
+.hero{padding-top:calc(var(--topo-h) + clamp(24px,4.5vh,56px))!important;min-height:0}
+.capa{padding-top:calc(var(--topo-h) + clamp(22px,3.2vw,48px))!important;padding-bottom:clamp(40px,5vw,72px)}
+.capa.com-visual .wrap{align-items:center}
+.capa .trilha ol{margin-bottom:18px}
+@media (max-width:900px){.hero{padding-top:calc(var(--topo-h) + 22px)!important}.capa{padding-top:calc(var(--topo-h) + 20px)!important}}

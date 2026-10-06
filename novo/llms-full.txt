@@ -294,12 +294,16 @@ Escala
 Números lidos com você, em conta aberta. Decidimos juntos o que escalar, o que corrigir e o que parar.
 Rotina
 
+Desafio de 10 segundos
+
 ## Por onde a sua empresa deveria começar?
-Toque na frase que mais parece com o seu momento.
+Escolha a frase que mais parece com o seu momento. Pode usar as teclas A a F.
 
-Ainda não anuncio ou não tenho base organizada Site, rastreamento e atendimento ainda não estão de pé. Já anuncio, mas não sei o que volta para o caixa Tenho base, mas falta clareza de número. Gero lead, mas perco venda no caminho O problema está no atendimento e no comercial. Tenho dados espalhados e decido no escuro Preciso de uma visão única para decidir. Quero lançar um produto ou evento Um projeto com começo, meio e fim. Quero aprender e construir o sistema eu mesmo Com método e acompanhamento.
+1 pergunta resultado na hora
 
-Escolha uma opção acima para ver o degrau provável.
+A Ainda não anuncio ou não tenho base organizada Site, rastreamento e atendimento ainda não estão de pé. B Já anuncio, mas não sei o que volta para o caixa Tenho base, mas falta clareza de número. C Gero lead, mas perco venda no caminho O problema está no atendimento e no comercial. D Tenho dados espalhados e decido no escuro Preciso de uma visão única para decidir. E Quero lançar um produto ou evento Um projeto com começo, meio e fim. F Quero aprender e construir o sistema eu mesmo Com método e acompanhamento.
+
+Resultado bloqueado. Escolha uma opção acima para descobrir o seu degrau.
 
 ## O que olhamos na leitura do cenário.
 
@@ -977,12 +981,8 @@ Quero saber se é o meu caso Ver a página completa do EDB
 
 Duração: 8 semanas Formato: Projeto fechado, em 4 fases Investimento: Sob consulta, depois da conversa de diagnóstico
 
-Campanhas Prontas para anunciar Aguardando a base
-
-Ativação e entrega Semanas 6 a 8
-Presença e prova Semanas 3 a 5
-Estrutura técnica Semanas 2 a 4
-Posicionamento e estratégia Semanas 1 e 2
+01 · Semanas 1 e 2 Posicionamento e estratégia 02 · Semanas 2 a 4 Estrutura técnica 03 · Semanas 3 a 5 Presença e prova 04 · Semanas 6 a 8 Ativação e entrega
+Depois da base Campanhas prontas para anunciar
 
 Primeiro a estrutura. Depois o anúncio.
 
@@ -1179,6 +1179,11 @@ Quero saber se é o meu caso
 
 Formato: Acompanhamento contínuo Envolve: Marketing, atendimento e comercial Investimento: Sob consulta, depois da conversa de diagnóstico
 
+Marketing anúncio · lead
+Comercial atendimento · proposta
+um funil só
+Venda
+
 O mesmo funil e o mesmo número na mesa dos dois.
 
 ## Para quem é.
@@ -1248,6 +1253,12 @@ Quero saber se é o meu caso
 
 Formato: Projeto e acompanhamento Entrega: Dashboards e rotina de leitura Investimento: Sob consulta, depois da conversa de diagnóstico
 
+Mídia CRM Vendas
+
+visão única
+
+Escalar Corrigir Parar
+
 Dado espalhado vira uma visão só, e a visão vira decisão.
 
 ## Para quem é.
@@ -1316,6 +1327,18 @@ Para quem tem um produto ou evento para lançar e quer a estrutura inteira monta
 Quero saber se é o meu caso
 
 Formato: Projeto pontual Modelo: Lançamento pago ou coprodução Investimento: Sob consulta, depois da conversa de diagnóstico
+
+Captação
+
+Aquecimento
+
+Evento
+
+Pitch
+
+Carrinho
+
+carrinho aberto
 
 Cada etapa prepara a próxima. A oferta só acontece no fim.
 
