@@ -175,8 +175,8 @@ export function home({ posts }) {
   <div class="wrap">
     <div class="nx-texto">
       <p class="hero-selo"><b>Não somos agência de tráfego</b> Estruturamos a máquina de vendas</p>
-      <h1 class="hero-h1"><span class="l1">Um mapa para não quebrar.</span> <span class="l2">Estrutura, planejamento e ação.</span></h1>
-      <p class="hero-sub">A 2!H conecta marketing, dados e vendas numa só estrutura, para o investimento virar faturamento previsível e lucro, não só relatório bonito.</p>
+      <h1 class="hero-h1"><span class="l1">Do clique ao caixa,</span> <span class="l2">tudo conectado.</span></h1>
+      <p class="hero-sub">Marketing, dados e vendas numa só máquina, para o seu investimento virar faturamento previsível e lucro.</p>
       <div class="hero-acoes">
         <a class="btn btn-ouro btn-lg" href="${diag('home-hero')}" data-diag><span class="lbl-l">Quero estruturar meu crescimento</span><span class="lbl-c">Estruturar meu crescimento</span> ${icon('arrow-up-right')}</a>
         <a class="btn-link" href="#escada">Ver a escada de serviços</a>

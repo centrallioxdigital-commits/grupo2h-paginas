@@ -64,7 +64,7 @@ export function heroNucleo() {
 export function heroDestaques() {
   const itens = [
     ['eye', 'Conta aberta', 'Você vê os números reais'],
-    ['crosshair', 'Rastreamento validado', 'Do clique até o caixa'],
+    ['crosshair', 'Rastreamento validado', 'Cada venda com a origem certa'],
     ['path', 'Método 5A', 'Do diagnóstico à escala'],
   ];
   return `<ul class="nx-destaques">${itens.map(([i, t, s]) => `<li>${icon(i)}<span><b>${t}</b><small>${s}</small></span></li>`).join('')}</ul>`;
