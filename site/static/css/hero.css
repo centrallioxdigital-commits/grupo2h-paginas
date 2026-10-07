@@ -160,3 +160,37 @@
 .hero-nx .nx-c2{left:2%;bottom:2%;top:auto}.hero-nx .nx-c4{right:2%;bottom:5%;top:auto}
 .hero.hero-nx .hero-h1{font-size:clamp(1.9rem,8.4vw,2.4rem)!important;line-height:1.05}
 }
+/* desktop: tudo, até os botões, cabe na primeira tela; o palco encolhe com a altura da janela */
+@media (min-width:901px){
+.hero.hero-nx{padding-top:88px;min-height:0}
+.hero-nx .nx-palco{height:clamp(280px,100svh - 440px,470px);margin-top:0}
+.hero-nx .nx-nucleo{width:270px;height:270px;margin:-135px 0 0 -135px;transform:scale(clamp(.82,(100svh - 440px)/400px,1.12))}
+.hero-nx .nx-texto{margin-top:4px}
+.hero.hero-nx .hero-h1{font-size:clamp(2.4rem,1rem + 2.6vw,3.9rem)!important}
+.hero-nx .hero-selo{margin-bottom:16px}
+.hero-nx .hero-sub{max-width:78ch;margin-top:12px}
+.hero-nx .hero-acoes{margin-top:18px}
+}
+@media (min-width:901px) and (max-height:860px){.hero-nx .nx-card{zoom:.84}.hero-nx .nx-chip{zoom:.9}}
+@media (min-width:901px) and (max-height:740px){.hero-nx .nx-card{zoom:.74}}
+/* mobile: cartões menores e encaixados nos cantos, globo maior no centro */
+@media (max-width:900px){
+.hero-nx .nx-nucleo{transform:scale(.8)}
+.hero-nx .nx-card{width:118px;padding:8px 9px;border-radius:13px}
+.hero-nx .nx-c-cab{font-size:.5rem;gap:5px}
+.hero-nx .nx-c-cab .ic{width:17px;height:17px;padding:3px}
+.hero-nx .nx-c-num{margin-top:6px}
+.hero-nx .nx-c-num b,.hero-nx .nx-roas b{font-size:.92rem;white-space:nowrap}
+.hero-nx .nx-c-num em{font-size:.5rem;padding:2px 4px}
+.hero-nx .nx-barras,.hero-nx .nx-area{height:24px;margin-top:6px}.hero-nx .nx-spark{height:20px;margin-top:6px}
+.hero-nx .nx-roas svg{max-height:44px}
+.hero-nx .nx-c1{left:0;top:0}.hero-nx .nx-c3{right:0;top:0}
+.hero-nx .nx-c2{left:0;bottom:0;top:auto}.hero-nx .nx-c4{right:0;bottom:0;top:auto}
+}
+@media (max-width:380px){.hero-nx .nx-card{width:108px}.hero-nx .nx-nucleo{transform:scale(.74)}}
+@media (min-width:901px) and (max-height:860px){
+.hero-nx .nx-c-rod{display:none}
+.hero-nx .nx-c1{left:6%;top:0}.hero-nx .nx-c2{left:15%;bottom:0}
+.hero-nx .nx-c3{right:6%;top:0}.hero-nx .nx-c4{right:15%;bottom:0}
+}
+.hero-nx .nx-texto .hero-selo{margin-bottom:14px!important}
