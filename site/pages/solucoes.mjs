@@ -99,11 +99,12 @@ ${capa({
 })}
 
 <section class="sec">
-  <div class="wrap dois">
-    <div><div data-revela><h2 class="h2">Para quem é.</h2><p class="lead">${esc(s.frase)}</p></div><div style="margin-top:36px">${foto(FOTO[s.slug][0], FOTO[s.slug][1])}</div></div>
-    <div data-revela>
-      <ul class="lista-check">${s.paraQuem.map((x) => `<li>${icon('check')}${esc(x)}</li>`).join('')}</ul>
-      <p class="aviso">${icon('warning-circle')}<span><b>Não é para</b> ${esc(s.naoE.replace(/^Para /, ''))}</span></p>
+  <div class="wrap pq-grade">
+    <div class="pq-cab" data-revela><h2 class="h2">Para quem é.</h2><p class="lead">${esc(s.frase)}</p></div>
+    <div class="pq-foto">${foto(FOTO[s.slug][0], FOTO[s.slug][1])}</div>
+    <div class="pq-dir" data-revela-filhos>
+      ${s.paraQuem.map((x) => `<p class="pq-item">${icon('check')}<span>${esc(x)}</span></p>`).join('')}
+      <p class="aviso pq-aviso">${icon('warning-circle')}<span><b>Não é para</b> ${esc(s.naoE.replace(/^Para /, ''))}</span></p>
     </div>
   </div>
 </section>

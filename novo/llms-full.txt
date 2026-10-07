@@ -172,11 +172,11 @@ Quem está por trás
 ## O time que organiza a sua máquina.
 
 ## Jhonathan Marcos
-CEO
+Sócio · CEO
 Empresa que cresce sem estrutura só aumenta o tamanho do problema. Primeiro o mapa, depois a estrada.
 
 ## Douglas Kashima
-CTO / COO
+Sócio · CTO / COO
 Processo bem feito é o que transforma esforço em resultado que se repete.
 
 ## Stephany Silva
@@ -244,7 +244,7 @@ URL: https://grupo2h.com.br/como-funciona/
 
 Nada começa pelo anúncio. Começa por entender onde a sua empresa está, onde o dinheiro trava e qual é o próximo degrau.
 
-Fazer o diagnóstico rápido Descobrir por onde começar
+Fazer o diagnóstico rápido Ver a jornada passo a passo
 
 Análise Estrutura Escala Leitura
 
@@ -293,17 +293,6 @@ Escala
 ## Leitura e ajuste contínuo
 Números lidos com você, em conta aberta. Decidimos juntos o que escalar, o que corrigir e o que parar.
 Rotina
-
-Diagnóstico em 10 segundos
-
-## Por onde a sua empresa deveria começar?
-Escolha a frase que mais parece com o seu momento. Pode usar as teclas A a F.
-
-1 pergunta resultado na hora
-
-A Ainda não anuncio ou não tenho base organizada Site, rastreamento e atendimento ainda não estão de pé. B Já anuncio, mas não sei o que volta para o caixa Tenho base, mas falta clareza de número. C Gero lead, mas perco venda no caminho O problema está no atendimento e no comercial. D Tenho dados espalhados e decido no escuro Preciso de uma visão única para decidir. E Quero lançar um produto ou evento Um projeto com começo, meio e fim. F Quero aprender e construir o sistema eu mesmo Com método e acompanhamento.
-
-Resultado bloqueado. Escolha uma opção acima para descobrir o seu degrau.
 
 ## O que olhamos na leitura do cenário.
 
@@ -999,11 +988,9 @@ Primeiro a estrutura. Depois o anúncio.
 ## Para quem é.
 A fundação: site, rastreamento, funil e presença digital organizados antes de qualquer campanha.
 
-- Empresa que quer começar a anunciar, mas ainda não tem a base organizada.
-
-- Empresa que já anuncia há tempo e nunca teve site, rastreamento e funil estruturados direito.
-
-- Quem sente que o dinheiro do tráfego entra numa estrutura furada.
+Empresa que quer começar a anunciar, mas ainda não tem a base organizada.
+Empresa que já anuncia há tempo e nunca teve site, rastreamento e funil estruturados direito.
+Quem sente que o dinheiro do tráfego entra numa estrutura furada.
 
 Não é para quem já tem estrutura pronta e validada e só quer alguém para rodar campanha. Nesse caso o degrau certo é o Growth Control.
 
@@ -1123,11 +1110,9 @@ A matemática antes da mídia: saber até onde dá para pagar por cliente.
 ## Para quem é.
 Gestão de tráfego com controle e dados, para quem já tem estrutura e quer rodar campanha com clareza de número.
 
-- Empresa que já tem site, rastreamento e atendimento organizados.
-
-- Quem já investe em mídia e quer clareza do retorno por canal e por campanha.
-
-- Quem cansou de relatório bonito que não mostra o que virou venda.
+Empresa que já tem site, rastreamento e atendimento organizados.
+Quem já investe em mídia e quer clareza do retorno por canal e por campanha.
+Quem cansou de relatório bonito que não mostra o que virou venda.
 
 Não é para quem ainda não tem a base montada. Rodar tráfego numa estrutura furada só acelera o desperdício. Nesse caso o primeiro degrau é o EDB.
 
@@ -1199,11 +1184,9 @@ O mesmo funil e o mesmo número na mesa dos dois.
 ## Para quem é.
 Crescimento integrado: marketing e comercial andando juntos, com processo do clique até a venda.
 
-- Empresa em que o marketing diz que o lead é bom e o comercial diz que é ruim.
-
-- Quem gera lead, mas perde oportunidade no atendimento ou no follow-up.
-
-- Quem tem uma base de clientes e contatos parada que não volta a gerar receita.
+Empresa em que o marketing diz que o lead é bom e o comercial diz que é ruim.
+Quem gera lead, mas perde oportunidade no atendimento ou no follow-up.
+Quem tem uma base de clientes e contatos parada que não volta a gerar receita.
 
 Não é para quem procura só alguém para subir campanha. Aqui o trabalho atravessa o comercial e exige o time de vendas junto.
 
@@ -1274,11 +1257,9 @@ Dado espalhado vira uma visão só, e a visão vira decisão.
 ## Para quem é.
 Inteligência de dados aplicada à decisão de crescimento: onde investir, o que corrigir e quando escalar.
 
-- Empresa que tem dados espalhados em várias ferramentas e nenhuma visão única.
-
-- Gestão que decide investimento por sensação porque não confia nos números.
-
-- Quem quer saber com segurança quando e onde escalar.
+Empresa que tem dados espalhados em várias ferramentas e nenhuma visão única.
+Gestão que decide investimento por sensação porque não confia nos números.
+Quem quer saber com segurança quando e onde escalar.
 
 Não é para quem ainda não tem rastreamento básico funcionando. Sem dado confiável na origem, não existe inteligência no fim.
 
@@ -1355,11 +1336,9 @@ Cada etapa prepara a próxima. A oferta só acontece no fim.
 ## Para quem é.
 Projetos pontuais de lançamento pago, do zero ao pitch.
 
-- Especialista ou empresa com um produto, curso, mentoria ou evento para lançar.
-
-- Quem quer um projeto com começo, meio e fim, e não uma gestão contínua.
-
-- Quem já tentou lançar sem estrutura e não conseguiu ler o resultado.
+Especialista ou empresa com um produto, curso, mentoria ou evento para lançar.
+Quem quer um projeto com começo, meio e fim, e não uma gestão contínua.
+Quem já tentou lançar sem estrutura e não conseguiu ler o resultado.
 
 Não é para quem procura promessa de faturamento. Lançamento é projeto com planejamento, teste e leitura de número.
 

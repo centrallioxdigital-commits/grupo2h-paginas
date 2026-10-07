@@ -97,14 +97,6 @@ ${ctaFinal({ origem: 'sobre' })}`;
 }
 
 // --------------------------------------------------------- Como funciona
-const OPCOES = [
-  { id: 'base', icone: 'stack', t: 'Ainda não anuncio ou não tenho base organizada', s: 'Site, rastreamento e atendimento ainda não estão de pé.', srv: 'edb' },
-  { id: 'retorno', icone: 'gauge', t: 'Já anuncio, mas não sei o que volta para o caixa', s: 'Tenho base, mas falta clareza de número.', srv: 'growth-control' },
-  { id: 'comercial', icone: 'handshake', t: 'Gero lead, mas perco venda no caminho', s: 'O problema está no atendimento e no comercial.', srv: 'growth-marketing' },
-  { id: 'dados', icone: 'chart-line-up', t: 'Tenho dados espalhados e decido no escuro', s: 'Preciso de uma visão única para decidir.', srv: 'growth-intelligence' },
-  { id: 'lancar', icone: 'rocket-launch', t: 'Quero lançar um produto ou evento', s: 'Um projeto com começo, meio e fim.', srv: 'lancamentos' },
-  { id: 'aprender', icone: 'book-open-text', t: 'Quero aprender e construir o sistema eu mesmo', s: 'Com método e acompanhamento.', srv: null },
-];
 
 function comoFunciona() {
   const t = trilha([{ nome: 'Como funciona', path: 'como-funciona/' }]);
@@ -118,21 +110,11 @@ function comoFunciona() {
     { i: 'gauge', t: 'Aquisição com controle', d: 'Com a base pronta, o tráfego roda com rastreamento validado e leitura do funil inteiro, não só do CPL.', tag: 'Escala' },
     { i: 'chart-line-up', t: 'Leitura e ajuste contínuo', d: 'Números lidos com você, em conta aberta. Decidimos juntos o que escalar, o que corrigir e o que parar.', tag: 'Rotina' },
   ];
-  const nomeSrv = Object.fromEntries(servicos.map((s) => [s.slug, s]));
-  const ORDEM = ['edb', 'growth-control', 'growth-marketing', 'growth-intelligence', 'lancamentos'];
-  const degraus = (ativo) => `<div class="sel-degraus" aria-hidden="true">${ORDEM.map((slug) => `<span${slug === ativo ? ' class="on"' : ''}>${esc(nomeSrv[slug].nome)}</span>`).join('')}</div>`;
-  const premio = `<span class="sel-premio">${icon('trophy')} Resultado desbloqueado</span>`;
-  const templates = OPCOES.map((o) => {
-    if (!o.srv)
-      return `<template id="sel-${o.id}">${premio}<b>Comece pelo Método 5A.</b>Aprenda a enxergar o sistema na Imersão, construa em grupo na Mentoria 5A ou aplique 1x1 no Diagnóstico Estratégico 5A.<br><br><a class="btn btn-ouro btn-sm" href="${u('metodo-5a/')}">Conhecer o Método 5A ${icon('arrow-right')}</a></template>`;
-    const s = nomeSrv[o.srv];
-    return `<template id="sel-${o.id}">${premio}<b>O seu degrau provável: ${esc(s.nome)}.</b>${esc(s.frase)} A conversa de diagnóstico confirma isso com você.${degraus(o.srv)}<a class="btn btn-ouro btn-sm" href="${u(`solucoes/${s.slug}/`)}">Conhecer o ${esc(s.nome)} ${icon('arrow-right')}</a></template>`;
-  }).join('');
 
   const corpo = `
-${capa({ trilhaHtml: t.html, titulo: 'Como a 2!H trabalha:', tituloOuro: 'do diagnóstico à escala.', lead: 'Nada começa pelo anúncio. Começa por entender onde a sua empresa está, onde o dinheiro trava e qual é o próximo degrau.', extra: `<div class="capa-acoes"><a class="btn btn-ouro" href="${diag('como-funciona-topo')}" data-diag>Fazer o diagnóstico rápido ${icon('arrow-right')}</a><a class="btn-link" href="#por-onde-comecar">Descobrir por onde começar</a></div>`, visual: ilBussola3d(), fotoFundo: 'estrategia-quadro' })}
+${capa({ trilhaHtml: t.html, titulo: 'Como a 2!H trabalha:', tituloOuro: 'do diagnóstico à escala.', lead: 'Nada começa pelo anúncio. Começa por entender onde a sua empresa está, onde o dinheiro trava e qual é o próximo degrau.', extra: `<div class="capa-acoes"><a class="btn btn-ouro" href="${diag('como-funciona-topo')}" data-diag>Fazer o diagnóstico rápido ${icon('arrow-right')}</a><a class="btn-link" href="#jornada">Ver a jornada passo a passo</a></div>`, visual: ilBussola3d(), fotoFundo: 'estrategia-quadro' })}
 
-<section class="sec">
+<section class="sec" id="jornada">
   <div class="wrap dois">
     <div class="dna-fixo" data-revela>
       <h2 class="h2">A jornada, passo a passo.</h2>
@@ -141,18 +123,6 @@ ${capa({ trilhaHtml: t.html, titulo: 'Como a 2!H trabalha:', tituloOuro: 'do dia
     <ol class="jornada" data-jornada><span class="jornada-luz" aria-hidden="true"></span>${jornada.map((j) => `<li class="jr"><span class="jr-ic">${icon(j.i)}</span><div><h3>${esc(j.t)}</h3><p>${esc(j.d)}</p><span class="jr-tag">${esc(j.tag)}</span></div></li>`).join('')}</ol>
   </div>
 </section>
-
-<section class="sec" id="por-onde-comecar">
-  <div class="wrap">
-    <div class="seletor" data-seletor data-revela>
-      <div class="sel-cab"><div><p class="sel-jogo"><span class="sel-jogo-ic">${icon('target', { weight: 'bold' })}</span> Diagnóstico em 10 segundos</p><h3>Por onde a sua empresa deveria começar?</h3><p>Escolha a frase que mais parece com o seu momento. Pode usar as teclas A a F.</p></div><div class="sel-hud"><span>1 pergunta</span><span class="sel-hud-barra"><i></i></span><span>resultado na hora</span></div></div>
-      <div class="sel-opcoes">${OPCOES.map((o, i) => `<button type="button" class="sel-op" data-op="${o.id}" data-tecla="${'abcdef'[i]}" aria-pressed="false"><span class="sel-tecla" aria-hidden="true">${'ABCDEF'[i]}</span>${icon(o.icone)}<span><b>${esc(o.t)}</b><small>${esc(o.s)}</small></span><span class="sel-marca" aria-hidden="true">${icon('check')}</span></button>`).join('')}</div>
-      <div class="sel-res"><div class="sel-res-in" data-sel-res aria-live="polite"><span class="sel-bloq">${icon('lock-simple')} Resultado bloqueado. Escolha uma opção acima para descobrir o seu degrau.</span></div></div>
-      ${templates}
-    </div>
-  </div>
-</section>
-
 ${esteiraSecao('O que olhamos na leitura do cenário.', 'Cada etapa depende da anterior. É por isso que trocar de anúncio quase nunca resolve: o gargalo pode estar em qualquer ponto desta esteira.')}
 
 <section class="sec">

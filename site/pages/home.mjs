@@ -221,7 +221,10 @@ export function home({ posts }) {
     <div class="dna-fixo">
       <h2 class="h2">O DNA que guia cada decisão.</h2>
       <p class="lead">Cinco princípios que aparecem em todo projeto da 2!H, do primeiro diagnóstico à leitura de número de cada semana.</p>
-      ${foto('jhonathan-ceo', 'Jhonathan Marcos, CEO do Grupo 2!H', { cls: 'dna-foto', sizes: '(max-width: 900px) 100vw, 40vw', legenda: `<figcaption class="foto-leg">${icon('seal-check')} Jhonathan Marcos, CEO do Grupo 2!H</figcaption>` })}
+      <div class="socios" data-revela-filhos>
+        ${foto('socio-jhonathan', 'Jhonathan Marcos, CEO do Grupo 2!H', { cls: 'socio-foto', revela: false, sizes: '(max-width: 900px) 50vw, 20vw', legenda: `<figcaption class="socio-leg">${icon('seal-check')}<span><b>Jhonathan Marcos</b><small>Sócio · CEO</small></span></figcaption>` })}
+        ${foto('socio-douglas', 'Douglas Kashima, sócio e CTO/COO do Grupo 2!H', { cls: 'socio-foto', revela: false, sizes: '(max-width: 900px) 50vw, 20vw', legenda: `<figcaption class="socio-leg">${icon('seal-check')}<span><b>Douglas Kashima</b><small>Sócio · CTO/COO</small></span></figcaption>` })}
+      </div>
     </div>
     ${dnaCards()}
   </div>

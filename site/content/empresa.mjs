@@ -27,8 +27,8 @@ export const empresa = {
   // Nomes e cargos puxados do Slack da 2!H (05/10/2026). Frases propostas:
   // cada pessoa precisa aprovar a sua antes de o site ir para produção.
   time: [
-    { nome: 'Jhonathan Marcos', papel: 'CEO', foto: 'time/jhonathan.webp', frase: 'Empresa que cresce sem estrutura só aumenta o tamanho do problema. Primeiro o mapa, depois a estrada.' },
-    { nome: 'Douglas Kashima', papel: 'CTO / COO', foto: 'time/douglas.webp', frase: 'Processo bem feito é o que transforma esforço em resultado que se repete.' },
+    { nome: 'Jhonathan Marcos', papel: 'Sócio · CEO', foto: 'time/jhonathan.webp', frase: 'Empresa que cresce sem estrutura só aumenta o tamanho do problema. Primeiro o mapa, depois a estrada.' },
+    { nome: 'Douglas Kashima', papel: 'Sócio · CTO / COO', foto: 'time/douglas.webp', frase: 'Processo bem feito é o que transforma esforço em resultado que se repete.' },
     { nome: 'Stephany Silva', papel: 'Head de Tráfego Pago', foto: 'time/stephany.webp', frase: 'Anúncio bom é o que vira venda, não o que vira print de relatório.' },
     { nome: 'Devikison Aguiar', papel: 'Product Designer e Full Stack Engineer', foto: 'time/devikison.webp', frase: 'Design que não converte é decoração. Cada pixel precisa trabalhar pela venda.' },
     { nome: 'Matheus Nogueira', papel: 'Gestor Financeiro', foto: 'time/matheus.webp', frase: 'Crescer é bom. Crescer com margem é o que mantém a empresa de pé.' },
