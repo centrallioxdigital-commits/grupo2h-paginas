@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <title>Diagnóstico rápido · Grupo 2!H</title>
-<meta name="description" content="Responda 6 perguntas rápidas sobre a sua empresa e receba o próximo passo certo da 2!H.">
+<meta name="description" content="Responda 6 perguntas rápidas sobre a sua empresa e receba o próximo passo certo da 2!H para crescer com estrutura e previsibilidade.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#0A0A0C">
 <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -98,6 +98,7 @@ button,input{font:inherit;color:inherit}
 .field input[aria-invalid=true]{border-color:#FF6B4A}
 .err{min-height:16px;margin:4px 0 0 4px;font:500 12.5px/1.3 Inter,sans-serif;color:#FF9A82}
 .send{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:56px;border:0;border-radius:999px;background:linear-gradient(135deg,#FFE28A,#F5C328 38%,#E2AA14);color:var(--ink);font:700 16px/1 'General Sans',Inter,sans-serif;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 14px 30px -12px rgba(245,195,40,.7);transition:transform .2s var(--ease),opacity .2s}
+a.send{height:auto;min-height:56px;padding:12px 22px;text-align:center;line-height:1.25;text-decoration:none}
 .send:active{transform:scale(.98)}
 .send[disabled]{opacity:.6;cursor:wait}
 .send svg{width:18px;height:18px}
@@ -147,6 +148,7 @@ body{overflow:auto}
 }
 @media (max-width:360px){.msg{font-size:15px;max-width:90%}.ot{font-size:14.5px}.oa{width:26px;height:26px}.head{gap:10px;padding-left:12px;padding-right:12px}.msgs,.dock{padding-left:12px;padding-right:12px}}
 @media (prefers-reduced-motion:reduce){.msg,.opt,.result,.opt::after,.hint svg{animation:none}.typing i{animation:none;opacity:.7}.progress i{transition:none}}
+.legal a{color:var(--gold);text-decoration:underline;text-underline-offset:2px}
 /* >>> PADRAO-PROTECAO */
 /* ===== PROTEÇÃO DE CONTEÚDO =====
    Texto não seleciona, imagem não arrasta nem abre "salvar imagem" no toque longo do celular.
@@ -176,46 +178,56 @@ img,svg,picture,video,canvas{-webkit-user-drag:none;user-drag:none}
    CONFIGURAÇÃO — preencher antes de publicar
    ===================================================================== */
 const CONFIG = {
-  // URL do Apps Script publicado como "App da Web" (ver apps-script/LEIA-ME.md).
-  // Enquanto estiver vazio, os leads NÃO são salvos (aparece um aviso no console).
-  SHEET_WEBHOOK_URL: "",
-  // Para onde vai quem fatura até R$30 mil ("conteúdo gratuito"). Vazio = sem botão.
-  CONTENT_URL: "",
-  CONTENT_LABEL: "Ver o conteúdo gratuito",
-  // WhatsApp do comercial, só números com DDI+DDD (ex.: "5511912345678"). Vazio = sem botão.
-  // Quando preenchido, o lead QUALIFICADO ganha o botão para adiantar a conversa.
-  WHATSAPP_COMERCIAL: ""
+  // Webhook do n8n (o mesmo da ficha, do Diagnóstico Estratégico e dos 7 sinais).
+  // O parâmetro source separa os fluxos dentro do n8n. O workflow precisa estar ATIVO.
+  WEBHOOK_URL: "https://n8n-n8n-start.dnjlb7.easypanel.host/webhook/grupo2h?source=diagnostico-rapido",
+  // Para onde vai quem ainda não está no momento de um projeto ("FORA DO ICP"). Vazio = sem botão.
+  CONTENT_URL: "/novo/blog/antes-de-escalar-o-trafego-5-perguntas/",
+  CONTENT_LABEL: "Ler: 5 perguntas antes de investir em tráfego",
+  // WhatsApp oficial da 2!H (o mesmo do site). O lead QUALIFICADO ganha o botão para adiantar a conversa.
+  WHATSAPP_COMERCIAL: "5515997509239"
 };
 
-/* ---- roteiro: textos da copy aprovada no ClickUp ---- */
-const INTRO = "Oi! Antes de te conectar com a gente, quero entender rapidinho o cenário da sua empresa. Leva menos de 1 minuto.";
+/* ---- roteiro: 6 perguntas pensadas para empresas que já faturam e investem ---- */
+const INTRO = "Olá! Aqui é a 2!H. Em 6 perguntas rápidas eu entendo o momento da sua empresa e te indico o próximo passo certo. Leva menos de 1 minuto.";
 const STEPS = [
-  { id: "segmento", q: "Qual desses descreve melhor o seu negócio?",
-    opts: ["Clínica ou consultório", "Loja física ou e-commerce", "Prestação de serviço (B2B ou B2C)", "Outro"] },
-  { id: "faturamento", q: "Qual a faixa de faturamento mensal da empresa hoje?",
-    opts: ["Até R$30 mil", "R$30 mil a R$100 mil", "R$100 mil a R$300 mil", "Acima de R$300 mil"] },
-  { id: "investe", q: "Você já investe em marketing ou tráfego pago hoje?",
-    opts: ["Sim, com agência ou gestor", "Sim, faço por conta própria", "Não, ainda não"], one: true },
-  { id: "transparencia", q: "Se você já investe: a pessoa ou agência que cuida disso hoje te mostra os números com clareza?",
-    opts: ["Sim, confio no que me mostram", "Mais ou menos, eu não entendo tudo", "Não, é a maior frustração", "Não se aplica"],
+  { id: "cargo", q: "Para começar: qual é a sua posição na empresa?",
+    opts: ["Sócio ou CEO", "Diretor ou gerente (marketing ou comercial)", "Coordenador ou analista", "Outro"] },
+  { id: "segmento", q: "Em qual mercado a sua empresa atua?",
+    opts: ["Serviços B2B (indústria, tecnologia, consultoria)", "Saúde (clínicas, hospitais, laboratórios)", "Varejo, e-commerce ou franquia", "Educação, infoproduto ou outro"] },
+  { id: "faturamento", q: "Qual o faturamento médio mensal da empresa?",
+    opts: ["Até R$ 50 mil", "R$ 50 mil a R$ 200 mil", "R$ 200 mil a R$ 1 milhão", "Acima de R$ 1 milhão"] },
+  { id: "investe", q: "Quanto a empresa investe por mês em mídia paga hoje?",
+    opts: ["Mais de R$ 10 mil por mês", "Até R$ 10 mil por mês", "Ainda não investimos"], one: true },
+  { id: "transparencia", q: "Hoje você enxerga com clareza quanto cada real investido volta em vendas?",
+    opts: ["Sim, acompanho os números de perto", "Em parte, mas não confio totalmente", "Não, é a nossa maior frustração"], one: true,
     // quem ainda não investe pula esta pergunta (registrada como "Não se aplica")
-    skip: a => a.investe === "Não, ainda não", skipValue: "Não se aplica" },
-  { id: "gargalo", q: "Qual desses é o maior gargalo da sua empresa hoje?",
-    opts: ["Não gero leads suficientes", "Gero leads mas não viram venda", "Não sei se meus números realmente fecham a conta", "Não tenho estrutura nenhuma ainda"], one: true },
-  { id: "contato", q: "Perfeito. Pra eu te mandar o próximo passo certo, me diga seu nome e WhatsApp.", form: true }
+    skip: a => a.investe === "Ainda não investimos", skipValue: "Não se aplica" },
+  { id: "gargalo", q: "Onde está o principal gargalo de crescimento hoje?",
+    opts: ["Volume: não geramos leads suficientes", "Conversão: o lead chega e não vira venda", "Controle: não sabemos o que dá retorno", "Estrutura: falta base para escalar com segurança"], one: true },
+  { id: "contato", q: "Perfeito. Para eu te enviar o próximo passo, me passe seus dados.", form: true }
 ];
-const PAIN = ["Mais ou menos, eu não entendo tudo", "Não, é a maior frustração"];
+const PAIN = ["Em parte, mas não confio totalmente", "Não, é a nossa maior frustração"];
+const GRANDE = ["R$ 200 mil a R$ 1 milhão", "Acima de R$ 1 milhão"];
 
-/* ---- regra de roteamento (copy): ≥R$30 mil + dor de transparência = qualificado ---- */
+/* ---- classificação para o comercial ---- */
 function classify(a) {
-  if (a.faturamento === "Até R$30 mil") return "FORA DO ICP";
-  if (PAIN.includes(a.transparencia)) return "QUALIFICADO";
-  return "ANALISAR"; // ≥R$30 mil sem a dor de transparência: a copy não define, vai para análise do comercial
+  if (a.faturamento === "Até R$ 50 mil") return a.investe === "Ainda não investimos" ? "FORA DO ICP" : "ANALISAR";
+  if (GRANDE.includes(a.faturamento)) return "QUALIFICADO";
+  // R$ 50 mil a R$ 200 mil: qualificado quando já investe forte ou sente a dor de não ver o retorno
+  if (a.investe === "Mais de R$ 10 mil por mês" || PAIN.includes(a.transparencia)) return "QUALIFICADO";
+  return "ANALISAR";
+}
+/* prioridade ALTA: empresa grande, ou acima de R$ 200 mil com quem decide respondendo */
+function prioridade(a) {
+  if (a.faturamento === "Acima de R$ 1 milhão") return "ALTA";
+  if (GRANDE.includes(a.faturamento) && a.cargo === "Sócio ou CEO") return "ALTA";
+  return classify(a) === "QUALIFICADO" ? "MÉDIA" : "NORMAL";
 }
 const FINAL = {
-  "QUALIFICADO": { tag: "Próximo passo", text: n => "Você é exatamente quem a 2!H foi criada pra atender. Vou te chamar no WhatsApp em breve pra marcarmos um diagnóstico." },
-  "FORA DO ICP": { tag: "Por enquanto", out: true, text: n => "Hoje ainda não é o momento ideal pra um projeto com a gente, mas separei conteúdo que vai te ajudar a estruturar sua base antes de investir em tráfego." },
-  "ANALISAR":    { tag: "Recebido", text: n => "Obrigado, " + n + ". Recebemos suas respostas e o time da 2!H vai analisar o seu cenário e te chamar no WhatsApp." }
+  "QUALIFICADO": { tag: "Próximo passo", text: n => n + ", o seu cenário tem exatamente o perfil que a 2!H atende. Um especialista vai te chamar no WhatsApp para agendar a conversa de diagnóstico, com os números da sua operação na mesa." },
+  "FORA DO ICP": { tag: "Por enquanto", out: true, text: n => n + ", hoje o melhor passo para a sua empresa é estruturar a base antes de investir em mídia. Separamos um conteúdo gratuito que mostra por onde começar." },
+  "ANALISAR":    { tag: "Recebido", text: n => "Obrigado, " + n + ". Um especialista da 2!H vai analisar o seu cenário e te chamar no WhatsApp com o próximo passo." }
 };
 
 /* ---- origem do lead (UTM) ---- */
@@ -306,6 +318,24 @@ async function ask() {
 // faixas de faturamento: 4 barras, acesas até o nível da faixa (como sinal de celular)
 const bars = n => ["M5 20v-5", "M10 20v-9", "M15 20v-13", "M20 20v-17"].map((d, i) => '<path d="' + d + '" stroke-width="3"' + (i >= n ? ' opacity=".28"' : "") + "/>").join("");
 const ICONS = {
+  "Sócio ou CEO": '<path d="M3 18h18"/><path d="M4.5 18 3.5 8l5 4 3.5-7 3.5 7 5-4-1 10"/>',
+  "Diretor ou gerente (marketing ou comercial)": '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+  "Coordenador ou analista": '<circle cx="12" cy="7" r="4"/><path d="M4 21v-2a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v2"/>',
+  "Serviços B2B (indústria, tecnologia, consultoria)": '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/>',
+  "Saúde (clínicas, hospitais, laboratórios)": '<path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 12 0V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 12 0v-4"/><circle cx="20" cy="10" r="2"/>',
+  "Varejo, e-commerce ou franquia": '<path d="M3 9l1.5-5h15L21 9"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M5 12v8h14v-8"/><path d="M10 20v-5h4v5"/>',
+  "Educação, infoproduto ou outro": '<path d="M2 4h7a3 3 0 0 1 3 3v14a2 2 0 0 0-2-2H2Z"/><path d="M22 4h-7a3 3 0 0 0-3 3v14a2 2 0 0 1 2-2h8Z"/>',
+  "Até R$ 50 mil": bars(1), "R$ 50 mil a R$ 200 mil": bars(2), "R$ 200 mil a R$ 1 milhão": bars(3), "Acima de R$ 1 milhão": bars(4),
+  "Mais de R$ 10 mil por mês": '<path d="M22 7 13.5 15.5l-5-5L2 17"/><path d="M16 7h6v6"/>',
+  "Até R$ 10 mil por mês": '<circle cx="12" cy="12" r="9"/><path d="M14.5 9.2c-.4-1-1.4-1.6-2.5-1.6-1.5 0-2.5.8-2.5 2s1 1.7 2.5 2.1 2.5.9 2.5 2.2-1 2.1-2.5 2.1c-1.2 0-2.2-.6-2.6-1.7M12 6v1.6M12 16.4V18"/>',
+  "Ainda não investimos": '<path d="M12 21v-9"/><path d="M12 12c0-4 3-6.5 7.5-6.5 0 4-3 6.5-7.5 6.5Z"/><path d="M12 14c0-3.2-2.5-5.5-6.5-5.5 0 3.2 2.5 5.5 6.5 5.5Z"/>',
+  "Sim, acompanho os números de perto": '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>',
+  "Em parte, mas não confio totalmente": '<circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/>',
+  "Não, é a nossa maior frustração": '<path d="M9.9 4.2A10 10 0 0 1 12 4c7 0 10 8 10 8a17 17 0 0 1-3.2 4.2M6.6 6.6C3.4 8.7 2 12 2 12s3 8 10 8a9.8 9.8 0 0 0 5.4-1.6"/><path d="M14.1 14.1A3 3 0 1 1 9.9 9.9M2 2l20 20"/>',
+  "Volume: não geramos leads suficientes": '<path d="M6 15V7a6 6 0 0 1 12 0v8"/><path d="M6 15h4v-8M14 7v8h4"/><path d="M6 11h4M14 11h4"/>',
+  "Conversão: o lead chega e não vira venda": '<path d="M3 4h18l-7 8v5l-4 2v-7Z"/><path d="m16 17 4 4M20 17l-4 4"/>',
+  "Controle: não sabemos o que dá retorno": '<rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M8 6.5h8M8.5 11h.01M12 11h.01M15.5 11h.01M8.5 14.5h.01M12 14.5h.01M15.5 14.5h.01M8.5 18h.01M12 18h.01M15.5 18h.01"/>',
+  "Estrutura: falta base para escalar com segurança": '<rect x="3" y="13" width="8" height="7" rx="1"/><rect x="13" y="13" width="8" height="7" rx="1"/><rect x="8" y="4" width="8" height="7" rx="1" stroke-dasharray="2.5 2.5"/>',
   "Clínica ou consultório": '<path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 12 0V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 12 0v-4"/><circle cx="20" cy="10" r="2"/>',
   "Loja física ou e-commerce": '<path d="M3 9l1.5-5h15L21 9"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M5 12v8h14v-8"/><path d="M10 20v-5h4v5"/>',
   "Prestação de serviço (B2B ou B2C)": '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/>',
@@ -357,41 +387,47 @@ function renderForm() {
   $dock.innerHTML =
     '<form class="form" id="lead" novalidate>' +
     '<div class="field"><label for="nome">Seu nome</label><input id="nome" name="nome" autocomplete="name" autocapitalize="words" enterkeyhint="next" placeholder="Seu nome" aria-label="Seu nome" required><div class="err" id="e-nome"></div></div>' +
+    '<div class="field"><label for="empresa">Empresa</label><input id="empresa" name="empresa" autocomplete="organization" autocapitalize="words" enterkeyhint="next" placeholder="Nome da empresa" aria-label="Nome da empresa" required><div class="err" id="e-empresa"></div></div>' +
     '<div class="field"><label for="whats">WhatsApp</label><input id="whats" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" enterkeyhint="send" placeholder="WhatsApp com DDD" aria-label="WhatsApp com DDD" required><div class="err" id="e-whats"></div></div>' +
     '<button class="send" type="submit">Enviar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>' +
-    '<p class="legal">Ao enviar, você concorda em ser contatado pela 2!H pelo WhatsApp informado.</p>' +
+    '<p class="legal">Ao enviar, você autoriza a 2!H a usar estes dados para entrar em contato pelo WhatsApp, conforme a <a href="/novo/privacidade/" target="_blank" rel="noopener">política de privacidade</a>.</p>' +
     "</form>";
-  const f = document.getElementById("lead"), nome = f.nome, whats = f.whats;
+  const f = document.getElementById("lead"), nome = f.nome, empresa = f.empresa, whats = f.whats;
   whats.addEventListener("input", () => { whats.value = maskPhone(whats.value); });
-  nome.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); whats.focus(); } });
+  nome.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); empresa.focus(); } });
+  empresa.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); whats.focus(); } });
   setTimeout(() => { if (matchMedia("(hover:hover)").matches) nome.focus(); }, 50);
   f.addEventListener("submit", e => {
     e.preventDefault();
-    const n = nome.value.trim().replace(/\s+/g, " "), digits = whats.value.replace(/\D/g, "");
+    const n = nome.value.trim().replace(/\s+/g, " "), emp = empresa.value.trim().replace(/\s+/g, " "), digits = whats.value.replace(/\D/g, "");
     let ok = true;
     const setErr = (input, id, msg) => { document.getElementById(id).textContent = msg; input.setAttribute("aria-invalid", msg ? "true" : "false"); if (msg) ok = false; };
     setErr(nome, "e-nome", n.length < 2 ? "Digite seu nome." : "");
+    setErr(empresa, "e-empresa", emp.length < 2 ? "Digite o nome da empresa." : "");
     setErr(whats, "e-whats", !/^\d{2}9?\d{8}$/.test(digits) ? "Digite um WhatsApp com DDD, ex.: (11) 91234-5678." : "");
-    if (!ok) { (n.length < 2 ? nome : whats).focus(); return; }
-    finish(n, whats.value);
+    if (!ok) { (n.length < 2 ? nome : emp.length < 2 ? empresa : whats).focus(); return; }
+    finish(n, emp, whats.value);
   });
 }
 
-async function finish(nome, whats) {
-  answers.contato = true; answers.nome = nome; answers.whatsapp = whats;
+async function finish(nome, empresa, whats) {
+  answers.contato = true; answers.nome = nome; answers.empresa = empresa; answers.whatsapp = whats;
   const status = classify(answers);
   done = true; busy = true;
   $dock.innerHTML = "";
-  addMsg(nome + " · " + whats, "user");
+  addMsg(nome + " · " + empresa + " · " + whats, "user");
   progress();
   const payload = {
     data_hora: new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }),
-    nome, whatsapp: whats,
-    segmento: answers.segmento, faturamento: answers.faturamento, investe_marketing: answers.investe,
-    transparencia: answers.transparencia, gargalo: answers.gargalo, status,
+    source: "diagnostico-rapido", formulario: "diagnostico-rapido",
+    nome, empresa, whatsapp: whats, whatsapp_digitos: "55" + whats.replace(/\D/g, ""),
+    cargo: answers.cargo, segmento: answers.segmento, faturamento: answers.faturamento, investe_marketing: answers.investe,
+    transparencia: answers.transparencia, gargalo: answers.gargalo, status, prioridade: prioridade(answers),
+    consentimento_contato: true, enviado_em: new Date().toISOString(),
     ...origin, pagina: location.origin + location.pathname
   };
   send(payload);
+  (window.dataLayer = window.dataLayer || []).push({ event: "diagnostico_rapido", status, prioridade: payload.prioridade, faturamento: answers.faturamento });
   const t = document.createElement("div");
   t.className = "typing"; t.innerHTML = "<i></i><i></i><i></i>";
   $msgs.appendChild(t); scrollDown();
@@ -404,7 +440,7 @@ async function finish(nome, whats) {
   busy = false;
   let html = "";
   if (status === "QUALIFICADO" && CONFIG.WHATSAPP_COMERCIAL) {
-    const msg = "Oi! Sou " + nome + " e acabei de responder o diagnóstico da 2!H. Quero marcar meu diagnóstico.";
+    const msg = "Olá! Sou " + nome + ", da " + empresa + ". Acabei de responder o diagnóstico da 2!H e quero agendar a conversa.";
     html += '<a class="send" href="https://wa.me/' + CONFIG.WHATSAPP_COMERCIAL.replace(/\D/g, "") + "?text=" + encodeURIComponent(msg) + '" target="_blank" rel="noopener">Chamar no WhatsApp agora</a>';
   }
   if (status === "FORA DO ICP" && CONFIG.CONTENT_URL) html +='<a class="send" href="' + esc(CONFIG.CONTENT_URL) + '" rel="noopener">' + esc(CONFIG.CONTENT_LABEL) + "</a>";
@@ -413,15 +449,17 @@ async function finish(nome, whats) {
   document.getElementById("redo").addEventListener("click", restart);
 }
 
-/* envio para a planilha (Google Apps Script). Se falhar, guarda e tenta de novo na próxima visita. */
+/* envio para o n8n. Tenta JSON; se o CORS bloquear, manda sem preflight; se cair a rede, guarda e reenvia na próxima visita. */
 function send(data) {
-  if (!CONFIG.SHEET_WEBHOOK_URL) { console.warn("[2!H] SHEET_WEBHOOK_URL vazio: lead não foi salvo.", data); return; }
+  if (!CONFIG.WEBHOOK_URL) { console.warn("[2!H] WEBHOOK_URL vazio: lead não foi salvo.", data); return; }
   const body = JSON.stringify(data);
-  fetch(CONFIG.SHEET_WEBHOOK_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body, keepalive: true })
-    .catch(() => { try { const q = JSON.parse(localStorage.getItem("2h_fila") || "[]"); q.push(data); localStorage.setItem("2h_fila", JSON.stringify(q)); } catch (_) {} });
+  const guardar = () => { try { const q = JSON.parse(localStorage.getItem("2h_fila") || "[]"); q.push(data); localStorage.setItem("2h_fila", JSON.stringify(q)); } catch (_) {} };
+  fetch(CONFIG.WEBHOOK_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body, keepalive: true })
+    .then(r => { if (!r.ok) throw 0; })
+    .catch(() => fetch(CONFIG.WEBHOOK_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body, keepalive: true }).catch(guardar));
 }
 (function flushQueue() {
-  if (!CONFIG.SHEET_WEBHOOK_URL) return;
+  if (!CONFIG.WEBHOOK_URL) return;
   let q = [];
   try { q = JSON.parse(localStorage.getItem("2h_fila") || "[]"); localStorage.removeItem("2h_fila"); } catch (_) { return; }
   q.forEach(send);

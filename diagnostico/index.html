@@ -232,43 +232,50 @@ const CONFIG = {
    ═══════════════════════════════════════════════════════════════ */
 const Q = [
 { type:"cover",
-  kicker:"Sessão 1:1 · 45 minutos",
+  kicker:"Sessão 1:1 com especialista · 45 minutos",
   h1:["Agende seu","Diagnóstico","Estratégico"],
   p:[
-    {t:"45 minutos analisando a estrutura da sua empresa, do anúncio até o dinheiro no caixa. Você sai com os gargalos nomeados e a ordem de correção.",strong:true},
-    {t:"São 11 perguntas, menos de 3 minutos. Elas existem para a gente chegar na call já tendo olhado a sua operação, em vez de gastar os 45 minutos perguntando o básico."}
+    {t:"45 minutos olhando a sua operação inteira, do investimento em mídia ao dinheiro no caixa. Você sai com os gargalos nomeados, o impacto de cada um e a ordem certa de correção.",strong:true},
+    {t:"São 14 perguntas, cerca de 3 minutos. Com elas, chegamos à conversa já tendo estudado a sua empresa, e os 45 minutos ficam para o que importa: decisão."}
   ],
   btn:"Começar" },
 
 { id:"nome", type:"short", req:true, t:"Para começar, qual o seu nome completo?", ph:"Digite seu nome" },
 
+{ id:"cargo", type:"single", req:true, t:"Qual é a sua posição na empresa?", o:[
+  "Sócio, fundador ou CEO","Diretor (marketing, comercial ou operações)","Gerente ou head de área","Coordenador ou analista","Outro" ]},
+
+{ id:"empresa", type:"short", req:true, t:"Qual o nome da empresa?", ph:"Nome da empresa" },
+
 { id:"whatsapp", type:"tel", req:true, t:"Qual o seu melhor WhatsApp com DDD?", m:"É por aqui que confirmamos o seu horário.", ph:"(00) 00000-0000" },
 
-{ id:"instagram_empresa", type:"short", req:true, t:"Qual o @ do Instagram da sua empresa?", m:"Vamos olhar antes da conversa. Se a empresa não tem, coloque o seu pessoal.", ph:"@suaempresa" },
+{ id:"email", type:"email", req:true, t:"E o seu e-mail corporativo?", m:"Enviamos o convite da reunião e o material de preparação por aqui.", ph:"voce@empresa.com.br" },
 
-{ id:"o_que_vende", type:"short", req:true, t:"O que a sua empresa vende?", m:"Em uma frase, do jeito que você explicaria para um amigo.", ph:"Uma frase" },
+{ id:"instagram_empresa", type:"short", req:true, t:"Qual o site ou o @ do Instagram da empresa?", m:"Vamos estudar a sua presença digital antes da conversa.", ph:"www.suaempresa.com.br ou @suaempresa" },
 
-{ id:"faturamento", type:"single", req:true, t:"Faturamento médio dos últimos 3 meses", m:"Média mesmo, não o melhor mês.", cols:2, o:[
-  "Até R$ 20 mil","R$ 20 mil a R$ 50 mil","R$ 50 mil a R$ 100 mil",
-  "R$ 100 mil a R$ 300 mil","R$ 300 mil a R$ 1 milhão","Acima de R$ 1 milhão" ]},
+{ id:"o_que_vende", type:"short", req:true, t:"O que a sua empresa vende e para quem?", m:"Em uma frase. Ex.: software de gestão para redes de clínicas.", ph:"Uma frase" },
 
-{ id:"trafego", type:"single", req:true, t:"Quanto você investe em tráfego pago por mês hoje?", cols:2, o:[
-  "Nada","Até R$ 1 mil","R$ 1 mil a R$ 3 mil","R$ 3 mil a R$ 10 mil",
+{ id:"faturamento", type:"single", req:true, t:"Faturamento médio mensal dos últimos 3 meses", m:"Média mesmo, não o melhor mês. Nada disso é compartilhado.", cols:2, o:[
+  "Até R$ 50 mil","R$ 50 mil a R$ 200 mil","R$ 200 mil a R$ 500 mil",
+  "R$ 500 mil a R$ 1 milhão","R$ 1 milhão a R$ 5 milhões","Acima de R$ 5 milhões" ]},
+
+{ id:"trafego", type:"single", req:true, t:"Quanto a empresa investe em mídia paga por mês hoje?", m:"Somando Meta, Google, LinkedIn e outras plataformas.", cols:2, o:[
+  "Ainda não investimos","Até R$ 3 mil","R$ 3 mil a R$ 10 mil",
   "R$ 10 mil a R$ 30 mil","R$ 30 mil a R$ 100 mil","Acima de R$ 100 mil" ]},
 
-{ id:"estrutura", type:"single", req:true, t:"Como está hoje a estrutura entre o anúncio e a venda?", m:"Escolha a frase que mais se parece com a sua realidade.", o:[
+{ id:"estrutura", type:"single", req:true, t:"Como está hoje a estrutura entre o investimento em mídia e a venda?", m:"Escolha a frase que mais se parece com a sua realidade.", o:[
   "Está tudo rodando: CRM, follow-up, rastreamento de origem e indicadores que eu acompanho",
   "Boa parte funciona, mas falta uma ou outra peça",
   "Temos o básico: um CRM ou uma planilha, sem processo definido",
   "Quase nada: está tudo na cabeça das pessoas",
   "Não sei dizer como está" ]},
 
-{ id:"ja_tentou", type:"long", req:true, t:"O que você já tentou para resolver isso e não funcionou?", m:"Trocar de agência, contratar vendedor, mudar a oferta, aumentar verba. O que já foi tentado e não resolveu.", ph:"Pode escrever à vontade..." },
+{ id:"ja_tentou", type:"long", req:true, t:"O que já foi tentado para resolver isso e não trouxe o resultado esperado?", m:"Trocar de agência, contratar time comercial, mudar a oferta, aumentar a verba. Quanto mais contexto, mais preparada chega a conversa.", ph:"Pode escrever à vontade..." },
 
-{ id:"quem_decide", type:"single", req:true, t:"Quem decide sobre investimento em marketing na empresa?", o:[
+{ id:"quem_decide", type:"single", req:true, t:"Quem decide sobre o investimento em marketing e vendas?", o:[
   "Eu, sozinho","Eu, junto com sócios","Meu sócio ou superior decide, eu recomendo","A decisão passa por um conselho ou matriz" ]},
 
-{ id:"urgencia", type:"single", req:true, t:"Qual a urgência de resolver isso?", o:[
+{ id:"urgencia", type:"single", req:true, t:"Qual a urgência de resolver isso?", m:"Seja honesto: isso nos ajuda a propor o ritmo certo.", o:[
   "Preciso resolver agora, está travando o negócio","Nos próximos 3 meses","Este ano ainda","Sem urgência, estou pesquisando" ]},
 
 { id:"disponibilidade", type:"single", req:true, t:"Qual o melhor horário para você?", m:"Se puder em mais de um, escolha a última opção.", o:[
@@ -291,12 +298,12 @@ const Q = [
 const SCORE = {
   pesos:{
     // Faturamento (até 25)
-    // Até 20k | 20-50k | 50-100k | 100-300k | 300k-1M | +1M
-    faturamento: [0, 10, 18, 23, 25, 25],
+    // Até 50k | 50-200k | 200-500k | 500k-1M | 1-5M | +5M
+    faturamento: [2, 15, 21, 24, 25, 25],
 
-    // Tráfego pago (até 20)
-    // Nada | até 1k | 1-3k | 3-10k | 10-30k | 30-100k | +100k
-    trafego: [2, 6, 11, 16, 19, 20, 20],
+    // Mídia paga (até 20)
+    // Nada | até 3k | 3-10k | 10-30k | 30-100k | +100k
+    trafego: [2, 8, 14, 18, 20, 20],
 
     // Urgência (até 25) — é a urgência que fecha, não a dor
     // Agora | 3 meses | este ano | pesquisando
@@ -322,8 +329,8 @@ const SCORE = {
       motivos.push("Sem urgência: está apenas pesquisando");
       return "Desqualificado";
     }
-    if(A.faturamento==="Até R$ 20 mil" && A.trafego==="Nada"){
-      motivos.push("Fatura até R$ 20 mil e não investe em aquisição");
+    if(A.faturamento==="Até R$ 50 mil" && A.trafego==="Ainda não investimos"){
+      motivos.push("Fatura até R$ 50 mil e não investe em aquisição");
       return "Desqualificado";
     }
     if(A.quem_decide==="A decisão passa por um conselho ou matriz" && classe==="Super qualificado"){
@@ -332,6 +339,10 @@ const SCORE = {
     }
     if(A.quem_decide==="Eu, sozinho" && A.urgencia==="Preciso resolver agora, está travando o negócio")
       motivos.push("Decide sozinho e precisa resolver agora");
+    if(["R$ 1 milhão a R$ 5 milhões","Acima de R$ 5 milhões"].includes(A.faturamento))
+      motivos.push("Empresa de grande porte: prioridade no atendimento");
+    if(A.cargo==="Sócio, fundador ou CEO")
+      motivos.push("Quem respondeu é sócio ou CEO");
     if(A.estrutura==="Quase nada: está tudo na cabeça das pessoas")
       motivos.push("Operação sem estrutura nenhuma");
     if(["R$ 10 mil a R$ 30 mil","R$ 30 mil a R$ 100 mil","Acima de R$ 100 mil"].includes(A.trafego)
