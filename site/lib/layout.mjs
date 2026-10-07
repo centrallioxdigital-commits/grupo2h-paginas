@@ -254,6 +254,7 @@ ${o.semCabecalho ? '' : cabecalho(o.navAtual ?? o.path)}
 ${inserirDivisas(o.corpo)}
 </main>
 ${o.semCabecalho ? '' : rodape()}
+<script src="${asset('js/lenis.min.js')}" defer></script>
 <script src="${asset('js/site.js')}" defer></script>
 ${o.scripts || ''}
 </body>

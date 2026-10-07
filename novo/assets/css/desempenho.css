@@ -60,3 +60,9 @@
 .hero-quadro .foto img{transform:scale(1.08)!important}
 .chip-flutua{animation:flutua 6s ease-in-out infinite!important}
 
+/* rolagem suave (Lenis): o JS cuida da suavidade, o CSS não pode disputar */
+html.lenis,html.lenis body{height:auto}
+html.lenis{scroll-behavior:auto!important}
+.lenis:not(.lenis-autoToggle).lenis-stopped{overflow:clip}
+.lenis [data-lenis-prevent]{overscroll-behavior:contain}
+.lenis.lenis-smooth iframe{pointer-events:none}

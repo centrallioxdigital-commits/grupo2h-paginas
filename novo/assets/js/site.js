@@ -6,6 +6,16 @@
   var reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var temIO = 'IntersectionObserver' in window;
 
+  /* ---------- rolagem suave (Lenis) no mouse e trackpad; no toque fica a rolagem nativa do celular ---------- */
+  if (window.Lenis && !reduz && window.matchMedia('(pointer: fine)').matches) {
+    var lenis = new window.Lenis({
+      autoRaf: true, lerp: 0.09, wheelMultiplier: 1, smoothWheel: true,
+      anchors: true, /* respeita o scroll-padding-top do html (altura do topo) */
+      prevent: function (no) { return !!(no.closest && no.closest('.mm-painel, .menu-movel, [data-lenis-prevent]')); }
+    });
+    window.lenis = lenis;
+  }
+
   /* ---------- cabeçalho sólido depois do topo ---------- */
   var topo = doc.querySelector('[data-topo]');
   if (topo && temIO) {
