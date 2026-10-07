@@ -125,7 +125,7 @@ export function copiarStatic() {
   andar(origem);
 }
 /** Ordem das folhas de estilo do site; o build junta tudo em assets/css/app.css (uma requisição só). */
-export const CSS_SITE = ['site', 'turbo', 'relevo', 'movimento', 'encorpado', 'acabamento', 'vitrine', 'pecas', 'desempenho'];
+export const CSS_SITE = ['site', 'turbo', 'relevo', 'movimento', 'encorpado', 'acabamento', 'vitrine', 'pecas', 'hero', 'desempenho'];
 export const minificarCss = (css) => css.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').replace(/\s*([{};])\s*/g, '$1').trim();
 /** CSS do site já minificado, embutido no <head> de cada página (sem requisição que bloqueia a primeira pintura). */
 export let cssEmbutido = '';

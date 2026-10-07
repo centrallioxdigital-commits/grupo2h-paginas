@@ -4,6 +4,7 @@
 import { u, esc, icon, asset } from '../lib/core.mjs';
 import { pagina, diag, ctaFinal, faqLD, foto } from '../lib/layout.mjs';
 import { mapaRota } from '../lib/visuais.mjs';
+import { heroNucleo, heroDestaques } from '../lib/hero-nucleo.mjs';
 import { cartaoPost } from '../lib/blog.mjs';
 import { servicos } from '../content/servicos.mjs';
 import { fases, programas } from '../content/metodo.mjs';
@@ -162,26 +163,27 @@ export function home({ posts }) {
   const palavras = ['Oferta', 'Público', 'Comunicação', 'Aquisição', 'Atendimento', 'Comercial', 'Rastreamento', 'Dados', 'Crescimento previsível'];
   const letreiro = palavras.map((p) => `<span>${esc(p)}</span>`).join('');
   const corpo = `
-<section class="hero">
+<section class="hero hero-nx">
   <div class="hero-topo" aria-hidden="true"></div>
+  <svg class="nx-raios" viewBox="0 0 1600 420" preserveAspectRatio="none" aria-hidden="true">
+    <defs><linearGradient id="nx-raio-e" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F5C328" stop-opacity="0"/><stop offset="1" stop-color="#F5C328" stop-opacity=".55"/></linearGradient>
+    <linearGradient id="nx-raio-d" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#F5C328" stop-opacity="0"/><stop offset="1" stop-color="#F5C328" stop-opacity=".55"/></linearGradient></defs>
+    <g stroke="url(#nx-raio-e)"><path d="M0 40 C300 70 520 140 700 210"/><path d="M0 150 C300 160 520 190 700 215"/><path d="M0 300 C300 280 520 240 700 220"/><path d="M0 410 C320 360 520 270 700 225"/></g>
+    <g stroke="url(#nx-raio-d)"><path d="M1600 40 C1300 70 1080 140 900 210"/><path d="M1600 150 C1300 160 1080 190 900 215"/><path d="M1600 300 C1300 280 1080 240 900 220"/><path d="M1600 410 C1280 360 1080 270 900 225"/></g>
+  </svg>
+  <div class="nx-piso" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="hero-grade">
-      <div class="hero-texto">
-        <p class="hero-selo"><b>Não somos agência de tráfego</b> Estruturamos a máquina de vendas</p>
-        <h1 class="hero-h1"><span class="l1">Um mapa para não quebrar.</span> <span class="l2">Estrutura, planejamento e ação.</span></h1>
-        <p class="hero-sub">A 2!H organiza a estrutura que faz o marketing da sua empresa parar de ser tentativa e começar a virar crescimento previsível.</p>
-        <div class="hero-acoes">
-          <a class="btn btn-ouro btn-lg" href="${diag('home-hero')}" data-diag><span class="lbl-l">Quero estruturar meu crescimento</span><span class="lbl-c">Estruturar meu crescimento</span> ${icon('arrow-up-right')}</a>
-          <a class="btn-link" href="#escada">Ver a escada de serviços</a>
-        </div>
-      </div>
-      <div class="hero-quadro">
-        ${foto('hero-reuniao-marketing', 'Equipe de marketing em reunião no escritório', { revela: false, prioridade: true, sizes: '(max-width: 900px) 100vw, 46vw' })}
-        <span class="chip-flutua c1">${icon('seal-check')} Rastreamento validado</span>
-        <span class="chip-flutua c2">${icon('eye')} Conta aberta</span>
-        <span class="chip-flutua c3">${icon('chart-line-up')} Crescimento previsível</span>
+    <div class="nx-texto">
+      <p class="hero-selo"><b>Não somos agência de tráfego</b> Estruturamos a máquina de vendas</p>
+      <h1 class="hero-h1"><span class="l1">Um mapa para não quebrar.</span> <span class="l2">Estrutura, planejamento e ação.</span></h1>
+      <p class="hero-sub">A 2!H conecta marketing, dados e vendas numa só estrutura, para o investimento virar faturamento previsível e lucro, não só relatório bonito.</p>
+      <div class="hero-acoes">
+        <a class="btn btn-ouro btn-lg" href="${diag('home-hero')}" data-diag><span class="lbl-l">Quero estruturar meu crescimento</span><span class="lbl-c">Estruturar meu crescimento</span> ${icon('arrow-up-right')}</a>
+        <a class="btn-link" href="#escada">Ver a escada de serviços</a>
       </div>
     </div>
+    ${heroNucleo()}
+    ${heroDestaques()}
     <div class="hero-mapa">
       <div class="mapa-cab"><b>O mapa da máquina de vendas</b><span>Cada peça depende da anterior. O gargalo pode estar em qualquer uma.</span></div>
       ${mapaRota(PECAS, { nome: 'Crescimento previsível', d: 'O destino.' })}
@@ -317,6 +319,5 @@ ${ctaFinal({ origem: 'home-final', foto: 'aperto-de-mao' })}`;
     classe: 'pg-home',
     corpo,
     ld: [faqLD(faqHome)],
-    extraHead: `<link rel="preload" as="image" href="${asset('img/fotos/hero-reuniao-marketing.webp')}" imagesrcset="${asset('img/fotos/hero-reuniao-marketing-800.webp')} 800w, ${asset('img/fotos/hero-reuniao-marketing.webp')} 1600w" imagesizes="(max-width: 900px) 100vw, 62vw">`,
   });
 }

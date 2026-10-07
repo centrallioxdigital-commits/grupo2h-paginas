@@ -1,0 +1,162 @@
+/* =====================================================================
+   Abertura da home: núcleo 2!H no centro, órbitas e cartões 3D ao redor.
+   Só transform/opacity nas animações (leve para rolar e para o PageSpeed).
+   ===================================================================== */
+.hero-nx{text-align:center;overflow:clip}
+.hero-nx::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(42% 34% at 50% 60%,rgba(245,195,40,.17),transparent 72%),radial-gradient(70% 50% at 50% 0%,rgba(245,195,40,.07),transparent 70%)}
+.nx-raios{position:absolute;left:0;right:0;top:46%;height:420px;z-index:-1;pointer-events:none;opacity:.55}
+.nx-raios path{fill:none;stroke-width:1}
+.nx-piso{position:absolute;left:-20%;right:-20%;bottom:-6%;height:46%;z-index:-1;pointer-events:none;opacity:.35;
+  background-image:linear-gradient(rgba(245,195,40,.22) 1px,transparent 1px),linear-gradient(90deg,rgba(245,195,40,.22) 1px,transparent 1px);background-size:64px 64px;
+  transform:perspective(700px) rotateX(62deg);transform-origin:50% 100%;
+  -webkit-mask-image:radial-gradient(60% 80% at 50% 100%,#000,transparent 75%);mask-image:radial-gradient(60% 80% at 50% 100%,#000,transparent 75%)}
+.hero-nx .nx-texto{max-width:980px;margin:0 auto}
+.hero-nx .hero-selo{margin-inline:auto}
+.hero.hero-nx .hero-h1{font-size:clamp(2.5rem,1rem + 4.1vw,4.7rem)!important;line-height:1!important;letter-spacing:-.045em;max-width:none!important}
+.hero-nx .hero-h1 .l1,.hero-nx .hero-h1 .l2{display:block}
+.hero-nx .hero-sub{max-width:62ch;margin:22px auto 0}
+.hero-nx .hero-acoes{justify-content:center;margin-top:30px}
+
+/* ---- palco: núcleo + cartões ---- */
+.nx-palco{position:relative;width:100%;max-width:1100px;height:470px;margin:34px auto 0;perspective:1400px}
+.nx-fios{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.nx-fios path{fill:none;stroke:url(#nx-fio-g);stroke-width:1.4;stroke-dasharray:3 7;animation:nxfio 2.4s linear infinite}
+@keyframes nxfio{to{stroke-dashoffset:-20}}
+
+.nx-nucleo{position:absolute;left:50%;top:50%;width:300px;height:300px;margin:-150px 0 0 -150px;transform-style:preserve-3d}
+.nx-halo{position:absolute;inset:-130px;border-radius:50%;background:radial-gradient(closest-side,rgba(245,195,40,.42),rgba(245,195,40,.12) 45%,transparent 72%);animation:nxhalo 5s ease-in-out infinite}
+@keyframes nxhalo{50%{transform:scale(1.08);opacity:.75}}
+.nx-anel{position:absolute;inset:-28px;border-radius:50%;border:1px solid rgba(255,226,140,.35);transform-style:preserve-3d;
+  box-shadow:0 0 18px rgba(245,195,40,.15),inset 0 0 18px rgba(245,195,40,.12)}
+.nx-anel i{position:absolute;left:50%;top:-5px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#FFF3C4;box-shadow:0 0 12px 3px rgba(245,195,40,.9)}
+.nx-a1{--t:rotateX(74deg);transform:var(--t);animation:nxgira 14s linear infinite}
+.nx-a2{--t:rotateX(74deg) rotateY(58deg);transform:var(--t);animation:nxgira 18s linear infinite reverse;inset:-46px;border-color:rgba(255,226,140,.22)}
+.nx-a3{--t:rotateX(74deg) rotateY(-58deg);transform:var(--t);animation:nxgira 22s linear infinite;inset:-10px;border-color:rgba(255,226,140,.18)}
+@keyframes nxgira{from{transform:var(--t) rotateZ(0)}to{transform:var(--t) rotateZ(360deg)}}
+.nx-esfera{position:absolute;inset:50px;border-radius:50%;display:grid;place-items:center;overflow:hidden;
+  background:radial-gradient(circle at 50% 30%,rgba(255,236,170,.55),rgba(245,195,40,.2) 38%,rgba(18,14,4,.94) 70%),#0d0b06;
+  border:1px solid rgba(255,226,140,.55);
+  box-shadow:0 0 0 6px rgba(245,195,40,.06),0 0 70px rgba(245,195,40,.45),0 30px 70px -20px rgba(0,0,0,.9),inset 0 0 40px rgba(255,220,120,.35),inset 0 -18px 30px rgba(0,0,0,.6)}
+.nx-malha{position:absolute;inset:0;width:100%;height:100%;animation:nxgira2 40s linear infinite}
+@keyframes nxgira2{to{transform:rotate(360deg)}}
+.nx-malha ellipse,.nx-malha line{fill:none;stroke:rgba(255,226,140,.28);stroke-width:.8}
+.nx-esfera img{position:relative;width:78px;height:auto;filter:drop-shadow(0 0 14px rgba(245,195,40,.85)) drop-shadow(0 6px 10px rgba(0,0,0,.6))}
+
+/* ---- cartões 3D ---- */
+.nx-card{--ry:0deg;--rx:0deg;position:absolute;width:236px;padding:15px 16px 14px;border-radius:20px;text-align:left;
+  background:radial-gradient(120% 100% at 0% 0%,rgba(245,195,40,.12),transparent 55%),linear-gradient(165deg,rgba(38,38,44,.97),rgba(13,13,16,.97));
+  border:1px solid rgba(245,195,40,.26);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 34px 60px -30px rgba(0,0,0,.95),0 0 46px -18px rgba(245,195,40,.4);
+  transform:rotateY(var(--ry)) rotateX(var(--rx));animation:nxflut 7s ease-in-out infinite}
+@keyframes nxflut{50%{transform:rotateY(var(--ry)) rotateX(var(--rx)) translateY(-10px)}}
+.nx-c1{left:2%;top:3%;--ry:24deg;--rx:4deg}
+.nx-c2{left:7%;bottom:1%;--ry:20deg;--rx:-6deg;animation-delay:-2s}
+.nx-c3{right:2%;top:1%;--ry:-24deg;--rx:4deg;animation-delay:-4s}
+.nx-c4{right:6%;bottom:3%;--ry:-20deg;--rx:-6deg;animation-delay:-1s}
+.nx-c-cab{display:flex;align-items:center;gap:8px;font:600 .74rem/1 var(--f-b);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-3)}
+.nx-c-cab .ic{width:24px;height:24px;padding:5px;border-radius:8px;color:#F5C328;background:linear-gradient(160deg,#2a2a30,#121216);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 0 0 1px rgba(245,195,40,.25)}
+.nx-c-num{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-top:12px}
+.nx-c-num b{font:600 1.55rem/1 var(--f-d);letter-spacing:-.03em;color:#fff}
+.nx-c-num em{display:inline-flex;align-items:center;gap:3px;font:600 .74rem/1 var(--f-b);font-style:normal;padding:4px 7px;border-radius:999px}
+.nx-c-num em .ic{width:12px;height:12px}
+.nx-sobe{color:#7FD1A3;background:rgba(127,209,163,.12)}
+.nx-cai{color:#7FD1A3;background:rgba(127,209,163,.12)}
+.nx-barras,.nx-area,.nx-spark{display:block;width:100%;height:58px;margin-top:12px}
+.nx-spark{height:42px}
+.nx-barras rect{fill:rgba(245,195,40,.22)}
+.nx-barras .nx-b-on{fill:#F5C328;filter:drop-shadow(0 0 6px rgba(245,195,40,.7))}
+.nx-linha{fill:none;stroke:#F5C328;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.nx-ponto{fill:#FFF3C4;filter:drop-shadow(0 0 5px rgba(245,195,40,.95))}
+.nx-roas{position:relative;margin-top:10px}
+.nx-roas svg{display:block;width:100%;height:auto}
+.nx-g-fundo{fill:none;stroke:rgba(255,255,255,.1);stroke-width:9;stroke-linecap:round}
+.nx-g-on{fill:none;stroke:#F5C328;stroke-width:9;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(245,195,40,.6))}
+.nx-g-ponteiro{stroke:#FFF3C4;stroke-width:2.5;stroke-linecap:round}
+.nx-roas b{position:absolute;right:0;top:0;font:600 1.55rem/1 var(--f-d);color:#fff;letter-spacing:-.03em}
+.nx-c-rod{margin-top:6px;font-size:.74rem;color:var(--tx-3)}
+
+.nx-chip{position:absolute;display:inline-flex;align-items:center;gap:8px;padding:8px 14px 8px 8px;border-radius:999px;font:600 .82rem/1 var(--f-d);color:var(--tx);
+  background:linear-gradient(180deg,rgba(40,40,46,.96),rgba(17,17,21,.96));border:1px solid rgba(242,238,229,.14);box-shadow:0 18px 36px -18px rgba(0,0,0,.9);animation:nxflut 6s ease-in-out infinite}
+.nx-chip .ic{width:24px;height:24px;padding:5px;border-radius:50%;color:var(--ouro-tinta);background:linear-gradient(180deg,#FFE490,#F7C93A 45%,#E2AA14)}
+.nx-chip b{color:#F5C328}
+.nx-ch1{left:31%;top:-1%;animation-delay:-3s}
+.nx-ch2{right:29%;bottom:-2%;animation-delay:-5s}
+
+/* ---- destaques ---- */
+.nx-destaques{display:flex;justify-content:center;gap:0;margin:34px auto 0;padding:0;list-style:none;max-width:900px}
+.nx-destaques li{flex:1;display:flex;align-items:center;justify-content:center;gap:12px;padding:6px 18px;text-align:left}
+.nx-destaques li+li{border-left:1px solid rgba(245,195,40,.22)}
+.nx-destaques .ic{flex:none;width:36px;height:36px;padding:8px;border-radius:12px;color:#F5C328;background:linear-gradient(160deg,#25252b,#121216);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 0 0 1px rgba(245,195,40,.22)}
+.nx-destaques b{display:block;font:600 1rem/1.2 var(--f-d);color:var(--tx)}
+.nx-destaques small{display:block;margin-top:3px;font-size:.82rem;color:var(--tx-3)}
+
+/* ---- telas médias ---- */
+@media (max-width:1100px){
+  .nx-card{width:206px}
+  .nx-chip{display:none}
+}
+/* ---- celular: o núcleo vem primeiro, menor, com os 4 cartões nos cantos ---- */
+@media (max-width:900px){
+  .hero-nx .wrap{display:flex;flex-direction:column}
+  .nx-palco{order:-1;height:350px;margin:0 auto 8px;perspective:900px}
+  .nx-fios{display:none}
+  .nx-nucleo{transform:scale(.62)}
+  .nx-card{width:150px;padding:10px 11px;border-radius:15px}
+  .nx-c-cab{font-size:.58rem;gap:6px;letter-spacing:.03em}
+  .nx-c-cab .ic{width:20px;height:20px;padding:4px;border-radius:6px}
+  .nx-c-num{margin-top:8px}.nx-c-num b,.nx-roas b{font-size:1.1rem}
+  .nx-c-num em{font-size:.6rem;padding:3px 5px}
+  .nx-barras,.nx-area{height:34px;margin-top:8px}.nx-spark{height:26px;margin-top:8px}
+  .nx-c-rod{display:none}
+  .nx-c1{left:0;top:2%;--ry:16deg}.nx-c3{right:0;top:0;--ry:-16deg}
+  .nx-c2{left:0;bottom:2%;--ry:14deg}.nx-c4{right:0;bottom:3%;--ry:-14deg}
+  .nx-destaques{flex-direction:column;align-items:stretch;gap:10px;max-width:420px}
+  .nx-destaques li{justify-content:flex-start;padding:12px 14px;border-radius:16px;border:1px solid rgba(242,238,229,.08)!important;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01))}
+}
+@media (max-width:380px){.nx-card{width:136px}.nx-palco{height:330px}}
+@media (prefers-reduced-motion:reduce){.nx-fios path,.nx-halo,.nx-anel,.nx-malha,.nx-card,.nx-chip{animation:none!important}}
+/* paradas até a primeira interação (Speed Index) e fora da tela */
+.carregando .nx-palco *,.pausado.nx-palco *{animation-play-state:paused!important}
+
+/* =====================================================================
+   Barra superior: vidro escuro com borda de luz dourada, marca com brilho,
+   link ativo dourado com ponto e botão com halo.
+   ===================================================================== */
+.topo .topo-in{border:1px solid transparent!important;
+  background:linear-gradient(180deg,rgba(26,26,31,.9),rgba(12,12,15,.9)) padding-box,
+             linear-gradient(90deg,rgba(242,238,229,.08),rgba(245,195,40,.55) 30%,rgba(255,232,160,.75) 50%,rgba(245,195,40,.55) 70%,rgba(242,238,229,.08)) border-box!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 18px 44px -22px rgba(0,0,0,.95),0 0 40px -22px rgba(245,195,40,.45)!important}
+.topo.solido .topo-in{background:linear-gradient(180deg,rgba(22,22,27,.97),rgba(10,10,13,.97)) padding-box,
+             linear-gradient(90deg,rgba(242,238,229,.08),rgba(245,195,40,.55) 30%,rgba(255,232,160,.75) 50%,rgba(245,195,40,.55) 70%,rgba(242,238,229,.08)) border-box!important}
+.topo .marca img{filter:drop-shadow(0 0 10px rgba(245,195,40,.55))}
+.nav>ul>li>a{position:relative}
+.nav>ul>li>a[aria-current]{color:#FFE28A!important;background:linear-gradient(180deg,rgba(245,195,40,.16),rgba(245,195,40,.05))!important;box-shadow:inset 0 0 0 1px rgba(245,195,40,.28)!important}
+.nav>ul>li>a[aria-current]::after{content:'';position:absolute;left:50%;bottom:4px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:#F5C328;box-shadow:0 0 8px #F5C328}
+.nav>ul>li>a:hover{color:#fff}
+.topo-cta{box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 0 0 4px rgba(245,195,40,.1),0 10px 26px -10px rgba(245,195,40,.75)!important}
+
+/* ---- composição final: núcleo com a marca no topo (centro da tela), texto compacto logo abaixo ---- */
+.hero-nx .wrap{display:flex;flex-direction:column;align-items:center}
+.hero-nx .nx-palco{order:-1;height:420px;margin:-6px auto 0}
+.hero-nx .nx-texto{max-width:1180px;margin-top:-8px}
+.hero.hero-nx .hero-h1{font-size:clamp(2.4rem,1rem + 3.3vw,4rem)!important}
+.hero-nx .hero-sub{margin-top:18px}
+.hero-nx .hero-acoes{margin-top:24px}
+.nx-nucleo{width:270px;height:270px;margin:-135px 0 0 -135px}
+.nx-esfera{inset:44px}
+.nx-c1{top:4%}.nx-c3{top:2%}.nx-c2{bottom:4%}.nx-c4{bottom:6%}
+.nx-ch1{left:33%;top:0}.nx-ch2{right:31%;bottom:1%}
+.nx-destaques{margin-top:38px}
+@media (max-width:900px){.hero-nx .nx-palco{height:350px;margin:0 auto 6px}.hero-nx .nx-texto{margin-top:0}}
+@media (max-width:380px){.hero-nx .nx-palco{height:330px}}
+.nx-ch1{left:28%;top:1%}.nx-ch2{right:28%;left:auto;top:1%;bottom:auto}
+/* mobile: cartões menores nos cantos, esfera livre no centro, título em menos linhas */
+@media (max-width:600px){
+.hero-nx .nx-card{width:132px;padding:9px 10px}
+.hero-nx .nx-c-num b,.hero-nx .nx-roas b{font-size:1.05rem;white-space:nowrap}
+.hero-nx .nx-c-cab span{font-size:.58rem}
+.hero-nx .nx-c1{left:2%;top:4%}.hero-nx .nx-c3{right:2%;top:2%}
+.hero-nx .nx-c2{left:2%;bottom:2%;top:auto}.hero-nx .nx-c4{right:2%;bottom:5%;top:auto}
+.hero.hero-nx .hero-h1{font-size:clamp(1.9rem,8.4vw,2.4rem)!important;line-height:1.05}
+}
