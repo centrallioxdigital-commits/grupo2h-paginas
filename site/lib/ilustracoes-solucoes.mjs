@@ -141,36 +141,54 @@ export function ilDecisao3d() {
 </figure>`;
 }
 
-/** Lançamentos: pilares de vidro que crescem etapa a etapa até o carrinho dourado. */
+/** Lançamentos: painel ao vivo do lançamento. A temperatura da audiência sobe fase a fase
+ *  e explode na abertura do carrinho, com as vendas por hora subindo em ouro.
+ *  Números ilustrativos (painel de exemplo), não resultado de cliente. */
 export function ilLancamento3d() {
-  const px = 'ln3', W = 560, H = 380, base = 286, larg = 60;
-  const etapas = [['Captação', 'magnet', 46], ['Aquecimento', 'fire', 76], ['Evento', 'presentation', 116], ['Pitch', 'microphone-stage', 166], ['Carrinho', 'shopping-cart', 226]];
-  const xs = etapas.map((_, i) => 64 + i * 108);
-  const topos = etapas.map(([, , h], i) => [xs[i], base - h - 16]);
-  const d = curva(topos);
-  const pilares = etapas.map(([nome, ic, h], i) => {
-    const x = xs[i] - larg / 2, fim = i === etapas.length - 1;
-    return `<g class="ln3-pilar${fim ? ' ln3-fim' : ''}" style="--k:${i}">
-      <rect x="${x}" y="${base - h}" width="${larg}" height="${h}" rx="14" fill="url(#${px}-${fim ? 'placa-ouro' : 'placa'})" class="ln3-corpo"/>
-      <rect x="${x}" y="${base - h}" width="${larg}" height="${h}" rx="14" class="ln3-aro"/>
-      <path d="M${x + 10} ${base - h + 10} L${x + 10} ${base - 12}" class="ln3-brilho"/>
-    </g>
-    <g class="ln3-rot"><g class="pc-orbe-ic${fim ? ' ln3-ic-fim' : ''}">${icEm(ic, xs[i], base + 26, 20)}</g><text x="${xs[i]}" y="${base + 58}" text-anchor="middle" class="pc-nome pc-nome-p${fim ? ' pc-nome-ouro' : ''}">${nome}</text></g>`;
-  }).join('');
-  const moedas = Array.from({ length: 8 }, (_, i) => `<circle cx="${xs[4] - 22 + (i * 13) % 46}" cy="${topos[4][1]}" r="${3 + (i % 3)}" class="ln3-moeda" style="--d:${(i * 0.35).toFixed(2)}s;--x:${((i % 2 ? 1 : -1) * (6 + (i * 5) % 18))}px"/>`).join('');
-  return `<figure class="il il3d il-lanc3d" role="img" aria-label="Pilares que crescem de captação, aquecimento, evento e pitch até o carrinho, onde a oferta acontece." data-revela>
-  <svg viewBox="0 0 ${W} ${H}" aria-hidden="true">${defs(px)}
-    <line x1="24" y1="${base}" x2="${W - 24}" y2="${base}" class="ln3-chao"/>
-    <ellipse cx="${xs[4]}" cy="${base + 4}" rx="70" ry="12" fill="url(#${px}-aura)"/>
-    ${pilares}
-    <path d="${d}" class="ln3-curva-glow" stroke="url(#${px}-linha)" filter="url(#${px}-desfoque)"/>
-    <path d="${d}" class="ln3-curva" stroke="url(#${px}-linha)" pathLength="1"/>
-    ${rastro(d, 4.6, 1.6)}
-    ${topos.slice(0, 4).map(([x, y]) => `<circle cx="${x}" cy="${y}" r="5" class="ln3-no"/>`).join('')}
-    ${moedas}
-    ${sol(px, topos[4][0], topos[4][1], 15, 'currency-circle-dollar')}
-    <g class="ln3-selo"><rect x="${xs[4] - 158}" y="${topos[4][1] - 50}" width="142" height="30" rx="15" class="pc-pilula pc-pilula-ouro"/><circle cx="${xs[4] - 141}" cy="${topos[4][1] - 35}" r="4" class="ln3-pisca"/><text x="${xs[4] - 79}" y="${topos[4][1] - 30}" text-anchor="middle" class="pc-pilula-tx pc-pilula-tx-escuro">carrinho aberto</text></g>
-  </svg>
-  <p class="il-legenda">Cada etapa prepara a próxima. A oferta só acontece no fim.</p>
+  const W = 520, H = 210, faixa = W / 5;
+  const etapas = [['Captação', 'magnet'], ['Aquecimento', 'fire'], ['Evento', 'presentation'], ['Pitch', 'microphone-stage'], ['Carrinho', 'shopping-cart']];
+  const pts = [[0, 182], [52, 178], [104, 168], [156, 152], [208, 136], [262, 104], [298, 92], [330, 102], [372, 80], [416, 62], [452, 40], [486, 26], [508, 20]];
+  const linha = curva(pts);
+  const area = `${linha}L508 ${H}L0 ${H}Z`;
+  const barras = [26, 44, 70, 92, 118, 104, 84].map((h, i) => `<rect x="${426 + i * 12}" y="${H - h}" width="8" height="${h}" rx="2.5" class="lx-venda" style="--k:${i}"/>`).join('');
+  const grade = [50, 95, 140, 185].map((y) => `<line x1="0" y1="${y}" x2="${W}" y2="${y}"/>`).join('') + [1, 2, 3, 4].map((k) => `<line x1="${k * faixa}" y1="0" x2="${k * faixa}" y2="${H}" class="lx-div"/>`).join('');
+  const barrasLeads = [30, 42, 38, 56, 64, 78, 92].map((h) => `<i style="height:${h}%"></i>`).join('');
+  return `<figure class="il il3d il-lanc3d lx" role="img" aria-label="Painel de um lançamento: a audiência esquenta da captação ao pitch e as vendas disparam na abertura do carrinho." data-revela>
+  <div class="lx-palco">
+    <div class="lx-tela">
+      <div class="lx-cab">
+        <div><small>Faturamento do lançamento</small><b>R$ 2,3 mi</b></div>
+        <span class="lx-vivo"><i></i>Carrinho aberto</span>
+      </div>
+      <div class="lx-graf-box">
+        <svg class="lx-graf" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="lx-area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5C328" stop-opacity=".42"/><stop offset="1" stop-color="#F5C328" stop-opacity="0"/></linearGradient>
+            <linearGradient id="lx-traco" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8A6206"/><stop offset=".55" stop-color="#F5C328"/><stop offset="1" stop-color="#FFF1C2"/></linearGradient>
+            <linearGradient id="lx-barra" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE490"/><stop offset="1" stop-color="#C08A0A" stop-opacity=".35"/></linearGradient>
+          </defs>
+          <rect x="${4 * faixa}" y="0" width="${faixa}" height="${H}" class="lx-zona"/>
+          <g class="lx-grade">${grade}</g>
+          ${barras}
+          <path d="${area}" fill="url(#lx-area)" class="lx-area"/>
+          <path d="${linha}" stroke="url(#lx-traco)" class="lx-linha-glow"/>
+          <path d="${linha}" stroke="url(#lx-traco)" class="lx-linha" pathLength="1"/>
+          <line x1="${4 * faixa}" y1="0" x2="${4 * faixa}" y2="${H}" class="lx-marco"/>
+        </svg>
+        <span class="lx-pico" style="left:${((508 / W) * 100).toFixed(2)}%;top:${((20 / H) * 100).toFixed(2)}%" aria-hidden="true"></span>
+      </div>
+      <ol class="lx-fases">${etapas.map(([n, ic], i) => `<li${i === 4 ? ' class="on"' : ''}>${icon(ic)}<span>${n}</span></li>`).join('')}</ol>
+    </div>
+    <div class="lx-card lx-k1" aria-hidden="true">
+      <div class="lx-c-cab">${icon('users-three')}<span>Leads captados</span></div>
+      <div class="lx-c-num"><b>12.480</b><em>${icon('trend-up')} 64%</em></div>
+      <div class="lx-mini">${barrasLeads}</div>
+    </div>
+    <div class="lx-card lx-k2" aria-hidden="true">
+      <div class="lx-c-cab">${icon('presentation')}<span>Presença no evento</span></div>
+      <div class="lx-anel"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" class="lx-anel-f"/><circle cx="32" cy="32" r="26" class="lx-anel-on" pathLength="100"/></svg><b>41%</b></div>
+    </div>
+  </div>
+  <p class="il-legenda">Cada etapa esquenta a próxima. A venda acontece quando o carrinho abre.</p>
 </figure>`;
 }

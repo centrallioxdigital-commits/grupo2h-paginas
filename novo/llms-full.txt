@@ -1319,19 +1319,29 @@ Quero saber se é o meu caso
 
 Formato: Projeto pontual Modelo: Lançamento pago ou coprodução Investimento: Sob consulta, depois da conversa de diagnóstico
 
-Captação
+Faturamento do lançamento R$ 2,3 mi
 
-Aquecimento
+Carrinho aberto
 
-Evento
+- Captação
 
-Pitch
+- Aquecimento
 
-Carrinho
+- Evento
 
-carrinho aberto
+- Pitch
 
-Cada etapa prepara a próxima. A oferta só acontece no fim.
+- Carrinho
+
+Leads captados
+
+12.480 64%
+
+Presença no evento
+
+41%
+
+Cada etapa esquenta a próxima. A venda acontece quando o carrinho abre.
 
 ## Para quem é.
 Projetos pontuais de lançamento pago, do zero ao pitch.

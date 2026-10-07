@@ -15,6 +15,13 @@ export function ilOrbita3d(fases) {
     const a = (i / 120) * Math.PI * 2, maior = i % 10 === 0, ra = maior ? 198 : 203, rb = 209;
     return `<line x1="${r2c(C + ra * Math.cos(a))}" y1="${r2c(C + ra * Math.sin(a))}" x2="${r2c(C + rb * Math.cos(a))}" y2="${r2c(C + rb * Math.sin(a))}"${maior ? ' class="o3-maior"' : ''}/>`;
   }).join('');
+  // cauda do cometa: arcos finos atrás da cabeça (no topo), afinando e apagando; o JS gira o grupo
+  const N = 18, VAO = 4;
+  const pt = (g) => { const r = (g * Math.PI) / 180; return `${r2c(C + R * Math.sin(r))} ${r2c(C - R * Math.cos(r))}`; };
+  const cauda = Array.from({ length: N }, (_, j) => {
+    const k = 1 - j / N;
+    return `<path d="M${pt(-(j + 1) * VAO)} A${R} ${R} 0 0 1 ${pt(-j * VAO)}" stroke-width="${r2c(.8 + 3.2 * k)}" stroke-opacity="${r2c(Math.pow(k, 1.4))}"/>`;
+  }).join('') + `<circle cx="${C}" cy="${C - R}" r="13" class="o3-cab-halo"/><circle cx="${C}" cy="${C - R}" r="4.4" class="o3-cab"/>`;
   const nos = fases
     .map((f, i) => {
       const [x, y] = pos[i];
@@ -39,7 +46,7 @@ export function ilOrbita3d(fases) {
     })
     .join('');
   return `<figure class="il il3d il-orbita3d" role="img" aria-label="As cinco fases do Método 5A em órbita: ${esc(fases.map((f) => f.nome).join(', '))}" data-revela data-orbita>
-  <svg viewBox="0 0 460 460" aria-hidden="true">
+  <svg viewBox="-56 -6 572 472" aria-hidden="true">
     <defs>
       <radialGradient id="o3-esfera" cx="36%" cy="30%" r="75%"><stop offset="0" stop-color="#FFF3C4"/><stop offset=".35" stop-color="#F7C93A"/><stop offset=".75" stop-color="#C08A0A"/><stop offset="1" stop-color="#6E4C00"/></radialGradient>
       <radialGradient id="o3-aura" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#F5C328" stop-opacity=".35"/><stop offset=".55" stop-color="#F5C328" stop-opacity=".06"/><stop offset="1" stop-color="#F5C328" stop-opacity="0"/></radialGradient>
@@ -49,7 +56,7 @@ export function ilOrbita3d(fases) {
     <circle cx="${C}" cy="${C}" r="215" fill="url(#o3-aura)"/>
     <circle cx="${C}" cy="${C}" r="213" class="o3-guia"/><g class="o3-ticks">${ticks}</g>
     <circle cx="${C}" cy="${C}" r="${R}" class="o3-orbita" stroke="url(#o3-anel)"/>
-    <circle cx="${C}" cy="${C}" r="${R}" class="o3-cometa" pathLength="100"/>
+    <g class="o3-cauda" data-o3-cauda>${cauda}</g>
     <circle cx="${C}" cy="${C}" r="104" class="o3-interno"/>
     <circle cx="${C}" cy="${C}" r="78" class="o3-pulso"/>
     <g class="o3-centro">
