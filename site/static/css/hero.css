@@ -194,4 +194,4 @@
 .hero-nx .nx-c3{right:6%;top:0}.hero-nx .nx-c4{right:15%;bottom:0}
 }
 .hero-nx .nx-texto .hero-selo{margin-bottom:14px!important}
-@media (max-width:600px){.hero.hero-nx .hero-h1{font-size:clamp(1.85rem,9.2vw,2.5rem)!important}.hero-nx .hero-h1 .l1,.hero-nx .hero-h1 .l2{white-space:nowrap}}
+@media (max-width:600px){.hero.hero-nx .hero-h1{font-size:clamp(1.85rem,9.2vw,2.5rem)!important}.hero-nx .hero-h1 .l1{white-space:nowrap}}
