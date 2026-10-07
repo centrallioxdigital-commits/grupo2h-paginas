@@ -195,3 +195,4 @@
 }
 .hero-nx .nx-texto .hero-selo{margin-bottom:14px!important}
 @media (max-width:600px){.hero.hero-nx .hero-h1{font-size:clamp(1.85rem,9.2vw,2.5rem)!important}.hero-nx .hero-h1 .l1{white-space:nowrap}}
+@media (max-width:900px){.nx-quebra{display:none}}
