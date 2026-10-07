@@ -224,8 +224,8 @@ export function home({ posts }) {
       <h2 class="h2">O DNA que guia cada decisão.</h2>
       <p class="lead">Cinco princípios que aparecem em todo projeto da 2!H, do primeiro diagnóstico à leitura de número de cada semana.</p>
       <div class="socios" data-revela-filhos>
-        ${foto('socio-jhonathan', 'Jhonathan Marcos, CEO do Grupo 2!H', { cls: 'socio-foto', revela: false, sizes: '(max-width: 900px) 50vw, 20vw', legenda: `<figcaption class="socio-leg">${icon('seal-check')}<span><b>Jhonathan Marcos</b><small>Sócio · CEO</small></span></figcaption>` })}
-        ${foto('socio-douglas', 'Douglas Kashima, sócio e CTO/COO do Grupo 2!H', { cls: 'socio-foto', revela: false, sizes: '(max-width: 900px) 50vw, 20vw', legenda: `<figcaption class="socio-leg">${icon('seal-check')}<span><b>Douglas Kashima</b><small>Sócio · CTO/COO</small></span></figcaption>` })}
+        ${foto('socio-jhonathan', 'Jhonathan Marcos, CEO do Grupo 2!H', { cls: 'socio-foto', revela: false, sizes: '(max-width: 900px) 50vw, 20vw', legenda: `<figcaption class="socio-leg"><span class="socio-selo"><img src="${asset('img/logo-2h-glyph.png')}" alt="" width="16" height="15"></span><span><b>Jhonathan Marcos</b><small>Sócio · CEO</small></span></figcaption>` })}
+        ${foto('socio-douglas', 'Douglas Kashima, sócio e CTO/COO do Grupo 2!H', { cls: 'socio-foto', revela: false, sizes: '(max-width: 900px) 50vw, 20vw', legenda: `<figcaption class="socio-leg"><span class="socio-selo"><img src="${asset('img/logo-2h-glyph.png')}" alt="" width="16" height="15"></span><span><b>Douglas Kashima</b><small>Sócio · CTO/COO</small></span></figcaption>` })}
       </div>
     </div>
     ${dnaCards()}

@@ -640,3 +640,8 @@ main>.sec+.sec{border-top:0;margin-top:-1px}
 .lx-k1{left:-30px;top:6px}
 .lx-k2{left:-18px;right:auto;top:43%;--ry:16deg;--rx:-3deg}
 @media (max-width:900px){.lx-cab{padding-left:0}.lx-k1{left:-4px;top:-6px}.lx-k2{left:-2px;right:auto;top:auto;bottom:86px;--ry:10deg}}
+/* sócios: respiro entre os cartões (o aro da foto encostava) e o símbolo 2!H no selo */
+.socios{gap:24px}
+.socio-selo{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#2e2e35,#0e0e11);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 0 0 1px rgba(245,195,40,.55),0 0 14px -3px rgba(245,195,40,.6)}
+.socio-selo img{width:16px;height:auto;display:block}
+@media (max-width:420px){.socios{gap:16px}.socio-selo{width:24px;height:24px}.socio-selo img{width:13px}}
