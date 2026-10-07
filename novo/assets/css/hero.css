@@ -117,7 +117,7 @@
 @media (max-width:380px){.nx-card{width:136px}.nx-palco{height:330px}}
 @media (prefers-reduced-motion:reduce){.nx-fios path,.nx-halo,.nx-anel,.nx-malha,.nx-card,.nx-chip{animation:none!important}}
 /* paradas até a primeira interação (Speed Index) e fora da tela */
-.carregando .nx-palco *,.pausado.nx-palco *{animation-play-state:paused!important}
+.pausado.nx-palco *{animation-play-state:paused!important}
 
 /* =====================================================================
    Barra superior: vidro escuro com borda de luz dourada, marca com brilho,
