@@ -185,7 +185,6 @@ export function home({ posts }) {
       <ellipse cx="800" cy="196" rx="340" ry="22" fill="url(#nxp-sol)" opacity=".5"/>
       <ellipse cx="800" cy="200" rx="120" ry="1.6" fill="url(#nxp-sol)"/>
     </svg>
-    <span class="nx-planeta-luz"></span>
   </div>
   <div class="nx-poeira" aria-hidden="true"></div>
   <div class="nx-piso" aria-hidden="true"></div>

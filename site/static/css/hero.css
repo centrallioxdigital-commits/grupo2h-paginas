@@ -265,8 +265,9 @@
 .hero-nx .hero-topo{display:none}
 .nx-planeta{position:absolute;left:0;right:0;top:calc(clamp(330px,100svh - 360px,560px) - 200px);height:640px;z-index:-1;pointer-events:none}
 .nx-planeta svg{display:block;width:100%;height:100%}
-.nx-planeta-luz{position:absolute;left:50%;top:199px;width:160px;height:2px;margin-left:-80px;border-radius:2px;background:linear-gradient(90deg,transparent,#FFF8E1,transparent);box-shadow:0 0 12px 2px rgba(255,220,120,.8);animation:nx-varre 8s ease-in-out infinite}
+.nx-planeta-luz-antigo{position:absolute;left:50%;top:199px;width:160px;height:2px;margin-left:-80px;border-radius:2px;background:linear-gradient(90deg,transparent,#FFF8E1,transparent);box-shadow:0 0 12px 2px rgba(255,220,120,.8);animation:nx-varre 8s ease-in-out infinite}
 .nx-planeta::after{content:'';position:absolute;left:0;right:0;bottom:0;height:160px;background:linear-gradient(180deg,transparent,var(--bg))}
 .nx-poeira{inset:0 0 auto 0;height:calc(clamp(330px,100svh - 360px,560px) + 10px)}
 @media (max-width:900px){.nx-planeta{top:236px;height:520px;left:-110%;right:-110%}.nx-planeta-luz{top:161px}.nx-poeira{height:340px}}
 @media (prefers-reduced-motion:reduce){.nx-planeta-luz{animation:none;opacity:0}}
+.nx-planeta-luz{display:none}
