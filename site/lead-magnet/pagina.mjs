@@ -51,7 +51,8 @@ const faq = [
 const CSS_PAGINA = `
 @property --lx{syntax:'<percentage>';inherits:true;initial-value:30%}
 @property --ly{syntax:'<percentage>';inherits:true;initial-value:30%}
-.lm-topo-cta{margin-left:auto}
+.lm-topo-cta{margin-left:auto;flex:none}
+@media (max-width:360px){.topo .lm-topo-cta.btn{min-height:40px;font-size:13px;padding:0 5px 0 14px;gap:6px}.topo .lm-topo-cta .ic{width:30px;height:30px;padding:8px}}
 @media (max-width:960px){.topo .lm-topo-cta{display:inline-flex}}
 @media (max-width:420px){.topo .lm-topo-cta .lbl-l{display:none}}
 @media (min-width:421px){.topo .lm-topo-cta .lbl-c{display:none}}

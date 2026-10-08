@@ -66,9 +66,59 @@ html.lenis{scroll-behavior:auto!important}
 .lenis:not(.lenis-autoToggle).lenis-stopped{overflow:clip}
 .lenis [data-lenis-prevent]{overscroll-behavior:contain}
 .lenis.lenis-smooth iframe{pointer-events:none}
-/* cursor: a mesma seta dourada das landing pages (Imersão 5A); o JS só liga em mouse/trackpad */
-.cx-arrow{position:fixed;top:0;left:0;width:32px;height:32px;pointer-events:none;z-index:9999;opacity:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.45));transition:opacity .25s ease}
-.cx-arrow-inner{transition:transform .16s cubic-bezier(.2,.8,.2,1)}
-.cx-arrow.is-on{opacity:1}
-@media (hover:hover) and (pointer:fine){html.cx-on,html.cx-on *{cursor:none!important}}
-@media (hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){.cx-arrow{display:none!important}}
+/* cursor: a seta dourada das landing pages como cursor NATIVO do sistema (sem atraso, igual à seta do Windows) */
+@media (hover:hover) and (pointer:fine){html,html *{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24'%3E%3Cdefs%3E%3Cfilter id='s' x='-30%25' y='-30%25' width='170%25' height='170%25'%3E%3CfeDropShadow dx='0' dy='1' stdDeviation='.9' flood-color='%23000' flood-opacity='.5'/%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23s)'%3E%3Cpath d='M3,3 L10.07,19.97 L12.58,12.58 Z' fill='%23FFEFC0'/%3E%3Cpath d='M3,3 L12.58,12.58 L19.97,10.07 Z' fill='%23B8830A'/%3E%3Cpath d='M3,3 L10.07,19.97 L12.58,12.58 L19.97,10.07 Z' fill='none' stroke='%230A0A0C' stroke-width='1.3' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E") 4 4,auto!important}html a,html a *,html button,html button *,html [role='button'],html [role='button'] *,html label,html summary,html select,html [onclick],html .faq-q,html .faq-q *,html .o3-no,html .o3-no *,html .page-scroll-rail{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0.5 0.5 20 20'%3E%3Cdefs%3E%3Cfilter id='s' x='-30%25' y='-30%25' width='170%25' height='170%25'%3E%3CfeDropShadow dx='0' dy='1' stdDeviation='.9' flood-color='%23000' flood-opacity='.5'/%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23s)'%3E%3Cpath d='M3,3 L10.07,19.97 L12.58,12.58 Z' fill='%23FFEFC0'/%3E%3Cpath d='M3,3 L12.58,12.58 L19.97,10.07 Z' fill='%23B8830A'/%3E%3Cpath d='M3,3 L10.07,19.97 L12.58,12.58 L19.97,10.07 Z' fill='none' stroke='%230A0A0C' stroke-width='1.3' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E") 4 4,pointer!important}html input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=button]),html textarea{cursor:text!important}}
+.cx-arrow{display:none!important}
+
+/* =====================================================================
+   Botões no padrão da landing page Imersão 5A (btn-v2): pílula alta, texto 700,
+   ícone em círculo à direita, reflexo de luz passando no hover e leve subida.
+   ===================================================================== */
+.btn{--bt-ease:cubic-bezier(.22,.9,.3,1);gap:12px;min-height:60px;height:auto;padding:0 28px;border-radius:999px;font:700 16px/1.1 var(--f-d);letter-spacing:-.01em;white-space:nowrap;isolation:isolate;overflow:hidden;box-sizing:border-box;text-shadow:none;
+  transition:transform .32s var(--bt-ease),box-shadow .32s var(--bt-ease),background .3s var(--bt-ease),border-color .3s,color .3s}
+.btn:has(.ic){padding:0 9px 0 28px}
+.btn .ic{flex:none;width:42px;height:42px;padding:12px;border-radius:50%;transition:transform .4s var(--bt-ease),background .3s}
+.btn::after{content:'';position:absolute;top:0;left:-90%;width:55%;height:100%;background:linear-gradient(115deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);transition:left .9s cubic-bezier(.2,.7,.2,1);pointer-events:none;z-index:1}
+@media (hover:hover){.btn:hover::after{left:150%}.btn:hover{transform:translateY(-3px)}.btn:hover .ic{transform:translateX(4px)}}
+.btn:active{transform:translateY(-1px) scale(.98)}
+/* dourado */
+.btn.btn-ouro{background:linear-gradient(135deg,#FFE28A 0%,#F5C328 38%,#E2AA14 100%);color:#121215;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -2px 0 rgba(0,0,0,.14),0 16px 36px -12px rgba(245,195,40,.75),0 0 0 1px rgba(255,220,120,.35)}
+.btn.btn-ouro:hover{background:linear-gradient(135deg,#FFE28A 0%,#F5C328 38%,#E2AA14 100%);color:#121215;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.14),0 24px 50px -12px rgba(245,195,40,.9),0 0 0 1px rgba(255,220,120,.5)}
+.btn.btn-ouro .ic{background:#121215;color:#F5C328;box-shadow:0 4px 12px -4px rgba(0,0,0,.6)}
+/* vidro (secundário) */
+.btn.btn-linha{background:rgba(243,242,238,.05);color:#F3F2EE;border:1px solid rgba(243,242,238,.18);box-shadow:none}
+.btn.btn-linha:hover{color:#F3F2EE;border-color:rgba(245,195,40,.5);background:rgba(245,195,40,.09);box-shadow:none}
+.btn.btn-linha .ic{background:rgba(245,195,40,.12);color:#F5C328;border:1px solid rgba(245,195,40,.4);box-shadow:none;padding:11px}
+/* secundário em fundo claro: versão tinta (btn-ink da Imersão) */
+.creme .btn.btn-linha{background:linear-gradient(180deg,#1E1D21,#0A0A0C);color:#FFD34F;border:1px solid rgba(245,195,40,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 16px 34px -14px rgba(0,0,0,.7)}
+.creme .btn.btn-linha:hover{color:#FFE28A;border-color:rgba(245,195,40,.75);background:linear-gradient(180deg,#1E1D21,#0A0A0C);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 24px 44px -14px rgba(245,195,40,.35)}
+.creme .btn.btn-linha .ic{background:linear-gradient(135deg,#FFE28A,#F5C328 45%,#E2AA14);color:#121215;border:0;padding:12px}
+.prosa a.btn-linha,.prosa a.btn-linha:visited{color:#F3F2EE!important}
+/* tamanhos */
+.btn.btn-sm{min-height:48px;padding:0 20px;font-size:14px;gap:9px}
+.btn.btn-sm:has(.ic){padding:0 6px 0 20px}
+.btn.btn-sm .ic{width:36px;height:36px;padding:10.5px}
+.btn.btn-lg{min-height:66px;padding:0 34px;font-size:17.5px}
+.btn.btn-lg:has(.ic){padding:0 10px 0 34px}
+.btn.btn-lg .ic{width:48px;height:48px;padding:14px}
+/* pulso dourado nos botões principais (como "Quero garantir minha vaga") */
+.btn.btn-ouro.btn-lg{animation:btn-pulso 2.6s ease-out infinite}
+@keyframes btn-pulso{0%{outline:2px solid rgba(245,195,40,.55);outline-offset:0}100%{outline:2px solid rgba(245,195,40,0);outline-offset:16px}}
+/* botão do topo: compacto para caber na barra */
+.btn.topo-cta{min-height:42px;padding:0 18px;font-size:14px;animation:none}
+/* celular */
+@media (max-width:560px){
+  .btn{min-height:56px;font-size:15px}
+  .btn:has(.ic){padding-left:22px}
+  .btn.btn-lg{min-height:60px;font-size:16px}
+  .btn.btn-lg:has(.ic){padding-left:22px}
+  .btn.btn-sm{min-height:46px;font-size:14px}
+  .btn.topo-cta{min-height:40px;font-size:13px;padding:0 14px}
+}
+@media (max-width:360px){.btn,.btn.btn-lg{font-size:14px}.btn:has(.ic),.btn.btn-lg:has(.ic){padding-left:16px;gap:8px}}
+@media (prefers-reduced-motion:reduce){.btn.btn-ouro.btn-lg{animation:none}.btn::after{display:none}}
+@media (max-width:360px){.btn .ic{width:38px;height:38px;padding:10.5px}.btn.btn-lg .ic{width:42px;height:42px;padding:12px}.btn.topo-cta{padding:0 11px;font-size:12.5px}}
+.btn.topo-cta{flex:none}
+@media (max-width:360px){.btn{letter-spacing:-.02em}}
