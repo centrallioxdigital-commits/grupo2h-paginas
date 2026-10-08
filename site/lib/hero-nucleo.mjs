@@ -54,9 +54,11 @@ export function heroNucleo() {
   </svg>
   <div class="nx-nucleo" aria-hidden="true">
     <span class="nx-halo"></span>
+    <span class="nx-hud"></span><span class="nx-aro-luz"></span>
     <span class="nx-anel nx-a1"><i></i></span><span class="nx-anel nx-a2"><i></i></span><span class="nx-anel nx-a3"><i></i></span>
     <span class="nx-esfera">
-      <svg class="nx-malha" viewBox="0 0 200 200"><ellipse cx="100" cy="100" rx="96" ry="34"/><ellipse cx="100" cy="100" rx="96" ry="70"/><ellipse cx="100" cy="100" rx="34" ry="96"/><ellipse cx="100" cy="100" rx="70" ry="96"/><line x1="4" y1="100" x2="196" y2="100"/><line x1="100" y1="4" x2="100" y2="196"/></svg>
+      <span class="nx-mapa"><i></i><i></i></span>
+      <span class="nx-sombra-esf"></span>
       <img src="${asset('img/logo-2h-glyph.png')}" alt="" width="39" height="36">
     </span>
   </div>

@@ -287,3 +287,29 @@
 .nx-n-app{box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 0 0 1px rgba(245,195,40,.3)}
 .nx-poeira::before,.nx-poeira::after{opacity:.6}
 .hero-nx .hero-acoes .btn-ouro{box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 12px 26px -14px rgba(245,195,40,.5)!important}
+/* ---- globo central: mapa-múndi em pontos girando em câmera lenta, sombra de esfera,
+        aro de luz percorrendo a borda e um anel de régua (HUD) girando ao fundo ---- */
+.nx-esfera{isolation:isolate;background:radial-gradient(circle at 50% 40%,#17140b,#0a0907 72%)}
+.nx-mapa{position:absolute;left:0;top:4%;height:92%;display:flex;width:max-content;opacity:.62;animation:nx-gira-mapa 140s linear infinite}
+.nx-mapa i{display:block;height:100%;aspect-ratio:200/94;background:url(../img/mapa-pontos.svg) center/100% 100% no-repeat}
+@keyframes nx-gira-mapa{to{transform:translateX(-50%)}}
+.nx-sombra-esf{position:absolute;inset:0;border-radius:50%;z-index:1;pointer-events:none;
+  background:radial-gradient(circle at 34% 26%,rgba(255,240,190,.20),transparent 34%),radial-gradient(circle at 50% 50%,transparent 46%,rgba(0,0,0,.55) 74%,rgba(0,0,0,.85) 100%)}
+.nx-esfera img{z-index:2}
+.nx-esfera{border-color:rgba(255,226,140,.38)}
+/* aro de luz: um cometa fino contornando o globo */
+.nx-aro-luz{position:absolute;inset:34px;border-radius:50%;pointer-events:none;
+  background:conic-gradient(from 0deg,transparent 0 62%,rgba(255,226,140,.15) 80%,rgba(255,244,210,.95) 99%,transparent 100%);
+  -webkit-mask:radial-gradient(closest-side,transparent calc(100% - 1.6px),#000 calc(100% - 1.4px));mask:radial-gradient(closest-side,transparent calc(100% - 1.6px),#000 calc(100% - 1.4px));
+  animation:nxgira2 9s linear infinite}
+/* régua circular ao fundo, girando bem devagar */
+.nx-hud{position:absolute;inset:-58px;border-radius:50%;pointer-events:none;opacity:.55;
+  background:repeating-conic-gradient(rgba(255,226,140,.55) 0 .5deg,transparent .5deg 5deg);
+  -webkit-mask:radial-gradient(closest-side,transparent calc(100% - 7px),#000 calc(100% - 7px),#000 calc(100% - 1px),transparent 100%);mask:radial-gradient(closest-side,transparent calc(100% - 7px),#000 calc(100% - 7px),#000 calc(100% - 1px),transparent 100%);
+  animation:nxgira2 160s linear infinite reverse}
+.nx-hud::after{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(rgba(255,226,140,.9) 0 1.2deg,transparent 1.2deg 90deg,rgba(255,226,140,.9) 90deg 91.2deg,transparent 91.2deg 180deg,rgba(255,226,140,.9) 180deg 181.2deg,transparent 181.2deg 270deg,rgba(255,226,140,.9) 270deg 271.2deg,transparent 271.2deg)}
+/* órbitas um pouco mais presentes, finas e nítidas */
+.nx-anel{border-color:rgba(255,226,140,.3)}
+.nx-a2{border-color:rgba(255,226,140,.2)}.nx-a3{border-color:rgba(255,226,140,.16)}
+@media (prefers-reduced-motion:reduce){.nx-mapa,.nx-aro-luz,.nx-hud{animation:none}}
+.nx-mapa{opacity:.5}.nx-hud{opacity:.4}
