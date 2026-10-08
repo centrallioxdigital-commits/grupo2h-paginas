@@ -196,3 +196,65 @@
 .hero-nx .nx-texto .hero-selo{margin-bottom:14px!important}
 @media (max-width:600px){.hero.hero-nx .hero-h1{font-size:clamp(1.85rem,9.2vw,2.5rem)!important}.hero-nx .hero-h1 .l1{white-space:nowrap}}
 @media (max-width:900px){.nx-quebra{display:none}}
+
+/* =====================================================================
+   Refinamento: sem névoa amarela atrás do texto e sem os raios laterais.
+   No lugar: horizonte de luz (borda de planeta) sob o núcleo, poeira estelar
+   discreta, brilho correndo no título e notificações no estilo do iPhone.
+   ===================================================================== */
+.hero-nx::before{background:radial-gradient(26% 30% at 50% 26%,rgba(245,195,40,.10),transparent 70%)!important}
+.hero-nx .hero-topo{opacity:.05}
+/* horizonte: arco enorme com a borda acesa, apagando nas pontas */
+.nx-horizonte{position:absolute;left:50%;top:clamp(330px,calc(100svh - 360px),560px);width:max(2400px,190vw);aspect-ratio:1;margin-left:calc(max(2400px,190vw) / -2);z-index:-1;pointer-events:none;
+  border-radius:50%;background:radial-gradient(closest-side,#0b0b0d 97%,transparent 100%);
+  box-shadow:0 -1px 0 rgba(255,230,150,.55),0 -2px 18px rgba(245,195,40,.35),0 -30px 120px -20px rgba(245,195,40,.22);
+  -webkit-mask-image:linear-gradient(90deg,transparent 30%,#000 44%,#000 56%,transparent 70%);mask-image:linear-gradient(90deg,transparent 30%,#000 44%,#000 56%,transparent 70%)}
+.nx-horizonte span{position:absolute;left:50%;top:-1px;width:220px;height:2px;margin-left:-110px;border-radius:2px;background:linear-gradient(90deg,transparent,#FFF3C4,transparent);box-shadow:0 0 16px 2px rgba(255,220,120,.8);animation:nx-varre 7s ease-in-out infinite}
+@keyframes nx-varre{0%,100%{transform:translateX(-380px);opacity:0}15%,85%{opacity:1}50%{transform:translateX(380px)}}
+.hero-nx .nx-piso{display:none}
+/* poeira estelar: um elemento só, pontos via sombra */
+.nx-poeira{position:absolute;inset:0 0 30% 0;z-index:-1;pointer-events:none;
+  -webkit-mask-image:radial-gradient(60% 70% at 50% 30%,#000,transparent 80%);mask-image:radial-gradient(60% 70% at 50% 30%,#000,transparent 80%)}
+.nx-poeira::before,.nx-poeira::after{content:'';position:absolute;left:0;top:0;width:2px;height:2px;border-radius:50%;background:transparent;
+  box-shadow:12vw 120px rgba(255,236,170,.55),22vw 260px rgba(255,236,170,.35),31vw 80px rgba(255,255,255,.4),38vw 330px rgba(255,236,170,.4),44vw 150px rgba(255,255,255,.3),58vw 70px rgba(255,236,170,.5),63vw 290px rgba(255,255,255,.35),71vw 180px rgba(255,236,170,.45),79vw 100px rgba(255,255,255,.4),86vw 250px rgba(255,236,170,.35),92vw 140px rgba(255,255,255,.3),6vw 360px rgba(255,236,170,.3),50vw 40px rgba(255,255,255,.35),27vw 410px rgba(255,236,170,.25),75vw 420px rgba(255,255,255,.25);
+  animation:nx-pisca 4.5s ease-in-out infinite}
+.nx-poeira::after{transform:translate(3vw,60px) scale(.8);animation-delay:-2.2s}
+@keyframes nx-pisca{50%{opacity:.35}}
+/* título: um brilho de luz passa pela linha dourada de tempos em tempos */
+.hero-nx .hero-h1 .l2{background-image:linear-gradient(100deg,#E9B520 0%,#F5C328 38%,#FFF4CC 47%,#F5C328 56%,#D9A012 100%);background-size:250% 100%;background-position:100% 0}
+.js .hero-nx .hero-h1 .l2{animation:entra-leve .8s var(--ease-mola) both,nx-reluz 7s ease-in-out 1.6s infinite!important}
+@keyframes nx-reluz{0%,55%{background-position:100% 0}85%,100%{background-position:0 0}}
+
+/* notificações no estilo do iPhone */
+.hero-nx .nx-notif{display:flex;align-items:flex-start;gap:10px;width:250px;padding:10px 12px 11px 10px;border-radius:20px;text-align:left;
+  background:linear-gradient(180deg,rgba(46,46,52,.94),rgba(26,26,30,.94));border:1px solid rgba(255,255,255,.1);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 24px 44px -20px rgba(0,0,0,.95),0 0 0 .5px rgba(0,0,0,.6);
+  opacity:0;transform:translateY(-18px) scale(.94);animation:nx-chega .9s cubic-bezier(.2,1.25,.4,1) forwards,nx-boia 6s ease-in-out infinite;animation-delay:.9s,1.8s}
+.hero-nx .nx-ch2{animation-delay:2.1s,3s}
+@keyframes nx-chega{to{opacity:1;transform:none}}
+@keyframes nx-boia{0%,100%{translate:0 0}50%{translate:0 -6px}}
+.nx-n-app{flex:none;display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:radial-gradient(circle at 35% 25%,#2f2f36,#0c0c0f);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 0 0 1px rgba(245,195,40,.4),0 0 14px -4px rgba(245,195,40,.7)}
+.nx-n-app img{width:20px;height:auto;display:block}
+.nx-n-txt{display:flex;flex-direction:column;min-width:0;flex:1}
+.nx-n-topo{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font:600 .66rem/1.2 var(--f-b);letter-spacing:.02em;text-transform:uppercase;color:var(--tx-3)}
+.nx-n-topo b{color:var(--tx-3);font-weight:600}
+.nx-n-topo time{text-transform:none;letter-spacing:0;font-weight:500}
+.nx-n-txt strong{margin-top:3px;font:600 .84rem/1.2 var(--f-d);color:#fff}
+.nx-n-txt>span:last-child{margin-top:2px;font:500 .76rem/1.3 var(--f-b);color:var(--tx-2)}
+.nx-n-txt b{color:#F5C328}
+.hero-nx .nx-notif.nx-ch1{left:23%;top:0;right:auto;bottom:auto}
+.hero-nx .nx-notif.nx-ch2{right:23%;top:0;left:auto;bottom:auto}
+@media (min-width:901px) and (max-height:860px){.hero-nx .nx-notif{zoom:.88}}
+@media (max-width:1100px){.hero-nx .nx-notif.nx-ch1{left:21%}.hero-nx .nx-notif.nx-ch2{right:21%}.hero-nx .nx-notif{width:220px}}
+@media (max-width:900px){.hero-nx .nx-notif{display:none}.nx-horizonte{top:330px}}
+@media (prefers-reduced-motion:reduce){.hero-nx .nx-notif{opacity:1;transform:none;animation:none!important}.nx-horizonte span,.nx-poeira::before,.nx-poeira::after{animation:none}.js .hero-nx .hero-h1 .l2{animation:none!important}}
+/* notificações compactas, uma de cada lado, no lugar e no tamanho das pílulas antigas */
+.hero-nx .nx-notif{align-items:center;gap:9px;width:auto;min-width:196px;padding:7px 14px 7px 7px;border-radius:14px}
+.nx-n-app{width:28px;height:28px;border-radius:8px}
+.nx-n-app img{width:14px}
+.nx-n-topo{gap:12px;font-size:.58rem}
+.nx-n-txt strong{margin-top:2px;font-size:.8rem;white-space:nowrap}
+.nx-n-txt strong b{color:#F5C328}
+.hero-nx .nx-notif.nx-ch1{left:28%;right:auto;top:1%;margin:0;animation:nx-chega .9s cubic-bezier(.2,1.25,.4,1) .9s forwards,nx-boia 6s ease-in-out 1.8s infinite}
+.hero-nx .nx-notif.nx-ch2{right:28%;left:auto;top:1%;margin:0;animation:nx-chega .9s cubic-bezier(.2,1.25,.4,1) 2.2s forwards,nx-boia 6s ease-in-out 3.1s infinite}
+@media (max-width:1100px){.hero-nx .nx-notif{min-width:0}.hero-nx .nx-notif.nx-ch1{left:24%}.hero-nx .nx-notif.nx-ch2{right:24%}}

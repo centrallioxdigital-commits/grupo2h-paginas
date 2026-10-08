@@ -165,12 +165,8 @@ export function home({ posts }) {
   const corpo = `
 <section class="hero hero-nx">
   <div class="hero-topo" aria-hidden="true"></div>
-  <svg class="nx-raios" viewBox="0 0 1600 420" preserveAspectRatio="none" aria-hidden="true">
-    <defs><linearGradient id="nx-raio-e" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F5C328" stop-opacity="0"/><stop offset="1" stop-color="#F5C328" stop-opacity=".55"/></linearGradient>
-    <linearGradient id="nx-raio-d" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#F5C328" stop-opacity="0"/><stop offset="1" stop-color="#F5C328" stop-opacity=".55"/></linearGradient></defs>
-    <g stroke="url(#nx-raio-e)"><path d="M0 40 C300 70 520 140 700 210"/><path d="M0 150 C300 160 520 190 700 215"/><path d="M0 300 C300 280 520 240 700 220"/><path d="M0 410 C320 360 520 270 700 225"/></g>
-    <g stroke="url(#nx-raio-d)"><path d="M1600 40 C1300 70 1080 140 900 210"/><path d="M1600 150 C1300 160 1080 190 900 215"/><path d="M1600 300 C1300 280 1080 240 900 220"/><path d="M1600 410 C1280 360 1080 270 900 225"/></g>
-  </svg>
+  <div class="nx-horizonte" aria-hidden="true"><span></span></div>
+  <div class="nx-poeira" aria-hidden="true"></div>
   <div class="nx-piso" aria-hidden="true"></div>
   <div class="wrap">
     <div class="nx-texto">

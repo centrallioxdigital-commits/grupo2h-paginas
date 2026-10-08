@@ -38,6 +38,12 @@ const cartaoCac = `<div class="nx-card nx-c4" aria-hidden="true">
   <svg class="nx-spark" viewBox="0 0 160 48" preserveAspectRatio="none"><path d="M0 8 L22 12 L40 10 L58 20 L78 18 L96 28 L116 30 L136 38 L160 40" class="nx-linha"/><circle cx="160" cy="40" r="4" class="nx-ponto"/></svg>
 </div>`;
 
+// notificação no estilo do iPhone: o painel "avisando" o dono da empresa
+const notificacao = (cls, quando, titulo) => `<div class="nx-chip nx-notif ${cls}" aria-hidden="true">
+    <span class="nx-n-app"><img src="${asset('img/logo-2h-glyph.png')}" alt="" width="14" height="13"></span>
+    <span class="nx-n-txt"><span class="nx-n-topo"><b>Grupo 2!H</b><time>${quando}</time></span><strong>${titulo}</strong></span>
+  </div>`;
+
 /** Núcleo com a marca 2!H, órbitas, cartões e linhas de luz. */
 export function heroNucleo() {
   return `<div class="nx-palco">
@@ -55,8 +61,8 @@ export function heroNucleo() {
     </span>
   </div>
   ${cartaoLeads}${cartaoFat}${cartaoRoas}${cartaoCac}
-  <span class="nx-chip nx-ch1" aria-hidden="true">${icon('seal-check')} Rastreamento validado</span>
-  <span class="nx-chip nx-ch2" aria-hidden="true">${icon('coins')} Margem de lucro <b>31%</b></span>
+  ${notificacao('nx-ch1', 'agora', 'Rastreamento validado')}
+  ${notificacao('nx-ch2', '2 min', 'Margem de lucro <b>31%</b>')}
 </div>`;
 }
 
