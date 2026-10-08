@@ -216,5 +216,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </footer>
 
 </main>
+<script src="lenis.min.js" defer></script>
+<script>/* >>> PADRAO-ROLAGEM-SUAVE (Lenis, igual ao site principal) */
+document.addEventListener('DOMContentLoaded',function(){
+  if(!window.Lenis||matchMedia('(prefers-reduced-motion: reduce)').matches||!matchMedia('(pointer: fine)').matches)return;
+  var h=document.documentElement,b=document.body;h.style.scrollBehavior='auto';
+  var l=new Lenis({autoRaf:true,lerp:.09,anchors:true,prevent:function(n){return!!(n.closest&&n.closest('[data-lenis-prevent],.lead-card,[role=dialog],dialog,[aria-modal=true]'))}});
+  window.lenis=l;
+  var trava=function(){(b.style.overflow==='hidden'||h.style.overflow==='hidden')?l.stop():l.start()};
+  var o=new MutationObserver(trava);o.observe(b,{attributes:true,attributeFilter:['style']});o.observe(h,{attributes:true,attributeFilter:['style']});
+});
+</script>
+<style>html.lenis,html.lenis body{height:auto}.lenis:not(.lenis-autoToggle).lenis-stopped{overflow:clip}.lenis [data-lenis-prevent]{overscroll-behavior:contain}.lenis.lenis-smooth iframe{pointer-events:none}</style>
 </body>
 </html>

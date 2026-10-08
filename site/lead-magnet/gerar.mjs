@@ -205,6 +205,7 @@ writeFileSync(join(SAIDA, 'assets', 'css', 'app.css'), cssApp);
 const cssEmb = cssApp.replace(/url\(\.\.\/([^)'"]+)\)/g, (_, rel) => `url(assets/${rel})`);
 hash.update(cssApp);
 hash.update(copiar(join(SITE_DIR, 'static', 'js', 'site.js'), 'assets/js/site.js'));
+copiar(join(SITE_DIR, 'static', 'js', 'lenis.min.js'), 'assets/js/lenis.min.js'); /* rolagem suave, igual ao site */
 copiar(join(SITE_DIR, 'static', 'img', 'logo-2h-glyph.png'), 'assets/img/logo-2h-glyph.png');
 for (const f of ['topo-capa.svg', 'topo-cta.svg', 'topo-hero.svg', 'topo-cartao.svg']) {
   const de = join(REPO_DIR, 'novo', 'assets', 'img', f);

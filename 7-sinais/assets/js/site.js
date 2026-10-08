@@ -6,6 +6,16 @@
   var reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var temIO = 'IntersectionObserver' in window;
 
+  /* ---------- rolagem suave (Lenis) no mouse e trackpad; no toque fica a rolagem nativa do celular ---------- */
+  if (window.Lenis && !reduz && window.matchMedia('(pointer: fine)').matches) {
+    var lenis = new window.Lenis({
+      autoRaf: true, lerp: 0.09, wheelMultiplier: 1, smoothWheel: true,
+      anchors: true, /* respeita o scroll-padding-top do html (altura do topo) */
+      prevent: function (no) { return !!(no.closest && no.closest('.mm-painel, .menu-movel, [data-lenis-prevent]')); }
+    });
+    window.lenis = lenis;
+  }
+
   /* ---------- cabeçalho sólido depois do topo ---------- */
   var topo = doc.querySelector('[data-topo]');
   if (topo && temIO) {
@@ -337,21 +347,46 @@
     });
   }
 
-  /* ---------- órbita do Método 5A: fase ativa em sequência ---------- */
+  /* ---------- órbita do Método 5A: o cometa desliza até a fase e ela acende quando ele chega ---------- */
   doc.querySelectorAll('[data-orbita]').forEach(function (fig) {
-    var nos = fig.querySelectorAll('.o3-no'), leg = fig.querySelector('.o3-legenda');
+    var nos = fig.querySelectorAll('.o3-no'), leg = fig.querySelector('.o3-legenda'), cauda = fig.querySelector('[data-o3-cauda]');
     var dados = JSON.parse((fig.querySelector('[data-o3-fases]') || {}).textContent || '[]');
-    var trilho = fig.querySelectorAll('.o3-trilho em'), i = 0, timer;
+    var trilho = fig.querySelectorAll('.o3-trilho em'), n = nos.length, passo = 360 / n;
+    var i = 0, ang = 0, de = 0, para = 0, t0 = 0, dur = 1, viajando = false, espera = 0, raf = 0, visivel = false;
+    var VIAGEM = 1150, PARADA = 1700;
     var ir = function (k) {
-      i = k; nos.forEach(function (n, j) { n.classList.toggle('on', j === k); });
+      i = k; nos.forEach(function (no, j) { no.classList.toggle('on', j === k); });
       trilho.forEach(function (t, j) { t.classList.toggle('on', j === k); });
       if (dados[k]) { fig.querySelector('[data-o3-nome]').textContent = dados[k].nome; fig.querySelector('[data-o3-frase]').textContent = dados[k].frase; leg.classList.remove('troca'); void leg.offsetWidth; leg.classList.add('troca'); }
     };
-    ir(0);
+    var pinta = function (a, rapidez) {
+      if (!cauda) return;
+      cauda.setAttribute('transform', 'rotate(' + a.toFixed(2) + ' 230 230)');
+      cauda.style.setProperty('--o3-v', rapidez.toFixed(3));
+    };
+    var suave = function (x) { return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+    var viajar = function (k, agora) {
+      var alvo = k * passo; while (alvo <= ang + .01) alvo += 360;
+      de = ang; para = alvo; t0 = agora; dur = VIAGEM * Math.max(1, (para - de) / passo * .75); viajando = true;
+      nos.forEach(function (no) { no.classList.remove('on'); });
+      i = k;
+    };
+    var quadro = function (agora) {
+      raf = 0; if (!visivel) return;
+      if (viajando) {
+        var x = Math.min(1, (agora - t0) / dur), e = suave(x);
+        ang = de + (para - de) * e;
+        var v = x < 1 ? Math.min(1, (suave(Math.min(1, x + .01)) - suave(Math.max(0, x - .01))) / .03) : 0;
+        pinta(ang % 360, v);
+        if (x >= 1) { viajando = false; ang = para % 360; ir(i); espera = agora + PARADA; }
+      } else if (agora >= espera) viajar((i + 1) % n, agora);
+      raf = requestAnimationFrame(quadro);
+    };
+    ir(0); pinta(0, 0);
     if (reduz) return;
-    var tocar = function () { clearInterval(timer); timer = setInterval(function () { ir((i + 1) % nos.length); }, 2600); };
-    nos.forEach(function (n, j) { n.style.cursor = 'pointer'; n.addEventListener('click', function () { ir(j); tocar(); }); });
-    if (temIO) new IntersectionObserver(function (e) { if (e[0].isIntersecting) tocar(); else clearInterval(timer); }).observe(fig); else tocar();
+    nos.forEach(function (no, j) { no.style.cursor = 'pointer'; no.addEventListener('click', function () { if (j !== i || viajando) viajar(j, performance.now()); }); });
+    var liga = function (v) { visivel = v; if (v && !raf) { espera = performance.now() + PARADA; raf = requestAnimationFrame(quadro); } };
+    if (temIO) new IntersectionObserver(function (e) { liga(e[0].isIntersecting); }).observe(fig); else liga(true);
   });
 
   /* ---------- jornada: a linha acende conforme a rolagem ---------- */
@@ -427,7 +462,7 @@
 
   /* ---------- animações contínuas só rodam enquanto estão na tela ---------- */
   if (temIO) {
-    var vivos = doc.querySelectorAll('.letreiro, .il, .rota, .rc, .divisa, .chip-flutua, .rel, .manif-selo, .faq-loop, .escada-base, .hero-quadro, .capa-visual');
+    var vivos = doc.querySelectorAll('.letreiro, .il, .rota, .rc, .divisa, .chip-flutua, .rel, .nx-palco, .manif-selo, .faq-loop, .escada-base, .hero-quadro, .capa-visual');
     var olho = new IntersectionObserver(function (ents) {
       ents.forEach(function (e) {
         e.target.classList.toggle('pausado', !e.isIntersecting);

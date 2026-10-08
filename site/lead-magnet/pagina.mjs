@@ -373,6 +373,7 @@ ${DIVISA}
   <a href="${LM.privacidade}">Política de privacidade</a>
 </div></div></footer>
 
+<script src="assets/js/lenis.min.js" defer></script>
 <script src="assets/js/site.js?v=${versao}" defer></script>
 <script>
 (function () {
