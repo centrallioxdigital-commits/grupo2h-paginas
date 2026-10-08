@@ -66,3 +66,9 @@ html.lenis{scroll-behavior:auto!important}
 .lenis:not(.lenis-autoToggle).lenis-stopped{overflow:clip}
 .lenis [data-lenis-prevent]{overscroll-behavior:contain}
 .lenis.lenis-smooth iframe{pointer-events:none}
+/* cursor: a mesma seta dourada das landing pages (Imersão 5A); o JS só liga em mouse/trackpad */
+.cx-arrow{position:fixed;top:0;left:0;width:32px;height:32px;pointer-events:none;z-index:9999;opacity:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.45));transition:opacity .25s ease}
+.cx-arrow-inner{transition:transform .16s cubic-bezier(.2,.8,.2,1)}
+.cx-arrow.is-on{opacity:1}
+@media (hover:hover) and (pointer:fine){html.cx-on,html.cx-on *{cursor:none!important}}
+@media (hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){.cx-arrow{display:none!important}}

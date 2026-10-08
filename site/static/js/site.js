@@ -16,6 +16,29 @@
     window.lenis = lenis;
   }
 
+  /* ---------- cursor personalizado: a mesma seta dourada das landing pages (Imersão 5A) ---------- */
+  if (!reduz && window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    var seta = doc.createElement('div');
+    seta.className = 'cx-arrow';
+    seta.setAttribute('aria-hidden', 'true');
+    seta.innerHTML = '<div class="cx-arrow-inner"><svg viewBox="0 0 24 24" width="32" height="32">' +
+      '<path d="M3,3 L10.07,19.97 L12.58,12.58 Z" fill="#FFEFC0"></path>' +
+      '<path d="M3,3 L12.58,12.58 L19.97,10.07 Z" fill="#B8830A"></path>' +
+      '<path d="M3,3 L10.07,19.97 L12.58,12.58 L19.97,10.07 Z" fill="none" stroke="#0A0A0C" stroke-width="1.3" stroke-linejoin="round"></path>' +
+      '</svg></div>';
+    body.appendChild(seta);
+    html.classList.add('cx-on');
+    var setaIn = seta.firstElementChild, setaOn = false;
+    var alvoSeta = "a,button,[role='button'],input,textarea,select,label,summary,[onclick],.faq-q,.o3-no";
+    window.addEventListener('mousemove', function (e) {
+      seta.style.transform = 'translate(' + (e.clientX - 4) + 'px,' + (e.clientY - 4) + 'px)';
+      if (!setaOn) { setaOn = true; seta.classList.add('is-on'); }
+    }, { passive: true });
+    doc.addEventListener('mouseover', function (e) { if (e.target.closest && e.target.closest(alvoSeta)) setaIn.style.transform = 'scale(1.2)'; });
+    doc.addEventListener('mouseout', function (e) { if (e.target.closest && e.target.closest(alvoSeta)) setaIn.style.transform = 'scale(1)'; });
+    doc.addEventListener('mouseleave', function () { seta.classList.remove('is-on'); setaOn = false; });
+  }
+
   /* ---------- cabeçalho sólido depois do topo ---------- */
   var topo = doc.querySelector('[data-topo]');
   if (topo && temIO) {

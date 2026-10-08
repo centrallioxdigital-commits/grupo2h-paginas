@@ -228,5 +228,16 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 </script>
 <style>html.lenis,html.lenis body{height:auto}.lenis:not(.lenis-autoToggle).lenis-stopped{overflow:clip}.lenis [data-lenis-prevent]{overscroll-behavior:contain}.lenis.lenis-smooth iframe{pointer-events:none}</style>
+<style>.cx-arrow{position:fixed;top:0;left:0;width:32px;height:32px;pointer-events:none;z-index:9999;opacity:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.45));transition:opacity .25s ease}.cx-arrow-inner{transition:transform .16s cubic-bezier(.2,.8,.2,1)}.cx-arrow.is-on{opacity:1}@media (hover:hover) and (pointer:fine){html.cx-on,html.cx-on *{cursor:none!important}}@media (hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){.cx-arrow{display:none!important}}</style>
+<script>/* >>> PADRAO-CURSOR (seta dourada, igual à Imersão 5A) */
+(function(){if(matchMedia('(prefers-reduced-motion: reduce)').matches||!matchMedia('(hover:hover) and (pointer:fine)').matches)return;
+var a=document.createElement('div');a.className='cx-arrow';a.setAttribute('aria-hidden','true');
+a.innerHTML='<div class="cx-arrow-inner"><svg viewBox="0 0 24 24" width="32" height="32"><path d="M3,3 L10.07,19.97 L12.58,12.58 Z" fill="#FFEFC0"></path><path d="M3,3 L12.58,12.58 L19.97,10.07 Z" fill="#B8830A"></path><path d="M3,3 L10.07,19.97 L12.58,12.58 L19.97,10.07 Z" fill="none" stroke="#0A0A0C" stroke-width="1.3" stroke-linejoin="round"></path></svg></div>';
+document.body.appendChild(a);document.documentElement.classList.add('cx-on');var i=a.firstElementChild,on=false,sel="a,button,[role='button'],input,textarea,select,label,[onclick]";
+addEventListener('mousemove',function(e){a.style.transform='translate('+(e.clientX-4)+'px,'+(e.clientY-4)+'px)';if(!on){on=true;a.classList.add('is-on')}},{passive:true});
+document.addEventListener('mouseover',function(e){if(e.target.closest&&e.target.closest(sel))i.style.transform='scale(1.2)'});
+document.addEventListener('mouseout',function(e){if(e.target.closest&&e.target.closest(sel))i.style.transform='scale(1)'});
+document.addEventListener('mouseleave',function(){a.classList.remove('is-on');on=false});})();
+</script>
 </body>
 </html>
