@@ -165,7 +165,28 @@ export function home({ posts }) {
   const corpo = `
 <section class="hero hero-nx">
   <div class="hero-topo" aria-hidden="true"></div>
-  <div class="nx-horizonte" aria-hidden="true"><span></span></div>
+  <div class="nx-planeta" aria-hidden="true">
+    <svg viewBox="0 0 1600 640" preserveAspectRatio="none">
+      <defs>
+        <radialGradient id="nxp-solo" cx="50%" cy="0%" r="55%"><stop offset="0" stop-color="#16130b"/><stop offset=".14" stop-color="#0f0e0c"/><stop offset="1" stop-color="#0B0B0D"/></radialGradient>
+        <linearGradient id="nxp-aro" x1="0" y1="0" x2="1" y2="0"><stop offset=".08" stop-color="#F5C328" stop-opacity="0"/><stop offset=".36" stop-color="#F5C328" stop-opacity=".55"/><stop offset=".5" stop-color="#FFF3C4"/><stop offset=".64" stop-color="#F5C328" stop-opacity=".55"/><stop offset=".92" stop-color="#F5C328" stop-opacity="0"/></linearGradient>
+        <linearGradient id="nxp-ceu" x1="0" y1="0" x2="1" y2="0"><stop offset=".15" stop-color="#F5C328" stop-opacity="0"/><stop offset=".5" stop-color="#F5C328" stop-opacity=".5"/><stop offset=".85" stop-color="#F5C328" stop-opacity="0"/></linearGradient>
+        <linearGradient id="nxp-grade" x1="0" y1="0" x2="1" y2="0"><stop offset=".2" stop-color="#F5C328" stop-opacity="0"/><stop offset=".5" stop-color="#F5C328" stop-opacity=".16"/><stop offset=".8" stop-color="#F5C328" stop-opacity="0"/></linearGradient>
+        <radialGradient id="nxp-sol" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFF8E1"/><stop offset=".25" stop-color="#FFE490" stop-opacity=".85"/><stop offset=".6" stop-color="#F5C328" stop-opacity=".25"/><stop offset="1" stop-color="#F5C328" stop-opacity="0"/></radialGradient>
+        <filter id="nxp-desfoca" x="-10%" y="-200%" width="120%" height="500%"><feGaussianBlur stdDeviation="14"/></filter>
+      </defs>
+      <ellipse cx="800" cy="1960" rx="1500" ry="1760" fill="none" stroke="url(#nxp-ceu)" stroke-width="40" filter="url(#nxp-desfoca)"/>
+      <ellipse cx="800" cy="1960" rx="1500" ry="1760" fill="url(#nxp-solo)"/>
+      <g fill="none" stroke="url(#nxp-grade)" stroke-width="1">
+        <ellipse cx="800" cy="1960" rx="1440" ry="1700"/><ellipse cx="800" cy="1960" rx="1360" ry="1630"/><ellipse cx="800" cy="1960" rx="1250" ry="1540"/>
+        <path d="M800 200 C700 330 560 470 380 640"/><path d="M800 200 C900 330 1040 470 1220 640"/><path d="M800 200 C760 340 690 490 600 640"/><path d="M800 200 C840 340 910 490 1000 640"/><path d="M800 200 L800 640"/>
+      </g>
+      <ellipse cx="800" cy="1960" rx="1500" ry="1760" fill="none" stroke="url(#nxp-aro)" stroke-width="1.6"/>
+      <ellipse cx="800" cy="196" rx="340" ry="22" fill="url(#nxp-sol)" opacity=".5"/>
+      <ellipse cx="800" cy="200" rx="120" ry="1.6" fill="url(#nxp-sol)"/>
+    </svg>
+    <span class="nx-planeta-luz"></span>
+  </div>
   <div class="nx-poeira" aria-hidden="true"></div>
   <div class="nx-piso" aria-hidden="true"></div>
   <div class="wrap">
