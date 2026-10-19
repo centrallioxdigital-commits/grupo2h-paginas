@@ -11,7 +11,7 @@ Contato: contato@grupo2h.com.br · WhatsApp (15) 99750-9239 · Diagnóstico ráp
 - [Como funciona](https://grupo2h.com.br/como-funciona/): a jornada do diagnóstico rápido à leitura contínua de números.
 - [Sobre](https://grupo2h.com.br/sobre/): posicionamento, diferenciais e princípios.
 - [Soluções](https://grupo2h.com.br/solucoes/): a escada de serviços comparada.
-- [Método 5A](https://grupo2h.com.br/metodo-5a/): as cinco fases e os três programas.
+- [Método 5A](https://grupo2h.com.br/metodo-5a/): as cinco fases do método.
 - [Perguntas frequentes](https://grupo2h.com.br/perguntas-frequentes/)
 - [Glossário de growth](https://grupo2h.com.br/glossario/): CAC, CPA, CPL, ROAS, ROI, LTV, CRM e outros termos com fórmulas.
 - [Contato](https://grupo2h.com.br/contato/)
@@ -29,11 +29,6 @@ Contato: contato@grupo2h.com.br · WhatsApp (15) 99750-9239 · Diagnóstico ráp
 - Aquisição: Construa uma estrutura capaz de gerar demanda.
 - Acompanhamento: Transforme dados em decisões comerciais.
 - Aceleração: Cresça somente quando o sistema estiver pronto.
-
-Programas:
-- [Imersão Estrutura 5A](https://grupo2h.com.br/imersao5a/) (Online e ao vivo · 4 horas): Aprenda a enxergar o sistema e a identificar onde a sua empresa perde vendas, antes de investir mais em tráfego.
-- [Mentoria 5A](https://grupo2h.com.br/mentoria5a/) (Em grupo · 12 semanas): Construa, com a 2!H e outros empresários, o sistema de aquisição e conversão da sua empresa. Não é teoria, é implementação.
-- [Diagnóstico Estratégico 5A](https://grupo2h.com.br/diagnostico5a/) (Individual · 1x1): O Método 5A aplicado direto na sua empresa, com atenção total ao seu caso, sem dividir tempo com uma turma.
 
 ## Blog
 - [CPL barato não significa operação lucrativa](https://grupo2h.com.br/blog/cpl-barato-nao-significa-operacao-lucrativa/): Um custo por lead menor não garante venda nem lucro. Veja como ler o caminho inteiro, do dinheiro investido ao dinheiro que volta para o caixa.

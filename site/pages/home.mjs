@@ -7,7 +7,7 @@ import { mapaRota } from '../lib/visuais.mjs';
 import { heroNucleo, heroDestaques } from '../lib/hero-nucleo.mjs';
 import { cartaoPost } from '../lib/blog.mjs';
 import { servicos } from '../content/servicos.mjs';
-import { fases, programas } from '../content/metodo.mjs';
+import { fases } from '../content/metodo.mjs';
 import { faqTodos } from '../content/faq.mjs';
 import { empresa } from '../content/empresa.mjs';
 
@@ -92,24 +92,13 @@ export function escadaHTML(origem = 'home') {
   <div class="escada-base"><span>Primeiro a estrutura</span><span>Depois a escala</span></div>`;
 }
 
-export function bentoMetodo({ comFases = true } = {}) {
+export function bentoMetodo() {
   return `<div class="bento">
-    ${comFases ? `<div class="bt bt-fases" data-revela>
+    <div class="bt bt-fases" data-revela>
       <div class="fases5">${fases
         .map((f) => `<div class="f5"><span class="f5-a">${icon(f.icone)}</span><h3>${esc(f.nome)}</h3><p>${esc(f.frase)}</p></div>`)
         .join('')}</div>
-    </div>` : ''}
-    ${programas
-      .map(
-        (p) => `<article class="bt bt-prog" data-revela>
-      <p class="fmt">${esc(p.formato)}</p>
-      <h3>${esc(p.nome)}</h3>
-      <p>${esc(p.frase)}</p>
-      <ul>${p.pontos.map((x) => `<li>${icon('check')}${esc(x)}</li>`).join('')}</ul>
-      <a class="dg-link" href="${p.link}">${esc(p.cta)} ${icon('arrow-right')}</a>
-    </article>`
-      )
-      .join('')}
+    </div>
   </div>`;
 }
 
@@ -270,8 +259,9 @@ export function home({ posts }) {
     <div class="split" style="margin-bottom:clamp(40px,5vw,64px)">
       <div data-revela>
         <p class="etq">Método 5A</p>
-        <h2 class="h2 h2-larga">Prefere construir com a gente? Aprenda o Método 5A.</h2>
-        <p class="lead">O mesmo método que a 2!H usa nos projetos, em três formatos: para enxergar, para construir em grupo ou para aplicar 1x1 na sua empresa.</p>
+        <h2 class="h2 h2-larga">Cinco fases para crescer sem quebrar.</h2>
+        <p class="lead">O método que a 2!H usa em todos os projetos: só se acelera o que já foi analisado, alinhado e medido.</p>
+        <a class="dg-link" href="${u('metodo-5a/')}">Conhecer o Método 5A ${icon('arrow-right')}</a>
       </div>
       ${foto('workshop', 'Encontro de empresários aprendendo o método em uma sala de reunião')}
     </div>

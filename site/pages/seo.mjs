@@ -4,7 +4,7 @@
 import { cfg, u, abs, esc, assetAbs } from '../lib/core.mjs';
 import { empresa } from '../content/empresa.mjs';
 import { servicos } from '../content/servicos.mjs';
-import { fases, programas } from '../content/metodo.mjs';
+import { fases } from '../content/metodo.mjs';
 import { faqTodos } from '../content/faq.mjs';
 import { glossario } from '../content/glossario.mjs';
 
@@ -79,7 +79,7 @@ Contato: ${empresa.email} · WhatsApp ${empresa.whatsappExibicao} · Diagnóstic
 - [Como funciona](${abs('como-funciona/')}): a jornada do diagnóstico rápido à leitura contínua de números.
 - [Sobre](${abs('sobre/')}): posicionamento, diferenciais e princípios.
 - [Soluções](${abs('solucoes/')}): a escada de serviços comparada.
-- [Método 5A](${abs('metodo-5a/')}): as cinco fases e os três programas.
+- [Método 5A](${abs('metodo-5a/')}): as cinco fases do método.
 - [Perguntas frequentes](${abs('perguntas-frequentes/')})
 - [Glossário de growth](${abs('glossario/')}): CAC, CPA, CPL, ROAS, ROI, LTV, CRM e outros termos com fórmulas.
 - [Contato](${abs('contato/')})
@@ -89,9 +89,6 @@ ${servicos.map((s) => `- [${s.nome}: ${s.nomeLongo}](${abs(`solucoes/${s.slug}/`
 
 ## Método 5A
 ${fases.map((f) => `- ${f.nome}: ${f.frase}`).join('\n')}
-
-Programas:
-${programas.map((p) => `- [${p.nome}](${cfg.dominio}${p.link}) (${p.formato}): ${p.frase}`).join('\n')}
 
 ## Blog
 ${posts.length ? posts.slice(0, 25).map((p) => `- [${p.titulo}](${abs(p.path)}): ${p.resumoFinal}`).join('\n') : '- Em breve.'}

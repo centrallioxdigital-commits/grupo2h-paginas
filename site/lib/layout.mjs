@@ -4,7 +4,6 @@
 import { cfg, u, abs, esc, icon, asset, assetAbs, cssEmbutido, purgarCss } from './core.mjs';
 import { empresa, whatsappLink } from '../content/empresa.mjs';
 import { servicos } from '../content/servicos.mjs';
-import { programas } from '../content/metodo.mjs';
 
 /** Foto tratada (site/static/img/fotos): versão 800 no celular, 1600 no computador. */
 export function foto(nome, alt, { cls = '', revela = true, prioridade = false, sizes = '(max-width: 900px) 100vw, 50vw', legenda = '' } = {}) {
@@ -102,16 +101,13 @@ function cabecalho(atual) {
     </div>
     <div class="mega-col">
       <p class="mega-tit">Método 5A</p>
-      <ul class="mega-lista">${programas
-        .map((p) => `<li><a href="${p.link}">${icon('arrow-up-right')}<span><b>${esc(p.nome)}</b><small>${esc(p.formato)}</small></span></a></li>`)
-        .join('')}</ul>
+      <ul class="mega-lista"><li><a href="${u('metodo-5a/')}">${icon('graph')}<span><b>O Método 5A</b><small>Cinco fases para crescer sem quebrar</small></span></a></li></ul>
       <a class="mega-todas" href="${u('solucoes/')}">Ver todas as soluções ${icon('arrow-right')}</a>
     </div>
   </div>
 </div>`;
   const marcado = (href) => (atual && (atual === href || (href !== 'solucoes/' && atual.startsWith(href))) ? ' mm-atual' : '');
   const item = (href, ic, nome) => `<li><a class="mm-pilula${marcado(href)}" href="${u(href)}">${icon(ic)}<span>${esc(nome)}</span></a></li>`;
-  const itemExt = (href, ic, nome) => `<li><a class="mm-pilula" href="${href}">${icon(ic)}<span>${esc(nome)}</span></a></li>`;
   const links = NAV.map((n) => {
     const ativo = atual && (atual === n.href || atual.startsWith(n.href)) ? ' aria-current="page"' : '';
     if (n.mega)
@@ -140,7 +136,7 @@ function cabecalho(atual) {
     </section>
     <section class="mm-grupo">
       <p class="mm-tit">Método 5A</p>
-      <ul class="mm-grade">${item('metodo-5a/', 'graph', 'O Método 5A')}${programas.map((p, k) => itemExt(p.link, ['presentation-chart', 'users-three', 'target'][k] || 'arrow-up-right', p.nome.replace('Estrutura ', '').replace('Estratégico ', ''))).join('')}</ul>
+      <ul class="mm-grade">${item('metodo-5a/', 'graph', 'O Método 5A')}</ul>
     </section>
     <section class="mm-grupo">
       <p class="mm-tit">A 2!H</p>
@@ -180,7 +176,7 @@ function rodape() {
       <nav class="rod2-cols" aria-label="Rodapé">
         ${grupo('Empresa', 'buildings', lk('sobre/', 'Sobre a 2!H') + lk('como-funciona/', 'Como funciona') + lk('perguntas-frequentes/', 'Perguntas frequentes') + lk('contato/', 'Contato'))}
         ${grupo('Soluções', 'stack', servicos.map((s) => lk(`solucoes/${s.slug}/`, s.nome)).join(''))}
-        ${grupo('Método 5A', 'graph', lk('metodo-5a/', 'O método') + programas.map((p) => lk(p.link, p.nome, true)).join(''))}
+        ${grupo('Método 5A', 'graph', lk('metodo-5a/', 'O método'))}
         ${grupo('Conteúdo', 'article', lk('blog/', 'Blog') + lk('glossario/', 'Glossário de growth') + lk('blog/rss.xml', 'RSS'))}
       </nav>
     </div>

@@ -3,9 +3,9 @@
 
 import { u, abs, esc, icon, slugify, cfg, asset } from '../lib/core.mjs';
 import { pagina, diag, ctaFinal, faqLD, trilha, capa, ORG_ID } from '../lib/layout.mjs';
-import { DNA, dnaCards, paraQuemHTML, passosHTML, bentoMetodo } from './home.mjs';
+import { DNA, dnaCards, paraQuemHTML, passosHTML } from './home.mjs';
 import { servicos } from '../content/servicos.mjs';
-import { fases, programas, esteira } from '../content/metodo.mjs';
+import { fases, esteira } from '../content/metodo.mjs';
 import { faqGrupos, faqTodos } from '../content/faq.mjs';
 import { glossario } from '../content/glossario.mjs';
 import { ilConversa, ilFormula } from '../lib/ilustracoes.mjs';
@@ -157,9 +157,7 @@ function metodo() {
   const t = trilha([{ nome: 'Método 5A', path: 'metodo-5a/' }]);
   const faqM = [
     { q: 'O que é o Método 5A?', a: 'É o método da 2!H para estruturar o crescimento de uma empresa em cinco fases: Análise, Alinhamento, Aquisição, Acompanhamento e Aceleração. Cada fase depende da anterior: só se acelera o que já foi analisado, alinhado e medido.' },
-    { q: 'Qual a diferença entre a Imersão e a Mentoria 5A?', a: 'Na Imersão você aprende a enxergar o sistema e identificar onde a sua empresa perde dinheiro, em 4 horas ao vivo. Na Mentoria você constrói esse sistema dentro da sua empresa, em 12 semanas, em grupo, com entrega obrigatória toda semana.' },
-    { q: 'Qual a diferença entre a Mentoria 5A e o Diagnóstico Estratégico 5A?', a: 'A Mentoria 5A é em grupo, com outros empresários, por 12 semanas. O Diagnóstico Estratégico 5A é individual: o mesmo método aplicado na sua empresa, 1x1, com atenção total ao seu caso.' },
-    { q: 'Os programas incluem a 2!H executando por mim?', a: 'Não. Nos programas você constrói o sistema da sua empresa com direcionamento da 2!H. Para a 2!H executar, existem os serviços da escada, como o EDB e o Growth Control.' },
+    { q: 'Como o Método 5A entra no meu projeto?', a: 'Ele é a base de todos os serviços da escada, do EDB ao Growth Intelligence. A conversa de diagnóstico mostra em que fase a sua empresa está e qual degrau faz sentido agora.' },
   ];
   const corpo = `
 ${capa({ trilhaHtml: t.html, titulo: 'Método 5A.', tituloOuro: 'Cinco fases para crescer sem quebrar.', lead: 'Análise, Alinhamento, Aquisição, Acompanhamento e Aceleração. O método que a 2!H usa para tirar o crescimento do achismo e colocar em sequência.', visual: ilOrbita3d(fases), fotoFundo: 'workshop' })}
@@ -173,25 +171,7 @@ ${capa({ trilhaHtml: t.html, titulo: 'Método 5A.', tituloOuro: 'Cinco fases par
   </div>
 </section>
 
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-cab" data-revela><h2 class="h2">Três jeitos de aplicar o método.</h2><p class="lead">Para enxergar o sistema, para construir em grupo ou para aplicar 1x1 na sua empresa.</p></div>
-    ${bentoMetodo({ comFases: false })}
-  </div>
-</section>
-
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-cab" data-revela><h2 class="h2">Lado a lado.</h2></div>
-    <div class="compara" data-revela-filhos>${[
-      { n: 'Imersão Estrutura 5A', f: 'Online e ao vivo · 4 horas', q: 'Quem quer descobrir onde a empresa perde vendas antes de investir mais em tráfego', s: 'A leitura das 10 etapas, do negócio à margem, e o verdadeiro gargalo da operação', l: '/imersao5a/', ic: 'presentation-chart' },
-      { n: 'Mentoria 5A', f: 'Em grupo · 12 semanas', q: 'Quem viu o método e quer sair da teoria para a implementação', s: '12 entregáveis, do Raio-X econômico ao plano de crescimento de 90 dias', l: '/mentoria5a/', ic: 'users-three', d: true },
-      { n: 'Diagnóstico Estratégico 5A', f: 'Individual · 1x1', q: 'Empresário ou sócio que quer o método aplicado com atenção individual', s: 'Raio-X econômico, mapa de gargalos, oferta alinhada, rastreamento e plano de prioridades', l: '/diagnostico5a/', ic: 'target' },
-    ].map((c) => `<article class="cmp-card${c.d ? ' cmp-dest' : ''}"><div class="cmp-topo">${icon(c.ic)}<div><h3>${esc(c.n)}</h3><small>${esc(c.f)}</small></div></div><dl><div class="cmp-linha"><dt>Para quem</dt><dd>${esc(c.q)}</dd></div><div class="cmp-linha"><dt>Você sai com</dt><dd>${esc(c.s)}</dd></div></dl><a class="btn btn-linha btn-sm" href="${c.l}">Conhecer ${icon('arrow-right')}</a></article>`).join('')}</div>
-  </div>
-</section>
-
-${esteiraSecao('A esteira que a Imersão ensina a enxergar.', 'O caminho completo da primeira etapa até o dinheiro entrar de verdade.')}
+${esteiraSecao('A esteira que o método ensina a enxergar.', 'O caminho completo da primeira etapa até o dinheiro entrar de verdade.')}
 
 <section class="sec">
   <div class="wrap dois">
@@ -201,12 +181,12 @@ ${esteiraSecao('A esteira que a Imersão ensina a enxergar.', 'O caminho complet
 </section>
 
 ${ctaFinal({ origem: 'metodo-5a' })}`;
-  const desc = 'O Método 5A da 2!H: Análise, Alinhamento, Aquisição, Acompanhamento e Aceleração. Aprenda na Imersão, construa na Mentoria 5A ou aplique 1x1 no Diagnóstico Estratégico.';
+  const desc = 'O Método 5A da 2!H: Análise, Alinhamento, Aquisição, Acompanhamento e Aceleração. Cinco fases para crescer com estrutura, dados e previsibilidade.';
   return {
     path: 'metodo-5a/', prioridade: 0.9, titulo: 'Método 5A', descricao: desc,
     html: pagina({
       path: 'metodo-5a/', titulo: 'Método 5A: cinco fases para crescer sem quebrar', descricao: desc, corpo, dataModificada: ATUALIZADO,
-      ld: [t.ld, faqLD(faqM), { '@type': 'ItemList', name: 'Programas do Método 5A', itemListElement: programas.map((p, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'Course', name: p.nome, description: p.frase, url: abs(p.link.replace(/^\//, '')), provider: { '@id': ORG_ID }, inLanguage: 'pt-BR' } })) }],
+      ld: [t.ld, faqLD(faqM)],
     }),
   };
 }
@@ -312,7 +292,7 @@ ${capa({ trilhaHtml: t.html, titulo: 'Política de privacidade.', lead: 'Como a 
         <li>Responder o seu contato e entender o cenário da sua empresa para indicar o serviço adequado (procedimentos preliminares a um contrato).</li>
         <li>Prestar os serviços contratados e cumprir obrigações legais e fiscais.</li>
         <li>Medir o desempenho do site e das nossas campanhas e mostrar anúncios relevantes (legítimo interesse e, quando exigido, consentimento).</li>
-        <li>Enviar conteúdos e convites sobre os nossos programas, quando você autorizar. Você pode pedir para parar a qualquer momento.</li>
+        <li>Enviar conteúdos e convites sobre os nossos serviços, quando você autorizar. Você pode pedir para parar a qualquer momento.</li>
       </ul>
       <h2>Com quem compartilhamos</h2>
       <p>Não vendemos os seus dados. Eles podem ser processados por fornecedores que nos ajudam a operar, como ferramentas de CRM e automação, hospedagem, análise de tráfego e plataformas de anúncio (por exemplo, Google e Meta), sempre na medida necessária para cada finalidade. Também podemos compartilhar dados quando a lei ou uma autoridade exigir.</p>

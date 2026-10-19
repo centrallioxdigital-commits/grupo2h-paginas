@@ -40,10 +40,8 @@ Com as quatro fases anteriores funcionando, investir mais deixa de ser aposta. A
 
 Cada fase protege a seguinte. Sem Análise, o Alinhamento é chute. Sem Alinhamento, a Aquisição desperdiça mídia. Sem Acompanhamento, ninguém sabe se a Aquisição funcionou. E sem tudo isso, Acelerar é só gastar mais rápido.
 
-## Três formas de aplicar o Método 5A
+## Onde o Método 5A entra
 
-- **[Imersão Estrutura 5A](/imersao5a/)**: online e ao vivo, em 4 horas. Para aprender a enxergar o sistema e identificar onde a sua empresa perde vendas.
-- **[Mentoria 5A](/mentoria5a/)**: em grupo, por 12 semanas, com encontros ao vivo e entrega obrigatória toda semana. Para construir o sistema dentro da empresa.
-- **[Diagnóstico Estratégico 5A](/diagnostico5a/)**: individual, 1x1. O mesmo método aplicado direto na sua empresa, com atenção total ao seu caso.
+O Método 5A é a base de todos os serviços da 2!H, do EDB ao Growth Intelligence. A conversa de diagnóstico mostra em que fase a sua empresa está e qual degrau faz sentido agora.
 
-Quer saber qual faz mais sentido para o seu momento? Veja a [página do Método 5A](/metodo-5a/) ou comece pelo [diagnóstico rápido](/diagnostico-rapido/?origem=site-blog-metodo).
+Quer saber em que fase a sua empresa está? Veja a [página do Método 5A](/metodo-5a/) ou comece pelo [diagnóstico rápido](/diagnostico-rapido/?origem=site-blog-metodo).

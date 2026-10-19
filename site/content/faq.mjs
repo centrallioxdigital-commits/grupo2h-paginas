@@ -8,7 +8,7 @@ export const faqGrupos = [
       { q: 'A 2!H é uma agência de tráfego?', a: 'Não. A 2!H não vende só anúncio. Organizamos a máquina de vendas digital da empresa: oferta, público, comunicação, aquisição, atendimento, comercial, rastreamento e dados, tudo conectado. Tráfego é uma das peças, não o trabalho inteiro.' },
       { q: 'Para quem a 2!H trabalha?', a: 'Para donos e sócios de empresas já estabelecidas, com faturamento consolidado, que já investiram em marketing antes e querem parar de operar no achismo.' },
       { q: 'O que vocês chamam de conta aberta?', a: 'É a forma como trabalhamos com transparência: você acompanha os números reais da sua operação, com rastreamento validado, em vez de receber um relatório maquiado no fim do mês.' },
-      { q: 'O que é o Método 5A?', a: 'É o método da 2!H para estruturar crescimento em cinco fases: Análise, Alinhamento, Aquisição, Acompanhamento e Aceleração. Ele pode ser aprendido na Imersão, construído em grupo na Mentoria 5A ou aplicado individualmente no Diagnóstico Estratégico 5A.' },
+      { q: 'O que é o Método 5A?', a: 'É o método da 2!H para estruturar crescimento em cinco fases: Análise, Alinhamento, Aquisição, Acompanhamento e Aceleração. Ele é a base de todos os serviços da 2!H.' },
     ],
   },
   {
@@ -21,11 +21,10 @@ export const faqGrupos = [
     ],
   },
   {
-    grupo: 'Serviços e programas',
+    grupo: 'Serviços',
     itens: [
       { q: 'Qual a diferença entre o EDB e o Growth Control?', a: 'O EDB monta a fundação: site, rastreamento, funil e presença, em 8 semanas. O Growth Control é a gestão de tráfego com controle e dados, para quem já tem essa base e quer rodar campanha com clareza de número.' },
-      { q: 'Vocês executam ou ensinam?', a: 'Os dois. Os serviços da escada (EDB, Growth Control, Growth Marketing, Growth Intelligence e Lançamentos) são executados pela 2!H. Os programas do Método 5A (Imersão, Mentoria e Diagnóstico Estratégico) são para você construir o sistema da sua empresa com acompanhamento.' },
-      { q: 'Qual a diferença entre a Mentoria 5A e o Diagnóstico Estratégico 5A?', a: 'A Mentoria 5A é em grupo, por 12 semanas, com outros empresários. O Diagnóstico Estratégico 5A é individual: o mesmo Método 5A aplicado na sua empresa, 1x1, com atenção total ao seu caso.' },
+      { q: 'A 2!H executa ou ensina?', a: 'A 2!H executa. Os serviços da escada (EDB, Growth Control, Growth Marketing, Growth Intelligence e Lançamentos) são feitos pelo time da 2!H, junto com a sua equipe.' },
       { q: 'Com quais canais vocês trabalham?', a: 'Os canais mais comuns nos nossos diagnósticos e operações são Meta Ads, Google Ads, Instagram e WhatsApp, sempre conectados ao atendimento, ao comercial e ao CRM.' },
     ],
   },

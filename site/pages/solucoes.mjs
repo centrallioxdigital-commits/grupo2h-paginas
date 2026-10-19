@@ -6,7 +6,6 @@ import { pagina, diag, ctaFinal, faqLD, trilha, capa, ORG_ID, foto } from '../li
 const FOTO = { edb: ['estrategia-quadro', 'Time planejando a estrutura de aquisição num quadro de post-its'], 'growth-control': ['painel-anuncios', 'Painel de métricas de anúncios na tela'], 'growth-marketing': ['reuniao-maos', 'Time de marketing e comercial reunido em volta da mesa'], 'growth-intelligence': ['dashboard-escuro', 'Dashboard com gráficos de desempenho na tela'], lancamentos: ['lancamento-palco', 'Palestrante no palco de um evento ao vivo, com telões e plateia cheia'] };
 import { escadaHTML } from './home.mjs';
 import { servicos } from '../content/servicos.mjs';
-import { programas } from '../content/metodo.mjs';
 import { ilMedidor3d } from '../lib/ilustracoes3d.mjs';
 import { ilCamadas3d, ilConvergencia3d, ilDecisao3d, ilLancamento3d } from '../lib/ilustracoes-solucoes.mjs';
 import { ilCamadas, ilConvergencia, ilDecisao, ilLancamento, ilEscada } from '../lib/ilustracoes.mjs';
@@ -40,15 +39,6 @@ ${capa({ trilhaHtml: t.html, titulo: 'Uma escada,', tituloOuro: 'não um pacote.
     <div class="sec-cab" data-revela><h2 class="h2">Qual degrau faz sentido agora?</h2><p class="lead">Um resumo para comparar. A conversa de diagnóstico confirma o degrau com você.</p></div>
     <div class="compara compara-5" style="--cols:5" data-revela-filhos>${linhas.map((l) => `<article class="cmp-card"><div class="cmp-topo">${icon(por[l.s].icone)}<div><h3>${esc(por[l.s].nome)}</h3><small>${esc(l.formato)}</small></div></div><dl><div class="cmp-linha"><dt>Quando faz sentido</dt><dd>${esc(l.quando)}</dd></div><div class="cmp-linha"><dt>Você passa a ter</dt><dd>${esc(l.entrega)}</dd></div></dl><a class="btn btn-linha btn-sm" href="${u(`solucoes/${l.s}/`)}">Conhecer ${icon('arrow-right')}</a></article>`).join('')}</div>
     <p class="lead" style="margin-top:22px;font-size:.98rem">O investimento de cada serviço é apresentado depois da conversa de diagnóstico, junto com a proposta feita para o seu caso.</p>
-  </div>
-</section>
-
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-cab" data-revela><p class="etq">Programas</p><h2 class="h2 h2-larga">Quer construir o sistema com o seu time?</h2><p class="lead">Os programas do Método 5A ensinam e acompanham a construção dentro da sua empresa.</p></div>
-    <div class="bento">${programas
-      .map((p) => `<article class="bt bt-prog" data-revela><p class="fmt">${esc(p.formato)}</p><h3>${esc(p.nome)}</h3><p>${esc(p.frase)}</p><a class="dg-link" href="${p.link}">${esc(p.cta)} ${icon('arrow-right')}</a></article>`)
-      .join('')}</div>
   </div>
 </section>
 
