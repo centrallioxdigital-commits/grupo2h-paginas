@@ -31,6 +31,10 @@ Contato: contato@grupo2h.com.br · WhatsApp (15) 99750-9239 · Diagnóstico ráp
 - Aceleração: Cresça somente quando o sistema estiver pronto.
 
 ## Blog
+- [Os 7 números que o dono da empresa precisa ver toda semana](https://grupo2h.com.br/blog/os-numeros-que-o-dono-precisa-ver-toda-semana/): Relatório com 40 gráficos não decide nada. O painel semanal mínimo, da mídia ao caixa, para crescer com previsibilidade e saber onde está o gargalo.
+- [Devolva a venda para o Meta e o Google](https://grupo2h.com.br/blog/devolva-a-venda-para-o-meta-e-o-google/): Se a plataforma só sabe quem virou lead, ela busca mais leads, não clientes. Como API de Conversões e conversões offline ensinam o anúncio a achar quem compra.
+- [Tempo de resposta no WhatsApp: o gargalo que derruba suas vendas](https://grupo2h.com.br/blog/tempo-de-resposta-no-whatsapp/): O lead que você pagou para gerar esfria em minutos. Como medir o tempo de resposta no WhatsApp e criar um SLA de atendimento que não deixa venda na mesa.
+- [Público aberto no Meta Ads: o criativo virou a sua segmentação](https://grupo2h.com.br/blog/criativo-e-a-nova-segmentacao/): Com público aberto, quem escolhe para quem o anúncio aparece é o próprio criativo. Veja como fazer a mensagem atrair quem compra e afastar quem não compra.
 - [CPL barato não significa operação lucrativa](https://grupo2h.com.br/blog/cpl-barato-nao-significa-operacao-lucrativa/): Um custo por lead menor não garante venda nem lucro. Veja como ler o caminho inteiro, do dinheiro investido ao dinheiro que volta para o caixa.
 - [Antes de escalar o tráfego: 5 perguntas que a sua estrutura precisa responder](https://grupo2h.com.br/blog/antes-de-escalar-o-trafego-5-perguntas/): Mais tráfego não corrige uma estrutura quebrada. As 5 perguntas que oferta, atendimento, comercial, rastreamento e margem precisam responder antes.
 - [Marketing culpa vendas, vendas culpa marketing: como acabar com essa discussão](https://grupo2h.com.br/blog/marketing-culpa-vendas-vendas-culpa-marketing/): A briga entre marketing e comercial acaba quando os dois olham o mesmo funil, com o mesmo critério de lead qualificado e o mesmo número.
