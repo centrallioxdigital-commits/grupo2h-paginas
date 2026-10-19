@@ -9,9 +9,14 @@ CAPAS = {
   'antes-de-escalar-o-trafego-5-perguntas': ('1557804506-669a67965ba0', 'Estrutura digital'),
   'marketing-culpa-vendas-vendas-culpa-marketing': ('1517048676732-d65bc937f952', 'Comercial e CRM'),
   'o-que-e-o-metodo-5a': ('1542744173-8e7e53415bb0', 'Método 5A'),
+  'criativo-e-a-nova-segmentacao': ('1526628953301-3e589a6a8b74', 'Tráfego'),
+  'tempo-de-resposta-no-whatsapp': ('1519069060891-f8c50519bf39', 'Comercial e CRM'),
+  'devolva-a-venda-para-o-meta-e-o-google': ('1551288049-bebda4e38f71', 'Dados e rastreamento'),
+  'os-numeros-que-o-dono-precisa-ver-toda-semana': ('1779444480542-959afceec330', 'Estratégia'),
 }
 W, H = 1600, 900
 for slug, (pid, rot) in CAPAS.items():
+    if os.path.exists(os.path.join(STATIC, 'img', 'blog', f'{slug}.webp')): continue  # já gerada
     dados = urllib.request.urlopen(f'https://images.unsplash.com/photo-{pid}?w=1800&q=85&fm=jpg', timeout=60).read()
     im = Image.open(io.BytesIO(dados)).convert('RGB')
     s = max(W / im.width, H / im.height); im = im.resize((round(im.width * s), round(im.height * s)), Image.LANCZOS)
