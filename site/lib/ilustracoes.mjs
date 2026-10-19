@@ -188,22 +188,52 @@ export function ilConversa() {
   );
 }
 
-/** Soluções: a escada em perfil. */
+/** Soluções: a escada em perfil. Os degraus crescem, a linha de tendência
+ *  liga o topo de cada um e uma luz percorre o caminho até a escala. */
 export function ilEscada(servicos) {
   const n = servicos.length;
+  const BASE = 300, L = 80, PASSO = 96, X0 = 20;
+  const curto = (s) => s.nome.replace('Growth ', '').replace(' e coprodução', '');
+  const d = servicos.map((s, i) => {
+    const h = 70 + i * 52, x = X0 + i * PASSO, y = BASE - h;
+    return { s, i, h, x, y, cx: x + L / 2, topo: i === n - 1 };
+  });
+  const rota = d.map((p, i) => `${i ? 'L' : 'M'}${p.cx} ${p.y}`).join(' ');
+  const fim = d[n - 1];
+  const grade = [0, 1, 2, 3].map((k) => `<line x1="0" x2="500" y1="${BASE - 70 - k * 70}" y2="${BASE - 70 - k * 70}" class="es-grade"/>`).join('');
   return fig(
     'il-escada',
-    `<svg viewBox="0 0 460 340" aria-hidden="true">
-      ${servicos
-        .map((s, i) => {
-          const x = 20 + i * 84, y = 286 - (i + 1) * 50, h = (i + 1) * 50;
-          return `<g class="es-d" style="--k:${i}"><rect x="${x}" y="${y}" width="80" height="${h}" rx="6" class="es-r${i === n - 1 ? ' es-topo' : ''}"/><text x="${x + 40}" y="${y - 12}" text-anchor="middle" class="il-tx${i === n - 1 ? ' il-tx-ouro' : ''}">${esc(s.nome.split(' ')[0])}</text></g>`;
-        })
+    `<svg viewBox="0 0 500 360" aria-hidden="true">
+      <defs>
+        <linearGradient id="es-brilho" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5C328" stop-opacity=".55"/><stop offset=".45" stop-color="#F5C328" stop-opacity=".12"/><stop offset="1" stop-color="#F5C328" stop-opacity="0"/></linearGradient>
+        <linearGradient id="es-ouro" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE58F"/><stop offset=".5" stop-color="#F5C328"/><stop offset="1" stop-color="#B9850B"/></linearGradient>
+        <linearGradient id="es-chao" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".05"/><stop offset=".6" stop-color="#F5C328" stop-opacity=".5"/><stop offset="1" stop-color="#F5C328"/></linearGradient>
+        <radialGradient id="es-halo"><stop offset="0" stop-color="#F5C328" stop-opacity=".5"/><stop offset="1" stop-color="#F5C328" stop-opacity="0"/></radialGradient>
+      </defs>
+      ${grade}
+      <ellipse cx="${fim.cx}" cy="${fim.y + 40}" rx="120" ry="110" fill="url(#es-halo)" class="es-aura"/>
+      ${d
+        .map(
+          (p) => `<g class="es-d${p.topo ? ' es-d-topo' : ''}" style="--k:${p.i}">
+        <g class="es-barra">
+          <rect x="${p.x}" y="${p.y}" width="${L}" height="${p.h}" rx="10" class="es-r"/>
+          <rect x="${p.x}" y="${p.y}" width="${L}" height="${p.h}" rx="10" fill="url(#${p.topo ? 'es-ouro' : 'es-brilho'})" style="opacity:${p.topo ? 1 : (0.35 + p.i * 0.16).toFixed(2)}"/>
+          <rect x="${p.x + 0.5}" y="${p.y + 0.5}" width="${L - 1}" height="${p.h - 1}" rx="9.5" class="es-borda"/>
+          <line x1="${p.x + 14}" x2="${p.x + L - 14}" y1="${p.y + 1}" y2="${p.y + 1}" class="es-cap"/>
+          <text x="${p.x + 14}" y="${p.y + 28}" class="es-num">${String(p.i + 1).padStart(2, '0')}</text>
+        </g>
+        <text x="${p.cx}" y="${BASE + 30}" text-anchor="middle" class="es-nome">${esc(curto(p.s))}</text>
+        <text x="${p.cx}" y="${BASE + 49}" text-anchor="middle" class="es-grau">${esc(p.s.degrau)}</text>
+      </g>`
+        )
         .join('')}
-      <line x1="10" y1="287" x2="450" y2="287" class="es-chao"/>
-      <text x="20" y="318" class="il-tx il-tx-m">Fundação</text><text x="440" y="318" text-anchor="end" class="il-tx il-tx-m">Escala</text>
+      <line x1="0" y1="${BASE + 0.5}" x2="500" y2="${BASE + 0.5}" stroke="url(#es-chao)" class="es-base"/>
+      <path d="${rota}" pathLength="1" class="es-rota"/>
+      <path d="${rota}" pathLength="1" class="es-luz"/>
+      ${d.map((p) => `<circle cx="${p.cx}" cy="${p.y}" r="${p.topo ? 6 : 4}" class="es-pt${p.topo ? ' es-pt-topo' : ''}" style="--k:${p.i}"/>`).join('')}
+      <circle cx="${fim.cx}" cy="${fim.y}" r="6" class="es-ping"/>
     </svg>`,
-    'Os cinco serviços da 2!H desenhados como degraus de uma escada, da fundação à escala.'
+    'Os cinco serviços da 2!H desenhados como degraus que sobem, da fundação (EDB) à escala (Lançamentos), ligados por uma linha de crescimento.'
   );
 }
 

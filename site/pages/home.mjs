@@ -89,7 +89,7 @@ export function escadaHTML(origem = 'home') {
   </article>`
     )
     .join('')}</div>
-  <div class="escada-base"><span>Primeiro a estrutura</span><span>Depois a escala</span></div>`;
+  <div class="escada-base"><span>Primeiro a estrutura</span><i class="eb-trilho" aria-hidden="true"></i><span>Depois a escala</span></div>`;
 }
 
 export function bentoMetodo() {
