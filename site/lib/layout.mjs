@@ -92,16 +92,12 @@ export const faqLD = (itens) => ({
 function cabecalho(atual) {
   const mega = `
 <div class="mega" id="mega-solucoes">
-  <div class="mega-in">
+  <div class="mega-in mega-uma">
     <div class="mega-col">
       <p class="mega-tit">A escada de serviços</p>
       <ul class="mega-lista">${servicos
         .map((s) => `<li><a href="${u(`solucoes/${s.slug}/`)}">${icon(s.icone)}<span><b>${esc(s.nome)}</b><small>${esc(s.nomeLongo)}</small></span></a></li>`)
         .join('')}</ul>
-    </div>
-    <div class="mega-col">
-      <p class="mega-tit">Método 5A</p>
-      <ul class="mega-lista"><li><a href="${u('metodo-5a/')}">${icon('graph')}<span><b>O Método 5A</b><small>Cinco fases para crescer sem quebrar</small></span></a></li></ul>
       <a class="mega-todas" href="${u('solucoes/')}">Ver todas as soluções ${icon('arrow-right')}</a>
     </div>
   </div>
