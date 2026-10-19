@@ -1,0 +1,56 @@
+# grupo2h.com.br
+# Buscadores e IAs são bem-vindos: queremos que o Grupo 2!H seja encontrado e citado.
+
+User-agent: *
+Allow: /
+Disallow: /blog/admin/
+
+User-agent: GPTBot
+Allow: /
+Disallow: /blog/admin/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /blog/admin/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /blog/admin/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /blog/admin/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /blog/admin/
+
+User-agent: Claude-User
+Allow: /
+Disallow: /blog/admin/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /blog/admin/
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /blog/admin/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /blog/admin/
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /blog/admin/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /blog/admin/
+
+User-agent: Googlebot
+Allow: /
+Disallow: /blog/admin/
+
+Sitemap: https://grupo2h.com.br/sitemap.xml

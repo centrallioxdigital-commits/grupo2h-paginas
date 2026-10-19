@@ -1,6 +1,6 @@
 {
   "_leia": "modo 'previa' publica em grupo2h.com.br/novo/ sem aparecer no Google. Para colocar no ar na raiz do domínio, troque para 'producao' (ver site/README.md, seção 'Virar a chave').",
-  "modo": "previa",
+  "modo": "producao",
   "dominio": "https://grupo2h.com.br",
   "previa": { "base": "/novo/", "saida": "novo" },
   "producao": { "base": "/", "saida": "." },

@@ -182,7 +182,7 @@ const CONFIG = {
   // O parâmetro source separa os fluxos dentro do n8n. O workflow precisa estar ATIVO.
   WEBHOOK_URL: "https://n8n-n8n-start.dnjlb7.easypanel.host/webhook/grupo2h?source=diagnostico-rapido",
   // Para onde vai quem ainda não está no momento de um projeto ("FORA DO ICP"). Vazio = sem botão.
-  CONTENT_URL: "/novo/blog/antes-de-escalar-o-trafego-5-perguntas/",
+  CONTENT_URL: "/blog/antes-de-escalar-o-trafego-5-perguntas/",
   CONTENT_LABEL: "Ler: 5 perguntas antes de investir em tráfego",
   // WhatsApp oficial da 2!H (o mesmo do site). O lead QUALIFICADO ganha o botão para adiantar a conversa.
   WHATSAPP_COMERCIAL: "5515997509239"
@@ -390,7 +390,7 @@ function renderForm() {
     '<div class="field"><label for="empresa">Empresa</label><input id="empresa" name="empresa" autocomplete="organization" autocapitalize="words" enterkeyhint="next" placeholder="Nome da empresa" aria-label="Nome da empresa" required><div class="err" id="e-empresa"></div></div>' +
     '<div class="field"><label for="whats">WhatsApp</label><input id="whats" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" enterkeyhint="send" placeholder="WhatsApp com DDD" aria-label="WhatsApp com DDD" required><div class="err" id="e-whats"></div></div>' +
     '<button class="send" type="submit">Enviar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>' +
-    '<p class="legal">Ao enviar, você autoriza a 2!H a usar estes dados para entrar em contato pelo WhatsApp, conforme a <a href="/novo/privacidade/" target="_blank" rel="noopener">política de privacidade</a>.</p>' +
+    '<p class="legal">Ao enviar, você autoriza a 2!H a usar estes dados para entrar em contato pelo WhatsApp, conforme a <a href="/privacidade/" target="_blank" rel="noopener">política de privacidade</a>.</p>' +
     "</form>";
   const f = document.getElementById("lead"), nome = f.nome, empresa = f.empresa, whats = f.whats;
   whats.addEventListener("input", () => { whats.value = maskPhone(whats.value); });
