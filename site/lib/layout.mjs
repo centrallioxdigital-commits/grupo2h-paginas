@@ -75,6 +75,7 @@ const siteLD = () => ({
   '@id': SITE_ID,
   url: abs(''),
   name: empresa.nome,
+  alternateName: ['2!H', 'Grupo 2H'],
   inLanguage: 'pt-BR',
   publisher: { '@id': ORG_ID },
 });
@@ -192,17 +193,27 @@ function rodape() {
  *  imagem (URL absoluta da imagem de compartilhamento), tipo ('website'|'article'),
  *  noindex, navAtual, classe, extraHead, semCabecalho, semGTM, semProtecao, scripts
  */
+// Prévia de link (WhatsApp, Instagram, LinkedIn): um cartão por página,
+// gerado por tools/og.py em static/img/og/. Página sem cartão usa o da home.
+const OG = {
+  'sobre/': 'sobre', 'como-funciona/': 'como-funciona', 'metodo-5a/': 'metodo-5a', 'solucoes/': 'solucoes',
+  'solucoes/edb/': 'edb', 'solucoes/growth-control/': 'growth-control', 'solucoes/growth-marketing/': 'growth-marketing',
+  'solucoes/growth-intelligence/': 'growth-intelligence', 'solucoes/lancamentos/': 'lancamentos',
+  'blog/': 'blog', 'contato/': 'contato', 'perguntas-frequentes/': 'perguntas-frequentes', 'glossario/': 'glossario',
+};
+const ogDaPagina = (path) => OG[path] || (path.startsWith('blog/') ? 'blog' : 'home');
+
 export function pagina(o) {
   const titulo = o.tituloCompleto || `${o.titulo} | Grupo 2!H`;
   const url = abs(o.path ?? '');
-  const imagem = o.imagem || assetAbs('img/og-padrao.png');
+  const imagem = o.imagem || assetAbs(`img/og/${ogDaPagina(o.path ?? '')}.jpg`);
   const noindex = !cfg.producao || o.noindex;
   const ld = {
     '@context': 'https://schema.org',
     '@graph': [
       organizacaoLD(),
       siteLD(),
-      { '@type': o.tipoPagina || 'WebPage', '@id': url + '#pagina', url, name: titulo, description: o.descricao, inLanguage: 'pt-BR', isPartOf: { '@id': SITE_ID }, about: { '@id': ORG_ID }, ...(o.dataModificada ? { dateModified: o.dataModificada } : {}) },
+      { '@type': o.tipoPagina || 'WebPage', '@id': url + '#pagina', url, name: titulo, description: o.descricao, inLanguage: 'pt-BR', isPartOf: { '@id': SITE_ID }, about: { '@id': ORG_ID }, primaryImageOfPage: { '@type': 'ImageObject', url: imagem }, ...(o.dataModificada ? { dateModified: o.dataModificada } : {}) },
       ...(o.ld || []),
     ],
   };
@@ -224,12 +235,14 @@ ${noindex ? '<meta name="robots" content="noindex, nofollow">' : '<meta name="ro
 <meta property="og:description" content="${esc(o.descricao)}">
 <meta property="og:url" content="${url}">
 <meta property="og:image" content="${esc(imagem)}">
-<meta property="og:image:alt" content="${esc(o.imagemAlt || 'Grupo 2!H')}">
+${o.imagem ? '' : '<meta property="og:image:type" content="image/jpeg">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'}<meta property="og:image:alt" content="${esc(o.imagemAlt || titulo)}">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${esc(imagem)}">
 <meta name="theme-color" content="#0B0B0D">
 <meta name="format-detection" content="telephone=no">
-<link rel="icon" href="${asset('img/favicon-32.png')}" sizes="32x32" type="image/png">
-<link rel="icon" href="${asset('img/favicon-64.png')}" sizes="64x64" type="image/png">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="${asset('img/favicon-96.png')}" sizes="96x96" type="image/png">
+<link rel="icon" href="${asset('img/icon-192.png')}" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="${asset('img/apple-touch-icon.png')}">
 <link rel="manifest" href="${u('site.webmanifest')}">
 <link rel="alternate" type="application/rss+xml" title="Blog do Grupo 2!H" href="${u('blog/rss.xml')}">
