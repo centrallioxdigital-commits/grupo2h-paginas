@@ -206,7 +206,7 @@ export function home({ posts }) {
       <p class="manif-txt" style="margin-top:28px" data-acende>A 2!H não vende só anúncio. Organizamos a máquina de vendas digital da sua empresa: oferta, público, comunicação, aquisição, atendimento, comercial, rastreamento e dados, <span class="ouro">tudo conectado.</span></p>
     </div>
     <div class="manif-lado">
-      ${foto('time-reuniao', 'Time de marketing e comercial reunido em volta de uma mesa', { sizes: '(max-width: 900px) 100vw, 40vw' })}
+      ${foto('time-reuniao', 'Equipe do Grupo 2!H acompanhando uma transmissão ao vivo no estúdio', { sizes: '(max-width: 900px) 100vw, 40vw' })}
       <div class="manif-selo" data-revela>${circuloTrafego()}<p><b>Tráfego sem estrutura</b> é dinheiro rodando em círculo.</p></div>
     </div>
   </div>
