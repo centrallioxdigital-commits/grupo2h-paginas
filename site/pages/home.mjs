@@ -245,7 +245,7 @@ export function home({ posts }) {
         <h2 class="h2">Conta aberta. Número real, não relatório maquiado.</h2>
         <p class="lead">A maioria das empresas que chega até nós já se queimou com agência antes. Não só por falta de resultado, por falta de transparência. Por isso trabalhamos com conta aberta: você acompanha os números reais, com rastreamento validado.</p>
       </div>
-      ${foto('conta-dashboard', 'Notebook aberto com o painel de métricas de vendas e anúncios na tela', { legenda: `<figcaption class="foto-leg">${icon('eye')} Você vê o mesmo número que a gente vê.</figcaption>` })}
+      ${foto('conta-dashboard', 'Reunião do Grupo 2!H acompanhando os números da operação no notebook', { legenda: `<figcaption class="foto-leg">${icon('eye')} Você vê o mesmo número que a gente vê.</figcaption>` })}
     </div>
     <div class="comp" data-revela>
       <div class="comp-col"><p class="comp-tit">${icon('x-circle')} O que costuma acontecer</p><ul>${COMPARA.antes.map((x) => `<li>${icon('x')}${esc(x)}</li>`).join('')}</ul></div>
@@ -263,7 +263,7 @@ export function home({ posts }) {
         <p class="lead">O método que a 2!H usa em todos os projetos: só se acelera o que já foi analisado, alinhado e medido.</p>
         <a class="dg-link" href="${u('metodo-5a/')}">Conhecer o Método 5A ${icon('arrow-right')}</a>
       </div>
-      ${foto('workshop', 'Encontro de empresários aprendendo o método em uma sala de reunião')}
+      ${foto('workshop', 'Reunião do Grupo 2!H com o método explicado no quadro branco')}
     </div>
     ${bentoMetodo()}
   </div>
