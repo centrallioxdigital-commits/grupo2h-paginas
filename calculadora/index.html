@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora EPE · Google Ads | Grupo 2!H</title>
+<meta name="description" content="Descubra quanto você pode pagar por contato e por venda antes de anunciar no Google. Método EPE: Estruturar, Planejar e Executar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E0F12; --ink-2:#4A4D55; --ink-3:#6B6E76;
+  --paper:#F5F3EE; --card:#FDFCF9; --line:#E2DED3; --line-2:#D8D3C6;
+  --gold:#C9A24B; --gold-ink:#7A5C17; --gold-soft:#EAE3CF;
+  --ok:#1F7A4D; --ok-soft:#E3F1E8; --bad:#B23A2E; --bad-soft:#F6E3E0;
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'DM Sans',Arial,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Montserrat',Arial,sans-serif;margin:0;line-height:1.15}
+a{color:var(--gold-ink)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.hero{background:var(--ink);color:var(--paper);padding:48px 0 40px}
+.brand{display:flex;align-items:center;gap:12px;font-family:'Montserrat',sans-serif;font-weight:800;letter-spacing:.5px}
+.brand .logo{width:40px;height:40px;border-radius:10px;background:var(--gold);color:var(--ink);display:grid;place-items:center;font-size:15px}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+.hero h1{font-size:clamp(30px,5vw,48px);font-weight:800;margin:20px 0 12px;letter-spacing:-.5px}
+.hero h1 span{color:var(--gold)}
+.hero p{color:#B9B6AD;font-size:18px;max-width:680px;margin:0}
+.steps{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.steps span{border:1px solid #2C2E35;border-radius:999px;padding:6px 14px;font-size:14px;color:#D9D6CD}
+.steps b{color:var(--gold)}
+main{padding:32px 0 64px}
+section.block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;margin-bottom:24px}
+.block-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;flex-wrap:wrap}
+.num{font-family:'Montserrat',sans-serif;font-weight:800;color:var(--gold);font-size:22px}
+.block h2{font-size:22px;font-weight:800}
+.block .lead{color:var(--ink-2);margin:0 0 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+label{display:block;font-weight:700;font-size:14px;margin-bottom:6px}
+.hint{display:block;font-weight:400;color:var(--ink-3);font-size:13px;margin-top:4px}
+.field{position:relative}
+.field input,.field textarea{width:100%;font:inherit;font-size:17px;padding:12px 14px;border:1px solid var(--line-2);border-radius:12px;background:#fff;color:var(--ink);outline:none;transition:border-color .15s, box-shadow .15s}
+.field input:focus,.field textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,75,.2)}
+.field.pre input{padding-left:44px}
+.field.suf input{padding-right:40px}
+.field .pre-t,.field .suf-t{position:absolute;top:38px;color:var(--ink-3);font-weight:700;pointer-events:none}
+.field .pre-t{left:14px}
+.field .suf-t{right:14px}
+.results{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:8px}
+.kpi{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:#fff}
+.kpi .k{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold-ink)}
+.kpi .v{font-family:'Montserrat',sans-serif;font-weight:800;font-size:28px;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.kpi .d{font-size:13px;color:var(--ink-3)}
+.kpi.dark{background:var(--ink);border-color:var(--ink)}
+.kpi.dark .k{color:var(--gold)}
+.kpi.dark .v{color:var(--paper)}
+.kpi.dark .d{color:#B9B6AD}
+.subhead{font-family:'Montserrat',sans-serif;font-weight:800;font-size:16px;margin:24px 0 10px}
+.alert{border-radius:12px;padding:14px 16px;margin-top:16px;font-weight:500}
+.alert.bad{background:var(--bad-soft);color:var(--bad)}
+.alert.ok{background:var(--ok-soft);color:var(--ok)}
+.alert.info{background:var(--gold-soft);color:#4E3B0E}
+.hidden{display:none}
+.compare{width:100%;border-collapse:collapse;margin-top:16px;font-variant-numeric:tabular-nums}
+.compare th,.compare td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line)}
+.compare th{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-3)}
+.tag{display:inline-block;border-radius:999px;padding:3px 10px;font-size:13px;font-weight:700}
+.tag.ok{background:var(--ok-soft);color:var(--ok)}
+.tag.bad{background:var(--bad-soft);color:var(--bad)}
+.tag.neu{background:#EEE;color:var(--ink-3)}
+.linkbox{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.linkbox code{flex:1 1 320px;min-width:0;background:#fff;border:1px dashed var(--line-2);border-radius:12px;padding:12px 14px;font-size:14px;word-break:break-all;color:var(--ink)}
+.btn{font:inherit;font-weight:700;font-size:15px;border-radius:12px;padding:12px 18px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.progress{height:10px;background:var(--line);border-radius:999px;overflow:hidden;margin:6px 0 4px}
+.progress i{display:block;height:100%;background:var(--gold);width:0;transition:width .25s}
+.check-group{margin-top:20px}
+.check-group h3{font-size:15px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gold-ink);margin-bottom:8px}
+.check{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.check input{width:20px;height:20px;margin-top:2px;accent-color:var(--ink);flex:none}
+.check.done span{color:var(--ink-3);text-decoration:line-through}
+.row-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+footer{background:var(--ink);color:#B9B6AD;padding:28px 0;font-size:14px}
+footer b{color:var(--paper)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.verse{font-style:italic}
+@media (max-width:560px){
+  section.block{padding:20px}
+  .kpi .v{font-size:24px}
+  .compare th:nth-child(3),.compare td:nth-child(3){display:none}
+}
+@media print{
+  header.hero,footer,.row-actions,.no-print{display:none!important}
+  body{background:#fff}
+  section.block{break-inside:avoid;border-color:#ccc}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="brand"><span class="logo">2!H</span><span>Grupo 2!H</span></div>
+    <h1>Calculadora <span>EPE</span> para Google Ads</h1>
+    <p>Descubra quanto você pode pagar por cada contato e por cada venda antes de investir R$ 1 em anúncio.</p>
+    <div class="steps"><span><b>E</b>struturar</span><span><b>P</b>lanejar</span><span><b>E</b>xecutar</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="block" aria-labelledby="t1">
+    <div class="block-head"><span class="num">01</span><h2 id="t1">Seu produto ou serviço</h2></div>
+    <p class="lead">Use os números de uma venda. Se vende vários itens, faça a conta do principal.</p>
+    <div class="grid">
+      <div class="field pre"><label for="preco">Preço de venda</label><span class="pre-t">R$</span><input id="preco" inputmode="decimal" placeholder="2.000,00"><span class="hint">Quanto o cliente paga.</span></div>
+      <div class="field pre"><label for="custo">Custo do produto ou serviço</label><span class="pre-t">R$</span><input id="custo" inputmode="decimal" placeholder="1.400,00"><span class="hint">Quanto custa para você entregar.</span></div>
+      <div class="field suf"><label for="imposto">Impostos e taxas</label><span class="suf-t">%</span><input id="imposto" inputmode="decimal" placeholder="0"><span class="hint">Imposto, maquininha, marketplace. Opcional.</span></div>
+      <div class="field pre"><label for="outros">Outros custos por venda</label><span class="pre-t">R$</span><input id="outros" inputmode="decimal" placeholder="0"><span class="hint">Comissão, frete, instalação. Opcional.</span></div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="t2">
+    <div class="block-head"><span class="num">02</span><h2 id="t2">Suas regras do jogo</h2></div>
+    <p class="lead">Os valores sugeridos são um ponto de partida. Troque pelos seus assim que começar a medir.</p>
+    <div class="grid">
+      <div class="field suf"><label for="pinv">Parte do lucro para investir</label><span class="suf-t">%</span><input id="pinv" inputmode="decimal" placeholder="40"><span class="hint">Quanto do lucro você aceita gastar para ganhar um cliente.</span></div>
+      <div class="field suf"><label for="fech">Taxa de fechamento</label><span class="suf-t">%</span><input id="fech" inputmode="decimal" placeholder="25"><span class="hint">De cada 100 conversas, quantas viram venda. 25% = 1 a cada 4.</span></div>
+      <div class="field suf"><label for="conv">Cliques que viram conversa</label><span class="suf-t">%</span><input id="conv" inputmode="decimal" placeholder="10"><span class="hint">De cada 100 cliques, quantos chamam no WhatsApp ou ligam.</span></div>
+      <div class="field"><label for="meta">Meta de vendas no mês</label><input id="meta" inputmode="numeric" placeholder="4"><span class="hint">Quantas vendas você quer que venham do Google.</span></div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="t3" aria-live="polite">
+    <div class="block-head"><span class="num">03</span><h2 id="t3">Seu norte</h2></div>
+    <p class="lead">Esses são os tetos. Abaixo deles, a campanha dá lucro. Acima, você sabe o que investigar.</p>
+    <div id="warn" class="alert bad hidden"></div>
+    <div class="results">
+      <div class="kpi"><div class="k">Lucro por venda</div><div class="v" id="r-lucro">R$ 0,00</div><div class="d" id="r-margem">Margem de 0%</div></div>
+      <div class="kpi"><div class="k">CPA máximo</div><div class="v" id="r-cpa">R$ 0,00</div><div class="d">O máximo por venda</div></div>
+      <div class="kpi dark"><div class="k">CPL máximo</div><div class="v" id="r-cpl">R$ 0,00</div><div class="d">O máximo por conversa. É o número do norte.</div></div>
+      <div class="kpi"><div class="k">CPC máximo</div><div class="v" id="r-cpc">R$ 0,00</div><div class="d">Use como limite de lance</div></div>
+    </div>
+    <div class="subhead">Do norte ao orçamento</div>
+    <div class="results">
+      <div class="kpi"><div class="k">Conversas no mês</div><div class="v" id="r-conversas">0</div><div class="d" id="r-cliques">0 cliques</div></div>
+      <div class="kpi"><div class="k">Orçamento mensal</div><div class="v" id="r-mensal">R$ 0,00</div><div class="d">Conversas × CPL máximo</div></div>
+      <div class="kpi dark"><div class="k">Orçamento diário</div><div class="v" id="r-diario">R$ 0,00</div><div class="d">Mensal ÷ 30,4. Vai na tela de orçamento.</div></div>
+      <div class="kpi"><div class="k">Lucro depois do anúncio</div><div class="v" id="r-final">R$ 0,00</div><div class="d" id="r-fat">Faturamento de R$ 0,00</div></div>
+    </div>
+    <div class="alert info" id="r-explica">Preencha preço e custo para ver o seu norte.</div>
+  </section>
+
+  <section class="block" aria-labelledby="t4">
+    <div class="block-head"><span class="num">04</span><h2 id="t4">Leitura depois de subir</h2></div>
+    <p class="lead">Na semana 4, coloque o que aconteceu de verdade. Conte as conversas que chegaram com a mensagem “Vim pelo anúncio”.</p>
+    <div class="grid">
+      <div class="field pre"><label for="gasto">Investimento no período</label><span class="pre-t">R$</span><input id="gasto" inputmode="decimal" placeholder="0"><span class="hint">Custo total no Google Ads.</span></div>
+      <div class="field"><label for="convReal">Conversas recebidas</label><input id="convReal" inputmode="numeric" placeholder="0"></div>
+      <div class="field"><label for="vendReal">Vendas fechadas</label><input id="vendReal" inputmode="numeric" placeholder="0"></div>
+    </div>
+    <table class="compare" aria-label="Resultado real comparado ao teto">
+      <thead><tr><th>Métrica</th><th>Real</th><th>Teto</th><th>Situação</th></tr></thead>
+      <tbody>
+        <tr><td>CPL (custo por conversa)</td><td id="c-cpl">-</td><td id="c-cplT">-</td><td id="c-cplS"><span class="tag neu">Sem dados</span></td></tr>
+        <tr><td>CPA (custo por venda)</td><td id="c-cpa">-</td><td id="c-cpaT">-</td><td id="c-cpaS"><span class="tag neu">Sem dados</span></td></tr>
+        <tr><td>Taxa de fechamento</td><td id="c-fech">-</td><td id="c-fechT">-</td><td id="c-fechS"><span class="tag neu">Sem dados</span></td></tr>
+      </tbody>
+    </table>
+    <div id="diag" class="alert info hidden"></div>
+  </section>
+
+  <section class="block" aria-labelledby="t5">
+    <div class="block-head"><span class="num">05</span><h2 id="t5">Link do WhatsApp para o anúncio</h2></div>
+    <p class="lead">Não tem site? Gere o link com a mensagem pronta. Lembre: o Google pode recusar esse destino. Se recusar, use um site grátis no Google Sites.</p>
+    <div class="grid">
+      <div class="field"><label for="wnum">WhatsApp com DDD</label><input id="wnum" inputmode="tel" placeholder="(15) 99999-9999"><span class="hint">Só o número brasileiro. O 55 entra sozinho.</span></div>
+      <div class="field"><label for="wmsg">Mensagem pronta</label><input id="wmsg" placeholder="Olá! Vim pelo anúncio e gostaria de fazer um orçamento"></div>
+    </div>
+    <div class="linkbox">
+      <code id="wlink">Digite o número para gerar o link.</code>
+      <button class="btn" id="wcopy" type="button">Copiar link</button>
+      <a class="btn ghost" id="wtest" href="#" target="_blank" rel="noopener">Testar</a>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="t6">
+    <div class="block-head"><span class="num">06</span><h2 id="t6">Checklist da campanha</h2></div>
+    <p class="lead">Marque na ordem. O que você marcar fica salvo neste navegador.</p>
+    <div class="progress" aria-hidden="true"><i id="pbar"></i></div>
+    <div class="hint" id="ptext">0 de 0 itens</div>
+    <div id="checklist"></div>
+    <div class="row-actions">
+      <button class="btn gold" type="button" onclick="window.print()">Imprimir ou salvar em PDF</button>
+      <button class="btn ghost" type="button" id="reset">Limpar tudo</button>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b>Método EPE</b> · Grupo 2!H · Estude também o módulo 7Ps da comunidade.</div>
+    <div class="verse">“Os planos bem elaborados levam à fartura.” Provérbios 21:5</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var KEY='epe-calc-v1';
+  var store={};
+  try{store=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){store={};}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+
+  var DEF={pinv:'40',fech:'25',conv:'10',meta:'4',wmsg:'Olá! Vim pelo anúncio e gostaria de fazer um orçamento'};
+  var fields=['preco','custo','imposto','outros','pinv','fech','conv','meta','gasto','convReal','vendReal','wnum','wmsg'];
+  var $=function(id){return document.getElementById(id);};
+
+  function parseBR(v){
+    if(v==null) return NaN;
+    var s=String(v).trim().replace(/[R$\s%]/g,'');
+    if(!s) return NaN;
+    if(s.indexOf(',')>-1){ s=s.replace(/\./g,'').replace(',','.'); }
+    else if(/^\d{1,3}(\.\d{3})+$/.test(s)){ s=s.replace(/\./g,''); }
+    var n=parseFloat(s);
+    return isFinite(n)?n:NaN;
+  }
+  function val(id){
+    var raw=$(id).value;
+    var n=parseBR(raw);
+    if(isNaN(n) && DEF[id]!==undefined) n=parseBR(DEF[id]);
+    return isNaN(n)?0:n;
+  }
+  var brl=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
+  var int=new Intl.NumberFormat('pt-BR',{maximumFractionDigits:0});
+  var pct=new Intl.NumberFormat('pt-BR',{maximumFractionDigits:1});
+  function money(n){return isFinite(n)?brl.format(n):'-';}
+
+  function calc(){
+    var preco=val('preco'), custo=val('custo'), imp=val('imposto'), outros=val('outros');
+    var pinv=val('pinv'), fech=val('fech'), conv=val('conv'), meta=val('meta');
+    var impostos=preco*imp/100;
+    var lucro=preco-custo-impostos-outros;
+    var margem=preco>0?lucro/preco*100:0;
+    var warn=$('warn');
+    var has=preco>0;
+
+    if(has && lucro<=0){
+      warn.textContent='Com esses números não sobra lucro por venda. Sem lucro, não há espaço para anúncio: revise preço, custo ou taxas antes de anunciar.';
+      warn.classList.remove('hidden');
+    } else if(has && (fech<=0||conv<=0||pinv<=0)){
+      warn.textContent='Preencha a parte do lucro, a taxa de fechamento e a taxa de conversa com valores maiores que zero.';
+      warn.classList.remove('hidden');
+    } else { warn.classList.add('hidden'); }
+
+    var ok=has && lucro>0 && fech>0 && conv>0 && pinv>0;
+    var cpa=ok?lucro*pinv/100:0;
+    var cpl=ok?cpa*fech/100:0;
+    var cpc=ok?cpl*conv/100:0;
+    var conversas=ok&&meta>0?Math.ceil(meta/(fech/100)):0;
+    var cliques=ok&&conversas>0?Math.ceil(conversas/(conv/100)):0;
+    var mensal=conversas*cpl;
+    var diario=mensal/30.4;
+    var fat=meta*preco;
+    var final=meta*lucro-mensal;
+
+    $('r-lucro').textContent=money(has?lucro:0);
+    $('r-margem').textContent='Margem de '+pct.format(has?margem:0)+'%';
+    $('r-cpa').textContent=money(cpa);
+    $('r-cpl').textContent=money(cpl);
+    $('r-cpc').textContent=money(cpc);
+    $('r-conversas').textContent=int.format(conversas);
+    $('r-cliques').textContent=int.format(cliques)+' cliques no mês';
+    $('r-mensal').textContent=money(mensal);
+    $('r-diario').textContent=money(diario);
+    $('r-final').textContent=money(ok?final:0);
+    $('r-fat').textContent='Faturamento de '+money(ok?fat:0);
+
+    var ex=$('r-explica');
+    if(ok){
+      ex.innerHTML='Cada venda deixa <b>'+money(lucro)+'</b> de lucro. Investindo até '+pct.format(pinv)+'% dele, cada venda pode custar até <b>'+money(cpa)+'</b>. Fechando '+pct.format(fech)+'% das conversas, cada conversa pode custar até <b>'+money(cpl)+'</b>. Para '+int.format(meta)+' vendas no mês, coloque cerca de <b>'+money(diario)+' por dia</b> na campanha. A venda empata (sem lucro) se custar '+money(lucro)+'.';
+    } else {
+      ex.textContent='Preencha preço e custo para ver o seu norte.';
+    }
+
+    // leitura real
+    var gasto=parseBR($('gasto').value), cr=parseBR($('convReal').value), vr=parseBR($('vendReal').value);
+    gasto=isNaN(gasto)?0:gasto; cr=isNaN(cr)?0:cr; vr=isNaN(vr)?0:vr;
+    var cplR=cr>0?gasto/cr:NaN, cpaR=vr>0?gasto/vr:NaN, fechR=cr>0?vr/cr*100:NaN;
+    setRow('c-cpl','c-cplT','c-cplS', isNaN(cplR)?'-':money(cplR), ok?money(cpl):'-', status(cplR,cpl,ok,true));
+    setRow('c-cpa','c-cpaT','c-cpaS', isNaN(cpaR)?'-':money(cpaR), ok?money(cpa):'-', status(cpaR,cpa,ok,true));
+    setRow('c-fech','c-fechT','c-fechS', isNaN(fechR)?'-':pct.format(fechR)+'%', ok?pct.format(fech)+'%':'-', status(fechR,fech,ok,false));
+
+    var d=$('diag');
+    if(ok && gasto>0){
+      d.classList.remove('hidden','ok','bad','info');
+      var msg, cls;
+      if(cr===0){ cls='bad'; msg='Investimento sem nenhuma conversa. Veja se o anúncio está aparecendo (impressões) e sendo clicado. Se há cliques e nenhuma conversa, o problema está no destino ou na oferta.'; }
+      else if(cplR>cpl && (isNaN(cpaR)||cpaR>cpa)){ cls='bad'; msg='O contato está acima do teto. Leia de cima para baixo: pouca impressão, pouco clique ou clique sem conversa? Ajuste anúncio, palavras e destino antes de aumentar o orçamento.'; }
+      else if(cplR<=cpl && (isNaN(cpaR)||cpaR>cpa)){ cls='bad'; msg='O anúncio está entregando contato no preço certo, mas a venda não fecha. O vazamento está no atendimento ou no comercial: responda em minutos, tenha roteiro e faça follow-up.'; }
+      else if(cplR>cpl && cpaR<=cpa){ cls='info'; msg='O contato está caro, mas o seu fechamento compensa e a venda ficou dentro do teto. Atualize a sua taxa de fechamento real na etapa 02 e refaça o norte.'; }
+      else { cls='ok'; msg='Dentro do norte. Cresça o orçamento aos poucos, em degraus, e continue limpando os termos de pesquisa toda semana.'; }
+      d.classList.add(cls); d.textContent=msg;
+    } else { d.classList.add('hidden'); }
+
+    // whatsapp
+    var num=String($('wnum').value||'').replace(/\D/g,'');
+    if(num.indexOf('55')===0 && num.length>=12) num=num.slice(2);
+    var msgW=$('wmsg').value.trim()||DEF.wmsg;
+    var link=$('wlink'), test=$('wtest');
+    if(num.length>=10){
+      var url='https://wa.me/55'+num+'?text='+encodeURIComponent(msgW);
+      link.textContent=url; test.href=url; test.removeAttribute('aria-disabled');
+    } else {
+      link.textContent='Digite o número com DDD para gerar o link.'; test.href='#'; test.setAttribute('aria-disabled','true');
+    }
+  }
+  function status(real,teto,ok,lowerBetter){
+    if(!ok||isNaN(real)) return '<span class="tag neu">Sem dados</span>';
+    var good=lowerBetter?real<=teto:real>=teto;
+    return good?'<span class="tag ok">Dentro do norte</span>':'<span class="tag bad">'+(lowerBetter?'Acima do teto':'Abaixo do esperado')+'</span>';
+  }
+  function setRow(a,b,c,va,vb,vc){$(a).textContent=va;$(b).textContent=vb;$(c).innerHTML=vc;}
+
+  fields.forEach(function(id){
+    var el=$(id);
+    if(store[id]!=null) el.value=store[id];
+    else if(DEF[id]!==undefined && id!=='wmsg') el.value=DEF[id];
+    else if(id==='wmsg') el.value=DEF.wmsg;
+    el.addEventListener('input',function(){store[id]=el.value;save();calc();});
+  });
+
+  $('wcopy').addEventListener('click',function(){
+    var t=$('wlink').textContent;
+    if(t.indexOf('https://')!==0) return;
+    var b=this;
+    function done(){b.textContent='Copiado!';setTimeout(function(){b.textContent='Copiar link';},1600);}
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,fallback);}
+      else fallback();
+    }catch(e){fallback();}
+    function fallback(){
+      var r=document.createRange();r.selectNodeContents($('wlink'));var s=window.getSelection();s.removeAllRanges();s.addRange(r);
+      try{document.execCommand('copy');done();}catch(e){}
+    }
+  });
+  $('wtest').addEventListener('click',function(e){if(this.getAttribute('aria-disabled')==='true')e.preventDefault();});
+
+  // checklist
+  var LIST=[
+    ['Estruturar',[
+      'Perfil da Empresa verificado, com categoria certa e nome real',
+      'Fotos reais, horário atualizado, telefone e WhatsApp que alguém atende',
+      'Pelo menos 5 avaliações de clientes reais, todas respondidas',
+      'Destino definido: site, Google Sites ou link do WhatsApp com mensagem pronta',
+      'Alguém responsável por responder em minutos no horário do anúncio'
+    ]],
+    ['Planejar',[
+      'As 5 perguntas respondidas: o que vender, para quem e onde, o que a pessoa digita, quanto investir, o que é resultado',
+      'Lucro, CPA, CPL e CPC máximos calculados nesta página',
+      'Orçamento mensal e diário definidos a partir da meta de vendas',
+      'Lista de palavras exatas e de negativas pronta',
+      '15 títulos e 4 descrições escritos, só com o que é verdade'
+    ]],
+    ['Executar',[
+      'Objetivo Leads, campanha de Pesquisa, nome organizado',
+      'Meta: Mensagens e Ligações',
+      'Lance em cliques, com o CPC máximo como limite',
+      'Parceiros de pesquisa e Rede de Display desmarcados',
+      'Local com opção Presença, idioma Português e horário de atendimento programado',
+      'IA Max desligada',
+      'Recursos de chamada e de mensagem cadastrados',
+      'Orçamento diário do planejamento e campanha publicada',
+      'Palavras negativas cadastradas depois de publicar'
+    ]],
+    ['Depois de subir',[
+      'Semana 1: só observar, sem mexer em lance nem orçamento',
+      'Semana 2: limpar os termos de pesquisa',
+      'Semana 3: ajustar títulos, destino e atendimento',
+      'Semana 4: comparar o custo por contato com o teto (etapa 04)',
+      'Planilha de conversas e vendas em dia, para achar o CPA real'
+    ]]
+  ];
+  var checks=store.checks||{};
+  var box=$('checklist'), total=0;
+  LIST.forEach(function(g,gi){
+    var div=document.createElement('div');div.className='check-group';
+    var h=document.createElement('h3');h.textContent=g[0];div.appendChild(h);
+    g[1].forEach(function(txt,ii){
+      total++;
+      var id='ck'+gi+'_'+ii;
+      var lab=document.createElement('label');lab.className='check';lab.setAttribute('for',id);
+      var cb=document.createElement('input');cb.type='checkbox';cb.id=id;cb.checked=!!checks[id];
+      var sp=document.createElement('span');sp.textContent=txt;
+      if(cb.checked) lab.classList.add('done');
+      cb.addEventListener('change',function(){checks[id]=cb.checked;lab.classList.toggle('done',cb.checked);store.checks=checks;save();prog();});
+      lab.appendChild(cb);lab.appendChild(sp);div.appendChild(lab);
+    });
+    box.appendChild(div);
+  });
+  function prog(){
+    var n=0;for(var k in checks){if(checks[k])n++;}
+    $('pbar').style.width=(total?n/total*100:0)+'%';
+    $('ptext').textContent=n+' de '+total+' itens concluídos';
+  }
+  prog();
+
+  $('reset').addEventListener('click',function(){
+    store={};checks={};save();
+    fields.forEach(function(id){$(id).value=DEF[id]!==undefined?DEF[id]:'';});
+    document.querySelectorAll('#checklist input').forEach(function(cb){cb.checked=false;cb.parentNode.classList.remove('done');});
+    prog();calc();
+  });
+
+  calc();
+})();
+</script>
+</body>
+</html>
