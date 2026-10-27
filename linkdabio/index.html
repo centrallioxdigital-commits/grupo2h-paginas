@@ -123,8 +123,10 @@ p{margin:0;text-wrap:pretty}
 .ouro{color:var(--ouro)}
 
 /* ---------- Topo ---------- */
-.topo{position:fixed;inset:12px 0 auto;z-index:50;pointer-events:none}
-.topo-in{pointer-events:auto;width:min(var(--wrap),100% - var(--gut)*2);margin-inline:auto;height:var(--topo-h);display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 10px 0 18px;border-radius:20px;background:rgba(15,15,18,.72);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);box-shadow:var(--rel-sombra)}
+.topo{position:fixed;inset:12px 0 auto;z-index:50;pointer-events:none;transition:transform .95s cubic-bezier(.65,0,.35,1),opacity .95s cubic-bezier(.65,0,.35,1),filter .95s cubic-bezier(.65,0,.35,1)}
+.topo.escondido{transform:translateY(calc(-100% - 22px));opacity:0;filter:blur(10px)}
+.topo.escondido .topo-in{pointer-events:none}
+.topo-in{pointer-events:auto;width:min(var(--wrap),100% - var(--gut)*2);margin-inline:auto;height:var(--topo-h);display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 10px 0 18px;border-radius:20px;border:1px solid transparent;background:linear-gradient(180deg,rgba(26,26,31,.9),rgba(12,12,15,.9)) padding-box,linear-gradient(90deg,rgba(242,238,229,.08),rgba(245,195,40,.55) 30%,rgba(255,232,160,.75) 50%,rgba(245,195,40,.55) 70%,rgba(242,238,229,.08)) border-box;backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 18px 44px -22px rgba(0,0,0,.95),0 0 40px -22px rgba(245,195,40,.45)}
 .marca{display:flex;align-items:center;gap:10px;font:600 1.05rem/1 var(--f-d);letter-spacing:.06em;white-space:nowrap}
 .marca img{width:34px;height:auto}
 .marca b{color:var(--ouro);font-weight:700}
@@ -410,7 +412,7 @@ ul{list-style:none;margin:0;padding:0}
 </svg>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 
-<header class="topo">
+<header class="topo" data-topo>
   <div class="topo-in">
     <a class="marca" href="https://grupo2h.com.br/" aria-label="Grupo 2!H, site oficial">
       <img src="/assets/img/logo-2h-glyph.png" alt="" width="39" height="36"><span>GRUPO <b>2!H</b></span>
@@ -639,6 +641,20 @@ ul{list-style:none;margin:0;padding:0}
     lenis = new window.Lenis({ autoRaf:true, lerp:0.09, wheelMultiplier:1, smoothWheel:true, anchors:true,
       prevent:function(no){ return !!(no.closest && no.closest('.caixa, [data-lenis-prevent]')); } });
     window.lenis = lenis;
+  }
+
+  // barra superior: some ao descer, volta ao subir (igual ao site oficial)
+  var topo = document.querySelector('[data-topo]');
+  if (topo){
+    var ultimoY = scrollY;
+    addEventListener('scroll', function(){
+      var y = scrollY, d = y - ultimoY;
+      if (y < 140) topo.classList.remove('escondido');
+      else if (d > 6) topo.classList.add('escondido');
+      else if (d < -6) topo.classList.remove('escondido');
+      if (Math.abs(d) > 6) ultimoY = y;
+    }, {passive:true});
+    topo.addEventListener('focusin', function(){ topo.classList.remove('escondido'); });
   }
 
   // UTM: repassa utm_* da URL para a mensagem do WhatsApp
