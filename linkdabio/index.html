@@ -185,83 +185,93 @@ ul{list-style:none;margin:0;padding:0}
 .sec-cab h2{font-size:var(--fs-h2);line-height:1.05;letter-spacing:-.035em}
 .sec-cab p{color:var(--tx-2);font-size:1.06rem;max-width:560px}
 
-/* ---------- Exemplos ---------- */
+/* ---------- Exemplos (faixa infinita, mesma mecânica da Descomplica) ---------- */
 .exemplos{overflow:hidden}
-.carrossel{position:relative}
-.trilho{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px max(var(--gut),calc((100vw - var(--wrap))/2)) 30px;scrollbar-width:none;cursor:grab;overscroll-behavior-x:contain}
-.trilho::-webkit-scrollbar{display:none}
-.trilho.arrastando{cursor:grabbing;scroll-snap-type:none}
-.trilho.arrastando *{pointer-events:none}
-.proj{flex:none;width:clamp(230px,24vw,280px);scroll-snap-align:center;display:flex;flex-direction:column;gap:14px;text-align:left;background:none;border:0;padding:0;color:inherit;font:inherit;cursor:pointer}
-.proj-tela{position:relative;border-radius:26px;padding:8px;background:var(--rel-face),var(--bg-2);box-shadow:var(--rel-sombra);transition:transform .5s var(--ease-mola),box-shadow .4s var(--ease)}
-.proj-tela img{width:100%;aspect-ratio:9/15;object-fit:cover;object-position:top;border-radius:19px;background:var(--bg-3)}
-.proj-tela::after{content:"Ver inteiro";position:absolute;right:16px;bottom:16px;padding:7px 12px;border-radius:999px;background:rgba(11,11,13,.82);font:600 .78rem/1 var(--f-d);color:var(--ouro);opacity:0;transform:translateY(6px);transition:.35s var(--ease)}
-.proj b{font:600 1.05rem/1.25 var(--f-d);padding-inline:6px}
-.proj small{display:block;font:600 .72rem/1.3 var(--f-d);letter-spacing:.1em;text-transform:uppercase;color:var(--tx-3);padding-inline:6px;margin-top:-8px}
+.exemplos .sec-cab{margin-bottom:clamp(24px,3vw,36px)}
+.mq-rotulo{display:flex;justify-content:center;margin-bottom:18px}
+.mq{position:relative;overflow:hidden;padding:12px 0 30px;cursor:grab;touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.mq.arrastando{cursor:grabbing}
+.mq-trilho{display:flex;width:max-content;will-change:transform}
+.mq.sem-motor{overflow-x:auto;scrollbar-width:none;-webkit-mask-image:none;mask-image:none}
+.proj{flex:none;width:clamp(190px,16vw,250px);margin-right:18px;display:flex;flex-direction:column;gap:12px;text-align:left;background:none;border:0;padding:0;color:inherit;font:inherit;cursor:inherit}
+.proj-tela{position:relative;display:block;border-radius:24px;padding:7px;background:var(--rel-face),var(--bg-2);box-shadow:var(--rel-sombra);transition:transform .5s var(--ease-mola),box-shadow .4s var(--ease)}
+.proj-tela img{width:100%;aspect-ratio:9/15;object-fit:cover;object-position:top;border-radius:18px;background:var(--bg-3);pointer-events:none;-webkit-user-drag:none}
+.proj-tela::after{content:"Ver inteiro";position:absolute;right:14px;bottom:14px;padding:7px 12px;border-radius:999px;background:rgba(11,11,13,.85);font:600 .76rem/1 var(--f-d);color:var(--ouro);opacity:0;transform:translateY(6px);transition:.35s var(--ease)}
+.proj b{display:block;font:600 1rem/1.25 var(--f-d);padding-inline:6px}
+.proj small{display:block;font:600 .7rem/1.3 var(--f-d);letter-spacing:.1em;text-transform:uppercase;color:var(--tx-3);padding-inline:6px;margin-top:-6px}
 @media (hover:hover){
-  .proj:hover .proj-tela{transform:translateY(-6px);box-shadow:var(--rel-sombra-hover)}
-  .proj:hover .proj-tela::after{opacity:1;transform:none}
+  .mq:not(.arrastando) .proj:hover .proj-tela{transform:translateY(-6px);box-shadow:var(--rel-sombra-hover)}
+  .mq:not(.arrastando) .proj:hover .proj-tela::after{opacity:1;transform:none}
 }
-.car-rodape{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.assina{display:flex;align-items:center;gap:12px;color:var(--tx-2);font-size:.95rem}
-.assina img{width:40px;height:40px;padding:8px;border-radius:12px;background:var(--bg-2);box-shadow:var(--rel-sombra)}
+.assina{display:flex;align-items:center;justify-content:center;gap:12px;color:var(--tx-2);font-size:.95rem;text-align:left}
+.assina img{width:40px;height:40px;padding:8px;border-radius:12px;background:var(--bg-2);box-shadow:var(--rel-sombra);flex:none}
 .assina b{color:var(--tx);font-weight:600}
-.car-setas{display:flex;gap:10px}
-.seta-btn{width:52px;height:52px;border-radius:50%;border:0;display:grid;place-items:center;background:var(--rel-face),var(--bg-2);box-shadow:var(--rel-sombra);color:var(--tx);cursor:pointer;transition:color .2s,transform .3s var(--ease-mola)}
+.seta-btn{width:52px;height:52px;flex:none;border-radius:50%;border:0;display:grid;place-items:center;background:var(--rel-face),var(--bg-2);box-shadow:var(--rel-sombra);color:var(--tx);cursor:pointer;transition:color .2s,transform .3s var(--ease-mola)}
 .seta-btn:active{transform:scale(.94)}
 @media (hover:hover){.seta-btn:hover{color:var(--ouro);box-shadow:var(--rel-sombra-hover)}}
 
 /* ---------- Lightbox ---------- */
-.caixa{border:0;padding:0;background:transparent;max-width:min(460px,94vw);max-height:92dvh;width:100%;overflow:visible}
-.caixa::backdrop{background:rgba(5,5,7,.86);backdrop-filter:blur(6px)}
-.caixa-in{position:relative;border-radius:26px;padding:8px;background:var(--bg-2);box-shadow:var(--rel-sombra)}
-.caixa-rola{max-height:calc(92dvh - 16px);overflow-y:auto;border-radius:19px;overscroll-behavior:contain}
-.caixa-rola img{width:100%;height:auto}
-.caixa-fechar{position:absolute;top:-14px;right:-14px;width:46px;height:46px;border-radius:50%;border:0;background:var(--ouro-grad);color:var(--ouro-tinta);display:grid;place-items:center;cursor:pointer;z-index:2}
-@media (max-width:520px){.caixa-fechar{top:-20px;right:6px}}
-.caixa-legenda{position:absolute;left:0;right:0;bottom:-44px;text-align:center;font:600 .95rem/1.2 var(--f-d)}
+.caixa{border:0;padding:0;margin:0;width:100vw;max-width:none;height:100dvh;max-height:none;background:transparent;color:var(--tx)}
+.caixa[open]{display:grid;place-items:center}
+.caixa::backdrop{background:rgba(5,5,7,.9);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.caixa-corpo{display:flex;flex-direction:column;align-items:center;gap:20px;padding:16px}
+.caixa-palco{position:relative;padding:8px;border-radius:26px;background:var(--rel-face),var(--bg-2);box-shadow:var(--rel-sombra),0 40px 80px -30px rgba(0,0,0,.9)}
+.caixa-palco img{display:block;width:100%;object-fit:cover;object-position:top;border-radius:19px;background:var(--bg-3);transition:opacity .3s var(--ease),transform .4s var(--ease)}
+.caixa-palco img.saindo{opacity:0;transform:translateX(var(--tx,0))}
+.caixa-nav{display:flex;align-items:center;justify-content:center;gap:16px;width:100%}
+.caixa-info{min-width:0;flex:1;max-width:280px;text-align:center}
+.caixa-info b{display:block;font:600 1.05rem/1.25 var(--f-d)}
+.caixa-info small{display:block;margin-top:4px;font:600 .72rem/1.3 var(--f-d);letter-spacing:.1em;text-transform:uppercase;color:var(--tx-3)}
+.caixa-fechar{position:fixed;top:max(16px,env(safe-area-inset-top));right:16px;width:48px;height:48px;border-radius:50%;border:0;background:var(--ouro-grad);color:var(--ouro-tinta);display:grid;place-items:center;cursor:pointer;z-index:2}
 
-/* ---------- O que vem (creme) ---------- */
+/* ---------- O que vem (creme, cards empilhados) ---------- */
 .creme{background:var(--creme);color:var(--tinta)}
 .creme .medalha{box-shadow:0 0 0 3px var(--creme),0 0 0 4px rgba(245,195,40,.7),0 12px 30px -8px rgba(0,0,0,.45),0 0 30px -6px rgba(245,195,40,.45)}
 .creme .sec-cab p{color:var(--tinta-2)}
 .creme .etiqueta{background:#fff;color:var(--tinta);box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 0 0 1px rgba(22,19,12,.08),0 8px 20px -12px rgba(22,19,12,.35)}
-.itens{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
-.item{grid-column:span 6;display:flex;flex-direction:column;gap:22px;padding:clamp(22px,2.6vw,34px);border-radius:var(--r-lg);background:linear-gradient(180deg,#FFFDF8,#F8F2E7);box-shadow:0 1px 0 #fff inset,0 0 0 1px rgba(22,19,12,.07),0 30px 50px -36px rgba(22,19,12,.45)}
-.item:nth-child(1){grid-column:span 7}.item:nth-child(2){grid-column:span 5}
-.item:nth-child(3){grid-column:span 5}.item:nth-child(4){grid-column:span 7}
+.pilha{display:grid;gap:clamp(36px,7vh,72px);max-width:1040px;margin:0 auto;padding-bottom:12px}
+.pilha-it{position:sticky;top:calc(var(--topo-h) + 36px + var(--i) * 16px)}
+.item{position:relative;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(24px,4.4vw,64px);min-height:clamp(330px,46vh,400px);padding:clamp(26px,3.6vw,52px);border-radius:var(--r-lg);background:linear-gradient(180deg,#FFFDF8,#F7F1E5);box-shadow:0 1px 0 #fff inset,0 0 0 1px rgba(22,19,12,.07),0 -10px 40px -24px rgba(22,19,12,.28),0 34px 60px -38px rgba(22,19,12,.5);transform-origin:50% 0;will-change:transform}
+.item::after{content:"";position:absolute;inset:0;border-radius:inherit;background:#16130C;opacity:var(--sombra,0);pointer-events:none}
+.item-txt{display:flex;flex-direction:column;align-items:flex-start;gap:16px}
 .item-topo{display:flex;align-items:center;gap:12px;font:600 .74rem/1 var(--f-d);letter-spacing:.14em;color:var(--tinta-2)}
-.item-topo i{font-style:normal;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--tinta);color:var(--ouro);letter-spacing:0;font-size:.82rem}
-.item h3{font-size:var(--fs-h3);letter-spacing:-.02em;line-height:1.2}
-.item p{color:var(--tinta-2);margin-top:-12px;max-width:44ch}
-.mock{margin-top:auto;border-radius:18px;background:var(--bg);color:var(--tx);padding:18px;box-shadow:0 20px 40px -26px rgba(22,19,12,.7)}
+.item-topo i{font-style:normal;width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:var(--tinta);color:var(--ouro);letter-spacing:0;font-size:.84rem}
+.item h3{font-size:clamp(1.35rem,1.05rem + 1vw,1.95rem);letter-spacing:-.025em;line-height:1.12}
+.item-txt p{color:var(--tinta-2);max-width:38ch;font-size:1.02rem}
+.mock{width:100%;border-radius:20px;background:var(--bg);color:var(--tx);padding:clamp(16px,2vw,22px);box-shadow:0 24px 44px -26px rgba(22,19,12,.75)}
 /* mock 1: identidade */
-.m-perfil{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-.m-av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--ouro-grad);color:var(--ouro-tinta);font:700 .95rem/1 var(--f-d)}
+.m-perfil{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.m-av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--ouro-grad);color:var(--ouro-tinta);font:700 .95rem/1 var(--f-d);flex:none}
 .m-perfil b{display:block;font:600 1rem/1.2 var(--f-d)}
 .m-perfil small{color:var(--tx-3);font-size:.82rem}
-.m-bt{display:block;padding:12px 14px;border-radius:12px;font:600 .9rem/1 var(--f-d);text-align:center}
+.m-bt{display:block;padding:13px 14px;border-radius:12px;font:600 .9rem/1 var(--f-d);text-align:center}
 .m-bt+.m-bt{margin-top:8px}
 .m-bt.c1{background:var(--ouro-grad);color:var(--ouro-tinta)}
 .m-bt.c2{background:var(--bg-2);box-shadow:var(--rel-sombra)}
 /* mock 2: contato */
 .m-lista{display:grid;gap:8px}
-.m-lista span{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:12px;background:var(--bg-2);box-shadow:var(--rel-sombra);font:500 .9rem/1 var(--f-d)}
+.m-lista span{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;background:var(--bg-2);box-shadow:var(--rel-sombra);font:500 .9rem/1 var(--f-d)}
 .m-lista span:first-child{background:var(--ouro-grad);color:var(--ouro-tinta);box-shadow:none;font-weight:600}
 .m-lista .ic{color:var(--ouro)}.m-lista span:first-child .ic{color:var(--ouro-tinta)}
 /* mock 3: domínio */
-.m-url{display:flex;align-items:center;gap:10px;padding:13px 16px;border-radius:999px;background:var(--bg-2);box-shadow:var(--rel-sombra);font:500 1rem/1 var(--f-b)}
+.m-nav{display:flex;gap:6px;margin-bottom:14px}.m-nav i{width:10px;height:10px;border-radius:50%;background:var(--bg-3)}
+.m-url{display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:999px;background:var(--bg-2);box-shadow:var(--rel-sombra);font:500 1rem/1 var(--f-b)}
 .m-url .ic{color:var(--verde)}
-.m-selo{display:inline-flex;margin-top:12px;padding:7px 12px;border-radius:999px;background:var(--ouro-a12);color:var(--ouro);font:600 .72rem/1 var(--f-d);letter-spacing:.12em}
+.m-selo{display:inline-flex;margin-top:14px;padding:8px 12px;border-radius:999px;background:var(--ouro-a12);color:var(--ouro);font:600 .72rem/1 var(--f-d);letter-spacing:.12em}
 /* mock 4: cliques */
-.m-tit{font:600 .72rem/1 var(--f-d);letter-spacing:.14em;color:var(--tx-3);margin-bottom:14px}
-.m-barras{display:grid;gap:11px}
-.m-barras div{display:grid;grid-template-columns:96px 1fr;align-items:center;gap:12px;font:500 .86rem/1 var(--f-d);color:var(--tx-2)}
+.m-tit{display:block;font:600 .72rem/1 var(--f-d);letter-spacing:.14em;color:var(--tx-3);margin-bottom:16px}
+.m-barras{display:grid;gap:12px}
+.m-barras div{display:grid;grid-template-columns:92px 1fr;align-items:center;gap:12px;font:500 .86rem/1 var(--f-d);color:var(--tx-2)}
 .m-barras i{display:block;height:10px;border-radius:99px;background:var(--bg-3);overflow:hidden}
 .m-barras i::before{content:"";display:block;height:100%;width:var(--w);border-radius:inherit;background:var(--ouro-grad);transform-origin:left;transform:scaleX(0);transition:transform 1.2s var(--ease) .15s}
-.vis .m-barras i::before{transform:scaleX(1)}
-@media (max-width:860px){.item,.item:nth-child(n){grid-column:1/-1}}
-
+.m-barras.vis i::before{transform:scaleX(1)}
+@media (max-width:760px){
+  .pilha-it{top:calc(var(--topo-h) + 22px + var(--i) * 10px)}
+  .item{grid-template-columns:1fr;min-height:0;gap:20px;padding:22px}
+  .item-txt{gap:12px}
+  .item-txt p{font-size:.97rem}
+  .m-lista span:nth-child(4){display:none}
+}
 /* ---------- Como funciona ---------- */
 .passos{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:p}
 .passo{position:relative;display:flex;flex-direction:column;gap:14px;padding:28px 24px 30px;border-radius:var(--r);background:var(--rel-face),var(--bg-1);box-shadow:var(--rel-sombra);overflow:hidden;transition:box-shadow .4s var(--ease),transform .5s var(--ease-mola)}
@@ -276,8 +286,8 @@ ul{list-style:none;margin:0;padding:0}
 @media (max-width:600px){.passos{grid-template-columns:1fr}}
 
 /* ---------- Oferta (bloco ouro) ---------- */
-.bloco-ouro{background:var(--ouro-grad);color:var(--ouro-tinta);overflow:hidden}
-.bloco-ouro::before{content:"";position:absolute;right:-12%;top:-30%;width:70vw;max-width:900px;aspect-ratio:1;border-radius:50%;border:1px solid rgba(23,19,10,.12);box-shadow:0 0 0 70px rgba(255,255,255,.06),0 0 0 140px rgba(255,255,255,.04)}
+.bloco-ouro{background:var(--ouro-grad);color:var(--ouro-tinta)}
+.bloco-ouro::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 92% 6%,transparent 0 24%,rgba(23,19,10,.10) 24.1% 24.3%,rgba(255,255,255,.07) 24.4% 34%,rgba(255,255,255,.04) 34.1% 44%,transparent 44.1%)}
 .bloco-ouro .medalha{box-shadow:0 0 0 3px #F5C328,0 0 0 4px rgba(23,19,10,.4),0 12px 30px -8px rgba(0,0,0,.5)}
 .oferta{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,72px);align-items:center}
 .oferta h2{font-size:var(--fs-h2);line-height:1.04;letter-spacing:-.035em}
@@ -355,7 +365,7 @@ ul{list-style:none;margin:0;padding:0}
   html{scroll-behavior:auto}
   .rev{opacity:1;transform:none;transition:none}
   .faixa-trilho{animation:none}
-  .m-barras i::before{transform:none;transition:none}
+  .m-barras i::before{transform:none!important;transition:none}
   *{transition-duration:.01ms!important}
 }
 </style>
@@ -428,38 +438,36 @@ ul{list-style:none;margin:0;padding:0}
   <!-- 2. Exemplos -->
   <section class="sec exemplos" id="exemplos">
     <div class="wrap sec-cab rev">
-      <span class="etiqueta">Link na bio · arraste</span>
       <h2>Feitos por nós. Cada um com a cara do negócio.</h2>
       <p>Negócios reais que já usam o Link na Bio do Grupo 2!H. Toque em um para ver inteiro.</p>
     </div>
-    <div class="carrossel">
-      <div class="trilho" id="trilho" tabindex="0" aria-label="Exemplos de link na bio">
-        <button class="proj" type="button" data-src="img/prime-cortinas.webp" data-nome="Prime Cortinas"><span class="proj-tela"><img src="img/prime-cortinas.webp" width="720" height="1042" loading="lazy" alt="Página de link na bio da Prime Cortinas, higienização premium de cortinas em Sorocaba/SP, criada pelo Grupo 2!H"></span><b>Prime Cortinas</b><small>Lavanderia · Sorocaba/SP</small></button>
-        <button class="proj" type="button" data-src="img/planear-construtora.webp" data-nome="Planear Construtora"><span class="proj-tela"><img src="img/planear-construtora.webp" width="720" height="1074" loading="lazy" alt="Página de link na bio da Planear Construtora, obras planejadas em Sorocaba/SP, criada pelo Grupo 2!H"></span><b>Planear Construtora</b><small>Construtora · Sorocaba/SP</small></button>
-        <button class="proj" type="button" data-src="img/dra-tamira-terao-arakaki.webp" data-nome="Dra. Tamira Terao Arakaki"><span class="proj-tela"><img src="img/dra-tamira-terao-arakaki.webp" width="670" height="1198" loading="lazy" alt="Página de link na bio da Dra. Tamira Terao Arakaki, perícia médica em Sorocaba/SP, criada pelo Grupo 2!H"></span><b>Dra. Tamira Terao Arakaki</b><small>Perícia médica · Sorocaba/SP</small></button>
-        <button class="proj" type="button" data-src="img/015-store.webp" data-nome="015 Store"><span class="proj-tela"><img src="img/015-store.webp" width="720" height="1149" loading="lazy" alt="Página de link na bio da 015 Store, moda streetwear em Sorocaba/SP, criada pelo Grupo 2!H"></span><b>015 Store</b><small>Moda streetwear · Sorocaba/SP</small></button>
-        <button class="proj" type="button" data-src="img/planear-arquitetura.webp" data-nome="Planear Arquitetura"><span class="proj-tela"><img src="img/planear-arquitetura.webp" width="720" height="1093" loading="lazy" alt="Página de link na bio da Planear Arquitetura e Engenharia em Sorocaba/SP, criada pelo Grupo 2!H"></span><b>Planear Arquitetura</b><small>Arquitetura e engenharia · Sorocaba/SP</small></button>
-        <button class="proj" type="button" data-src="img/inova-ar-condicionado.webp" data-nome="Inova Ar Condicionado"><span class="proj-tela"><img src="img/inova-ar-condicionado.webp" width="720" height="1178" loading="lazy" alt="Página de link na bio da Inova Engenharia Climática, climatização em Portugal, criada pelo Grupo 2!H"></span><b>Inova Ar Condicionado</b><small>Climatização · Portugal</small></button>
-        <button class="proj" type="button" data-src="img/zacarella.webp" data-nome="Zacarella Advogados"><span class="proj-tela"><img src="img/zacarella.webp" width="720" height="1166" loading="lazy" alt="Página de link na bio da Zacarella Advogados Associados, direito empresarial em São Paulo/SP, criada pelo Grupo 2!H"></span><b>Zacarella Advogados</b><small>Direito empresarial · São Paulo/SP</small></button>
-        <button class="proj" type="button" data-src="img/planear-treinamento.webp" data-nome="Planear Treinamento"><span class="proj-tela"><img src="img/planear-treinamento.webp" width="720" height="1070" loading="lazy" alt="Página de link na bio da Planear Treinamento, cursos para a construção civil, criada pelo Grupo 2!H"></span><b>Planear Treinamento</b><small>Cursos · Construção civil</small></button>
-        <button class="proj" type="button" data-src="img/tambelli-engenharia.webp" data-nome="Tambelli Engenharia"><span class="proj-tela"><img src="img/tambelli-engenharia.webp" width="720" height="1106" loading="lazy" alt="Página de link na bio da Tambelli Engenharia Integrada em Sorocaba/SP, criada pelo Grupo 2!H"></span><b>Tambelli Engenharia</b><small>Engenharia integrada · Sorocaba/SP</small></button>
-        <button class="proj" type="button" data-src="img/planear-solucoes.webp" data-nome="Planear Soluções"><span class="proj-tela"><img src="img/planear-solucoes.webp" width="720" height="1078" loading="lazy" alt="Página de link na bio da Planear Soluções, financiamento imobiliário em Sorocaba/SP, criada pelo Grupo 2!H"></span><b>Planear Soluções</b><small>Financiamento imobiliário · Sorocaba/SP</small></button>
-      </div>
-      <div class="wrap car-rodape">
-        <p class="assina"><img src="/assets/img/logo-2h-glyph.png" alt="" width="39" height="36"><span>Feito pelo time do <b>Grupo 2!H</b>, sob direção de <b>Jhonathan Marcos, CEO</b></span></p>
-        <div class="car-setas">
-          <button class="seta-btn" type="button" data-dir="-1" aria-label="Exemplo anterior"><svg class="ic"><use href="#i-caret-left"/></svg></button>
-          <button class="seta-btn" type="button" data-dir="1" aria-label="Próximo exemplo"><svg class="ic"><use href="#i-caret-right"/></svg></button>
-        </div>
+    <div class="wrap mq-rotulo"><span class="etiqueta">Link na bio · arraste</span></div>
+    <div class="mq" id="mq" aria-label="Exemplos de link na bio">
+      <div class="mq-trilho">
+        <button class="proj" type="button" data-i="0"><span class="proj-tela"><img src="img/prime-cortinas.webp" width="720" height="1042" loading="lazy" draggable="false" alt="Página de link na bio da Prime Cortinas, higienização premium de cortinas em Sorocaba/SP, criada pelo Grupo 2!H"></span><b>Prime Cortinas</b><small>Lavanderia · Sorocaba/SP</small></button>
+        <button class="proj" type="button" data-i="1"><span class="proj-tela"><img src="img/planear-construtora.webp" width="720" height="1074" loading="lazy" draggable="false" alt="Página de link na bio da Planear Construtora, obras planejadas em Sorocaba/SP, criada pelo Grupo 2!H"></span><b>Planear Construtora</b><small>Construtora · Sorocaba/SP</small></button>
+        <button class="proj" type="button" data-i="2"><span class="proj-tela"><img src="img/dra-tamira-terao-arakaki.webp" width="670" height="1198" loading="lazy" draggable="false" alt="Página de link na bio da Dra. Tamira Terao Arakaki, perícia médica em Sorocaba/SP, criada pelo Grupo 2!H"></span><b>Dra. Tamira Terao Arakaki</b><small>Perícia médica · Sorocaba/SP</small></button>
+        <button class="proj" type="button" data-i="3"><span class="proj-tela"><img src="img/015-store.webp" width="720" height="1149" loading="lazy" draggable="false" alt="Página de link na bio da 015 Store, moda streetwear em Sorocaba/SP, criada pelo Grupo 2!H"></span><b>015 Store</b><small>Moda streetwear · Sorocaba/SP</small></button>
+        <button class="proj" type="button" data-i="4"><span class="proj-tela"><img src="img/planear-arquitetura.webp" width="720" height="1093" loading="lazy" draggable="false" alt="Página de link na bio da Planear Arquitetura e Engenharia em Sorocaba/SP, criada pelo Grupo 2!H"></span><b>Planear Arquitetura</b><small>Arquitetura e engenharia · Sorocaba/SP</small></button>
+        <button class="proj" type="button" data-i="5"><span class="proj-tela"><img src="img/inova-ar-condicionado.webp" width="720" height="1178" loading="lazy" draggable="false" alt="Página de link na bio da Inova Engenharia Climática, climatização em Portugal, criada pelo Grupo 2!H"></span><b>Inova Ar Condicionado</b><small>Climatização · Portugal</small></button>
+        <button class="proj" type="button" data-i="6"><span class="proj-tela"><img src="img/zacarella.webp" width="720" height="1166" loading="lazy" draggable="false" alt="Página de link na bio da Zacarella Advogados Associados, direito empresarial em São Paulo/SP, criada pelo Grupo 2!H"></span><b>Zacarella Advogados</b><small>Direito empresarial · São Paulo/SP</small></button>
+        <button class="proj" type="button" data-i="7"><span class="proj-tela"><img src="img/planear-treinamento.webp" width="720" height="1070" loading="lazy" draggable="false" alt="Página de link na bio da Planear Treinamento, cursos para a construção civil, criada pelo Grupo 2!H"></span><b>Planear Treinamento</b><small>Cursos · Construção civil</small></button>
+        <button class="proj" type="button" data-i="8"><span class="proj-tela"><img src="img/tambelli-engenharia.webp" width="720" height="1106" loading="lazy" draggable="false" alt="Página de link na bio da Tambelli Engenharia Integrada em Sorocaba/SP, criada pelo Grupo 2!H"></span><b>Tambelli Engenharia</b><small>Engenharia integrada · Sorocaba/SP</small></button>
+        <button class="proj" type="button" data-i="9"><span class="proj-tela"><img src="img/planear-solucoes.webp" width="720" height="1078" loading="lazy" draggable="false" alt="Página de link na bio da Planear Soluções, financiamento imobiliário em Sorocaba/SP, criada pelo Grupo 2!H"></span><b>Planear Soluções</b><small>Financiamento imobiliário · Sorocaba/SP</small></button>
       </div>
     </div>
+    <p class="wrap assina rev"><img src="/assets/img/logo-2h-glyph.png" alt="" width="39" height="36"><span>Feito pelo time do <b>Grupo 2!H</b>, sob direção de <b>Jhonathan Marcos, CEO</b></span></p>
   </section>
 
   <dialog class="caixa" id="caixa" aria-label="Exemplo em tela cheia">
-    <div class="caixa-in">
-      <button class="caixa-fechar" type="button" aria-label="Fechar"><svg class="ic"><use href="#i-x"/></svg></button>
-      <div class="caixa-rola"><img id="caixa-img" src="img/prime-cortinas.webp" alt="" width="720" height="1042"></div>
-      <p class="caixa-legenda" id="caixa-nome"></p>
+    <button class="caixa-fechar" type="button" aria-label="Fechar"><svg class="ic"><use href="#i-x"/></svg></button>
+    <div class="caixa-corpo">
+      <div class="caixa-palco" id="caixa-palco"><img id="caixa-img" src="img/prime-cortinas.webp" alt="" width="720" height="1042"></div>
+      <div class="caixa-nav">
+        <button class="seta-btn" type="button" data-lb="-1" aria-label="Exemplo anterior"><svg class="ic"><use href="#i-caret-left"/></svg></button>
+        <p class="caixa-info" aria-live="polite"><b id="caixa-nome"></b><small id="caixa-seg"></small></p>
+        <button class="seta-btn" type="button" data-lb="1" aria-label="Próximo exemplo"><svg class="ic"><use href="#i-caret-right"/></svg></button>
+      </div>
     </div>
   </dialog>
 
@@ -472,55 +480,47 @@ ul{list-style:none;margin:0;padding:0}
         <h2>Tudo o que o seu link precisa para vender.</h2>
         <p>Sem modelo pronto e sem marca de aplicativo dos outros. Tudo isso já vem no preço.</p>
       </div>
-      <div class="itens">
-        <article class="item rev">
-          <span class="item-topo"><i>01</i>IDENTIDADE</span>
-          <h3>Com a cara da sua marca</h3>
-          <p>Suas cores, sua logo e o seu jeito. Nada de página igual à de todo mundo.</p>
+      <ul class="pilha" id="pilha">
+        <li class="pilha-it" style="--i:0"><article class="item">
+          <div class="item-txt"><span class="item-topo"><i>01</i>IDENTIDADE</span><h3>Com a cara da sua marca</h3><p>Suas cores, sua logo e o seu jeito. Nada de página igual à de todo mundo.</p></div>
           <div class="mock" aria-hidden="true">
             <div class="m-perfil"><span class="m-av">SN</span><span><b>Seu Negócio</b><small>@seunegocio</small></span></div>
             <span class="m-bt c1">Agendar horário</span>
             <span class="m-bt c2">Ver serviços</span>
           </div>
-        </article>
-        <article class="item rev">
-          <span class="item-topo"><i>02</i>CONTATO</span>
-          <h3>Seu cliente fala com você em um toque</h3>
-          <p>WhatsApp, Instagram e localização na ordem que mais vende. A conversa já abre com a mensagem pronta.</p>
+        </article></li>
+        <li class="pilha-it" style="--i:1"><article class="item">
+          <div class="item-txt"><span class="item-topo"><i>02</i>CONTATO</span><h3>Seu cliente fala com você em um toque</h3><p>WhatsApp, Instagram e localização na ordem que mais vende. A conversa já abre com a mensagem pronta.</p></div>
           <div class="mock m-lista" aria-hidden="true">
             <span><svg class="ic"><use href="#i-whatsapp-logo"/></svg>Chamar no WhatsApp</span>
             <span><svg class="ic"><use href="#i-instagram-logo"/></svg>Instagram</span>
             <span><svg class="ic"><use href="#i-map-pin"/></svg>Como chegar</span>
             <span><svg class="ic"><use href="#i-palette"/></svg>Catálogo</span>
           </div>
-        </article>
-        <article class="item rev">
-          <span class="item-topo"><i>03</i>ENDEREÇO PRÓPRIO</span>
-          <h3>seunegocio.com.br, grátis por 1 ano</h3>
-          <p>Um endereço só seu, com cadeado de site seguro e sem mensalidade no primeiro ano.</p>
+        </article></li>
+        <li class="pilha-it" style="--i:2"><article class="item">
+          <div class="item-txt"><span class="item-topo"><i>03</i>ENDEREÇO PRÓPRIO</span><h3>seunegocio.com.br, grátis por 1 ano</h3><p>Um endereço só seu, com cadeado de site seguro e sem mensalidade no primeiro ano.</p></div>
           <div class="mock" aria-hidden="true">
+            <div class="m-nav"><i></i><i></i><i></i></div>
             <span class="m-url"><svg class="ic"><use href="#i-lock-simple"/></svg>seunegocio.com.br</span>
             <span class="m-selo">GRÁTIS POR 1 ANO</span>
           </div>
-        </article>
-        <article class="item rev">
-          <span class="item-topo"><i>04</i>RESULTADO</span>
-          <h3>Você vê quem clicou</h3>
-          <p>Saiba qual botão o seu cliente mais toca e o que está funcionando.</p>
+        </article></li>
+        <li class="pilha-it" style="--i:3"><article class="item">
+          <div class="item-txt"><span class="item-topo"><i>04</i>RESULTADO</span><h3>Você vê quem clicou</h3><p>Saiba qual botão o seu cliente mais toca e o que está funcionando.</p></div>
           <div class="mock" aria-hidden="true">
-            <p class="m-tit">CLIQUES POR BOTÃO</p>
-            <div class="m-barras">
+            <span class="m-tit">CLIQUES POR BOTÃO</span>
+            <div class="m-barras rev">
               <div>WhatsApp<i style="--w:92%"></i></div>
               <div>Localização<i style="--w:64%"></i></div>
               <div>Instagram<i style="--w:47%"></i></div>
               <div>Catálogo<i style="--w:31%"></i></div>
             </div>
           </div>
-        </article>
-      </div>
+        </article></li>
+      </ul>
     </div>
   </section>
-
   <!-- 4. Como funciona -->
   <section class="sec" id="como-funciona">
     <span class="medalha" aria-hidden="true"><img src="/assets/img/logo-2h-glyph.png" alt="" width="39" height="36"></span>
@@ -642,29 +642,116 @@ ul{list-style:none;margin:0;padding:0}
   new IntersectionObserver(function(e){ heroVis = e[0].isIntersecting; bar(); }).observe(document.querySelector('.hero'));
   new IntersectionObserver(function(e){ ofertaVis = e[0].isIntersecting; bar(); }, {threshold:.15}).observe(document.getElementById('oferta'));
 
-  // Carrossel: arrastar com o mouse + setas
-  var t = document.getElementById('trilho'), down = false, sx = 0, sl = 0, moved = 0;
-  t.addEventListener('pointerdown', function(e){ if(e.pointerType !== 'mouse') return; down = true; moved = 0; sx = e.clientX; sl = t.scrollLeft; });
-  window.addEventListener('pointermove', function(e){ if(!down) return; var dx = e.clientX - sx; moved = Math.abs(dx); if(moved > 5) t.classList.add('arrastando'); t.scrollLeft = sl - dx; });
-  window.addEventListener('pointerup', function(){ if(!down) return; down = false; setTimeout(function(){ t.classList.remove('arrastando'); }, 0); });
-  t.addEventListener('click', function(e){ if(moved > 5){ e.preventDefault(); e.stopPropagation(); moved = 0; } }, true);
-  document.querySelectorAll('.seta-btn').forEach(function(b){
-    b.addEventListener('click', function(){ var w = t.querySelector('.proj').offsetWidth + 18; t.scrollBy({left: w * +b.dataset.dir, behavior:'smooth'}); });
+  // ----- Portfólio: faixa infinita que anda sozinha, arrasta e arremessa com inércia -----
+  var reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mq = document.getElementById('mq'), tr = mq.querySelector('.mq-trilho');
+  var itens = [].map.call(tr.querySelectorAll('.proj'), function(b){
+    var im = b.querySelector('img');
+    return { src: im.getAttribute('src'), alt: im.alt, nome: b.querySelector('b').textContent, seg: b.querySelector('small').textContent, r: (+im.getAttribute('width')) / (+im.getAttribute('height')) };
   });
+  // carrega tudo quando a seção chega perto: os cards entram pela lateral e o lazy deixaria buracos
+  new IntersectionObserver(function(es, o){ if (es[0].isIntersecting){ mq.querySelectorAll('img').forEach(function(i){ i.loading = 'eager'; }); o.disconnect(); } }, {rootMargin:'900px 0px'}).observe(mq);
 
-  // Ver inteiro
-  var cx = document.getElementById('caixa'), ci = document.getElementById('caixa-img'), cn = document.getElementById('caixa-nome');
-  t.querySelectorAll('.proj').forEach(function(p){
-    p.addEventListener('click', function(){
-      var im = p.querySelector('img');
-      ci.src = p.dataset.src; ci.alt = im.alt; ci.width = im.width; ci.height = im.height;
-      cn.textContent = p.dataset.nome; cx.querySelector('.caixa-rola').scrollTop = 0;
-      cx.showModal(); dl.push({event:'ver_exemplo', exemplo:p.dataset.nome});
+  var lbAberto = false, fimArrasto = 0;
+  if (reduz) mq.classList.add('sem-motor');
+  else {
+    var orig = [].slice.call(tr.children), clona = function(c){ var k = c.cloneNode(true); k.tabIndex = -1; k.setAttribute('aria-hidden', 'true'); tr.appendChild(k); };
+    while (tr.scrollWidth < Math.max(innerWidth, 1920) * 1.15) orig.forEach(clona);
+    [].slice.call(tr.children).forEach(clona); // dobra: metade da faixa = um laço sem emenda
+    var x = 0, v = 0, w = 0, arr = null, raf = 0, ult = 0;
+    var cruzeiro = function(){ return innerWidth <= 760 ? -34 : -46; }; // px/s para a esquerda
+    var dobra = function(n){ if (!w) return n; n %= w; return n > 0 ? n - w : n; };
+    var mede = function(){ w = tr.scrollWidth / 2; x = dobra(x); };
+    v = cruzeiro(); mede(); addEventListener('resize', mede);
+    var quadro = function(t){
+      raf = requestAnimationFrame(quadro);
+      var dt = Math.min(.1, (t - (ult || t)) / 1000); ult = t;
+      if (lbAberto) return;
+      if (!arr){ v += (cruzeiro() - v) * (1 - Math.exp(-dt * 1.7)); x += v * dt; } // arremesso decai até o ritmo normal
+      x = dobra(x);
+      tr.style.transform = 'translate3d(' + x.toFixed(2) + 'px,0,0)';
+    };
+    new IntersectionObserver(function(es){
+      if (es[0].isIntersecting && !raf){ ult = 0; raf = requestAnimationFrame(quadro); }
+      else if (!es[0].isIntersecting && raf){ cancelAnimationFrame(raf); raf = 0; }
+    }, {rootMargin:'200px 0px'}).observe(mq);
+
+    mq.addEventListener('pointerdown', function(e){ if (e.button || arr) return; arr = { id:e.pointerId, x0:e.clientX, lx:e.clientX, lt:performance.now(), vs:0, mexeu:false }; });
+    mq.addEventListener('pointermove', function(e){
+      if (!arr || e.pointerId !== arr.id) return;
+      var agora = performance.now(), dx = e.clientX - arr.lx;
+      if (!arr.mexeu && Math.abs(e.clientX - arr.x0) > 6){ arr.mexeu = true; mq.classList.add('arrastando'); try { mq.setPointerCapture(e.pointerId); } catch(_){} }
+      if (arr.mexeu){ x += dx; arr.vs = arr.vs * .55 + (dx / (Math.max(8, agora - arr.lt) / 1000)) * .45; } // velocidade suavizada para o arremesso
+      arr.lx = e.clientX; arr.lt = agora;
     });
-  });
-  cx.querySelector('.caixa-fechar').addEventListener('click', function(){ cx.close(); });
-  cx.addEventListener('click', function(e){ if(e.target === cx) cx.close(); });
+    var solta = function(e){
+      if (!arr || e.pointerId !== arr.id) return;
+      if (arr.mexeu){ fimArrasto = performance.now(); if (fimArrasto - arr.lt > 90) arr.vs = 0; v = Math.max(-4200, Math.min(4200, arr.vs)); }
+      arr = null; mq.classList.remove('arrastando');
+    };
+    ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(function(n){ mq.addEventListener(n, solta); });
+    mq.addEventListener('wheel', function(e){ // trackpad lateral também empurra a faixa
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      e.preventDefault(); x -= e.deltaX; v = cruzeiro() - e.deltaX * 6;
+    }, {passive:false});
+  }
 
+  // ----- Ver inteiro: lightbox com anterior e próximo -----
+  var cx = document.getElementById('caixa'), palco = document.getElementById('caixa-palco'), ci = document.getElementById('caixa-img');
+  var cn = document.getElementById('caixa-nome'), cs = document.getElementById('caixa-seg'), atual = 0, deOnde = null;
+  function encaixa(){
+    var it = itens[atual], maxW = Math.min(innerWidth * .92 - 16, 460), maxH = innerHeight - (innerWidth <= 760 ? 180 : 200);
+    var lw = Math.min(maxW, maxH * it.r);
+    palco.style.width = Math.round(lw + 16) + 'px'; ci.style.height = Math.round(lw / it.r) + 'px';
+  }
+  function mostra(i, dir){
+    atual = (i + itens.length) % itens.length;
+    var it = itens[atual];
+    var troca = function(){ ci.src = it.src; ci.alt = it.alt; cn.textContent = it.nome; cs.textContent = it.seg; encaixa(); };
+    [atual + 1, atual - 1].forEach(function(k){ (new Image()).src = itens[(k + itens.length) % itens.length].src; });
+    if (!dir){ troca(); return; }
+    ci.style.setProperty('--tx', (-dir * 6) + '%'); ci.classList.add('saindo');
+    setTimeout(function(){
+      troca(); ci.style.transition = 'none'; ci.style.setProperty('--tx', (dir * 6) + '%');
+      var vai = function(){ void ci.offsetWidth; ci.style.transition = ''; ci.classList.remove('saindo'); };
+      if (ci.decode) ci.decode().then(vai, vai); else vai();
+    }, 220);
+  }
+  mq.addEventListener('click', function(e){
+    if (performance.now() - fimArrasto < 250) return; // foi arrasto, não clique
+    var b = e.target.closest('.proj'); if (!b) return;
+    deOnde = b; mostra(+b.dataset.i, 0); cx.showModal(); lbAberto = true;
+    dl.push({event:'ver_exemplo', exemplo:itens[atual].nome});
+  });
+  cx.querySelectorAll('[data-lb]').forEach(function(b){ b.addEventListener('click', function(){ mostra(atual + +b.dataset.lb, +b.dataset.lb); }); });
+  cx.querySelector('.caixa-fechar').addEventListener('click', function(){ cx.close(); });
+  cx.addEventListener('click', function(e){ if (e.target === cx || e.target.classList.contains('caixa-corpo')) cx.close(); });
+  cx.addEventListener('keydown', function(e){ if (e.key === 'ArrowLeft') mostra(atual - 1, -1); else if (e.key === 'ArrowRight') mostra(atual + 1, 1); });
+  cx.addEventListener('close', function(){ lbAberto = false; if (deOnde) deOnde.focus({preventScroll:true}); });
+  addEventListener('resize', function(){ if (cx.open) encaixa(); });
+
+  // ----- O que vem: cards empilhados, o de trás vai para o fundo -----
+  var pil = [].slice.call(document.querySelectorAll('.pilha-it')), cards = pil.map(function(li){ return li.querySelector('.item'); });
+  var topos = [], pend = false;
+  function empilha(){
+    pend = false;
+    var soma = pil.map(function(){ return 0; });
+    for (var j = 1; j < pil.length; j++){
+      // progresso do card j: de encostar no card de trás até travar no próprio topo
+      var ini = topos[j - 1] + pil[j - 1].offsetHeight, fim = topos[j], y = pil[j].getBoundingClientRect().top;
+      var p = Math.max(0, Math.min(1, (ini - y) / Math.max(1, ini - fim)));
+      for (var i = 0; i < j; i++) soma[i] += p;
+    }
+    cards.forEach(function(c, i){
+      c.style.transform = soma[i] ? 'scale(' + (1 - .05 * soma[i]).toFixed(4) + ')' : '';
+      c.style.setProperty('--sombra', Math.min(.4, .15 * soma[i]).toFixed(3));
+    });
+  }
+  function medePilha(){ topos = pil.map(function(li){ return parseFloat(getComputedStyle(li).top) || 0; }); empilha(); }
+  if (!reduz){
+    medePilha(); addEventListener('resize', medePilha);
+    addEventListener('scroll', function(){ if (!pend){ pend = true; requestAnimationFrame(empilha); } }, {passive:true});
+  }
   // Contagem regressiva até 30/11/2026 23:59:59 (Brasília)
   var fim = new Date('2026-11-30T23:59:59-03:00').getTime(), rel = document.getElementById('relogio'), u = {};
   rel.querySelectorAll('[data-u]').forEach(function(b){ u[b.dataset.u] = b; });
