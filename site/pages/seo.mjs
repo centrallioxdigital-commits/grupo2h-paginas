@@ -24,7 +24,8 @@ const textoDoMain = (html) =>
     .trim();
 
 export function arquivosSEO({ paginas, posts }) {
-  const indexaveis = paginas.filter((p) => p.titulo && !p.semSitemap && !p.noindex);
+  // A home não tem 'titulo' (é montada à parte no build), mas é a página mais importante do sitemap.
+  const indexaveis = paginas.filter((p) => (p.path === '' || p.titulo) && !p.semSitemap && !p.noindex);
   const ultimaPost = posts[0] ? (posts[0].atualizado_em || posts[0].publicado_em).slice(0, 10) : PADRAO_LASTMOD;
 
   // ---- sitemap.xml
