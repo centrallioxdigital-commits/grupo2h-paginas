@@ -6,7 +6,8 @@
 # Só manda o que mudou desde o último envio (arquivo de estado no servidor).
 #
 # Segredos do repositório: FTP_SERVER, FTP_USERNAME, FTP_PASSWORD.
-# Variável opcional: FTP_DIR (padrão public_html/).
+# A conta FTP deve abrir direto dentro do public_html (conta criada no hPanel
+# com o campo de pasta vazio). Se não abrir, crie a variável FTP_DIR.
 name: Publicar na Hostinger
 
 on:
@@ -36,7 +37,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           security: loose
-          server-dir: ${{ vars.FTP_DIR || 'public_html/' }}
+          server-dir: ${{ vars.FTP_DIR || './' }}
           exclude: |
             **/.git*
             **/.git*/**
