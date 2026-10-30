@@ -5,3 +5,8 @@ DirectoryIndex index.html
 RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Arquivo de controle do envio automático (hostinger.yml)
+<Files ".ftp-deploy-sync-state.json">
+  Require all denied
+</Files>
