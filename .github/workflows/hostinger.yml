@@ -1,0 +1,48 @@
+# Envia o site para a hospedagem da Hostinger (public_html) por FTP.
+# O domínio grupo2h.com.br aponta para a Hostinger, então é este envio que
+# coloca as mudanças no ar. Roda quando alguém dá push na main e também é
+# chamado pelo site.yml quando o robô gera páginas novas do blog (commits do
+# robô não disparam outros workflows sozinhos).
+# Só manda o que mudou desde o último envio (arquivo de estado no servidor).
+#
+# Segredos do repositório: FTP_SERVER, FTP_USERNAME, FTP_PASSWORD.
+# A conta FTP deve abrir direto dentro do public_html (conta criada no hPanel
+# com o campo de pasta vazio). Se não abrir, crie a variável FTP_DIR.
+name: Publicar na Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  workflow_call:
+
+concurrency:
+  group: hostinger
+  cancel-in-progress: false
+
+jobs:
+  enviar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Enviar por FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          security: loose
+          server-dir: ${{ vars.FTP_DIR || './' }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            site/**
+            README.md
+            CNAME
+            .nojekyll

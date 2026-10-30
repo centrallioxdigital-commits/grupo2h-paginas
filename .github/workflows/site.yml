@@ -1,7 +1,8 @@
 # Gera o site principal (site/) e as páginas do blog a partir do Supabase.
 # Roda a cada 10 minutos: se alguém publicou, editou ou tirou um post do ar
 # no painel (grupo2h.com.br/blog/admin/), a página estática é criada ou
-# removida e o GitHub Pages publica sozinho. Sem post novo, não há commit.
+# removida e o job "publicar" manda para a Hostinger (hostinger.yml).
+# Sem post novo, não há commit nem envio.
 name: Site principal e blog
 
 on:
@@ -23,6 +24,8 @@ jobs:
   gerar:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    outputs:
+      mudou: ${{ steps.commit.outputs.mudou }}
     steps:
       - uses: actions/checkout@v4
 
@@ -64,3 +67,9 @@ jobs:
           [ -z "$URLS" ] && exit 0
           curl -s -X POST https://api.indexnow.org/indexnow -H 'Content-Type: application/json' \
             -d "{\"host\":\"grupo2h.com.br\",\"key\":\"$KEY\",\"keyLocation\":\"https://grupo2h.com.br/$KEY.txt\",\"urlList\":[${URLS}]}" || true
+
+  publicar:
+    needs: gerar
+    if: needs.gerar.outputs.mudou == 'sim'
+    uses: ./.github/workflows/hostinger.yml
+    secrets: inherit
