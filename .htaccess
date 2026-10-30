@@ -1,0 +1,7 @@
+# Site Grupo 2!H na Hostinger (Apache)
+ErrorDocument 404 /404.html
+DirectoryIndex index.html
+
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
