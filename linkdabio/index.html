@@ -207,7 +207,7 @@ ul{list-style:none;margin:0;padding:0}
 .exemplos{overflow:hidden}
 .exemplos .sec-cab{margin-bottom:clamp(24px,3vw,36px)}
 .mq-rotulo{display:flex;justify-content:center;margin-bottom:18px}
-.mq{position:relative;overflow:hidden;padding:12px 0 30px;cursor:grab;touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.mq{position:relative;overflow:hidden;padding:12px 0 30px;cursor:grab;touch-action:pan-y;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
 .mq.arrastando{cursor:grabbing}
 .mq-trilho{display:flex;width:max-content;will-change:transform}
 .mq.sem-motor{overflow-x:auto;scrollbar-width:none;-webkit-mask-image:none;mask-image:none}
@@ -728,20 +728,52 @@ ul{list-style:none;margin:0;padding:0}
       else if (!es[0].isIntersecting && raf){ cancelAnimationFrame(raf); raf = 0; }
     }, {rootMargin:'200px 0px'}).observe(mq);
 
-    mq.addEventListener('pointerdown', function(e){ if (e.button || arr) return; arr = { id:e.pointerId, x0:e.clientX, lx:e.clientX, lt:performance.now(), vs:0, mexeu:false }; });
-    mq.addEventListener('pointermove', function(e){
-      if (!arr || e.pointerId !== arr.id) return;
-      var agora = performance.now(), dx = e.clientX - arr.lx;
-      if (!arr.mexeu && Math.abs(e.clientX - arr.x0) > 6){ arr.mexeu = true; mq.classList.add('arrastando'); try { mq.setPointerCapture(e.pointerId); } catch(_){} }
-      if (arr.mexeu){ x += dx; arr.vs = arr.vs * .55 + (dx / (Math.max(8, agora - arr.lt) / 1000)) * .45; } // velocidade suavizada para o arremesso
-      arr.lx = e.clientX; arr.lt = agora;
-    });
-    var solta = function(e){
-      if (!arr || e.pointerId !== arr.id) return;
-      if (arr.mexeu){ fimArrasto = performance.now(); if (fimArrasto - arr.lt > 90) arr.vs = 0; v = Math.max(-4200, Math.min(4200, arr.vs)); }
+    // Arrasto: a faixa segue o dedo 1:1 a partir de onde estava (sem salto) e o arremesso usa a
+    // velocidade real dos últimos 100 ms. Mouse e caneta vão por pointer events; o dedo vai por
+    // touch events com trava de direção: gesto de lado prende a página, gesto vertical rola normal.
+    var amostras = [];
+    var comeca = function(cx){ arr = { x0:cx, xi:x, mexeu:false }; amostras = []; };
+    var mexe = function(cx){
+      if (!arr.mexeu){ arr.mexeu = true; arr.x0 = cx; arr.xi = x; mq.classList.add('arrastando'); }
+      x = arr.xi + (cx - arr.x0);
+      var t = performance.now(); amostras.push({ t:t, x:x });
+      while (amostras.length > 2 && t - amostras[0].t > 100) amostras.shift();
+    };
+    var termina = function(){
+      if (arr && arr.mexeu){
+        fimArrasto = performance.now();
+        var a = amostras[0], b = amostras[amostras.length - 1], dt = a && b ? (b.t - a.t) / 1000 : 0;
+        var vel = (!dt || fimArrasto - b.t > 80) ? 0 : (b.x - a.x) / dt; // segurou parado antes de soltar: sem arremesso
+        v = Math.max(-4200, Math.min(4200, vel));
+      }
       arr = null; mq.classList.remove('arrastando');
     };
+
+    mq.addEventListener('pointerdown', function(e){ if (e.pointerType === 'touch' || e.button || arr) return; comeca(e.clientX); arr.id = e.pointerId; });
+    mq.addEventListener('pointermove', function(e){
+      if (!arr || e.pointerId !== arr.id) return;
+      if (!arr.mexeu){ if (Math.abs(e.clientX - arr.x0) < 6) return; try { mq.setPointerCapture(e.pointerId); } catch(_){} }
+      mexe(e.clientX);
+    });
+    var solta = function(e){ if (arr && e.pointerId === arr.id) termina(); };
     ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(function(n){ mq.addEventListener(n, solta); });
+
+    mq.addEventListener('touchstart', function(e){
+      if (e.touches.length > 1){ termina(); return; }
+      var p = e.touches[0]; comeca(p.clientX); arr.y0 = p.clientY; arr.toque = true; arr.dir = '';
+    }, {passive:true});
+    mq.addEventListener('touchmove', function(e){
+      if (!arr || !arr.toque) return;
+      var p = e.touches[0], dx = p.clientX - arr.x0, dy = p.clientY - arr.y0;
+      if (!arr.dir){
+        if (Math.abs(dx) < 5 && Math.abs(dy) < 5) return;
+        arr.dir = Math.abs(dx) > Math.abs(dy) ? 'h' : 'v';
+        if (arr.dir === 'v'){ arr = null; return; } // rolagem da página: a faixa volta a andar sozinha
+      }
+      if (e.cancelable) e.preventDefault();
+      mexe(p.clientX);
+    }, {passive:false});
+    ['touchend', 'touchcancel'].forEach(function(n){ mq.addEventListener(n, function(){ if (arr && arr.toque) termina(); }); });
     mq.addEventListener('wheel', function(e){ // trackpad lateral também empurra a faixa
       if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
       e.preventDefault(); x -= e.deltaX; v = cruzeiro() - e.deltaX * 6;
