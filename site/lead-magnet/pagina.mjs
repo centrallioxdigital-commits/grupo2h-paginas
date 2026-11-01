@@ -5,6 +5,7 @@
 
 import { esc, icon } from '../lib/core.mjs';
 import { LM, SINAIS, FAIXAS } from './conteudo.mjs';
+import { pixelHead, pixelNoscript } from '../lib/meta-pixel.mjs';
 
 const n2 = (i) => String(i + 1).padStart(2, '0');
 const waLink = (msg) => `https://api.whatsapp.com/send?phone=${LM.whatsapp}&text=${encodeURIComponent(msg)}`;
@@ -247,9 +248,11 @@ export function paginaHTML({ versao, cssApp }) {
 <link rel="preload" href="assets/fonts/general-sans-600.woff2" as="font" type="font/woff2" crossorigin>
 ${css}
 <style>${CSS_PAGINA}</style>
+${pixelHead(LM.metaPixel)}
 </head>
 <body data-protegido>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${LM.gtm}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+${pixelNoscript(LM.metaPixel)}
 <a class="pular" href="#receber">Pular para o formulário</a>
 <header class="topo" data-topo>
   <div class="topo-in">

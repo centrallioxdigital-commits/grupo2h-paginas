@@ -10,9 +10,10 @@ export const LM = {
   pdf: '7-sinais-agencia-transparente-2H.pdf',
   webhook: 'https://n8n-n8n-start.dnjlb7.easypanel.host/webhook/grupo2h?source=lead-magnet',
   gtm: 'GTM-PDKH7XHJ',
+  metaPixel: '730549076044476',
   diagnostico: '/diagnostico-rapido/?origem=lead-magnet-7-sinais',
-  whatsapp: '5515997509239',
-  whatsappExibicao: '(15) 99750-9239',
+  whatsapp: '551531710017',
+  whatsappExibicao: '(15) 3171-0017',
   email: 'contato@grupo2h.com.br',
   privacidade: '/novo/privacidade/', // na virada do site para produção, trocar para '/privacidade/'
 };

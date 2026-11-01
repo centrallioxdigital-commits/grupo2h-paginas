@@ -4,6 +4,7 @@
 import { cfg, u, abs, esc, icon, asset, assetAbs, cssEmbutido, purgarCss } from './core.mjs';
 import { empresa, whatsappLink } from '../content/empresa.mjs';
 import { servicos } from '../content/servicos.mjs';
+import { pixelHead, pixelNoscript } from './meta-pixel.mjs';
 
 /** Foto tratada (site/static/img/fotos): versão 800 no celular, 1600 no computador. */
 export function foto(nome, alt, { cls = '', revela = true, prioridade = false, sizes = '(max-width: 900px) 100vw, 50vw', legenda = '' } = {}) {
@@ -218,6 +219,7 @@ export function pagina(o) {
     ],
   };
   const gtm = cfg.producao && !o.semGTM && cfg.gtm;
+  const pixel = cfg.producao && !o.semGTM && cfg.metaPixel;
   const html = `<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -251,9 +253,11 @@ ${o.imagem ? '' : '<meta property="og:image:type" content="image/jpeg">\n<meta p
 ${o.extraHead || ''}
 <script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>
 ${gtm ? `<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${cfg.gtm}');</script>` : ''}
+${pixel ? pixelHead(cfg.metaPixel) : ''}
 </head>
 <body class="${o.classe || ''}"${o.semProtecao ? '' : ' data-protegido'}>
 ${gtm ? `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${cfg.gtm}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>` : ''}
+${pixel ? pixelNoscript(cfg.metaPixel) : ''}
 ${o.semCabecalho ? '' : cabecalho(o.navAtual ?? o.path)}
 <main id="conteudo">
 ${inserirDivisas(o.corpo)}

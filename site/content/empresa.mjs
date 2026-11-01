@@ -9,8 +9,8 @@ export const empresa = {
   slogan: 'Estrutura, planejamento e ação.',
 
   email: 'contato@grupo2h.com.br',
-  whatsapp: '5515997509239',
-  whatsappExibicao: '(15) 99750-9239',
+  whatsapp: '551531710017',
+  whatsappExibicao: '(15) 3171-0017',
   whatsappMensagem: 'Olá! Vim pelo site do Grupo 2!H e quero entender como vocês podem ajudar a minha empresa.',
 
   // A preencher pelo time (ver LISTA-PARA-O-TIME.md):
