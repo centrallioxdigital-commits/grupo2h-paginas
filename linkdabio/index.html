@@ -691,9 +691,7 @@ ul{list-style:none;margin:0;padding:0}
   new IntersectionObserver(function(e){ heroVis = e[0].isIntersecting; bar(); }).observe(document.querySelector('.hero'));
   var viuOferta = false;
   new IntersectionObserver(function(e){ ofertaVis = e[0].isIntersecting; bar();
-    if(ofertaVis && !viuOferta && window.fbq){ viuOferta = true;
-      fbq('track','ViewContent',{content_name:'Oferta Link na Bio'});
-    }
+    if(ofertaVis && !viuOferta && window.fbq){ viuOferta = true; fbq('track','ViewContent',{content_name:'Link na Bio', value:197, currency:'BRL'}); }
   }, {threshold:.15}).observe(document.getElementById('oferta'));
 
   // ----- Portfólio: faixa infinita que anda sozinha, arrasta e arremessa com inércia -----
