@@ -39,7 +39,7 @@
       "url": "https://grupo2h.com.br/",
       "logo": "https://grupo2h.com.br/assets/img/logo-2h-glyph.png",
       "email": "contato@grupo2h.com.br",
-      "telephone": "+55 15 99750-9239",
+      "telephone": "+55 15 3171-0017",
       "founder": { "@type": "Person", "name": "Jhonathan Marcos", "jobTitle": "CEO" }
     },
     {
@@ -388,8 +388,12 @@ ul{list-style:none;margin:0;padding:0}
   *{transition-duration:.01ms!important}
 }
 </style>
+<!-- Meta Pixel -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','730549076044476');fbq('track','PageView');</script>
+<!-- Fim Meta Pixel -->
 </head>
 <body ontouchstart="">
+<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=730549076044476&ev=PageView&noscript=1"></noscript>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PDKH7XHJ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <symbol id="i-arrow-up-right" viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></symbol>
@@ -608,7 +612,7 @@ ul{list-style:none;margin:0;padding:0}
         <p>Estrutura, planejamento e ação para empresas que querem crescer com previsibilidade. Atendimento 100% online, para todo o Brasil.</p>
       </div>
       <div class="rod-contatos">
-        <a class="rod-ct" data-btn="rodape-whatsapp" data-wa="Olá, Grupo 2!H! Vi a página do Link na Bio." href="#"><i><svg class="ic"><use href="#i-whatsapp-logo"/></svg></i><span><small>WHATSAPP</small><b>(15) 99750-9239</b></span></a>
+        <a class="rod-ct" data-btn="rodape-whatsapp" data-wa="Olá, Grupo 2!H! Vi a página do Link na Bio." href="#"><i><svg class="ic"><use href="#i-whatsapp-logo"/></svg></i><span><small>WHATSAPP</small><b>(15) 3171-0017</b></span></a>
         <a class="rod-ct" data-btn="rodape-email" href="mailto:contato@grupo2h.com.br?subject=Link%20na%20Bio"><i class="esc"><svg class="ic"><use href="#i-envelope-simple"/></svg></i><span><small>E-MAIL</small><b>contato@grupo2h.com.br</b></span></a>
       </div>
     </div>
@@ -633,7 +637,7 @@ ul{list-style:none;margin:0;padding:0}
 <script src="/assets/js/lenis.min.js"></script>
 <script>
 (function(){
-  var FONE = '5515997509239';
+  var FONE = '551531710017';
   var dl = window.dataLayer = window.dataLayer || [];
 
   // rolagem suave igual ao site oficial (Lenis) no mouse e trackpad; no toque fica a rolagem nativa
@@ -670,7 +674,10 @@ ul{list-style:none;margin:0;padding:0}
   document.addEventListener('click', function(e){
     var el = e.target.closest('[data-btn]'); if(!el) return;
     dl.push({event:'clique_botao', botao:el.getAttribute('data-btn'), destino:el.href || '', pagina:'linkdabio'});
-    if(el.hasAttribute('data-wa')) dl.push({event:'clique_whatsapp', botao:el.getAttribute('data-btn')});
+    if(el.hasAttribute('data-wa')){
+      dl.push({event:'clique_whatsapp', botao:el.getAttribute('data-btn')});
+      if(window.fbq) fbq('track','Contact',{content_name:'Link na Bio', content_category:el.getAttribute('data-btn')});
+    }
   });
   document.querySelector('[href="#top"]').addEventListener('click', function(e){ e.preventDefault(); if (lenis) lenis.scrollTo(0); else window.scrollTo({top:0,behavior:'smooth'}); });
 
