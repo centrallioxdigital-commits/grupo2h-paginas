@@ -1187,3 +1187,7 @@ html.js .frame-i,html.js .frame-e{transition:opacity 1.2s cubic-bezier(.22,1,.36
 @media (prefers-reduced-motion:reduce){html.js .top,html.js .hero .eyebrow,html.js .hero h1,html.js .hero__sub,html.js .hero__ctas{animation:none}}
 
 .vsl h2{font-size:clamp(1.8rem,1.2rem + 1.5vw,2.45rem)}
+
+/* Sobre a Vivi: nome em destaque, sobre-título discreto em dourado */
+.about p.about__kicker{color:var(--gold-ink)!important;font-size:.72rem;letter-spacing:.18em;font-weight:700;margin-bottom:.5rem}
+#sv-t{font-size:clamp(2.6rem,1.6rem + 3vw,4.2rem);line-height:1.02}
