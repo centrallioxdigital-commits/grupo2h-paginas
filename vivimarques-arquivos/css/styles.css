@@ -969,3 +969,8 @@ html:has(body.tema-empresa){--sb-track:#E6DACB;--sb-edge:#D8C8B5}
 .frame-i.is-ready,.frame-e.is-ready{opacity:1;transform:none}
 html:not(.js) .frame-i,html:not(.js) .frame-e{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.frame-i,.frame-e{transition:none}}
+
+/* ===== Leitura: textos corridos em preto sólido (pedido do Devikison) ===== */
+:root,body.tema-empresa{--text:#000;--muted:#000}
+.lead,.hero__sub,.sec-note,.what__text p,.disc__panel p,.who__item p,.stack__body p,.tile span:not(.tile__ic),.incl span,.fact span,.faq .ans,.faq .ans p,.toc__d,.about p,.pain,.wa-bubble__body,.consent p{color:#000!important;opacity:1}
+.sec--green .lead,.vsl .lead,.final p,.final .lead{color:#F1EADB!important}
