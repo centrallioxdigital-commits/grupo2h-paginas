@@ -221,3 +221,19 @@ document.addEventListener("pointerdown", function (e) {
     try { sessionStorage.setItem(KEY, "1"); } catch (e) {}
   });
 })();
+
+
+/* Molduras do topo: revelar só quando todas as imagens estiverem decodificadas */
+(function () {
+  document.querySelectorAll(".frame-i, .frame-e").forEach(function (f) {
+    var feito = false;
+    function mostrar() { if (!feito) { feito = true; requestAnimationFrame(function () { f.classList.add("is-ready"); }); } }
+    var imgs = [].slice.call(f.querySelectorAll("img"));
+    Promise.all(imgs.map(function (i) {
+      if (i.complete && i.naturalWidth) return i.decode ? i.decode().catch(function () {}) : Promise.resolve();
+      return new Promise(function (ok) { i.addEventListener("load", ok, { once: true }); i.addEventListener("error", ok, { once: true }); })
+        .then(function () { return i.decode ? i.decode().catch(function () {}) : null; });
+    })).then(mostrar);
+    setTimeout(mostrar, 2500);
+  });
+})();

@@ -961,3 +961,11 @@ html:has(body.tema-empresa){--sb-track:#E6DACB;--sb-edge:#D8C8B5}
 .marquee--tilt span{font-size:clamp(.72rem,.66rem + .25vw,.84rem);letter-spacing:.2em;padding:0 1.15rem}
 .marquee i{width:6px;height:6px;box-shadow:none}
 .marquee--gold{border-block-color:rgba(122,90,38,.3)}
+
+/* ===== Molduras: aparecem inteiras, só depois de todas as imagens prontas ===== */
+.frame-i *,.frame-e *{animation:none!important}
+.frame-e__orbit ellipse{animation:orbita 50s linear infinite!important}
+.frame-i,.frame-e{opacity:0;transform:translateY(14px) scale(.985);transition:opacity .9s var(--ease),transform 1.1s var(--ease)}
+.frame-i.is-ready,.frame-e.is-ready{opacity:1;transform:none}
+html:not(.js) .frame-i,html:not(.js) .frame-e{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.frame-i,.frame-e{transition:none}}
