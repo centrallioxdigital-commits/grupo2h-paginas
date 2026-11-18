@@ -194,3 +194,29 @@ document.addEventListener("pointerdown", function (e) {
   window.addEventListener("scroll", pedir, { passive: true });
   window.addEventListener("resize", pedir);
 })();
+
+
+/* Botão flutuante de WhatsApp: aparece depois do topo; balão abre sozinho uma vez por visita */
+(function () {
+  var box = document.querySelector("[data-wa-float]"), hero = document.querySelector(".hero");
+  if (!box) return;
+  var KEY = "vm-balao-fechado", mostrouBalao = false, timer;
+  function fechado() { try { return sessionStorage.getItem(KEY) === "1"; } catch (e) { return false; } }
+  function abrirBalao() {
+    if (fechado() || mostrouBalao) return;
+    mostrouBalao = true;
+    box.classList.add("has-bubble");
+    timer = setTimeout(function () { box.classList.remove("has-bubble"); }, 9000);
+  }
+  function aoRolar() {
+    var passou = hero ? window.scrollY > hero.offsetTop + hero.offsetHeight * 0.6 : window.scrollY > 500;
+    box.classList.toggle("is-on", passou);
+    if (passou && !mostrouBalao) setTimeout(abrirBalao, 1400);
+  }
+  window.addEventListener("scroll", aoRolar, { passive: true });
+  aoRolar();
+  box.querySelector(".wa-bubble__x").addEventListener("click", function () {
+    clearTimeout(timer); box.classList.remove("has-bubble");
+    try { sessionStorage.setItem(KEY, "1"); } catch (e) {}
+  });
+})();
