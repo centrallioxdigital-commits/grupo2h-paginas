@@ -1016,3 +1016,37 @@ body.tema-empresa .divisor__m{box-shadow:0 0 0 4px rgba(234,223,210,.75),0 6px 1
 
 /* sem sobre-títulos: respiro do título ajustado */
 .sec-head h2,.report2__aside h2,.what__text h2,.about h2{margin-top:0}
+
+/* ===== Perguntas frequentes v2: abre por grid (sem tranco), uma por vez, resposta em quadro ===== */
+.faq{display:grid;gap:10px}
+.faq__item{position:relative;isolation:isolate;border-radius:18px;background:var(--glass-bg);border:1px solid var(--glass-brd);box-shadow:var(--glass-sh);transition:box-shadow .6s cubic-bezier(.22,.61,.36,1),background-color .6s}
+.faq__item.is-open{background:linear-gradient(145deg,rgba(255,255,255,.88),rgba(255,255,255,.6));box-shadow:inset 0 1px 0 #fff,0 18px 38px -22px rgba(12,41,37,.38)}
+.faq__q{margin:0;font:inherit}
+.faq__q button{appearance:none;border:0;background:none;width:100%;display:flex;justify-content:space-between;align-items:center;gap:1.5rem;text-align:left;padding:1.3rem 1.2rem;cursor:pointer;
+  font-family:var(--serif);font-weight:500;font-size:clamp(1.08rem,1.02rem + .3vw,1.28rem);line-height:1.35;color:var(--ink);border-radius:18px;transition:color .5s}
+.faq__q button:focus-visible{outline:2px solid var(--gold);outline-offset:-4px}
+.faq__q i{flex:none;position:relative;width:34px;height:34px;border-radius:50%;border:1px solid var(--line-gold);transition:background-color .6s,transform .6s cubic-bezier(.22,.61,.36,1)}
+.faq__q i::before,.faq__q i::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:var(--gold-ink);transform:translate(-50%,-50%);transition:transform .6s cubic-bezier(.22,.61,.36,1)}
+.faq__q i::after{transform:translate(-50%,-50%) rotate(90deg)}
+.faq__item.is-open .faq__q i{background:var(--gold-pale);transform:rotate(180deg)}
+.faq__item.is-open .faq__q i::after{transform:translate(-50%,-50%) rotate(0)}
+@media (hover:hover){.faq__q button:hover{color:var(--gold-ink)}}
+.faq__a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s cubic-bezier(.22,.61,.36,1)}
+.faq__item.is-open .faq__a{grid-template-rows:1fr}
+.faq__in{overflow:hidden;min-height:0}
+.faq__box{margin:0 1.1rem 1.1rem;padding:1.05rem 1.25rem;border-radius:14px;background:#FFFFFF;border:1px solid rgba(201,160,92,.3);box-shadow:inset 0 1px 0 #fff,0 6px 16px -12px rgba(12,41,37,.25);
+  color:#000;opacity:0;transform:translateY(-6px);transition:opacity .35s ease,transform .45s cubic-bezier(.22,.61,.36,1)}
+.faq__box p{margin:0;color:#000!important}
+.faq__item.is-open .faq__box{opacity:1;transform:none;transition-delay:.12s}
+@media (max-width:560px){.faq__q button{padding:1.1rem 1rem}.faq__box{margin:0 .8rem .8rem;padding:.95rem 1rem}}
+@media (prefers-reduced-motion:reduce){.faq__a,.faq__box{transition:none}}
+
+/* ===== Sombra dos botões: sem recorte e mais difusa ===== */
+.hero .wrap{overflow:visible!important}
+.hero{overflow-x:clip}
+.btn{box-shadow:0 0 0 1px rgba(12,41,37,.28),0 2px 4px rgba(12,41,37,.12),0 12px 24px -12px rgba(12,41,37,.35),inset 0 1px 0 rgba(255,246,222,.14)}
+.btn--gold,body.tema-empresa .btn--gold{box-shadow:0 0 0 1px rgba(122,90,38,.4),0 2px 5px rgba(0,0,0,.18),0 12px 26px -12px rgba(201,160,92,.5),inset 0 1px 0 rgba(255,255,255,.5),inset 0 -2px 4px rgba(122,90,38,.3)}
+@media (hover:hover){
+  .btn:hover{box-shadow:0 0 0 1px rgba(12,41,37,.32),0 3px 6px rgba(12,41,37,.12),0 18px 30px -14px rgba(12,41,37,.4),inset 0 1px 0 rgba(255,246,222,.2)}
+  .btn--gold:hover{box-shadow:0 0 0 1px rgba(122,90,38,.45),0 3px 7px rgba(0,0,0,.18),0 18px 34px -14px rgba(201,160,92,.6),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 4px rgba(122,90,38,.3)}
+}

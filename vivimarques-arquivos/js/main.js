@@ -237,3 +237,20 @@ document.addEventListener("pointerdown", function (e) {
     setTimeout(mostrar, 2500);
   });
 })();
+
+
+/* Perguntas frequentes v2: uma aberta por vez */
+(function () {
+  var itens = [].slice.call(document.querySelectorAll(".faq__item"));
+  function set(item, abrir) {
+    item.classList.toggle("is-open", abrir);
+    item.querySelector(".faq__q button").setAttribute("aria-expanded", abrir ? "true" : "false");
+  }
+  itens.forEach(function (item) {
+    item.querySelector(".faq__q button").addEventListener("click", function () {
+      var abrir = !item.classList.contains("is-open");
+      itens.forEach(function (o) { if (o !== item) set(o, false); });
+      set(item, abrir);
+    });
+  });
+})();
