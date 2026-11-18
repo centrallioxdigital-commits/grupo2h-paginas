@@ -705,3 +705,10 @@ body.tema-empresa .team__chip{color:var(--ink)}
 body.tema-empresa .forma li{background:rgba(255,255,255,.5)!important}
 body.tema-empresa .foot{background:#0E2B26}
 body.tema-empresa .top.is-scrolled .top__in{background:linear-gradient(180deg,rgba(255,255,255,.95) 0%,rgba(243,247,242,.9) 55%,rgba(232,239,231,.92) 100%)!important}
+
+/* ===== Correção final: nada do topo sai da área visível (margem lateral segura) ===== */
+.portrait .hero__note,.team .hero__note{right:0!important;left:auto}
+.portrait__disc{left:-10px!important}
+@media (max-width:860px){.portrait .portrait__disc{left:50%!important}}
+.hero .wrap{overflow-x:clip;overflow-y:visible;padding-block:4px}
+.hero__media{max-width:100%}
