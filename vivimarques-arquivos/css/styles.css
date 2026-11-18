@@ -1116,3 +1116,25 @@ body.tema-empresa .foot{background:radial-gradient(60rem 30rem at 85% 0%,rgba(23
 }
 
 .foot__wa{padding:.7rem 1.4rem .7rem 1.15rem;white-space:nowrap}
+
+/* ===== Surgimento ao rolar (coreografado, sutil) ===== */
+.rv,.rv.is-in{opacity:1!important;transform:none!important;transition-delay:0s}
+.rv2{opacity:0;transform:translate3d(0,18px,0);filter:blur(5px);
+  transition:opacity 1.05s cubic-bezier(.22,1,.36,1) var(--d,0ms),transform 1.15s cubic-bezier(.22,1,.36,1) var(--d,0ms),filter 1.05s cubic-bezier(.22,1,.36,1) var(--d,0ms)!important}
+.rv2.rv2-in{opacity:1;transform:none;filter:none}
+@media (max-width:860px){.rv2{filter:blur(3px);transform:translate3d(0,14px,0)}}
+html:not(.js) .rv2{opacity:1;transform:none;filter:none}
+
+/* ===== Desempenho da rolagem: desfoque só onde aparece de verdade ===== */
+.pain,.disc__panel,.fact,.quote,.forma li,.who__item,.faq__item,.incl,.toc,.preview,.what__text .note,.tile,.offer2,.stack__card,.team__chip,.frame-e__dot,.toc--grid li{
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.pain,.fact,.who__item,.faq__item,.disc__panel,.what__text .note{background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,255,255,.58))!important}
+.pain[aria-pressed="true"]{background:linear-gradient(145deg,#FFFFFF,rgba(243,227,194,.75))!important}
+.faq__item.is-open{background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(255,255,255,.78))!important}
+.offer2{background:linear-gradient(145deg,rgba(255,255,255,.72),rgba(255,255,255,.45))!important}
+
+/* ===== Rodapé: botão com folga real ===== */
+.foot__wa{display:inline-flex;width:auto;flex:none;padding:.75rem 1.6rem .75rem 1.25rem!important;gap:.65rem;line-height:1.2;box-sizing:border-box}
+
+.marquee__track{will-change:transform;backface-visibility:hidden}
+.marquee__set{min-width:100vw;justify-content:space-around}

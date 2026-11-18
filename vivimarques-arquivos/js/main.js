@@ -91,28 +91,32 @@
     if (a.getAttribute("href") === "#") a.setAttribute("href", "#investimento");
   });
 
-  /* Rolagem suave da roda do mouse (solta ao arrastar a barra, clicar, usar teclado ou toque) */
+  /* Rolagem suave da roda do mouse: desaceleração contínua por tempo, encerra sem degraus
+     (solta ao arrastar a barra, clicar, usar teclado ou toque) */
   if (!reduz && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-    var alvo = window.scrollY, atual = window.scrollY, rodando = false, ativo = false;
+    var alvo = window.scrollY, atual = window.scrollY, rodando = false, ultimo = 0;
+    var K = 6.2; // quanto maior, mais rápido assenta
     function max() { return document.documentElement.scrollHeight - window.innerHeight; }
-    function passo() {
-      atual += (alvo - atual) * 0.06;
-      if (Math.abs(alvo - atual) < 0.4) { atual = alvo; rodando = false; }
+    function passo(agora) {
+      var dt = Math.min(0.05, (agora - (ultimo || agora)) / 1000 || 0.016); ultimo = agora;
+      var dif = alvo - atual;
+      atual += dif * (1 - Math.exp(-K * dt));
+      if (Math.abs(alvo - atual) < 0.5) { atual = alvo; rodando = false; ultimo = 0; }
       window.scrollTo(0, atual);
-      if (rodando) requestAnimationFrame(passo); else ativo = false;
+      if (rodando) requestAnimationFrame(passo);
     }
+    function iniciar() { if (!rodando) { rodando = true; ultimo = 0; requestAnimationFrame(passo); } }
     window.addEventListener("wheel", function (e) {
       if (e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
-      var el = e.target.closest("iframe, textarea, [data-noscroll]");
-      if (el) return;
+      if (e.target.closest("iframe, textarea, [data-noscroll]")) return;
       e.preventDefault();
-      if (!ativo) { alvo = atual = window.scrollY; ativo = true; }
-      var d = (e.deltaMode === 1 ? e.deltaY * 32 : e.deltaY) * 0.9;
-      d = Math.max(-260, Math.min(260, d));
+      if (!rodando) { alvo = atual = window.scrollY; }
+      var d = (e.deltaMode === 1 ? e.deltaY * 32 : e.deltaY) * 0.95;
+      d = Math.max(-240, Math.min(240, d));
       alvo = Math.max(0, Math.min(max(), alvo + d));
-      if (!rodando) { rodando = true; requestAnimationFrame(passo); }
+      iniciar();
     }, { passive: false });
-    function solta() { rodando = false; ativo = false; alvo = atual = window.scrollY; }
+    function solta() { rodando = false; ultimo = 0; alvo = atual = window.scrollY; }
     ["mousedown", "keydown", "touchstart"].forEach(function (ev) { window.addEventListener(ev, solta, { passive: true }); });
     window.addEventListener("scroll", function () { if (!rodando) { alvo = atual = window.scrollY; } }, { passive: true });
     document.addEventListener("click", function (e) {
@@ -121,9 +125,9 @@
       var t = document.querySelector(a.getAttribute("href"));
       if (!t) return;
       e.preventDefault();
+      atual = window.scrollY;
       alvo = Math.min(max(), t.getBoundingClientRect().top + window.scrollY - 84);
-      atual = window.scrollY; ativo = true;
-      if (!rodando) { rodando = true; requestAnimationFrame(passo); }
+      iniciar();
     });
   }
 })();
@@ -253,4 +257,52 @@ document.addEventListener("pointerdown", function (e) {
       set(item, abrir);
     });
   });
+})();
+
+
+/* Surgimento ao rolar: sobe 18px saindo de um desfoque, em cascata nos grupos */
+(function () {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
+  var alvos = [".sec-head > *", ".what__text > *", ".disc", ".report2__aside > *", ".about__photo", ".about > div:last-child > *",
+    ".pain", ".pains__result", ".who__item", ".sec-note", ".tile", ".offer2__price", ".offer2__lbl", ".faq__item", ".fact",
+    ".step", ".final .wrap > *", ".vsl__grid > *", ".foot__grid > *", ".foot__base"];
+  var lista = [];
+  alvos.forEach(function (sel) {
+    document.querySelectorAll(sel).forEach(function (el) {
+      if (el.closest(".hero") || el.classList.contains("is-in") && el.classList.contains("rv")) return;
+      if (lista.indexOf(el) === -1) lista.push(el);
+    });
+  });
+  // atraso em cascata entre irmãos do mesmo grupo
+  lista.forEach(function (el) {
+    el.classList.add("rv2");
+    var irmaos = [].filter.call(el.parentElement.children, function (x) { return lista.indexOf(x) > -1; });
+    var i = irmaos.indexOf(el);
+    el.style.setProperty("--d", Math.min(i, 6) * 80 + "ms");
+  });
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("rv2-in"); io.unobserve(e.target); } });
+  }, { rootMargin: "0px 0px -12% 0px", threshold: 0.01 });
+  lista.forEach(function (el) { io.observe(el); });
+})();
+
+/* Fim da página: revela o que ainda não apareceu (rodapé) */
+(function () {
+  function fim() {
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 6)
+      document.querySelectorAll(".rv2:not(.rv2-in)").forEach(function (el) { el.classList.add("rv2-in"); });
+  }
+  window.addEventListener("scroll", fim, { passive: true });
+})();
+
+/* Faixas infinitas: velocidade constante (~55 px/s) independente do comprimento */
+(function () {
+  function ajusta() {
+    document.querySelectorAll(".marquee").forEach(function (m) {
+      var set = m.querySelector(".marquee__set"), tr = m.querySelector(".marquee__track");
+      if (set && tr) tr.style.animationDuration = Math.max(30, set.getBoundingClientRect().width / 55) + "s";
+    });
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajusta); else ajusta();
+  window.addEventListener("resize", ajusta);
 })();
