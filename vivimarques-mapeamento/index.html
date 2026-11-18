@@ -177,26 +177,50 @@
       </div>
       <div class="disc rv rv-d1">
         <div class="disc__wheel">
-          <svg viewBox="0 0 420 420" role="group" aria-label="Os quatro estilos do DISC">
-            <circle cx="210" cy="210" r="208" fill="none" stroke="rgba(201,160,92,.45)" stroke-width="1"/>
-            <g class="disc__q" tabindex="0" role="button" aria-pressed="false" data-t="D de Dominância" data-d="É o lado que gosta de desafio, decide rápido e quer ver resultado. Quando ele é forte em você, a sua energia vai direto para a ação e para o objetivo.">
-              <path d="M10.1 204.4A200 200 0 0 1 204.4 10.1L208.0 138.0A72 72 0 0 0 138.0 208.0Z"/>
-              <text x="112.4" y="118" text-anchor="middle">D</text><text class="lbl" x="112.4" y="140" text-anchor="middle">Dominância</text>
+          <svg viewBox="-14 -14 448 448" role="group" aria-label="Os quatro estilos do DISC">
+            <defs>
+              <linearGradient id="dg-D" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2A5C4E"/><stop offset="1" stop-color="#0A2622"/></linearGradient>
+              <linearGradient id="dg-I" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6E3B8"/><stop offset=".55" stop-color="#E2BF7E"/><stop offset="1" stop-color="#C49A55"/></linearGradient>
+              <linearGradient id="dg-S" x1="1" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#3F6656"/><stop offset="1" stop-color="#7C9C8B"/></linearGradient>
+              <linearGradient id="dg-C" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#E6DAC2"/><stop offset="1" stop-color="#FBF6EC"/></linearGradient>
+              <linearGradient id="dg-ouro" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6E6C2"/><stop offset=".3" stop-color="#C9A05C"/><stop offset=".55" stop-color="#FFF4DA"/><stop offset=".8" stop-color="#9C7A3E"/><stop offset="1" stop-color="#E8C98D"/></linearGradient>
+              <radialGradient id="dg-brilho" cx="30%" cy="20%" r="80%"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".45" stop-color="#fff" stop-opacity=".08"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+              <radialGradient id="dg-hub" cx="35%" cy="28%" r="80%"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#EFE6D4"/></radialGradient>
+              <filter id="dg-sombra" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#0C2925" flood-opacity=".28"/></filter>
+              <filter id="dg-sombra2" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#0C2925" flood-opacity=".35"/></filter>
+            </defs>
+            <circle cx="210" cy="210" r="218" fill="none" stroke="url(#dg-ouro)" stroke-width="1.6"/>
+            <circle class="disc__ticks" cx="210" cy="210" r="210.5" fill="none" stroke="#B38B4A" stroke-width="5" stroke-dasharray="1 10.0" opacity=".55"/>
+            <g filter="url(#dg-sombra)">
+            <g class="disc__q disc__q--D" style="--dx:-9px;--dy:-9px" tabindex="0" role="button" aria-pressed="false" data-t="D de Dominância" data-d="É o lado que gosta de desafio, decide rápido e quer ver resultado. Quando ele é forte em você, a sua energia vai direto para a ação e para o objetivo.">
+              <path class="disc__fill" d="M10.1 204.4A200 200 0 0 1 204.4 10.1L208.0 138.0A72 72 0 0 0 138.0 208.0Z" fill="url(#dg-D)"/>
+              <path class="disc__shine" d="M10.1 204.4A200 200 0 0 1 204.4 10.1L208.0 138.0A72 72 0 0 0 138.0 208.0Z" fill="url(#dg-brilho)"/>
+              <path class="disc__edge" d="M10.1 204.4A200 200 0 0 1 204.4 10.1L208.0 138.0A72 72 0 0 0 138.0 208.0Z"/>
+              <text class="disc__letter" x="112.4" y="116.4" text-anchor="middle">D</text><text class="lbl" x="112.4" y="140.4" text-anchor="middle">Dominância</text>
             </g>
-            <g class="disc__q" tabindex="0" role="button" aria-pressed="false" data-t="I de Influência" data-d="É o lado comunicativo, que se conecta com facilidade, contagia as pessoas com entusiasmo e gosta de estar em movimento, sempre com gente por perto.">
-              <path d="M215.6 10.1A200 200 0 0 1 409.9 204.4L282.0 208.0A72 72 0 0 0 212.0 138.0Z"/>
-              <text x="307.6" y="118" text-anchor="middle">I</text><text class="lbl" x="307.6" y="140" text-anchor="middle">Influência</text>
+            <g class="disc__q disc__q--I" style="--dx:9px;--dy:-9px" tabindex="0" role="button" aria-pressed="false" data-t="I de Influência" data-d="É o lado comunicativo, que se conecta com facilidade, contagia as pessoas com entusiasmo e gosta de estar em movimento, sempre com gente por perto.">
+              <path class="disc__fill" d="M215.6 10.1A200 200 0 0 1 409.9 204.4L282.0 208.0A72 72 0 0 0 212.0 138.0Z" fill="url(#dg-I)"/>
+              <path class="disc__shine" d="M215.6 10.1A200 200 0 0 1 409.9 204.4L282.0 208.0A72 72 0 0 0 212.0 138.0Z" fill="url(#dg-brilho)"/>
+              <path class="disc__edge" d="M215.6 10.1A200 200 0 0 1 409.9 204.4L282.0 208.0A72 72 0 0 0 212.0 138.0Z"/>
+              <text class="disc__letter" x="307.6" y="116.4" text-anchor="middle">I</text><text class="lbl" x="307.6" y="140.4" text-anchor="middle">Influência</text>
             </g>
-            <g class="disc__q" tabindex="0" role="button" aria-pressed="false" data-t="S de Estabilidade" data-d="É o lado calmo e constante, que valoriza o cuidado com as pessoas, a lealdade e um ritmo seguro para fazer as coisas com tranquilidade e bem feitas.">
-              <path d="M409.9 215.6A200 200 0 0 1 215.6 409.9L212.0 282.0A72 72 0 0 0 282.0 212.0Z"/>
-              <text x="307.6" y="313" text-anchor="middle">S</text><text class="lbl" x="307.6" y="335" text-anchor="middle">Estabilidade</text>
+            <g class="disc__q disc__q--S" style="--dx:9px;--dy:9px" tabindex="0" role="button" aria-pressed="false" data-t="S de Estabilidade" data-d="É o lado calmo e constante, que valoriza o cuidado com as pessoas, a lealdade e um ritmo seguro para fazer as coisas com tranquilidade e bem feitas.">
+              <path class="disc__fill" d="M409.9 215.6A200 200 0 0 1 215.6 409.9L212.0 282.0A72 72 0 0 0 282.0 212.0Z" fill="url(#dg-S)"/>
+              <path class="disc__shine" d="M409.9 215.6A200 200 0 0 1 215.6 409.9L212.0 282.0A72 72 0 0 0 282.0 212.0Z" fill="url(#dg-brilho)"/>
+              <path class="disc__edge" d="M409.9 215.6A200 200 0 0 1 215.6 409.9L212.0 282.0A72 72 0 0 0 282.0 212.0Z"/>
+              <text class="disc__letter" x="307.6" y="311.6" text-anchor="middle">S</text><text class="lbl" x="307.6" y="335.6" text-anchor="middle">Estabilidade</text>
             </g>
-            <g class="disc__q" tabindex="0" role="button" aria-pressed="false" data-t="C de Conformidade" data-d="É o lado analítico, que preza por qualidade, organização e regras claras, e prefere entender os detalhes antes de tomar qualquer decisão.">
-              <path d="M204.4 409.9A200 200 0 0 1 10.1 215.6L138.0 212.0A72 72 0 0 0 208.0 282.0Z"/>
-              <text x="112.4" y="313" text-anchor="middle">C</text><text class="lbl" x="112.4" y="335" text-anchor="middle">Conformidade</text>
+            <g class="disc__q disc__q--C" style="--dx:-9px;--dy:9px" tabindex="0" role="button" aria-pressed="false" data-t="C de Conformidade" data-d="É o lado analítico, que preza por qualidade, organização e regras claras, e prefere entender os detalhes antes de tomar qualquer decisão.">
+              <path class="disc__fill" d="M204.4 409.9A200 200 0 0 1 10.1 215.6L138.0 212.0A72 72 0 0 0 208.0 282.0Z" fill="url(#dg-C)"/>
+              <path class="disc__shine" d="M204.4 409.9A200 200 0 0 1 10.1 215.6L138.0 212.0A72 72 0 0 0 208.0 282.0Z" fill="url(#dg-brilho)"/>
+              <path class="disc__edge" d="M204.4 409.9A200 200 0 0 1 10.1 215.6L138.0 212.0A72 72 0 0 0 208.0 282.0Z"/>
+              <text class="disc__letter" x="112.4" y="311.6" text-anchor="middle">C</text><text class="lbl" x="112.4" y="335.6" text-anchor="middle">Conformidade</text>
             </g>
-            <circle class="disc__core" cx="210" cy="210" r="62"/>
-            <image href="../vivimarques-arquivos/assets/img/monograma-verde.png" x="174" y="174" width="72" height="72"/>
+            </g>
+            <g filter="url(#dg-sombra2)"><circle cx="210" cy="210" r="60" fill="url(#dg-hub)"/></g>
+            <circle cx="210" cy="210" r="60" fill="none" stroke="url(#dg-ouro)" stroke-width="2.2"/>
+            <circle cx="210" cy="210" r="51" fill="none" stroke="rgba(179,139,74,.45)" stroke-width="1"/>
+            <image href="../vivimarques-arquivos/assets/img/monograma-verde.png" x="180" y="180" width="60" height="60"/>
           </svg>
         </div>
         <div class="disc__panel" aria-live="polite">
@@ -209,17 +233,18 @@
 
   <!-- 5. O que você vai descobrir -->
   <section class="sec sec--sand" id="relatorio" aria-labelledby="rel-t">
-    <div class="wrap report">
-      <div class="report__aside">
+    <div class="wrap">
+      <div class="report-head">
+        <div>
         <p class="eyebrow rv">O que o seu relatório revela</p>
         <h2 id="rel-t" class="rv">Cerca de 57 páginas <em>sobre você</em></h2>
         <p class="lead rv rv-d1" style="margin-top:1rem">Cada parte do relatório responde a uma pergunta que você provavelmente já se fez em algum momento da vida.</p>
-        <div class="report__photo rv rv-d2">
+        </div>
+        <div class="report__photo rv rv-d1">
           <img src="../vivimarques-arquivos/assets/img/roda-relatorio.webp" alt="Participante preenchendo um material de autoconhecimento em um encontro da Vivi Marques" width="1400" height="933" loading="lazy">
         </div>
       </div>
-      <div>
-        <ol class="toc">
+      <ol class="toc toc--grid">
           <li class="rv"><div class="toc__item"><span class="toc__n">01</span><span class="toc__t">A intensidade do seu perfil DISC</span><span class="toc__dots"></span><p class="toc__d">Quanto de cada estilo existe em você, no seu jeito natural e no jeito que você adaptou para o dia a dia.</p></div></li>
           <li class="rv"><div class="toc__item"><span class="toc__n">02</span><span class="toc__t">Positividade, estima e flexibilidade</span><span class="toc__dots"></span><p class="toc__d">Como você enxerga a si mesmo e o quanto consegue se ajustar quando as coisas mudam.</p></div></li>
           <li class="rv"><div class="toc__item"><span class="toc__n">03</span><span class="toc__t">Desafios, relações e decisões</span><span class="toc__dots"></span><p class="toc__d">O jeito como você costuma lidar com os problemas, com as pessoas e com as escolhas de cada dia.</p></div></li>
@@ -231,13 +256,11 @@
           <li class="rv"><div class="toc__item"><span class="toc__n">09</span><span class="toc__t">Comunicação com outros perfis</span><span class="toc__dots"></span><p class="toc__d">Sugestões práticas para conversar melhor com quem funciona de um jeito diferente do seu.</p></div></li>
           <li class="rv"><div class="toc__item"><span class="toc__n">10</span><span class="toc__t">Plano de ação</span><span class="toc__dots"></span><p class="toc__d">Os próximos passos para transformar tudo o que você descobriu em atitudes reais na sua rotina.</p></div></li>
         </ol>
-        <!-- PLACEHOLDER: trocar cada .preview por uma imagem com a página real do relatório (3:4, WebP) -->
-        <div class="previews rv" aria-label="Prévias das páginas do relatório">
+      <!-- PLACEHOLDER: prévias do relatório escondidas até chegarem as imagens reais. Trocar cada .preview por uma imagem 3:4 e apagar o atributo hidden. -->
+      <div class="previews" hidden aria-label="Prévias das páginas do relatório">
           <div class="preview">[PRÉVIA] Capa do relatório</div>
           <div class="preview">[PRÉVIA] Gráfico natural e adaptado</div>
           <div class="preview">[PRÉVIA] Plano de ação</div>
-        </div>
-      </div>
     </div>
   </section>
 
