@@ -1173,3 +1173,17 @@ h1,h2{text-wrap:wrap!important;max-width:none!important}
 
 @media (max-width:860px){h1.q-on br.q,h2.q-on br.q{display:inline}}
 .fact strong{font-variant-numeric:tabular-nums}
+
+/* ===== Entrada do topo ao carregar (sequência lenta e sutil) ===== */
+@keyframes heroIn{from{opacity:0;transform:translate3d(0,18px,0);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes topIn{from{opacity:0}to{opacity:1}}
+html.js .top{animation:topIn 1s cubic-bezier(.22,1,.36,1) .05s backwards}
+html.js .hero .eyebrow{animation:heroIn 1.1s cubic-bezier(.22,1,.36,1) .2s backwards}
+html.js .hero h1{animation:heroIn 1.2s cubic-bezier(.22,1,.36,1) .36s backwards}
+html.js .hero__sub{animation:heroIn 1.15s cubic-bezier(.22,1,.36,1) .54s backwards}
+html.js .hero__ctas{animation:heroIn 1.15s cubic-bezier(.22,1,.36,1) .72s backwards}
+html.js .frame-i,html.js .frame-e{transition:opacity 1.2s cubic-bezier(.22,1,.36,1) .3s,transform 1.4s cubic-bezier(.22,1,.36,1) .3s}
+@media (max-width:860px){html.js .hero .eyebrow{animation-delay:.55s}html.js .hero h1{animation-delay:.7s}html.js .hero__sub{animation-delay:.85s}html.js .hero__ctas{animation-delay:1s}html.js .frame-i,html.js .frame-e{transition-delay:.1s}}
+@media (prefers-reduced-motion:reduce){html.js .top,html.js .hero .eyebrow,html.js .hero h1,html.js .hero__sub,html.js .hero__ctas{animation:none}}
+
+.vsl h2{font-size:clamp(1.8rem,1.2rem + 1.5vw,2.45rem)}
