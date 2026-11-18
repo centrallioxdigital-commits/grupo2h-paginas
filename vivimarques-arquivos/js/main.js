@@ -96,7 +96,7 @@
     var alvo = window.scrollY, atual = window.scrollY, rodando = false, ativo = false;
     function max() { return document.documentElement.scrollHeight - window.innerHeight; }
     function passo() {
-      atual += (alvo - atual) * 0.085;
+      atual += (alvo - atual) * 0.06;
       if (Math.abs(alvo - atual) < 0.4) { atual = alvo; rodando = false; }
       window.scrollTo(0, atual);
       if (rodando) requestAnimationFrame(passo); else ativo = false;
@@ -107,7 +107,8 @@
       if (el) return;
       e.preventDefault();
       if (!ativo) { alvo = atual = window.scrollY; ativo = true; }
-      var d = (e.deltaMode === 1 ? e.deltaY * 32 : e.deltaY) * 0.92;
+      var d = (e.deltaMode === 1 ? e.deltaY * 32 : e.deltaY) * 0.9;
+      d = Math.max(-260, Math.min(260, d));
       alvo = Math.max(0, Math.min(max(), alvo + d));
       if (!rodando) { rodando = true; requestAnimationFrame(passo); }
     }, { passive: false });

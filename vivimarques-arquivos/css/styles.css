@@ -952,3 +952,5 @@ html:has(body.tema-empresa){--sb-track:#E6DACB;--sb-edge:#D8C8B5}
 .wa-bubble__x{position:absolute;top:6px;right:6px;display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:50%;background:rgba(12,41,37,.06);color:#4A5853;cursor:pointer}
 .wa-bubble__x svg{width:14px;height:14px}
 @media (prefers-reduced-motion:reduce){.wa-btn,.wa-btn::after{animation:none}}
+
+.report2__aside .report__photo img{object-position:50% 45%}
