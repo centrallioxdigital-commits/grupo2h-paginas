@@ -954,3 +954,10 @@ html:has(body.tema-empresa){--sb-track:#E6DACB;--sb-edge:#D8C8B5}
 @media (prefers-reduced-motion:reduce){.wa-btn,.wa-btn::after{animation:none}}
 
 .report2__aside .report__photo img{object-position:50% 45%}
+
+/* ===== Faixas infinitas: retas, mais estreitas e sutis ===== */
+.marquee,.marquee--tilt,.marquee--gold{transform:none!important;margin:0!important;padding:.6rem 0!important;box-shadow:none!important;border-block:1px solid rgba(232,201,141,.22)}
+.marquee span{font-size:clamp(1rem,.9rem + .5vw,1.3rem);padding:0 1.25rem}
+.marquee--tilt span{font-size:clamp(.72rem,.66rem + .25vw,.84rem);letter-spacing:.2em;padding:0 1.15rem}
+.marquee i{width:6px;height:6px;box-shadow:none}
+.marquee--gold{border-block-color:rgba(122,90,38,.3)}
