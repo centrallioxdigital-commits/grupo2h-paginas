@@ -974,3 +974,6 @@ html:not(.js) .frame-i,html:not(.js) .frame-e{opacity:1;transform:none}
 :root,body.tema-empresa{--text:#000;--muted:#000}
 .lead,.hero__sub,.sec-note,.what__text p,.disc__panel p,.who__item p,.stack__body p,.tile span:not(.tile__ic),.incl span,.fact span,.faq .ans,.faq .ans p,.toc__d,.about p,.pain,.wa-bubble__body,.consent p{color:#000!important;opacity:1}
 .sec--green .lead,.vsl .lead,.final p,.final .lead{color:#F1EADB!important}
+
+/* faixas não pausam no hover */
+.marquee:hover .marquee__track{animation-play-state:running!important}
