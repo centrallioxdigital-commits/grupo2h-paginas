@@ -306,3 +306,79 @@ document.addEventListener("pointerdown", function (e) {
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajusta); else ajusta();
   window.addEventListener("resize", ajusta);
 })();
+
+
+/* Celular: títulos em escada (cada linha igual ou menor que a de cima) */
+(function () {
+  var mq = window.matchMedia("(max-width: 860px)");
+  function linhas(h) {
+    var rg = document.createRange(); rg.selectNodeContents(h);
+    var m = {};
+    [].forEach.call(rg.getClientRects(), function (r) {
+      if (r.width < 2) return; var k = Math.round(r.top);
+      if (!m[k]) m[k] = [1e9, -1e9]; m[k][0] = Math.min(m[k][0], r.left); m[k][1] = Math.max(m[k][1], r.right);
+    });
+    return Object.keys(m).sort(function (a, b) { return a - b; }).map(function (k) { return m[k][1] - m[k][0]; });
+  }
+  function nota(ws, base) {
+    var s = 0; for (var i = 1; i < ws.length; i++) s += Math.max(0, ws[i] - ws[i - 1] * 1.03);
+    if (ws.length > 1 && ws[ws.length - 1] < ws[0] * 0.28) s += 60; // evita última linha com uma palavra só
+    return s + Math.max(0, ws.length - base) * 18;
+  }
+  function ajusta() {
+    document.querySelectorAll("main h1, main h2").forEach(function (h) {
+      h.style.removeProperty("max-width");
+      if (!mq.matches || !h.offsetParent) return;
+      h.style.setProperty("text-wrap", "wrap", "important");
+      var brs = h.querySelectorAll("br.q").length;
+      if (brs) {
+        h.classList.add("q-on");
+        var wq = linhas(h);
+        if (wq.length === brs + 1 && nota(wq, wq.length) === 0) return;
+        h.classList.remove("q-on");
+      }
+      var cheio = h.getBoundingClientRect().width, w0 = linhas(h), base = w0.length;
+      var melhor = { n: nota(w0, base), f: 1 };
+      for (var f = 0.98; f >= 0.46; f -= 0.02) {
+        h.style.setProperty("max-width", Math.round(cheio * f) + "px", "important");
+        var ws = linhas(h); if (ws.length > base + 1) break;
+        var n = nota(ws, base); if (n < melhor.n - 0.5) melhor = { n: n, f: f };
+        if (n === 0) break;
+      }
+      if (melhor.f < 1) h.style.setProperty("max-width", Math.round(cheio * melhor.f) + "px", "important");
+      else h.style.removeProperty("max-width");
+    });
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajusta); else ajusta();
+  var tm; window.addEventListener("resize", function () { clearTimeout(tm); tm = setTimeout(ajusta, 150); });
+})();
+
+
+/* Números contando até o valor final quando aparecem na tela */
+(function () {
+  var reduz = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var els = [].slice.call(document.querySelectorAll(".fact strong"));
+  if (!els.length || !("IntersectionObserver" in window)) return;
+  var fmt = new Intl.NumberFormat("pt-BR");
+  els.forEach(function (el) {
+    var m = el.textContent.trim().match(/^([\d.]+)(.*)$/);
+    if (!m) return;
+    el.dataset.alvo = m[1].replace(/\./g, ""); el.dataset.suf = m[2];
+    if (!reduz) el.textContent = "0" + m[2];
+  });
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return; io.unobserve(e.target);
+      var el = e.target, alvo = +el.dataset.alvo, suf = el.dataset.suf || "", t0 = null, dur = 1800;
+      if (reduz || !alvo) { el.textContent = fmt.format(alvo) + suf; return; }
+      function passo(ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur), e3 = 1 - Math.pow(1 - p, 3);
+        el.textContent = fmt.format(Math.round(alvo * e3)) + suf;
+        if (p < 1) requestAnimationFrame(passo);
+      }
+      requestAnimationFrame(passo);
+    });
+  }, { threshold: 0.6 });
+  els.forEach(function (el) { if (el.dataset.alvo) io.observe(el); });
+})();

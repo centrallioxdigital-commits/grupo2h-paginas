@@ -1158,3 +1158,18 @@ html:not(.js) .rv2{opacity:1;transform:none;filter:none}
 @media (max-width:860px){.hero .eyebrow{white-space:nowrap;letter-spacing:.07em;font-size:clamp(.56rem,2.45vw,.72rem)}}
 
 @media (max-width:340px){.hero .eyebrow{white-space:normal;border-radius:18px}}
+
+/* ===== Títulos com quebra definida (linha de cima >= linha de baixo) ===== */
+h1,h2{text-wrap:wrap!important;max-width:none!important}
+.hero h1{max-width:none!important}
+
+@media (max-width:860px){br.q{display:none}h1,h2{text-wrap:balance!important}}
+
+@media (max-width:860px){br.q{display:none}}
+@media (max-width:860px){h1,h2{text-wrap:wrap!important}}
+.about__kicker{display:inline-flex;margin-bottom:.8rem;font-size:.78rem;letter-spacing:.16em;color:var(--gold-ink)}
+.sec-head h2,.about h2,.report2__aside h2,.what__text h2{margin-inline:auto}
+@media (min-width:861px){.about h2,.report2__aside h2,.what__text h2{margin-inline:0}}
+
+@media (max-width:860px){h1.q-on br.q,h2.q-on br.q{display:inline}}
+.fact strong{font-variant-numeric:tabular-nums}
