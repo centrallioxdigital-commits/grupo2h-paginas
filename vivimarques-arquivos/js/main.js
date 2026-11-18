@@ -164,3 +164,33 @@ document.addEventListener("pointerdown", function (e) {
     });
   });
 })();
+
+/* Relatório em pilha: o cartão de trás encolhe, recua e esmaece conforme é coberto */
+(function () {
+  var lista = document.querySelector(".stack");
+  if (!lista || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var cards = [].slice.call(lista.querySelectorAll(".stack__card"));
+  var ativo = false, agendado = false;
+  function calc() {
+    agendado = false;
+    var rs = cards.map(function (c) { return c.getBoundingClientRect(); });
+    cards.forEach(function (c, i) {
+      var prof = 0, r = rs[i];
+      for (var j = i + 1; j < cards.length; j++) {
+        var cob = (r.bottom - rs[j].top) / r.height;
+        prof += Math.max(0, Math.min(1, cob));
+      }
+      prof = Math.min(prof, 4);
+      var s = 1 - prof * 0.04, y = -prof * 3;
+      c.style.transform = prof ? "translateY(" + y + "px) scale(" + s + ")" : "";
+      c.style.filter = prof ? "brightness(" + (1 - prof * 0.035) + ")" : "";
+      var op = prof ? Math.max(0.15, 1 - prof * 0.9) : 1;
+      for (var k = 0; k < c.children.length; k++) c.children[k].style.opacity = op;
+      c.classList.toggle("is-fundo", prof > 0.6);
+    });
+  }
+  function pedir() { if (ativo && !agendado) { agendado = true; requestAnimationFrame(calc); } }
+  new IntersectionObserver(function (es) { ativo = es[0].isIntersecting; if (ativo) pedir(); }, { rootMargin: "200px 0px" }).observe(lista);
+  window.addEventListener("scroll", pedir, { passive: true });
+  window.addEventListener("resize", pedir);
+})();

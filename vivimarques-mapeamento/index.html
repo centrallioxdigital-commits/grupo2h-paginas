@@ -25,7 +25,7 @@
   <link rel="apple-touch-icon" href="../vivimarques-arquivos/assets/favicon/apple-touch-icon.png">
   <link rel="preload" href="../vivimarques-arquivos/fonts/spectral-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../vivimarques-arquivos/assets/img/vivi-retrato-45.webp" as="image" type="image/webp" fetchpriority="high">
-  <link rel="stylesheet" href="../vivimarques-arquivos/css/styles.css?v=202611181618">
+  <link rel="stylesheet" href="../vivimarques-arquivos/css/styles.css?v=202611181630">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -44,9 +44,9 @@
     }
   }
   </script>
-  <script src="../vivimarques-arquivos/js/consent.js?v=202611181618" defer></script>
-  <script src="../vivimarques-arquivos/js/rastreio.js?v=202611181618" defer></script>
-  <script src="../vivimarques-arquivos/js/main.js?v=202611181618" defer></script>
+  <script src="../vivimarques-arquivos/js/consent.js?v=202611181630" defer></script>
+  <script src="../vivimarques-arquivos/js/rastreio.js?v=202611181630" defer></script>
+  <script src="../vivimarques-arquivos/js/main.js?v=202611181630" defer></script>
 </head>
 <body ontouchstart="">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -80,7 +80,7 @@
       <a href="#relatorio">O relatório</a>
       <a href="#como-funciona">Como funciona</a>
       <a href="#investimento">Investimento</a>
-      <a class="btn" href="#" data-link="checkout" data-btn="topo-checkout">Quero o meu <span class="arw"><svg><use href="#i-seta"/></svg></span></a>
+      <a class="btn" href="#" data-link="checkout" data-btn="topo-checkout">Garantir o meu <span class="arw"><svg><use href="#i-seta"/></svg></span></a>
     </nav>
   </div>
 </header>
@@ -95,26 +95,19 @@
         <h1 class="rv rv-d1">Descubra quem você é de verdade e pare de viver no <em>automático</em></h1>
         <p class="hero__sub">Entenda como você pensa, sente, decide e se relaciona, e receba um plano de ação com a leitura da Vivi Marques.</p>
         <div class="hero__ctas">
-          <a class="btn" href="#" data-link="checkout" data-btn="hero-checkout">Quero fazer o meu mapeamento <span class="arw"><svg><use href="#i-seta"/></svg></span></a>
+          <a class="btn" href="#" data-link="checkout" data-btn="hero-checkout">Fazer meu mapeamento <span class="arw"><svg><use href="#i-seta"/></svg></span></a>
           <a class="link-wa" href="#" data-wa data-btn="hero-whatsapp" data-wa-msg="Olá! Estou na página do Mapeamento de Perfil Comportamental e quero tirar uma dúvida antes de fazer o meu.">
-            <svg><use href="#i-wa"/></svg>Tirar uma dúvida no WhatsApp</a>
+            <svg><use href="#i-wa"/></svg>Tirar dúvida no WhatsApp</a>
         </div>
       </div>
-      <div class="hero__media portrait">
-        <span class="portrait__glow" aria-hidden="true"></span>
-        <div class="portrait__frame glass">
+      <div class="hero__media frame-i">
+        <span class="frame-i__sheet frame-i__sheet--2" aria-hidden="true"></span>
+        <span class="frame-i__sheet frame-i__sheet--1" aria-hidden="true"></span>
+        <div class="frame-i__photo">
           <img src="../vivimarques-arquivos/assets/img/vivi-retrato-45.webp" alt="Vivi Marques sorrindo, de blusa clara, em um encontro presencial" width="1000" height="1250" fetchpriority="high">
         </div>
-        <ul class="portrait__disc glass" aria-label="Os quatro estilos do DISC">
-          <li><b>D</b><span>Dominância</span></li>
-          <li><b>I</b><span>Influência</span></li>
-          <li><b>S</b><span>Estabilidade</span></li>
-          <li><b>C</b><span>Conformidade</span></li>
-        </ul>
-        <div class="hero__note">
-          <img src="../vivimarques-arquivos/assets/img/monograma-verde.png" alt="" width="44" height="44">
-          <p><strong>Cerca de 57 páginas</strong>sobre você e 1h30 de conversa com a Vivi</p>
-        </div>
+        <p class="frame-i__chip"><img src="../vivimarques-arquivos/assets/img/monograma-verde.png" alt="" width="40" height="40"><span><b>57 páginas</b> e 1h30 com a Vivi</span></p>
+        <p class="frame-i__disc" aria-label="Os quatro estilos do perfil DISC"><span class="frame-i__lbl">Perfil DISC</span><b>D</b><b>I</b><b>S</b><b>C</b></p>
       </div>
     </div>
   </section>
@@ -141,7 +134,7 @@
   <!-- 3. Identificação -->
   <section class="sec sec--sand" aria-labelledby="id-t">
     <div class="wrap">
-      <div class="sec-head rv">
+      <div class="sec-head sec-head--center rv">
         <p class="eyebrow">Talvez você se reconheça aqui</p>
         <h2 id="id-t">Você já se perguntou por que <em>reage assim</em>?</h2>
         <p class="lead">Toque nas frases que parecem com o seu momento. Só você vê as suas respostas, e nada sai desta página.</p>
@@ -158,11 +151,15 @@
       </div>
       <div class="pains__result rv">
         <p aria-live="polite" data-pains-out='["Marque as frases que fazem sentido para você e veja o que elas dizem sobre o seu momento.","Você marcou <strong>{n} frase{s}</strong>. Pequenos sinais como esse mostram que existe um jeito só seu de funcionar, esperando para ser entendido.","Você marcou <strong>{n} frases</strong>. Quando tantas situações se repetem, o caminho mais leve começa por entender como você funciona, e é exatamente isso que o mapeamento revela."]'></p>
-        <a class="btn btn--gold" href="#" data-link="checkout" data-btn="identificacao-checkout">Quero me conhecer de verdade <span class="arw"><svg><use href="#i-seta"/></svg></span></a>
+        <a class="btn btn--gold" href="#" data-link="checkout" data-btn="identificacao-checkout">Quero me conhecer <span class="arw"><svg><use href="#i-seta"/></svg></span></a>
       </div>
     </div>
   </section>
 
+
+  <div class="marquee" aria-label="Autoconhecimento, Clareza, Essência, Decisões mais conscientes, Relações mais leves, Direção, Plano de ação">
+    <div class="marquee__track" aria-hidden="true"><div class="marquee__set"><span>Autoconhecimento</span><i aria-hidden="true"></i><span>Clareza</span><i aria-hidden="true"></i><span>Essência</span><i aria-hidden="true"></i><span>Decisões mais conscientes</span><i aria-hidden="true"></i><span>Relações mais leves</span><i aria-hidden="true"></i><span>Direção</span><i aria-hidden="true"></i><span>Plano de ação</span><i aria-hidden="true"></i></div><div class="marquee__set"><span>Autoconhecimento</span><i aria-hidden="true"></i><span>Clareza</span><i aria-hidden="true"></i><span>Essência</span><i aria-hidden="true"></i><span>Decisões mais conscientes</span><i aria-hidden="true"></i><span>Relações mais leves</span><i aria-hidden="true"></i><span>Direção</span><i aria-hidden="true"></i><span>Plano de ação</span><i aria-hidden="true"></i></div></div>
+  </div>
   <!-- 4. O que é -->
   <section class="sec" id="o-que-e" aria-labelledby="oq-t">
     <div class="wrap what">
@@ -308,7 +305,7 @@
   <!-- 6. Para quem é -->
   <section class="sec" aria-labelledby="pq-t">
     <div class="wrap">
-      <div class="sec-head rv">
+      <div class="sec-head sec-head--center rv">
         <p class="eyebrow">Para quem é</p>
         <h2 id="pq-t">Para quem quer se entender e <em>seguir com direção</em></h2>
       </div>
@@ -318,14 +315,14 @@
         <div class="who__item rv rv-d2"><svg><use href="#i-pessoas"/></svg><h3>Liderança</h3><p>Para líderes e empreendedores que querem conhecer o próprio estilo e se comunicar melhor com a equipe.</p></div>
         <div class="who__item rv rv-d3"><svg><use href="#i-coracao"/></svg><h3>Relacionamentos</h3><p>Para quem quer conversas mais leves e menos conflitos em casa, no trabalho e na vida a dois.</p></div>
       </div>
-      <p class="rv" style="margin-top:2rem;max-width:68ch;color:var(--muted)">Se você leu o livro <strong>Growth Mindset</strong> ou já participa da comunidade e da mentoria, o mapeamento aprofunda aquilo que você começou a enxergar sobre si mesmo.</p>
+      <p class="rv sec-note">Se você leu o livro <strong>Growth Mindset</strong> ou já participa da comunidade e da mentoria, o mapeamento aprofunda aquilo que você começou a enxergar sobre si mesmo.</p>
     </div>
   </section>
 
   <!-- 7. Como funciona -->
   <section class="sec sec--green" id="como-funciona" aria-labelledby="cf-t">
     <div class="wrap">
-      <div class="sec-head rv">
+      <div class="sec-head sec-head--center rv">
         <p class="eyebrow">Como funciona</p>
         <h2 id="cf-t">Do primeiro clique até a <em>conversa com a Vivi</em></h2>
         <p class="lead">Tudo acontece online e no seu tempo, e a devolutiva é marcada de acordo com a sua agenda e a da Vivi.</p>
@@ -376,6 +373,10 @@
     </div>
   </section>
 
+
+  <div class="marquee marquee--light marquee--rev" aria-label="Dominância, Influência, Estabilidade, Conformidade, Estilo natural, Estilo adaptado, O seu jeito único">
+    <div class="marquee__track" aria-hidden="true"><div class="marquee__set"><span>Dominância</span><i aria-hidden="true"></i><span>Influência</span><i aria-hidden="true"></i><span>Estabilidade</span><i aria-hidden="true"></i><span>Conformidade</span><i aria-hidden="true"></i><span>Estilo natural</span><i aria-hidden="true"></i><span>Estilo adaptado</span><i aria-hidden="true"></i><span>O seu jeito único</span><i aria-hidden="true"></i></div><div class="marquee__set"><span>Dominância</span><i aria-hidden="true"></i><span>Influência</span><i aria-hidden="true"></i><span>Estabilidade</span><i aria-hidden="true"></i><span>Conformidade</span><i aria-hidden="true"></i><span>Estilo natural</span><i aria-hidden="true"></i><span>Estilo adaptado</span><i aria-hidden="true"></i><span>O seu jeito único</span><i aria-hidden="true"></i></div></div>
+  </div>
   <!-- 10. Oferta -->
   <section class="sec sec--sand" id="investimento" aria-labelledby="of-t">
     <div class="wrap">
@@ -400,14 +401,14 @@
         <h3>Comece hoje a se conhecer de verdade</h3>
         <div class="price__big"><small>12x de R$</small>00,00</div>
         <p class="price__sub">ou <b>R$ 00,00 à vista</b></p>
-        <a class="btn btn--gold btn--full" href="#" data-link="checkout" data-btn="oferta-checkout">Quero fazer o meu mapeamento <span class="arw"><svg><use href="#i-seta"/></svg></span></a>
+        <a class="btn btn--gold btn--full" href="#" data-link="checkout" data-btn="oferta-checkout">Garantir meu mapeamento <span class="arw"><svg><use href="#i-seta"/></svg></span></a>
         <div class="price__pay">
           <span><svg><use href="#i-escudo"/></svg>Pagamento seguro</span>
           <span><svg><use href="#i-pix"/></svg>Pix e boleto</span>
           <span><svg><use href="#i-cartao"/></svg>Cartão em até 12x</span>
         </div>
         <a class="link-wa price__alt" href="#" data-wa data-btn="oferta-whatsapp" data-wa-msg="Olá! Vi o investimento do Mapeamento de Perfil Comportamental e ainda tenho algumas dúvidas.">
-          <svg><use href="#i-wa"/></svg>Ainda tenho dúvidas e quero conversar</a>
+          <svg><use href="#i-wa"/></svg>Tirar minhas dúvidas</a>
         <p class="price__pt">Mora em Portugal? O investimento é de <b style="color:#F7F1E4">€ 00,00</b>. Fale com a equipe pelo WhatsApp para receber o link de pagamento.</p>
       </div>
       </div>
@@ -444,9 +445,9 @@
       <h2 id="fn-t">Comece a usar a sua essência <em>a seu favor</em></h2>
       <p>Responda à avaliação no seu tempo, receba o seu relatório e converse com a Vivi sobre tudo o que ele revela. A clareza que você procura pode estar mais perto do que parece.</p>
       <div class="final__ctas">
-        <a class="btn btn--gold" href="#" data-link="checkout" data-btn="final-checkout">Quero me conhecer de verdade <span class="arw"><svg><use href="#i-seta"/></svg></span></a>
+        <a class="btn btn--gold" href="#" data-link="checkout" data-btn="final-checkout">Começar meu mapeamento <span class="arw"><svg><use href="#i-seta"/></svg></span></a>
         <a class="link-wa" href="#" data-wa data-btn="final-whatsapp" data-wa-msg="Olá! Quero fazer o Mapeamento de Perfil Comportamental e gostaria de falar com a equipe.">
-          <svg><use href="#i-wa"/></svg>Falar com a equipe no WhatsApp</a>
+          <svg><use href="#i-wa"/></svg>Falar com a equipe</a>
       </div>
     </div>
   </section>
@@ -468,7 +469,7 @@
 </footer>
 
 <div class="mbar" aria-label="Atalhos">
-  <a class="btn" href="#" data-link="checkout" data-btn="barra-checkout">Quero fazer o meu</a>
+  <a class="btn" href="#" data-link="checkout" data-btn="barra-checkout">Fazer meu mapeamento</a>
   <a class="mbar__wa" href="#" data-wa data-btn="barra-whatsapp" data-wa-msg="Olá! Estou vendo o Mapeamento de Perfil Comportamental pelo celular e tenho uma dúvida." aria-label="Conversar no WhatsApp"><svg><use href="#i-wa"/></svg></a>
 </div>
 </body>
