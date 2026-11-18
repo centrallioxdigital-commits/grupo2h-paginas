@@ -1191,3 +1191,6 @@ html.js .frame-i,html.js .frame-e{transition:opacity 1.2s cubic-bezier(.22,1,.36
 /* Sobre a Vivi: nome em destaque, sobre-título discreto em dourado */
 .about p.about__kicker{color:var(--gold-ink)!important;font-size:.72rem;letter-spacing:.18em;font-weight:700;margin-bottom:.5rem}
 #sv-t{font-size:clamp(2.6rem,1.6rem + 3vw,4.2rem);line-height:1.02}
+
+/* celular: a parte dourada sempre começa numa linha própria */
+@media (max-width:860px){h1 br.q + em,h2 br.q + em{display:block}}
