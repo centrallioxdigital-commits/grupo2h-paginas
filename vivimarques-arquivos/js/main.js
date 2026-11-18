@@ -208,7 +208,7 @@ document.addEventListener("pointerdown", function (e) {
   var KEY = "vm-balao-fechado", mostrouBalao = false, timer;
   function fechado() { try { return sessionStorage.getItem(KEY) === "1"; } catch (e) { return false; } }
   function abrirBalao() {
-    if (fechado() || mostrouBalao) return;
+    if (fechado() || mostrouBalao || !box.classList.contains("is-on")) return;
     mostrouBalao = true;
     box.classList.add("has-bubble");
     timer = setTimeout(function () { box.classList.remove("has-bubble"); }, 9000);
@@ -216,6 +216,7 @@ document.addEventListener("pointerdown", function (e) {
   function aoRolar() {
     var passou = hero ? window.scrollY > hero.offsetTop + hero.offsetHeight * 0.6 : window.scrollY > 500;
     box.classList.toggle("is-on", passou);
+    if (!passou) box.classList.remove("has-bubble");
     if (passou && !mostrouBalao) setTimeout(abrirBalao, 1400);
   }
   window.addEventListener("scroll", aoRolar, { passive: true });

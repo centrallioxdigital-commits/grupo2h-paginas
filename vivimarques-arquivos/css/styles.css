@@ -1202,3 +1202,6 @@ html.js .frame-i,html.js .frame-e{transition:opacity 1.2s cubic-bezier(.22,1,.36
 /* proteção das imagens (arrastar e toque longo no celular) */
 img,picture,video{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 .frame-i,.frame-e,.report__photo,.about__photo,.final__photo,.vsl__player{-webkit-touch-callout:none}
+
+/* balão some junto com o botão flutuante (ao voltar para o topo) */
+.wa-float:not(.is-on) .wa-bubble{opacity:0!important;visibility:hidden!important;transform:translateY(10px) scale(.85)!important;pointer-events:none}
