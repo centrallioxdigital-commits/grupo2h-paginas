@@ -27,6 +27,8 @@
     }
   }
   window.addEventListener("scroll", aoRolar, { passive: true });
+  window.addEventListener("load", aoRolar);
+  window.addEventListener("pageshow", aoRolar);
   aoRolar();
 
   /* Revelação */
@@ -133,3 +135,32 @@ document.addEventListener("pointerdown", function (e) {
   s.className = "btn__ripple"; s.style.left = (e.clientX - r.left) + "px"; s.style.top = (e.clientY - r.top) + "px";
   b.appendChild(s); setTimeout(function () { s.remove(); }, 750);
 });
+
+/* Perguntas frequentes: abre e fecha devagar (altura + fade); abrir uma fecha a outra */
+(function () {
+  var reduz = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var DUR = 650, EASE = "cubic-bezier(.22,.61,.36,1)";
+  function fechar(d) {
+    var ans = d.querySelector(".ans"); if (!ans || d.dataset.anim) return;
+    if (reduz) { d.open = false; return; }
+    d.dataset.anim = 1; d.classList.add("is-closing");
+    var a = ans.animate([{ height: ans.offsetHeight + "px", opacity: 1 }, { height: "0px", opacity: 0 }], { duration: DUR, easing: EASE });
+    a.onfinish = function () { d.open = false; d.classList.remove("is-closing"); delete d.dataset.anim; };
+  }
+  function abrir(d) {
+    var ans = d.querySelector(".ans"); if (!ans || d.dataset.anim) return;
+    d.open = true; if (reduz) return;
+    d.dataset.anim = 1;
+    var h = ans.offsetHeight;
+    var a = ans.animate([{ height: "0px", opacity: 0 }, { height: h + "px", opacity: 1 }], { duration: DUR + 100, easing: EASE });
+    a.onfinish = function () { delete d.dataset.anim; };
+  }
+  document.querySelectorAll(".faq details").forEach(function (d) {
+    d.querySelector("summary").addEventListener("click", function (e) {
+      e.preventDefault();
+      if (d.open) { fechar(d); return; }
+      document.querySelectorAll(".faq details[open]").forEach(function (o) { if (o !== d) fechar(o); });
+      abrir(d);
+    });
+  });
+})();
