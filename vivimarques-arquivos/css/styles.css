@@ -1205,3 +1205,8 @@ img,picture,video{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none
 
 /* balão some junto com o botão flutuante (ao voltar para o topo) */
 .wa-float:not(.is-on) .wa-bubble{opacity:0!important;visibility:hidden!important;transform:translateY(10px) scale(.85)!important;pointer-events:none}
+
+/* links com ícone: espaço e alinhamento corretos (inclui o "Tirar minhas dúvidas" do card de preço) */
+.link-wa,.price__alt,.foot__wa{display:inline-flex!important;align-items:center!important;gap:.6rem!important}
+.price__alt{display:flex!important;justify-content:center;width:100%;margin-top:.9rem}
+.link-wa svg,.foot__wa svg{flex:none;display:block;width:20px;height:20px}
