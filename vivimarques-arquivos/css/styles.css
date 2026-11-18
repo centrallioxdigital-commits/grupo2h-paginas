@@ -1013,3 +1013,6 @@ body.tema-empresa .divisor__m{box-shadow:0 0 0 4px rgba(234,223,210,.75),0 6px 1
 }
 .btn{transition:transform .7s cubic-bezier(.22,.61,.36,1),box-shadow .7s var(--ease),filter .7s var(--ease)!important}
 .pain,.tile,.who__item,.fact,.faq details,.stack__card,.frame-i__disc b{transition-timing-function:cubic-bezier(.22,.61,.36,1)!important}
+
+/* sem sobre-títulos: respiro do título ajustado */
+.sec-head h2,.report2__aside h2,.what__text h2,.about h2{margin-top:0}
