@@ -1198,3 +1198,7 @@ html.js .frame-i,html.js .frame-e{transition:opacity 1.2s cubic-bezier(.22,1,.36
 /* botão flutuante de WhatsApp também no computador */
 .wa-float{display:flex!important}
 @media (min-width:861px){.wa-float{right:28px;bottom:28px}.wa-btn{width:62px;height:62px}.wa-btn svg{width:30px;height:30px}.wa-bubble{max-width:300px}.consent{bottom:1rem;left:1rem;right:auto}}
+
+/* proteção das imagens (arrastar e toque longo no celular) */
+img,picture,video{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.frame-i,.frame-e,.report__photo,.about__photo,.final__photo,.vsl__player{-webkit-touch-callout:none}

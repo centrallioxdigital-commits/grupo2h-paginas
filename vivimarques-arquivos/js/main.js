@@ -382,3 +382,11 @@ document.addEventListener("pointerdown", function (e) {
   }, { threshold: 0.6 });
   els.forEach(function (el) { if (el.dataset.alvo) io.observe(el); });
 })();
+
+/* Proteção das imagens: sem menu de "salvar imagem" e sem arrastar (só em imagens; não afeta rastreamento nem cliques) */
+(function () {
+  var SEL = "img, picture, svg image, video, .frame-i, .frame-e, .vsl__player, .report__photo, .about__photo, .final__photo, .stack__card, .disc__wheel";
+  document.addEventListener("contextmenu", function (e) { if (e.target.closest && e.target.closest(SEL)) e.preventDefault(); });
+  document.addEventListener("dragstart", function (e) { if (e.target.closest && e.target.closest("img, picture, svg image, video")) e.preventDefault(); });
+  document.querySelectorAll("img").forEach(function (i) { i.setAttribute("draggable", "false"); });
+})();
