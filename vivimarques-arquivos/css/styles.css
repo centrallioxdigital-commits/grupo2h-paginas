@@ -1194,3 +1194,7 @@ html.js .frame-i,html.js .frame-e{transition:opacity 1.2s cubic-bezier(.22,1,.36
 
 /* celular: a parte dourada sempre começa numa linha própria */
 @media (max-width:860px){h1 br.q + em,h2 br.q + em{display:block}}
+
+/* botão flutuante de WhatsApp também no computador */
+.wa-float{display:flex!important}
+@media (min-width:861px){.wa-float{right:28px;bottom:28px}.wa-btn{width:62px;height:62px}.wa-btn svg{width:30px;height:30px}.wa-bubble{max-width:300px}.consent{bottom:1rem;left:1rem;right:auto}}
